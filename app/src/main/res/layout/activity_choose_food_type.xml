@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="in.mummysfood.activities.LoginAndSignupActivity"
+    android:background="@color/colorPrimary">
+    <ImageView
+        android:layout_width="@dimen/dp150"
+        android:layout_height="@dimen/dp150"
+        android:background="@drawable/white_circle"
+        android:layout_margin="@dimen/dp40"
+        android:layout_centerHorizontal="true"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp24"
+        android:orientation="vertical"
+        android:background="@drawable/white_bg"
+        android:layout_alignParentBottom="true"
+        android:elevation="@dimen/dp4">
+
+        <in.mummysfood.widgets.CkdTextview
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/food_type_title"
+            android:gravity="center"
+            android:textColor="@color/black"
+            style="@style/textviewbold"
+            android:layout_marginTop="@dimen/dp24"
+            android:layout_marginStart="@dimen/dp24"
+            android:layout_marginEnd="@dimen/dp24"/>
+
+        <in.mummysfood.widgets.CkdTextview
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/veg"
+            android:background="@drawable/orange_bg"
+            android:textColor="@color/white"
+            android:padding="@dimen/dp12"
+            android:gravity="center"
+            style="@style/textviewregular"
+            android:layout_marginTop="@dimen/dp24"
+            android:layout_marginStart="@dimen/dp24"
+            android:layout_marginEnd="@dimen/dp24"/>
+        <in.mummysfood.widgets.CkdTextview
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/veg_nonveg"
+            android:background="@drawable/orange_bg"
+            android:textColor="@color/white"
+            android:padding="@dimen/dp12"
+            android:gravity="center"
+            style="@style/textviewregular"
+            android:layout_marginTop="@dimen/dp24"
+            android:layout_marginStart="@dimen/dp24"
+            android:layout_marginEnd="@dimen/dp24"/>
+
+        <in.mummysfood.widgets.CkdTextview
+            android:id="@+id/choose_food_type_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/next"
+            android:background="@drawable/orange_bg"
+            android:textColor="@color/white"
+            android:padding="@dimen/dp12"
+            android:paddingStart="@dimen/dp24"
+            android:paddingEnd="@dimen/dp24"
+            android:gravity="center"
+            style="@style/textviewregular"
+            android:layout_marginTop="@dimen/dp24"
+            android:layout_marginStart="@dimen/dp24"
+            android:layout_marginEnd="@dimen/dp24"
+            android:layout_marginBottom="@dimen/dp24"
+            android:layout_gravity="center"/>
+
+
+    </LinearLayout>
+</RelativeLayout>

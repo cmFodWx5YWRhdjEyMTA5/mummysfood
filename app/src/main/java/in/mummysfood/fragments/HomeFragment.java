@@ -1,0 +1,300 @@
+package in.mummysfood.fragments;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import in.mummysfood.R;
+import in.mummysfood.adapters.HomePilotCardAdapter;
+import in.mummysfood.adapters.HomeSpecialCardAdapter;
+import in.mummysfood.base.BaseFragment;
+import in.mummysfood.data.pref.PreferenceManager;
+import in.mummysfood.models.DashBoardModel;
+import in.mummysfood.utils.AppConstants;
+import in.mummysfood.widgets.CkdButton;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.OrderListner {
+
+    @BindView(R.id.pilot_recyclerview)
+    RecyclerView pilot_recyclerview;
+    /*@BindView(R.id.special_recyclerview)
+    RecyclerView special_recyclerview;
+    @BindView(R.id.you_can_try_recyclerview)
+    RecyclerView you_can_try_recyclerview;*/
+    @BindView(R.id.homeToolbar)
+    RelativeLayout homeToolbar;
+
+    Context context;
+    private LinearLayoutManager linearLayoutManager;
+    private List<DashBoardModel.Data> fetchData = new ArrayList<>();
+    private HomePilotCardAdapter pilotCardAdapter;
+    private HomeSpecialCardAdapter specialCardAdapter;
+    private PreferenceManager pf;
+    private int item_quantity = 0;
+    private Dialog dialog;
+
+    public HomeFragment() {
+        // Required empty public constructor
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        context = getContext();
+        ButterKnife.bind(this,rootView);
+
+        pf = new PreferenceManager(context, PreferenceManager.ORDER_PREFERENCES_FILE);
+
+        homeToolbar.setVisibility(View.GONE);
+
+        DashBoardModel json = new DashBoardModel();
+        json.lat = 22.753;
+        json.lng = 75.8937;
+
+        networkCallForData();
+
+        showProgress("Loading...");
+        setHasOptionsMenu(true);
+        return rootView;
+    }
+
+    private void networkCallForData() {
+
+
+        Call<DashBoardModel> chefData = AppConstants.restAPI.getChefData();
+
+        chefData.enqueue(new Callback<DashBoardModel>() {
+            @Override
+            public void onResponse(Call<DashBoardModel> call, Response<DashBoardModel> response) {
+
+                dismissProgress();
+                if (response != null){
+                    DashBoardModel res = response.body();
+                    if (res.status != null) {
+                        if ( res.status.equals(AppConstants.SUCCESS))
+                        {
+                            fetchData = res.data;
+                            setAdapterData(pilot_recyclerview, 0);
+                            if (pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0 && pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0){
+                                homeToolbar.setVisibility(View.VISIBLE);
+                            }else{
+                                homeToolbar.setVisibility(View.GONE);
+                            }
+                            //setAdapterData(special_recyclerview, 1);
+                            //setAdapterData(you_can_try_recyclerview, 2);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DashBoardModel> call, Throwable t) {
+                dismissProgress();
+            }
+        });
+
+    }
+
+    private void setAdapterData(RecyclerView recyclerview, int type) {
+        linearLayoutManager = new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false);
+        recyclerview.setHasFixedSize(true);
+        recyclerview.setLayoutManager(linearLayoutManager);
+        recyclerview.setItemAnimator(new DefaultItemAnimator());
+        if (type == 0) {
+            pilotCardAdapter = new HomePilotCardAdapter(getActivity(),fetchData, this);
+            recyclerview.setAdapter(pilotCardAdapter);
+        }else{
+            specialCardAdapter = new HomeSpecialCardAdapter(getActivity(),fetchData);
+            recyclerview.setAdapter(specialCardAdapter);
+        }
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.home_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+
+        return super.onOptionsItemSelected(menuItem);
+    }
+
+    @OnClick(R.id.order_checkout)
+    public void setOrderCheckout(){
+        OrderDetailsFragment fragment = new OrderDetailsFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("order_id", pf.getIntForKey(PreferenceManager.ORDER_ID,0));
+        fragment.setArguments(bundle);
+        FragmentManager fragmentManager = (((AppCompatActivity) context).getSupportFragmentManager());
+        FragmentTransaction fragmentTransaction = fragmentManager
+                .beginTransaction();
+        fragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
+        fragmentTransaction.replace(R.id.content_frame, fragment);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void AddToCart(final int i){
+
+        if (pf.getIntForKey(PreferenceManager.ORDER_ID,0) == 0){
+            setOrderItemData(i);
+        }else{
+            String msg = "Your cart contains dishes from "+ pf.getStringForKey(PreferenceManager.ORDER_NAME,null)+". Do you want to discard the selection and add dishes from "+fetchData.get(i).food_detail.name+" ?";
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage(msg)
+                    .setCancelable(false)
+                    .setNegativeButton(R.string.no_txt,new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            if (dialog != null) {
+                                dialog.dismiss();
+                            }
+                        }
+                    })
+                    .setPositiveButton(R.string.yes_txt, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            pf.clearPref(context,PreferenceManager.ORDER_PREFERENCES_FILE);
+                            setOrderItemData(i);
+                        }
+                    });
+            // Create the AlertDialog object and return it
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+
+    }
+
+    private void setOrderItemData(int i) {
+        if (!fetchData.get(i).add_food) {
+            fetchData.get(i).add_food = true;
+            showDialogBasedOnAddToCart(i);
+            homeToolbar.setVisibility(View.VISIBLE);
+
+        }else{
+            fetchData.get(i).quantity = 0;
+            pf.clearPref(context, PreferenceManager.ORDER_PREFERENCES_FILE);
+            homeToolbar.setVisibility(View.GONE);
+            pilotCardAdapter.notifyDataSetChanged();
+        }
+    }
+
+    private void showDialogBasedOnAddToCart(final int i) {
+        dialog = new Dialog(context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        dialog = builder.create();
+        dialog.setTitle("Select your plan");
+
+        LayoutInflater factory = LayoutInflater.from(context);
+        final View content = factory.inflate(R.layout.dialog_for_subscription, null);
+        CkdButton dialogButton = content.findViewById(R.id.submitThali);
+        final RadioGroup  radioGroup = content. findViewById(R.id.radioGroup);
+
+        item_quantity = 0;
+
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //showToast(String.valueOf(radioGroup.getCheckedRadioButtonId()));
+                switch (radioGroup.getCheckedRadioButtonId()){
+                    case R.id.radioButton1:
+                        item_quantity = 60;
+                        break;
+                    case R.id.radioButton2:
+                        item_quantity = 15;
+                        break;
+                    case R.id.radioButton3:
+                        item_quantity = 1;
+                        break;
+                    case R.id.radioButton4:
+                        item_quantity = 1;
+                        break;
+                }
+
+                //fetchData.get(i).quantity = item_quantity;
+                sharePref(i,item_quantity);
+                pilotCardAdapter.notifyDataSetChanged();
+                dialog.dismiss();
+            }
+        });
+
+        builder.setView(content);
+        dialog = builder.show();
+
+    }
+
+    private void sharePref(int i, int quantity) {
+        pf.saveIntForKey(PreferenceManager.USER_ID,fetchData.get(i).id);
+        pf.saveIntForKey(PreferenceManager.ORDER_ID,fetchData.get(i).food_detail.id);
+        pf.saveIntForKey(PreferenceManager.ODRDER_USER_ID,fetchData.get(i).food_detail.user_id);
+        pf.saveIntForKey(PreferenceManager.ORDER_CATEGORY_ID,fetchData.get(i).food_detail.category_id);
+        pf.saveStringForKey(PreferenceManager.ORDER_NAME,fetchData.get(i).food_detail.name);
+        pf.saveStringForKey(PreferenceManager.ORDER_DETAILS,fetchData.get(i).food_detail.details);
+        pf.saveStringForKey(PreferenceManager.ORDER_PRICE,fetchData.get(i).food_detail.price);
+        pf.saveIntForKey(PreferenceManager.ORDER_quantity,quantity);
+    }
+
+
+    @Override
+    public void AddFoodQuantity(int position) {
+        int count = 0;
+        if (pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0 && pf.getIntForKey(PreferenceManager.USER_ID, 0) == fetchData.get(position).id){
+            count = pf.getIntForKey(PreferenceManager.ORDER_quantity, 0);
+        }
+        count++;
+        pf.saveIntForKey(PreferenceManager.ORDER_quantity,count);
+
+        pilotCardAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void SubFoodQuantity(int position) {
+        int count = 0;
+        if (pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0 && pf.getIntForKey(PreferenceManager.USER_ID, 0) == fetchData.get(position).id){
+            count = pf.getIntForKey(PreferenceManager.ORDER_quantity, 0);
+        }
+
+        if (count > 0) {
+            count--;
+            pf.saveIntForKey(PreferenceManager.ORDER_quantity,count);
+        }else{
+            fetchData.get(position).add_food = false;
+            pf.clearPref(context, PreferenceManager.ORDER_PREFERENCES_FILE);
+            homeToolbar.setVisibility(View.GONE);
+        }
+        pilotCardAdapter.notifyDataSetChanged();
+    }
+}

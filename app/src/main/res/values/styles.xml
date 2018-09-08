@@ -1,11 +1,63 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
+    <style name="textviewregular" parent="@android:style/Widget.TextView">
+        <item name="typeface">notosans-regular.ttf</item>
+    </style>
+
+    <style name="textviewbold">
+        <item name="typeface">notosans-bold.ttf</item>
+    </style>
+
+    <style name="textviewitalic">
+        <item name="typeface">notosans-italic.ttf</item>
+    </style>
+
+    <!--Toolbar Icon color change-->
+    <style name="ThemeToolbar">
+        <!-- navigation icon color -->
+        <item name="colorControlNormal">@color/white</item>
+    </style>
+
+    <style name="RatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingbar</item>
+        <item name="android:minHeight">23dip</item>
+        <item name="android:maxHeight">25dip</item>
+    </style>
+
+    <!--theme for switch button -->
+    <style name="MySwitch" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <!-- inactive thumb color -->
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <!-- inactive track color (30% transparency) -->
+        <item name="android:colorForeground">@color/colorPrimary</item>
+        <item name="colorSwitchThumbNormal">@color/colorPrimary</item>
+    </style>
+
+    <style name="ThemeOverlay.AppCompat.navTheme">
+
+        <!-- Color of text and icon when SELECTED -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorControlNormal">@color/black</item> <!-- for check state -->
+        <item name="android:background">@color/white</item>
+
+    </style>
+
+    <style name="navTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/black</item>
+
+        <!--<item name="android:actionMenuTextAppearance">@style/NavigationStyle</item>-->
+
     </style>
 
 </resources>

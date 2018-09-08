@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "833158754152",
+    "firebase_url": "https://mummysfood-dd16b.firebaseio.com",
+    "project_id": "mummysfood-dd16b",
+    "storage_bucket": "mummysfood-dd16b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:833158754152:android:5dd6984ab9d0376a",
+        "android_client_info": {
+          "package_name": "in.mummysfood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "833158754152-2nvea5v2tpj8n1tdvhvam1irfheatltt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.mummysfood",
+            "certificate_hash": "f9bd43118a85d7e9424a119a228e60d92aa7ecc9"
+          }
+        },
+        {
+          "client_id": "833158754152-ugcmgota3m89h2b1n9nl30vf8m0p8khg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.mummysfood",
+            "certificate_hash": "0496bbe12e23e833e98a0807d662a23519362d78"
+          }
+        },
+        {
+          "client_id": "833158754152-b2a6qt1hoa22q8gmisuot5uivubdgs4a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8OK1cf6sv0v8OFmg8wyuZ8cbWuF1N6zY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "833158754152-b2a6qt1hoa22q8gmisuot5uivubdgs4a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

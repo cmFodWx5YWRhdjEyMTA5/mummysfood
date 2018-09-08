@@ -1,0 +1,151 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_smoke">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/logo_signin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp56" />
+
+        <in.mummysfood.widgets.CkdTextview
+            android:id="@+id/msg_manual_otp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/mobile_login"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:text="@string/msg_manual_otp"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp14"
+            android:visibility="gone"/>
+
+        <in.mummysfood.widgets.CkdButton
+            android:id="@+id/mobile_login_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/msg_manual_otp"
+            android:layout_marginEnd="@dimen/dp48"
+            android:layout_marginStart="@dimen/dp48"
+            android:layout_marginTop="@dimen/dp24"
+            android:background="@color/gray"
+            android:gravity="center"
+            android:text="@string/log_in"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp16"
+            android:visibility="gone"/>
+
+        <RelativeLayout
+            android:id="@+id/mobile_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/logo_signin"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp32">
+
+            <in.mummysfood.widgets.CkdEditText
+                android:id="@+id/signIn_editText_otp"
+                android:layout_width="@dimen/dp200"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/signIn_inputlayout_mobile"
+                android:layout_below="@id/signIn_inputlayout_mobile"
+                android:layout_gravity="left"
+                android:layout_marginTop="@dimen/dp20"
+                android:backgroundTint="@color/gray"
+                android:gravity="left"
+                android:hint="OTP"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="6"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:textSize="@dimen/sp14"
+                android:visibility="gone"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="@dimen/dp200"
+                android:layout_height="wrap_content"
+                android:id="@+id/signIn_inputlayout_mobile"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/signIn_editText_mobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/gray"
+                    android:hint="@string/mobile_number_hint"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLength="10"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray"
+                    android:textSize="@dimen/sp14" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <in.mummysfood.widgets.CkdButton
+                android:id="@+id/signIn_login_button"
+                android:layout_width="@dimen/dp150"
+                android:layout_height="@dimen/dp40"
+                android:layout_below="@id/signIn_inputlayout_mobile"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp10"
+                android:background="@color/gray"
+                android:gravity="center"
+                android:text="GET OTP"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp16"
+                android:visibility="visible" />
+
+            <com.eralp.circleprogressview.CircleProgressView
+                android:id="@+id/circle_progress_view"
+                android:layout_width="@dimen/dp40"
+                android:layout_height="@dimen/dp40"
+                app:cpv_circle_color="@color/colorPrimary"
+                app:cpv_circle_width="5dp"
+                app:cpv_background_circle_width="5dp"
+                app:cpv_background_circle_color="@color/gray"
+                android:layout_below="@+id/signIn_editText_otp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp10"
+                android:visibility="gone"/>
+
+            <in.mummysfood.widgets.CkdTextview
+                android:id="@+id/resend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/signIn_editText_otp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp10"
+                android:padding="@dimen/dp5"
+                android:text="@string/resend_code"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</ScrollView>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_marginTop="@dimen/dp8"
+    android:visibility="visible"
+    android:id="@+id/addMainLayout"
+    android:layout_height="wrap_content">
+
+    <AutoCompleteTextView
+        android:id="@+id/spinnerItem"
+        android:layout_width="match_parent"
+        android:padding="@dimen/dp8"
+        android:hint="Add your address "
+        style="@style/textviewregular"
+        android:background="@drawable/fill_square_white_bd"
+        android:layout_height="48dp"></AutoCompleteTextView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:background="@color/cardview_shadow_start_color"/>
+    <in.mummysfood.widgets.CkdEditText
+        android:id="@+id/houseNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp8"
+        android:hint="House no or flat num"
+        style="@style/textviewregular"
+        android:background="@drawable/fill_square_white_bd"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:background="@color/cardview_shadow_start_color"/>
+    <in.mummysfood.widgets.CkdEditText
+        android:id="@+id/deliveryAdresstype"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp8"
+        android:hint="Office/Home"
+        style="@style/textviewregular"
+        android:background="@drawable/fill_square_white_bd"/>
+
+</LinearLayout>

@@ -1,0 +1,86 @@
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="in.mummysfood.fragments.HomeFragment"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <RelativeLayout
+            android:id="@+id/homeToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:theme="@style/ThemeToolbar"
+            android:elevation="@dimen/dp4"
+            android:titleTextColor="@color/white"
+            style="@style/textviewregular"
+            android:orientation="horizontal">
+            <in.mummysfood.widgets.CkdTextview
+                android:id="@+id/order_checkout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/checkout"
+                style="@style/textviewregular"
+                android:textColor="@color/white"
+                android:gravity="center"/>
+            <!--<View
+                android:id="@+id/view1"
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:layout_centerHorizontal="true"/>
+            <in.mummysfood.widgets.CkdTextview
+                android:id="@+id/order_more"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/add_more"
+                style="@style/textviewregular"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:layout_toEndOf="@+id/view1"/>-->
+        </RelativeLayout>
+       <!-- <ScrollView android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            xmlns:app="http://schemas.android.com/apk/res-auto">
+        <in.mummysfood.widgets.CkdTextview
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/food_pilots"
+            android:textSize="@dimen/sp18"
+            style="@style/textviewregular"
+            android:layout_margin="@dimen/dp8"/>-->
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/pilot_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <!--</ScrollView>-->
+
+        <!--<in.mummysfood.widgets.CkdTextview
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/special_txt"
+            android:textSize="@dimen/sp18"
+            style="@style/textviewregular"
+            android:layout_margin="@dimen/dp8"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/special_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <in.mummysfood.widgets.CkdTextview
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/you_can_try"
+            android:textSize="@dimen/sp18"
+            style="@style/textviewregular"
+            android:layout_margin="@dimen/dp8"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/you_can_try_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />-->
+
+    </LinearLayout>
