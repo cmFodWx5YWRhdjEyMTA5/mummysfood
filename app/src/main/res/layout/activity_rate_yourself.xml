@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="in.mummysfood.activities.RateYourselfActivity">
+    <in.mummysfood.widgets.CkdTextview
+        android:id="@+id/rate_yourself_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rate_yourself_title"
+        android:textColor="@color/black"
+        style="@style/textviewbold"
+        android:gravity="center"
+        android:textSize="@dimen/dp16"
+        android:layout_margin="@dimen/dp16"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/question_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rate_yourself_title"
+        android:layout_above="@+id/submit_question_answer"
+        android:layout_marginStart="@dimen/dp8"
+        android:layout_marginEnd="@dimen/dp8"/>
+
+    <Button
+        android:id="@+id/submit_question_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/submit_txt"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"/>
+</RelativeLayout>

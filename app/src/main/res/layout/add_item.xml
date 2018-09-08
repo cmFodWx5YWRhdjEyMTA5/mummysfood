@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/add_to_cart_item_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/dp6"
+    android:paddingEnd="@dimen/dp6"
+    android:layout_alignParentEnd="true"
+    android:background="@drawable/gray_border_no_bg"
+    android:layout_centerVertical="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <in.mummysfood.widgets.CkdTextview
+        android:id="@+id/sub_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/textviewbold"
+        android:text="-"
+        android:padding="@dimen/dp8"/>
+    <in.mummysfood.widgets.CkdTextview
+        android:id="@+id/item_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/textviewbold"
+        android:text="1"
+        android:padding="@dimen/dp4"/>
+    <in.mummysfood.widgets.CkdTextview
+        android:id="@+id/add_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/textviewbold"
+        android:text="+"
+        android:padding="@dimen/dp8"/>
+</LinearLayout>
