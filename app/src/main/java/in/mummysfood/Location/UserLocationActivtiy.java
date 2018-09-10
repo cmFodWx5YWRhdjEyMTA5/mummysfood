@@ -80,7 +80,7 @@ public class UserLocationActivtiy extends AppCompatActivity implements  Contacts
     private static final String PLACES_API_BASE = "https://maps.googleapis.com/maps/api/place";
     private static final String TYPE_AUTOCOMPLETE = "/autocomplete";
     private static final String OUT_JSON = "/json";
-    private static final String API_KEY = "AIzaSyBbiDK90-7ghYlvEYFscFNcFApa6ks2oAo";
+    private static final String API_KEY  = "AIzaSyAiLBFmkx2Q0T7JwBUERsv6H8JH03ZGpJc";
     private ArrayList<String> resultLis;
 
     @Override
@@ -96,6 +96,8 @@ public class UserLocationActivtiy extends AppCompatActivity implements  Contacts
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerviewSearch.setLayoutManager(mLayoutManager);
         recyclerviewSearch.setItemAnimator(new DefaultItemAnimator());
+
+        //API_KEY = getResources().getString(R.string.map_api_key);
 
 
         handler = new Handler();
@@ -217,8 +219,6 @@ public class UserLocationActivtiy extends AppCompatActivity implements  Contacts
 
             double latitude = gps.getLatitude();
             double longitude = gps.getLongitude();
-
-
 
 
             Geocoder geocoder;
