@@ -15,15 +15,19 @@ import com.google.gson.GsonBuilder;
 
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Url;
 
@@ -34,7 +38,7 @@ import retrofit2.http.Url;
 public interface RetrofitApiService {
 
 
-        public static String BASEURL = "http://www.foodsfarmer.com/";
+        public static String BASEURL = "http://api.mummysfood.in/";
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .readTimeout(2, TimeUnit.MINUTES)
@@ -77,10 +81,15 @@ public interface RetrofitApiService {
         @POST("address")
         Call<AddressModel.Data>postAddress(@Body AddressModel.Data addressModel);
 
+
         @POST("order")
         Call<OrderModel.Data> orderPlace(@Body OrderModel.Data orderModel);
 
         @GET
         Call<LocationModel> getTopRatedMovies(@Url String url);
+
+        @Multipart
+        @POST("UploadProfilePic")
+        Call<ResponseBody> uploadImage(@Part MultipartBody.Part image, @Part("id") Integer desc);
 
 }
