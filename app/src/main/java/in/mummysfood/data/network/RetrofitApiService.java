@@ -34,7 +34,7 @@ import retrofit2.http.Url;
 public interface RetrofitApiService {
 
 
-        public static String BASEURL = "http://www.foodsfarmer.com/";
+        public static String BASEURL = "http://mummysfood.in/";
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .readTimeout(2, TimeUnit.MINUTES)
@@ -47,7 +47,7 @@ public interface RetrofitApiService {
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://www.foodsfarmer.com/")
+                .baseUrl("http://mummysfood.in/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)
                 .build();

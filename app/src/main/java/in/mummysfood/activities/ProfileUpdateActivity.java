@@ -132,6 +132,22 @@ public class ProfileUpdateActivity extends BaseActivity {
             }
         });
 
+        chooseGender.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    userGender = "male";
+                    maleIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                    femaleIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.black));
+                } else {
+                    userGender = "female";
+                    femaleIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
+                    maleIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.black));
+                }
+
+            }
+        });
+
         if (loginType != null && loginType.equalsIgnoreCase(AppConstants.GOOGLE)){
             fullName.setEnabled(true);
             emailId.setEnabled(false);
