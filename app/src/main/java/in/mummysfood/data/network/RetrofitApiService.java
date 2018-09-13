@@ -7,6 +7,7 @@ import in.mummysfood.data.network.model.LoginRequest;
 import in.mummysfood.data.network.model.LogoutResponse;
 import in.mummysfood.models.AddressModel;
 import in.mummysfood.models.DashBoardModel;
+import in.mummysfood.models.EntityModel;
 import in.mummysfood.models.OrderModel;
 import in.mummysfood.models.ProfileModel;
 import in.mummysfood.models.UserProfileModel;
@@ -38,7 +39,7 @@ import retrofit2.http.Url;
 public interface RetrofitApiService {
 
 
-        public static String BASEURL = "http://api.mummysfood.in/";
+        public static String BASEURL = "http://mummysfood.in/";
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .readTimeout(2, TimeUnit.MINUTES)
@@ -51,7 +52,7 @@ public interface RetrofitApiService {
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://www.foodsfarmer.com/")
+                .baseUrl(BASEURL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient)
                 .build();
@@ -89,7 +90,7 @@ public interface RetrofitApiService {
         Call<LocationModel> getTopRatedMovies(@Url String url);
 
         @Multipart
-        @POST("UploadProfilePic")
-        Call<ResponseBody> uploadImage(@Part MultipartBody.Part image, @Part("id") Integer desc);
+        @POST("upload")
+        Call<ResponseBody> uploadImage(@Part MultipartBody.Part image, @Part("user_id") Integer user_id, @Part("entity_id") Integer entity_id, @Part("entity_type") String entity_type);
 
 }

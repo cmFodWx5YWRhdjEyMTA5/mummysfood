@@ -41,6 +41,7 @@ import in.mummysfood.base.BaseActivity;
 import in.mummysfood.data.network.model.LoginRequest;
 import in.mummysfood.data.pref.PreferenceManager;
 import in.mummysfood.models.DashBoardModel;
+import in.mummysfood.models.EntityModel;
 import in.mummysfood.utils.AppConstants;
 import in.mummysfood.utils.FilePath;
 import in.mummysfood.widgets.CkdButton;
@@ -356,7 +357,8 @@ public class ProfileUpdateActivity extends BaseActivity {
             if (mImageUri == null) {
                 showToast("Error in uploading image.Please try again.");
             } else {
-                performCrop();
+//                performCrop();
+                uploadFile(mImageUri);
             }
         } else if (resultCode != 0 && requestCode == CAMERA_REQUEST) {
             if (mImageUri == null) {
@@ -365,7 +367,8 @@ public class ProfileUpdateActivity extends BaseActivity {
                 try {
                     bitmapImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mImageUri);
                     bitmapImage.createScaledBitmap(bitmapImage, 400, 400, true);
-                    performCrop();
+                //    performCrop();
+                    uploadFile(mImageUri);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -405,7 +408,7 @@ public class ProfileUpdateActivity extends BaseActivity {
                 .setRequestedSize(400, 400)
                 .setOutputCompressQuality(100)
                 .setScaleType(CropImageView.ScaleType.CENTER_CROP)
-                .start(this);
+                .start(ProfileUpdateActivity.this);
     }
 
     //permissions for image selection
@@ -457,5 +460,70 @@ public class ProfileUpdateActivity extends BaseActivity {
         }
         return false;
     }
+
+
+    private void uploadFile(Uri mImageUri) {
+
+        String filename = "";
+
+        try{
+
+            filename = FilePath.getPath(this, mImageUri);
+
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
+        File file = new File(filename);
+
+        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
+
+        MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), reqFile);
+
+        EntityModel.Data model = new EntityModel.Data();
+
+        model.entity_id = 1;
+
+        model.entity_type = "fooddetail";
+
+
+        Call<ResponseBody> call = AppConstants.restAPI.uploadImage(body , 1,2, "food_details");
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                if (response.isSuccessful()) {
+
+
+                        showToast("Image Uploaded Successfully...");
+
+                    try {
+
+                        JSONObject json = new JSONObject(response.body().string());
+                        String profileImageS = json.getJSONObject("data").getString("name");
+
+
+
+                        Log.d("Image Profile",json.toString());
+
+
+
+                      //  finish();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getStackTrace().toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
 
 }
