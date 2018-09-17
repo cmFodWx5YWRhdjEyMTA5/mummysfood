@@ -1,58 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white_smoke">
-    <RelativeLayout
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_margin="@dimen/dp6"
-        android:background="@color/white">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@mipmap/pilot2" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/black"
-            android:alpha="0.6"/>
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/dp6">
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom">
-            <LinearLayout
+            android:layout_height="@dimen/dp250"
+            android:background="@drawable/rounded_white_smoke_bg">
+            <ImageView
+                android:id="@+id/chef_image"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp50"
-                android:layout_margin="@dimen/dp8"
-                android:orientation="vertical">
-                <in.mummysfood.widgets.CkdTextview
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Healthy Salad"
-                    android:textColor="@color/white"
-                    style="@style/textviewbold"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <in.mummysfood.widgets.CkdTextview
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/by"
-                        android:textColor="@color/white"
-                        style="@style/textviewbold"/>
-                    <in.mummysfood.widgets.CkdTextview
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/pilot_name"
-                        android:textColor="@color/colorPrimary"
-                        style="@style/textviewbold"
-                        android:layout_marginStart="@dimen/dp4"/>
-                </LinearLayout>
-            </LinearLayout>
-
+                android:layout_height="match_parent"
+                android:src="@mipmap/pilot2"
+                android:scaleType="fitXY"/>
         </RelativeLayout>
-    </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/dp8"
+            android:layout_marginBottom="@dimen/dp8"
+            android:layout_marginStart="@dimen/dp2"
+            android:layout_marginEnd="@dimen/dp2">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <in.mummysfood.widgets.CkdTextview
+                    android:id="@+id/order_titile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/jain_mini_thali"
+                    android:textColor="@color/black"
+                    style="@style/textviewregular"
+                    android:layout_alignParentStart="true"/>
+                <in.mummysfood.widgets.CkdTextview
+                    android:id="@+id/order_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/price"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_alignParentEnd="true"
+                    style="@style/textviewregular"/>
+            </RelativeLayout>
+            <in.mummysfood.widgets.CkdTextview
+                android:id="@+id/chef_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Serving - Anshita Gandhi"
+                style="@style/textviewregular"/>
+        </LinearLayout>
+    </LinearLayout>
+
 </LinearLayout>

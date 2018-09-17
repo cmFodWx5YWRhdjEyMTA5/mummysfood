@@ -63,7 +63,7 @@
     <string name="title_profile">Profile</string>
 
     <!--home page-->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home_search">Search</string>
     <string name="title_notification">Notification</string>
     <string name="food_pilots">YOUR FOOD PILOTS</string>
     <string name="special_txt">TODAY\'S SPECIAL</string>
@@ -77,6 +77,11 @@
     <string name="add_more">Add More</string>
     <string name="no_txt">No</string>
     <string name="yes_txt">Yes</string>
+    <string name="near_me">OPTIONS NEAR ME</string>
+    <string name="popular">POPULAR</string>
+    <string name="recommended">Recommended for you</string>
+    <string name="see_all">See all</string>
+    <string name="food_near_you">Food Near You</string>
 
     <!--order details page-->
     <string name="jain_thali">Jain Thali</string>
