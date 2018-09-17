@@ -54,31 +54,17 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView chef_image;
-        ImageView rating_img;
-        CkdTextview rating_count;
+        ImageView food_image;
         CkdTextview chef_name;
-        CkdTextview distance;
-        CkdTextview add_to_cart;
-        LinearLayout add_to_cart_item_layout;
-        CkdTextview sub_item;
-        CkdTextview add_item;
-        CkdTextview item_count;
+        CkdTextview food_title;
+        CkdTextview food_price;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            chef_image = (ImageView) itemView.findViewById(R.id.chef_image);
-            rating_img = (ImageView)itemView.findViewById(R.id.rating_img);
-            rating_count = (CkdTextview)itemView.findViewById(R.id.rating_count);
+            food_image = (ImageView) itemView.findViewById(R.id.food_image);
+            food_title = (CkdTextview)itemView.findViewById(R.id.food_title);
             chef_name = (CkdTextview)itemView.findViewById(R.id.chef_name);
-            distance = (CkdTextview)itemView.findViewById(R.id.distance);
-            add_to_cart = (CkdTextview)itemView.findViewById(R.id.add_to_cart);
-            add_to_cart_item_layout = (LinearLayout)itemView.findViewById(R.id.add_to_cart_item_layout);
-            sub_item = (CkdTextview)itemView.findViewById(R.id.sub_item);
-            add_item = (CkdTextview)itemView.findViewById(R.id.add_item);
-            item_count = (CkdTextview)itemView.findViewById(R.id.item_count);
-
-
+            food_price = (CkdTextview)itemView.findViewById(R.id.food_price);
         }
     }
 
@@ -98,14 +84,14 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
         holder.chef_name.setText(data.get(i).f_name);
         if(data.get(i).profile_image != null){
             try {
-                Glide.with(context).load(data.get(i).profile_image).into(holder.chef_image);
+                Glide.with(context).load(data.get(i).profile_image).into(holder.food_image);
             }catch (IllegalArgumentException e){
                 e.printStackTrace();
             }
         }
 
         //check share prefrence
-        if (pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0 && pf.getIntForKey(PreferenceManager.USER_ID, 0) == data.get(i).id){
+        /*if (pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0 && pf.getIntForKey(PreferenceManager.USER_ID, 0) == data.get(i).id){
             holder.add_to_cart.setVisibility(View.GONE);
             holder.add_to_cart_item_layout.setVisibility(View.VISIBLE);
             if (pf.getIntForKey(PreferenceManager.ORDER_quantity, 0) != 0) {
@@ -117,33 +103,18 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
         }else {
             holder.add_to_cart.setVisibility(View.VISIBLE);
             holder.add_to_cart_item_layout.setVisibility(View.GONE);
-        }/*else {
-            if (data.get(i).add_food) {
-                holder.add_to_cart.setVisibility(View.GONE);
-                holder.add_to_cart_item_layout.setVisibility(View.VISIBLE);
-                if (data.get(i).quantity != 0) {
-                    holder.item_count.setText("" + data.get(i).quantity);
-                } else {
-                    holder.add_to_cart.setVisibility(View.VISIBLE);
-                    holder.add_to_cart_item_layout.setVisibility(View.GONE);
-                }
-
-            } else {
-                holder.add_to_cart.setVisibility(View.VISIBLE);
-                holder.add_to_cart_item_layout.setVisibility(View.GONE);
-            }
         }*/
 
-        holder.chef_image.setTag(i);
-        holder.chef_image.setOnClickListener(this);
+        holder.food_image.setTag(i);
+        holder.food_image.setOnClickListener(this);
         holder.chef_name.setTag(i);
         holder.chef_name.setOnClickListener(this);
-        holder.add_to_cart.setTag(i);
+        /*holder.add_to_cart.setTag(i);
         holder.add_to_cart.setOnClickListener(this);
         holder.sub_item.setTag(i);
         holder.sub_item.setOnClickListener(this);
         holder.add_item.setTag(i);
-        holder.add_item.setOnClickListener(this);
+        holder.add_item.setOnClickListener(this);*/
 
     }
 
@@ -184,7 +155,7 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
                 fragmentTransaction1.commit();
                 break;
 
-            case R.id.add_to_cart:
+            /*case R.id.add_to_cart:
                 listner.AddToCart(position);
                 break;
             case R.id.add_item:
@@ -192,7 +163,7 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
                 break;
             case R.id.sub_item:
                 listner.SubFoodQuantity(position);
-                break;
+                break;*/
 
         }
 

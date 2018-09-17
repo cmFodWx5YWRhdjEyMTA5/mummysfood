@@ -48,13 +48,13 @@ public class MainBottomBarActivity extends BaseActivity {
         ButterKnife.bind(this);
         pf = new PreferenceManager(this,PreferenceManager.LOGIN_PREFERENCES_FILE);
         pf.getIntForKey(PreferenceManager.USER_ID,0);
-        if (pf.getIntForKey(PreferenceManager.USER_ID,0) != 0){
+        //if (pf.getIntForKey(PreferenceManager.USER_ID,0) != 0){
             setBottomBar(savedInstanceState);
-        }else {
+        /*}else {
             Intent intent = new Intent(MainBottomBarActivity.this, LoginAndSignupActivity.class);
             startActivity(intent);
             finish();
-        }
+        }*/
 
     }
 

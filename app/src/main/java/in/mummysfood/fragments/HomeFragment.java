@@ -47,14 +47,14 @@ import retrofit2.Response;
 
 public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.OrderListner {
 
-    @BindView(R.id.pilot_recyclerview)
-    RecyclerView pilot_recyclerview;
-    /*@BindView(R.id.special_recyclerview)
-    RecyclerView special_recyclerview;
-    @BindView(R.id.you_can_try_recyclerview)
+    @BindView(R.id.recommended_recyclerview)
+    RecyclerView recommended_recyclerview;
+    @BindView(R.id.near_you_recyclerview)
+    RecyclerView near_you_recyclerview;
+    /*@BindView(R.id.near_you_recyclerview)
     RecyclerView you_can_try_recyclerview;*/
-    @BindView(R.id.homeToolbar)
-    RelativeLayout homeToolbar;
+    /*@BindView(R.id.homeToolbar)
+    RelativeLayout homeToolbar;*/
 
     Context context;
     private LinearLayoutManager linearLayoutManager;
@@ -71,17 +71,17 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_home_new, container, false);
         context = getContext();
         ButterKnife.bind(this,rootView);
 
         pf = new PreferenceManager(context, PreferenceManager.ORDER_PREFERENCES_FILE);
 
-        homeToolbar.setVisibility(View.GONE);
+        //homeToolbar.setVisibility(View.GONE);
 
         DashBoardModel json = new DashBoardModel();
-        json.lat = 22.753;
-        json.lng = 75.8937;
+        json.lat = 22.7368;
+        json.lng = 75.9086;
 
         networkCallForData();
 
@@ -106,14 +106,8 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
                         if ( res.status.equals(AppConstants.SUCCESS))
                         {
                             fetchData = res.data;
-                            setAdapterData(pilot_recyclerview, 0);
-                            if (pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0 && pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0){
-                                homeToolbar.setVisibility(View.VISIBLE);
-                            }else{
-                                homeToolbar.setVisibility(View.GONE);
-                            }
-                            //setAdapterData(special_recyclerview, 1);
-                            //setAdapterData(you_can_try_recyclerview, 2);
+                            setAdapterData(recommended_recyclerview, 0);
+                            setAdapterData(near_you_recyclerview, 1);
                         }
                     }
                 }
@@ -128,14 +122,19 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     }
 
     private void setAdapterData(RecyclerView recyclerview, int type) {
-        linearLayoutManager = new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false);
-        recyclerview.setHasFixedSize(true);
-        recyclerview.setLayoutManager(linearLayoutManager);
-        recyclerview.setItemAnimator(new DefaultItemAnimator());
+
         if (type == 0) {
+            linearLayoutManager = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false);
+            //recyclerview.setHasFixedSize(true);
+            recyclerview.setLayoutManager(linearLayoutManager);
+            recyclerview.setItemAnimator(new DefaultItemAnimator());
             pilotCardAdapter = new HomePilotCardAdapter(getActivity(),fetchData, this);
             recyclerview.setAdapter(pilotCardAdapter);
         }else{
+            linearLayoutManager = new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false);
+            //recyclerview.setHasFixedSize(true);
+            recyclerview.setLayoutManager(linearLayoutManager);
+            recyclerview.setItemAnimator(new DefaultItemAnimator());
             specialCardAdapter = new HomeSpecialCardAdapter(getActivity(),fetchData);
             recyclerview.setAdapter(specialCardAdapter);
         }
@@ -153,7 +152,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         return super.onOptionsItemSelected(menuItem);
     }
 
-    @OnClick(R.id.order_checkout)
+    /*@OnClick(R.id.order_checkout)
     public void setOrderCheckout(){
         OrderDetailsFragment fragment = new OrderDetailsFragment();
         Bundle bundle = new Bundle();
@@ -165,7 +164,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         fragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
         fragmentTransaction.replace(R.id.content_frame, fragment);
         fragmentTransaction.commit();
-    }
+    }*/
 
     @Override
     public void AddToCart(final int i){
@@ -201,12 +200,12 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         if (!fetchData.get(i).add_food) {
             fetchData.get(i).add_food = true;
             showDialogBasedOnAddToCart(i);
-            homeToolbar.setVisibility(View.VISIBLE);
+            //homeToolbar.setVisibility(View.VISIBLE);
 
         }else{
             fetchData.get(i).quantity = 0;
             pf.clearPref(context, PreferenceManager.ORDER_PREFERENCES_FILE);
-            homeToolbar.setVisibility(View.GONE);
+            //homeToolbar.setVisibility(View.GONE);
             pilotCardAdapter.notifyDataSetChanged();
         }
     }
@@ -293,7 +292,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         }else{
             fetchData.get(position).add_food = false;
             pf.clearPref(context, PreferenceManager.ORDER_PREFERENCES_FILE);
-            homeToolbar.setVisibility(View.GONE);
+            //homeToolbar.setVisibility(View.GONE);
         }
         pilotCardAdapter.notifyDataSetChanged();
     }

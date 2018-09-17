@@ -1,107 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/white_smoke">
+    android:background="@color/white">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dp200"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="@dimen/dp6"
-        android:background="@color/white">
+        android:layout_margin="@dimen/dp6">
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="300dp">
-
+            android:layout_width="@dimen/dp200"
+            android:layout_height="@dimen/dp200"
+            android:background="@drawable/rounded_white_smoke_bg">
             <ImageView
-                android:id="@+id/chef_image"
+                android:id="@+id/food_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@mipmap/pilot2"
-                android:scaleType="fitXY"/>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/white_circle"
-                android:padding="@dimen/dp4"
-                android:paddingStart="@dimen/dp6"
-                android:paddingEnd="@dimen/dp6"
-                android:layout_alignParentBottom="true"
-                android:layout_margin="@dimen/dp8"
-                android:gravity="center">
-                <ImageView
-                    android:id="@+id/rating_img"
-                    android:layout_width="@dimen/dp18"
-                    android:layout_height="@dimen/dp18"
-                    android:src="@mipmap/ic_action_star"
-                    android:tint="@color/black"/>
-                <in.mummysfood.widgets.CkdTextview
-                    android:id="@+id/rating_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/sp16"
-                    android:text="4.5"
-                    android:layout_marginRight="@dimen/dp4"/>
-            </LinearLayout>
-
-
+                android:scaleType="fitXY"
+                />
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp12"
-            android:layout_marginEnd="@dimen/dp12">
+            android:layout_margin="@dimen/dp2">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/dp8"
-                android:layout_marginBottom="@dimen/dp8"
-                android:layout_toStartOf="@+id/add_to_cart">
-
+                android:layout_marginBottom="@dimen/dp8">
                 <in.mummysfood.widgets.CkdTextview
-                    android:id="@+id/chef_name"
+                    android:id="@+id/populor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/pilot_name"
-                    android:textColor="@color/colorPrimary" />
+                    android:text="@string/popular"
+                    android:textColor="@color/colorPrimary"
+                    style="@style/textviewregular"/>
+                <in.mummysfood.widgets.CkdTextview
+                    android:id="@+id/food_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp50"
+                    android:text="@string/jain_mini_thali"
+                    android:textColor="@color/black"
+                    style="@style/textviewregular"
+                    android:maxLines="2"/>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <in.mummysfood.widgets.CkdTextview
+                        android:id="@+id/food_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/distance"
-                        android:textColor="@color/black" />
-                    <in.mummysfood.widgets.CkdTextview
-                        android:id="@+id/distance"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1.3K"
+                        android:text="@string/price"
                         android:textColor="@color/colorPrimary"
-                        android:layout_marginStart="@dimen/dp4"/>
-                </LinearLayout>
+                        android:layout_alignParentStart="true"
+                        style="@style/textviewregular"/>
+                    <in.mummysfood.widgets.CkdTextview
+                        android:id="@+id/chef_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pilot_name"
+                        android:layout_alignParentEnd="true"
+                        style="@style/textviewregular"/>
+                </RelativeLayout>
             </LinearLayout>
-            <in.mummysfood.widgets.CkdTextview
-                android:id="@+id/add_to_cart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/add_cart"
-                android:layout_alignParentEnd="true"
-                android:background="@drawable/gray_border_no_bg"
-                android:padding="@dimen/dp8"
-                android:paddingStart="@dimen/dp24"
-                android:paddingEnd="@dimen/dp24"
-                android:layout_centerVertical="true"
-                android:visibility="gone"/>
-
-            <include layout="@layout/add_item"/>
         </RelativeLayout>
 
 
