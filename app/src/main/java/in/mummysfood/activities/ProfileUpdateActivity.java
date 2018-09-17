@@ -524,6 +524,4 @@ public class ProfileUpdateActivity extends BaseActivity {
             }
         });
     }
-
-
 }
