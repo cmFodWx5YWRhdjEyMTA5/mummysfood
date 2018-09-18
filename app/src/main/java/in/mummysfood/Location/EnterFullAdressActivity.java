@@ -15,7 +15,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static in.mummysfood.adapters.HomePilotCardAdapter.fragment;
 
 public class EnterFullAdressActivity extends BaseActivity {
 
@@ -30,6 +29,12 @@ public class EnterFullAdressActivity extends BaseActivity {
     private String OrderDetails = "";
     private PreferenceManager pf;
 
+    private updateAdd listner;
+
+    public interface updateAdd{
+
+        void updateAddressInterface(String address);
+    }
 
 
     @Override
@@ -75,12 +80,7 @@ public class EnterFullAdressActivity extends BaseActivity {
 
 
     //        listner.updateAdd(address);
-
-
-            if (fragment != null)
-            {
-                fragment.UpdateAddress(updatedText);
-            }
+            listner.updateAddressInterface(updatedText);
 
             finish();
 

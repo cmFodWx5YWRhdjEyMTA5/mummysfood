@@ -3,19 +3,22 @@
     android:id="@+id/add_to_cart_item_layout"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingStart="@dimen/dp6"
-    android:paddingEnd="@dimen/dp6"
+    android:gravity="center"
     android:layout_alignParentEnd="true"
-    android:background="@drawable/gray_border_no_bg"
-    android:layout_centerVertical="true"
+    android:background="@drawable/border_primary"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <in.mummysfood.widgets.CkdTextview
         android:id="@+id/sub_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="32dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginRight="@dimen/dp4"
+        android:textSize="22sp"
+        android:textColor="@color/white"
+        android:layout_height="@dimen/dp32"
+        android:background="@drawable/fill_rounded_primary_color"
         style="@style/textviewbold"
-        android:text="-"
-        android:padding="@dimen/dp8"/>
+        android:text="-"/>
     <in.mummysfood.widgets.CkdTextview
         android:id="@+id/item_count"
         android:layout_width="wrap_content"
@@ -25,9 +28,14 @@
         android:padding="@dimen/dp4"/>
     <in.mummysfood.widgets.CkdTextview
         android:id="@+id/add_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="32dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:textColor="@color/white"
+        android:layout_marginLeft="@dimen/dp4"
+        android:layout_height="@dimen/dp32"
+        android:background="@drawable/fill_rounded_primary_color"
         style="@style/textviewbold"
-        android:text="+"
-        android:padding="@dimen/dp8"/>
+        android:text="+"/>
 </LinearLayout>

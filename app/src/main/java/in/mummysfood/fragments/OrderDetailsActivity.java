@@ -3,13 +3,18 @@ package in.mummysfood.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -17,6 +22,8 @@ import com.bumptech.glide.Glide;
 import in.mummysfood.Location.EnterFullAdressActivity;
 import in.mummysfood.Location.UserLocationActivtiy;
 import in.mummysfood.R;
+import in.mummysfood.activities.YourCartActivity;
+import in.mummysfood.base.BaseActivity;
 import in.mummysfood.base.BaseFragment;
 import in.mummysfood.data.pref.PreferenceManager;
 import in.mummysfood.models.DashBoardModel;
@@ -34,7 +41,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OrderDetailsFragment extends BaseFragment{
+public class OrderDetailsActivity extends BaseActivity implements EnterFullAdressActivity.updateAdd{
 
     @BindView(R.id.order_image)
     ImageView order_image;
@@ -42,17 +49,33 @@ public class OrderDetailsFragment extends BaseFragment{
     @BindView(R.id.order_chef_profile_img)
     CircularImageView order_chef_profile_img;
 
-    @BindView(R.id.order_chef_name)
+   @BindView(R.id.order_chef_name)
     CkdTextview order_chef_name;
+
+   @BindView(R.id.processedButton)
+   CkdTextview processedButton;
 
     @BindView(R.id.order_detail)
     CkdTextview order_detail;
+
+
+    @BindView(R.id.LunchSwitch)
+    SwitchCompat LunchSwitch;
+
+    @BindView(R.id.DInnerSwitch)
+    SwitchCompat DInnerSwitch;
+
+    @BindView(R.id.bothSwitch)
+    SwitchCompat bothSwitch;
 
     @BindView(R.id.order_titile)
     CkdTextview order_titile;
 
     @BindView(R.id.place_order)
     CkdTextview place_order;
+
+    @BindView(R.id.collapsing_toolbar)
+    CollapsingToolbarLayout collapsing_toolbar;
 
     @BindView(R.id.sub_item)
     CkdTextview sub_item;
@@ -89,48 +112,82 @@ public class OrderDetailsFragment extends BaseFragment{
     CkdTextview userDelAddress;
 
     private int orderId;
-    DashBoardModel.Data data;
-    PreferenceManager pf;
-    PreferenceManager userPf;
-    Context context;
+   private DashBoardModel.Data data;
+    private PreferenceManager pf;
+    private PreferenceManager userPf;
 
     private String UserCUrrentAdd = "";
 
-    public OrderDetailsFragment()
+    public OrderDetailsActivity()
     {
         // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_order_details, container, false);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        context = getContext();
-        pf = new PreferenceManager(context,PreferenceManager.ORDER_PREFERENCES_FILE);
-        userPf = new PreferenceManager(context,PreferenceManager.USER_ADDRESS);
+        setContentView(R.layout.order_detail_layout);
+        pf = new PreferenceManager(this,PreferenceManager.ORDER_PREFERENCES_FILE);
+        userPf = new PreferenceManager(this,PreferenceManager.USER_ADDRESS);
 
-       UserCUrrentAdd  = userPf.getStringForKey("CurrentAddress","");
+        UserCUrrentAdd  = userPf.getStringForKey("CurrentAddress","");
 
 
-        ButterKnife.bind(this,rootView);
+        ButterKnife.bind(this);
 
-        if (getArguments() != null)
+        if (getIntent() != null)
         {
 
             try {
-                orderId = getArguments().getInt("order_id",0);
-                data = (DashBoardModel.Data) getArguments().getSerializable("data");
+                orderId = getIntent().getIntExtra("order_id",0);
+                data = (DashBoardModel.Data) getIntent().getSerializableExtra("data");
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        prepareOrderDetails();
 
-        return rootView;
+        LunchSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+
+                } else {
+
+                }
+
+            }
+        });
+
+        DInnerSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+
+                } else {
+
+                }
+
+            }
+        });
+
+        bothSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+
+                } else {
+
+                }
+
+            }
+        });
+
+        prepareOrderDetails();
     }
+
 
     private void prepareOrderDetails() {
 
@@ -139,18 +196,23 @@ public class OrderDetailsFragment extends BaseFragment{
 
         userAddress = "Khajarana Ganesh Mandir";
         try {
-            Glide.with(getContext()).load(data.profile_image).into(order_chef_profile_img);
-            order_chef_name.setText(data.f_name);
+          //  Glide.with(this).load(data.profile_image).into(order_chef_profile_img);
+             order_chef_name.setText(data.f_name);
             order_titile.setText(data.food_detail.name);
             order_detail.setText(data.food_detail.details);
-            order_price.setText(data.food_detail.price);
+            order_price.setText("Rs. "+data.food_detail.price+"/-");
             userDelAddress.setText(UserCUrrentAdd);
 
+           // order_chef_name.setVisibility(View.GONE);
+            collapsing_toolbar.setTitle("MummysFood");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         //check share prefrence
+
+
+
 
        try {
 
@@ -213,11 +275,11 @@ public class OrderDetailsFragment extends BaseFragment{
     private void showItemContainPopup()
     {
 
-        LayoutInflater li = LayoutInflater.from(context);
+        LayoutInflater li = LayoutInflater.from(this);
         View promptsView = li.inflate(R.layout.item_detail_view_popup, null);
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                context);
+                this);
 
         alertDialogBuilder.setView(promptsView);
 
@@ -312,21 +374,64 @@ public class OrderDetailsFragment extends BaseFragment{
 
     }
 
+    @OnClick(R.id.sub_item)
+    public void SubFoodQuantity() {
+        int count = 0;
+        if (pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0 ){
+            count = pf.getIntForKey(PreferenceManager.ORDER_quantity, 0);
+        }
+
+        if (count > 0) {
+            count--;
+            pf.saveIntForKey(PreferenceManager.ORDER_quantity,count);
+        }else{
+            pf.clearPref(this, PreferenceManager.ORDER_PREFERENCES_FILE);
+            //homeToolbar.setVisibility(View.GONE);
+        }
+        item_count.setText(String.valueOf(count));
+    }
+
+    @OnClick(R.id.add_item)
+    public void AddFoodQuantity() {
+        int count = 0;
+        if (pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0){
+            count = pf.getIntForKey(PreferenceManager.ORDER_quantity, 0);
+        }
+        count++;
+        pf.saveIntForKey(PreferenceManager.ORDER_quantity,count);
+
+        item_count.setText(String.valueOf(count));
+    }
+
+
+
     @OnClick(R.id.addAddress)
     public void AddAddressValue()
     {
 
-        Intent enterOtherAct = new Intent(getActivity(),EnterFullAdressActivity.class);
+        Intent enterOtherAct = new Intent(this,EnterFullAdressActivity.class);
         enterOtherAct.putExtra("Address",UserCUrrentAdd);
         enterOtherAct.putExtra("From","OrderDetails");
         startActivity(enterOtherAct);
 
     }
 
-    public void UpdateAddress(String address)
+    @OnClick(R.id.processedButton)
+    public  void processedButton()
     {
+        Intent yourCart = new Intent(this, YourCartActivity.class);
+        startActivity(yourCart);
+    }
+
+    @Override
+    public void updateAddressInterface(String address) {
         userDelAddress.setText(address);
     }
 
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

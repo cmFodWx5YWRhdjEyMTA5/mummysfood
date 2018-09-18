@@ -85,6 +85,8 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
         networkCallForData();
 
+        near_you_recyclerview.setNestedScrollingEnabled(false);
+
         showProgress("Loading...");
         setHasOptionsMenu(true);
         return rootView;
@@ -154,7 +156,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
     /*@OnClick(R.id.order_checkout)
     public void setOrderCheckout(){
-        OrderDetailsFragment fragment = new OrderDetailsFragment();
+        OrderDetailsActivity fragment = new OrderDetailsActivity();
         Bundle bundle = new Bundle();
         bundle.putInt("order_id", pf.getIntForKey(PreferenceManager.ORDER_ID,0));
         fragment.setArguments(bundle);

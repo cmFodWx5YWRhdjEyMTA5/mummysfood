@@ -1,6 +1,7 @@
 package in.mummysfood.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -10,23 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
 
 import com.bumptech.glide.Glide;
 import in.mummysfood.R;
 import in.mummysfood.data.pref.PreferenceManager;
-import in.mummysfood.fragments.OrderDetailsFragment;
+import in.mummysfood.fragments.OrderDetailsActivity;
 import in.mummysfood.fragments.ProfileFragment;
 import in.mummysfood.models.DashBoardModel;
-import in.mummysfood.models.ProfileModel;
-import in.mummysfood.models.QuestionsModel;
 import in.mummysfood.widgets.CkdTextview;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.ButterKnife;
 
 public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
 
@@ -34,8 +28,6 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
     private List<DashBoardModel.Data> data;
     private OrderListner listner;
     PreferenceManager pf;
-
-    public static OrderDetailsFragment fragment;
 
     public HomePilotCardAdapter(Context context, List<DashBoardModel.Data> data, OrderListner listner) {
         this.context = context;
@@ -125,17 +117,11 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
             case R.id.chef_image:
 
                 try {
-                    fragment = new OrderDetailsFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("order_id", data.get(position).chef_detail.user_id);
-                    bundle.putSerializable("data",data.get(position));
-                    fragment.setArguments(bundle);
-                    FragmentManager fragmentManager = (((AppCompatActivity) context).getSupportFragmentManager());
-                    FragmentTransaction fragmentTransaction = fragmentManager
-                            .beginTransaction();
-                    fragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
-                    fragmentTransaction.replace(R.id.content_frame, fragment);
-                    fragmentTransaction.commit();
+
+                    Intent i = new Intent(context,OrderDetailsActivity.class);
+                    i.putExtra("order_id",data.get(position).id);
+                    i.putExtra("data",data.get(position));
+                    context.startActivity(i);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

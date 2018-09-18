@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.mummysfood.fragments.OrderDetailsFragment"
+    tools:context="in.mummysfood.fragments.OrderDetailsActivity"
     android:background="@color/white_smoke">
     <LinearLayout
         android:layout_width="match_parent"

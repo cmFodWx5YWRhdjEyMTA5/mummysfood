@@ -2,9 +2,10 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/white_smoke"/>
-            <!-- You can create different radius for different corners -->
-            <corners android:radius="@dimen/dp16"/>
+            <solid android:color="@android:color/transparent"/>
+            <stroke android:width="1dp"
+                android:color="@color/gray"/>
+            <corners android:radius="16dp"/>
         </shape>
     </item>
 </selector>
