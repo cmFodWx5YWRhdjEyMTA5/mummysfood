@@ -1,6 +1,13 @@
 package in.mummysfood.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.graphics.Shader;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -85,10 +92,21 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
         if(data.get(i).profile_image != null){
             try {
                 Glide.with(context).load(data.get(i).profile_image).into(holder.food_image);
+
             }catch (IllegalArgumentException e){
                 e.printStackTrace();
             }
+        }else{
+            holder.food_image.setImageResource(R.mipmap.pilot2);
         }
+        /*Bitmap mbitmap = ((BitmapDrawable) context.getResources().getDrawable(R.drawable.rounded_white_smoke_bg)).getBitmap();
+        Bitmap imageRounded = Bitmap.createBitmap(mbitmap.getWidth(), mbitmap.getHeight(), mbitmap.getConfig());
+        Canvas canvas = new Canvas(imageRounded);
+        Paint mpaint = new Paint();
+        mpaint.setAntiAlias(true);
+        mpaint.setShader(new BitmapShader(mbitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP));
+        canvas.drawRoundRect((new RectF(0, 0, mbitmap.getWidth(), mbitmap.getHeight())), 100, 100, mpaint);// Round Image Corner 100 100 100 100
+        holder.food_image.setImageBitmap(imageRounded);*/
 
         //check share prefrence
         /*if (pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0 && pf.getIntForKey(PreferenceManager.USER_ID, 0) == data.get(i).id){

@@ -19,7 +19,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@mipmap/pilot2"
-                android:scaleType="fitXY"/>
+                android:scaleType="fitXY"
+                android:background="@drawable/rounded_white_smoke_bg"/>
         </RelativeLayout>
 
         <LinearLayout
