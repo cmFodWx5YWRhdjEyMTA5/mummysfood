@@ -83,6 +83,7 @@
     <string name="recommended">Recommended for you</string>
     <string name="see_all">See all</string>
     <string name="food_near_you">Food Near You</string>
+    <string name="user_type">Food Captain</string>
 
     <!--order details page-->
     <string name="jain_thali">Jain Thali</string>
@@ -97,17 +98,22 @@
 
     <!--profile page-->
     <string name="profile">Profile</string>
-    <string name="about">About:-</string>
+    <string name="about">About</string>
     <string name="food_type">Food Type:-</string>
     <string name="experties_txt">Experties:-</string>
     <string name="experties_level">Expert</string>
-    <string name="active_hours_txt">Active Hours:-</string>
+    <string name="active_hours_txt">Active Hours</string>
     <string name="active_time">Sunday</string>
     <string name="see_more_txt">See More</string>
     <string name="food_service">FOOD SHE OFFER</string>
     <string name="jain_mini_thali">Jain Mini Thali</string>
     <string name="title_activity_user_location">UserLocationActivity</string>
     <string name="title_activity_maps">Map</string>
+    <string name="vegitarian">Vegitarian</string>
+    <string name="photo_txt">Photo</string>
+    <string name="food_txt">Food</string>
+    <string name="monthly_txt">Monthly</string>
+    <string name="weekly_txt">Weekly</string>
 
 
 </resources>

@@ -5,142 +5,116 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="in.mummysfood.fragments.OrderDetailsActivity"
-    android:background="@color/white_smoke">
+    android:background="@color/white">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/homeToolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            android:theme="@style/ThemeToolbar"
-            android:elevation="@dimen/dp4"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            android:titleTextColor="@color/white"
-            app:title="@string/profile"
-            app:titleTextColor="@color/white"
-            style="@style/textviewregular">
-        </android.support.v7.widget.Toolbar>
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="@dimen/dp16"
-            android:layout_marginBottom="@dimen/dp16">
+            android:visibility="visible">
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <com.mikhaellopez.circularimageview.CircularImageView
-                    android:id="@+id/profile_image"
-                    android:layout_width="@dimen/dp150"
-                    android:layout_height="@dimen/dp150"
-                    android:src="@mipmap/pilot1"
-                    app:civ_border_color="@color/white"
-                    app:civ_border_width="@dimen/dp2"
-                    app:civ_shadow="false" />
-                <RelativeLayout
-                    android:id="@+id/update_profile_image"
-                    android:layout_width="@dimen/dp40"
-                    android:layout_height="@dimen/dp40"
-                    android:layout_alignEnd="@+id/profile_image"
-                    android:layout_alignBottom="@+id/profile_image"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/circle">
+                android:id="@+id/timeline_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp200"
+                android:background="@mipmap/foodimage">
 
+            </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/user_info_layout"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp200"
+                android:layout_below="@+id/timeline_layout"
+                android:background="@color/white"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:id="@+id/user_rating_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="end"
+                    android:visibility="visible"
+                    android:layout_marginStart="@dimen/dp16"
+                    android:layout_marginEnd="@dimen/dp16"
+                    android:layout_marginTop="@dimen/dp24"
+                    >
+                    <in.mummysfood.widgets.CkdTextview
+                        android:id="@+id/user_rating_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4.5"
+                        style="@style/textviewbold"
+                        android:textColor="@color/white"
+                        android:layout_marginStart="@dimen/dp4"
+                        android:background="@drawable/circle"
+                        android:padding="@dimen/dp8"/>
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:src="@mipmap/ic_camera_black_18dp"
-                        android:tint="@color/white" />
+                        android:src="@mipmap/star_filled"/>
+                </LinearLayout>
 
-                </RelativeLayout>
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-                <in.mummysfood.widgets.CkdTextview
-                    android:id="@+id/profile_username"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/pilot_name"
-                    style="@style/textviewbold"
-                    android:textColor="@color/black"/>
-                <ImageView
-                    android:id="@+id/name_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/edit_icon"
-                    android:tint="@color/gray"
-                    android:layout_marginStart="@dimen/dp4"
-                    android:visibility="gone"/>
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp40">
+                    <in.mummysfood.widgets.CkdTextview
+                        android:id="@+id/profile_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pilot_name"
+                        style="@style/textviewbold"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/sp16"/>
+                    <in.mummysfood.widgets.CkdTextview
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_type"
+                        style="@style/textviewregular"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="@dimen/dp5"/>
+                </LinearLayout>
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/user_rating_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:visibility="visible">
-                <RatingBar
-                    android:id="@+id/rating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/RatingBar"
-                    android:rating="4.5"/>
-                <in.mummysfood.widgets.CkdTextview
-                    android:id="@+id/user_rating_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="4.5"
-                    style="@style/textviewbold"
-                    android:textColor="@color/gray"
-                    android:layout_marginStart="@dimen/dp4"/>
-            </LinearLayout>
-        </LinearLayout>
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/profile_image"
+                android:layout_width="@dimen/dp150"
+                android:layout_height="@dimen/dp150"
+                android:src="@mipmap/pilot1"
+                app:civ_border_color="@color/white"
+                app:civ_border_width="@dimen/dp2"
+                app:civ_shadow="false"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="vertical"
-            android:padding="@dimen/dp16">
-
-            <ImageView
-                android:id="@+id/edit_about_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:src="@mipmap/edit_icon"
-                android:tint="@color/gray"
-                android:visibility="visible"/>
+            android:paddingStart="@dimen/dp16"
+            android:paddingEnd="@dimen/dp16"
+            android:paddingBottom="@dimen/dp16">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dp8"
-                android:layout_marginTop="@dimen/dp8"
-                android:weightSum="1">
+                android:orientation="vertical">
 
                 <in.mummysfood.widgets.CkdTextview
                     style="@style/textviewregular"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
                     android:text="@string/about"
                     android:textColor="@color/black" />
 
                 <in.mummysfood.widgets.CkdTextview
                     android:id="@+id/profile_about"
                     style="@style/textviewregular"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
                     android:text="@string/kitchen_description"
                     android:textColor="@color/gray" />
             </LinearLayout>
@@ -160,33 +134,12 @@
                     android:text="@string/food_type"
                     android:textColor="@color/black" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <in.mummysfood.widgets.CkdTextview
+                    style="@style/textviewregular"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
-                    android:orientation="horizontal">
-
-                    <in.mummysfood.widgets.CkdTextview
-                        style="@style/textviewregular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/veg"
-                        android:textColor="@color/green" />
-
-                    <android.support.v7.widget.SwitchCompat
-                        android:id="@+id/is_vagitarian"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/dp4"
-                        android:layout_marginStart="@dimen/dp4" />
-
-                    <in.mummysfood.widgets.CkdTextview
-                        style="@style/textviewregular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/veg_nonveg"
-                        android:textColor="@color/red" />
-                </LinearLayout>
+                    android:text="@string/vegitarian"
+                    android:textColor="@color/green" />
             </LinearLayout>
 
             <LinearLayout
@@ -222,37 +175,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dp8"
                 android:layout_marginTop="@dimen/dp8"
-                android:weightSum="1"
-                android:visibility="visible">
+                android:visibility="visible"
+                android:orientation="vertical">
 
                 <in.mummysfood.widgets.CkdTextview
                     style="@style/textviewregular"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
                     android:text="@string/active_hours_txt"
                     android:textColor="@color/black" />
 
-                <in.mummysfood.widgets.CkdTextview
-                    android:id="@+id/active_hour"
-                    style="@style/textviewregular"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
-                    android:text="@string/active_time"
-                    android:textColor="@color/gray" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+                </LinearLayout>
             </LinearLayout>
-
-            <in.mummysfood.widgets.CkdTextview
-                android:id="@+id/active_hour_see_more"
-                style="@style/textviewregular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/dp8"
-                android:text="@string/see_more_txt"
-                android:textColor="@color/black"
-                android:visibility="visible"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/kitchen_media_layout"
@@ -319,204 +259,205 @@
 
                 </RelativeLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:layout_marginTop="@dimen/dp8">
-                    <in.mummysfood.widgets.CkdTextview
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/photo_media_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+            <in.mummysfood.widgets.CkdTextview
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/photo_txt"
+                android:textColor="@color/black"
+                style="@style/textviewregular"
+                android:layout_marginStart="@dimen/dp16"
+                android:layout_marginTop="@dimen/dp8"
+                android:layout_marginBottom="@dimen/dp8"
+                android:layout_marginEnd="@dimen/dp16"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp16"
+                android:background="@color/white"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/last_update"
-                        android:textColor="@color/black"
-                        style="@style/textviewregular"
-                        android:layout_toStartOf="@+id/updated_date"/>
-                    <in.mummysfood.widgets.CkdTextview
-                        android:id="@+id/updated_date"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="@dimen/dp100"
+                            android:layout_height="@dimen/dp100"
+                            android:src="@mipmap/pilot2"
+                            android:layout_marginEnd="@dimen/dp2"/>
+                        <ImageView
+                            android:layout_width="@dimen/dp100"
+                            android:layout_height="@dimen/dp100"
+                            android:src="@mipmap/pilot2"
+                            android:layout_marginEnd="@dimen/dp2"/>
+                        <RelativeLayout
+                            android:layout_width="@dimen/dp100"
+                            android:layout_height="@dimen/dp100">
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@mipmap/pilot2"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/black"
+                                android:alpha="0.6"/>
+                            <in.mummysfood.widgets.CkdTextview
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="4+"
+                                android:textSize="@dimen/sp24"
+                                android:textColor="@color/white"
+                                style="@style/textviewbold"
+                                android:layout_centerInParent="true"/>
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/chef_food_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+            <in.mummysfood.widgets.CkdTextview
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/food_txt"
+                android:textColor="@color/black"
+                style="@style/textviewregular"
+                android:layout_marginStart="@dimen/dp16"
+                android:layout_marginTop="@dimen/dp8"
+                android:layout_marginBottom="@dimen/dp8"
+                android:layout_marginEnd="@dimen/dp16"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp16"
+                android:background="@color/white"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/date"
-                        android:textColor="@color/black"
-                        style="@style/textviewregular"
-                        android:layout_alignParentEnd="true"/>
-                </LinearLayout>
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="@dimen/dp100"
+                            android:layout_height="@dimen/dp100"
+                            android:src="@mipmap/pilot2"
+                            android:layout_marginEnd="@dimen/dp2"/>
+                        <ImageView
+                            android:layout_width="@dimen/dp100"
+                            android:layout_height="@dimen/dp100"
+                            android:src="@mipmap/pilot2"
+                            android:layout_marginEnd="@dimen/dp2"/>
+                        <RelativeLayout
+                            android:layout_width="@dimen/dp100"
+                            android:layout_height="@dimen/dp100">
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@mipmap/pilot2"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/black"
+                                android:alpha="0.6"/>
+                            <in.mummysfood.widgets.CkdTextview
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="4+"
+                                android:textSize="@dimen/sp24"
+                                android:textColor="@color/white"
+                                style="@style/textviewbold"
+                                android:layout_centerInParent="true"/>
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
             </LinearLayout>
         </LinearLayout>
 
-        <!--<in.mummysfood.widgets.CkdTextview
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/subscription_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/food_service"
-            android:textColor="@color/black"
-            style="@style/textviewregular"
-            android:layout_marginStart="@dimen/dp16"
-            android:layout_marginTop="@dimen/dp8"
-            android:layout_marginBottom="@dimen/dp8"
-            android:layout_marginEnd="@dimen/dp16"/>
+            android:orientation="vertical"
+            android:visibility="visible">
+            <in.mummysfood.widgets.CkdTextview
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/food_txt"
+                android:textColor="@color/black"
+                style="@style/textviewregular"
+                android:layout_marginStart="@dimen/dp16"
+                android:layout_marginTop="@dimen/dp8"
+                android:layout_marginBottom="@dimen/dp8"
+                android:layout_marginEnd="@dimen/dp16"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp16"
+                android:background="@color/white"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="@dimen/dp100"
+                            android:layout_height="@dimen/dp100"
+                            android:src="@mipmap/pilot2"
+                            android:background="@drawable/fill_rounded_white_smoke"
+                            android:text="@string/monthly_txt"
+                            android:gravity="center"/>
+                        <TextView
+                            android:layout_width="@dimen/dp100"
+                            android:layout_height="@dimen/dp100"
+                            android:src="@mipmap/pilot2"
+                            android:layout_marginStart="@dimen/dp6"
+                            android:background="@drawable/fill_rounded_white_smoke"
+                            android:text="@string/weekly_txt"
+                            android:gravity="center"/>
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@color/white">
-
-            <RelativeLayout
+            android:padding="@dimen/dp16">
+            <in.mummysfood.widgets.CkdTextview
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp16"
-                android:layout_marginTop="@dimen/dp8"
-                android:layout_marginBottom="@dimen/dp8"
-                android:layout_marginEnd="@dimen/dp16">
-                <in.mummysfood.widgets.CkdTextview
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/jain_thali"
-                    android:textColor="@color/red"
-                    style="@style/textviewregular"/>
-                <in.mummysfood.widgets.CkdTextview
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/price"
-                    android:textColor="@color/red"
-                    style="@style/textviewregular"
-                    android:layout_alignParentEnd="true"/>
-            </RelativeLayout>
-            <LinearLayout
+                style="@style/textviewregular"
+                android:text=""/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/review_recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dp16"
-                android:orientation="vertical">
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <ImageView
-                            android:layout_width="@dimen/dp100"
-                            android:layout_height="@dimen/dp100"
-                            android:src="@mipmap/pilot2"
-                            android:layout_marginEnd="@dimen/dp2"/>
-                        <ImageView
-                            android:layout_width="@dimen/dp100"
-                            android:layout_height="@dimen/dp100"
-                            android:src="@mipmap/pilot2"
-                            android:layout_marginEnd="@dimen/dp2"/>
-                        <RelativeLayout
-                            android:layout_width="@dimen/dp100"
-                            android:layout_height="@dimen/dp100">
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@mipmap/pilot2"/>
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@color/black"
-                                android:alpha="0.6"/>
-                            <in.mummysfood.widgets.CkdTextview
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="4+"
-                                android:textSize="@dimen/sp24"
-                                android:textColor="@color/white"
-                                style="@style/textviewbold"
-                                android:layout_centerInParent="true"/>
-                        </RelativeLayout>
-                        <RelativeLayout
-                            android:layout_width="@dimen/dp50"
-                            android:layout_height="@dimen/dp100">
-                            <ImageView
-                                android:layout_width="@dimen/dp40"
-                                android:layout_height="@dimen/dp40"
-                                android:src="@mipmap/ic_camera_black_18dp"
-                                android:layout_centerInParent="true"
-                                android:tint="@color/red"/>
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-                </RelativeLayout>
-            </LinearLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dp16"
-                android:layout_marginTop="@dimen/dp8"
-                android:layout_marginBottom="@dimen/dp8"
-                android:layout_marginEnd="@dimen/dp16">
-                <in.mummysfood.widgets.CkdTextview
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/jain_mini_thali"
-                    android:textColor="@color/red"
-                    style="@style/textviewregular"/>
-                <in.mummysfood.widgets.CkdTextview
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/price"
-                    android:textColor="@color/red"
-                    style="@style/textviewregular"
-                    android:layout_alignParentEnd="true"/>
-            </RelativeLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dp16"
-                android:orientation="vertical">
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <ImageView
-                            android:layout_width="@dimen/dp100"
-                            android:layout_height="@dimen/dp100"
-                            android:src="@mipmap/pilot2"
-                            android:layout_marginEnd="@dimen/dp2"/>
-                        <ImageView
-                            android:layout_width="@dimen/dp100"
-                            android:layout_height="@dimen/dp100"
-                            android:src="@mipmap/pilot2"
-                            android:layout_marginEnd="@dimen/dp2"/>
-                        <RelativeLayout
-                            android:layout_width="@dimen/dp100"
-                            android:layout_height="@dimen/dp100">
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@mipmap/pilot2"/>
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@color/black"
-                                android:alpha="0.6"/>
-                            <in.mummysfood.widgets.CkdTextview
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="4+"
-                                android:textSize="@dimen/sp24"
-                                android:textColor="@color/white"
-                                style="@style/textviewbold"
-                                android:layout_centerInParent="true"/>
-                        </RelativeLayout>
-                        <RelativeLayout
-                            android:layout_width="@dimen/dp50"
-                            android:layout_height="@dimen/dp100">
-                            <ImageView
-                                android:layout_width="@dimen/dp40"
-                                android:layout_height="@dimen/dp40"
-                                android:src="@mipmap/ic_camera_black_18dp"
-                                android:layout_centerInParent="true"
-                                android:tint="@color/red"/>
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-                </RelativeLayout>
-            </LinearLayout>
-        </LinearLayout>-->
+                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
