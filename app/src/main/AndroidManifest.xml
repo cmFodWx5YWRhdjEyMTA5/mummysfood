@@ -30,7 +30,9 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".activities.MainBottomBarActivity">
+        <activity
+            android:name=".activities.MainBottomBarActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,15 +44,18 @@
         <activity android:name=".activities.RateYourselfActivity" />
         <activity android:name=".Location.UserLocationActivtiy" />
         <activity android:name=".activities.ChooseFoodTypeActivity" />
-        <activity android:name=".activities.LoginAndSignupActivity">
-            <!--<intent-filter>
+        <activity android:name=".activities.LoginAndSignupActivity" />
+        <activity android:name=".fragments.OrderDetailsActivity">
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
+            -->
         </activity>
         <activity android:name=".activities.MobileOtpVerificationActivity" />
-
         <activity android:name=".Location.EnterFullAdressActivity" />
 
         <!--
@@ -69,7 +74,9 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".activities.ProfileUpdateActivity" />
+        <activity
+            android:name=".activities.ProfileUpdateActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- start firebase push notification -->
 
@@ -96,6 +103,8 @@
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
         <!-- end firebase push notification -->
+
+        <activity android:name=".activities.YourCartActivity"></activity>
     </application>
 
 </manifest>

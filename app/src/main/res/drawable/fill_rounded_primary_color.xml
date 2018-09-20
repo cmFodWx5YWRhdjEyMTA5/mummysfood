@@ -7,10 +7,10 @@
             <corners android:radius="8dp"/>
             <!-- You can create different radius for different corners -->
             <corners
-                android:topLeftRadius="8dp"
-                android:topRightRadius="8dp"
-                android:bottomLeftRadius="8dp"
-                android:bottomRightRadius="8dp"></corners>
+                android:topLeftRadius="12dp"
+                android:topRightRadius="12dp"
+                android:bottomLeftRadius="12dp"
+                android:bottomRightRadius="12dp"></corners>
         </shape>
     </item>
 </selector>

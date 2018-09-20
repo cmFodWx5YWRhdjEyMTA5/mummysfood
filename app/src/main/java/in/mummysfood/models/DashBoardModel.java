@@ -29,6 +29,7 @@ public class DashBoardModel implements Serializable {
   public Food_detail food_detail;
   public boolean add_food;
   public int quantity;
+  public String name;
 
  }
 

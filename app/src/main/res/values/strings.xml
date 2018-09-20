@@ -55,6 +55,7 @@
     <string name="male">Male</string>
     <string name="next_txt">NEXT>></string>
     <string name="food_type_txt">Choose food type</string>
+    <string name="rupee_txt">Rs.</string>
 
     <!--bottom bar acttivity-->
     <string name="title_activity_main_bottom_bar">MainBottomBarActivity</string>
@@ -86,7 +87,8 @@
     <!--order details page-->
     <string name="jain_thali">Jain Thali</string>
     <string name="price">50/-</string>
-    <string name="discription_txt">Discription:-</string>
+    <string name="discription_txt">Discription</string>
+    <string name="subscription_txt">Subscription-</string>
     <string name="kitchen_description">Jain vegetarian diet is practiced by the followers of Jain culture and philosophy. ... The strictest forms of Jain diet is practiced by the ascetics; in addition to potatoes it may exclude other root vegetables.</string>
     <string name="kitchen_txt">KITCHEN</string>
     <string name="last_update">Last Update-</string>

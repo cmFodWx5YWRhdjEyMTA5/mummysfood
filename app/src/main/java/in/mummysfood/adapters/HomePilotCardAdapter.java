@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -17,23 +18,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
 
 import com.bumptech.glide.Glide;
 import in.mummysfood.R;
 import in.mummysfood.data.pref.PreferenceManager;
-import in.mummysfood.fragments.OrderDetailsFragment;
+import in.mummysfood.fragments.OrderDetailsActivity;
 import in.mummysfood.fragments.ProfileFragment;
 import in.mummysfood.models.DashBoardModel;
-import in.mummysfood.models.ProfileModel;
-import in.mummysfood.models.QuestionsModel;
 import in.mummysfood.widgets.CkdTextview;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.ButterKnife;
 
 public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
 
@@ -41,8 +35,6 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
     private List<DashBoardModel.Data> data;
     private OrderListner listner;
     PreferenceManager pf;
-
-    public static OrderDetailsFragment fragment;
 
     public HomePilotCardAdapter(Context context, List<DashBoardModel.Data> data, OrderListner listner) {
         this.context = context;
@@ -88,18 +80,26 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         pf = new PreferenceManager(context,PreferenceManager.ORDER_PREFERENCES_FILE);
 
-        holder.chef_name.setText(data.get(i).f_name);
+        holder.chef_name.setText(data.get(i).name);
         if(data.get(i).profile_image != null){
             try {
                 Glide.with(context).load(data.get(i).profile_image).into(holder.food_image);
-
             }catch (IllegalArgumentException e){
                 e.printStackTrace();
             }
         }else{
-            holder.food_image.setImageResource(R.mipmap.pilot2);
+            holder.food_image.setImageResource(R.mipmap.foodimage);
         }
-        /*Bitmap mbitmap = ((BitmapDrawable) context.getResources().getDrawable(R.drawable.rounded_white_smoke_bg)).getBitmap();
+
+        if (data.get(i).food_detail.price != null){
+            holder.food_price.setText(context.getResources().getString(R.string.rupee_txt)+" "+data.get(i).food_detail.price);
+        }
+
+        if (data.get(i).food_detail.name != null){
+            holder.food_title.setText(data.get(i).food_detail.name);
+        }
+        /*BitmapDrawable drawable = (BitmapDrawable) holder.food_image.getDrawable();
+        Bitmap mbitmap = drawable.getBitmap();
         Bitmap imageRounded = Bitmap.createBitmap(mbitmap.getWidth(), mbitmap.getHeight(), mbitmap.getConfig());
         Canvas canvas = new Canvas(imageRounded);
         Paint mpaint = new Paint();
@@ -140,20 +140,13 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
     public void onClick(View v) {
         int position = (Integer) v.getTag();
         switch (v.getId()){
-            case R.id.chef_image:
-
+            case R.id.food_image:
                 try {
-                    fragment = new OrderDetailsFragment();
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("order_id", data.get(position).chef_detail.user_id);
-                    bundle.putSerializable("data",data.get(position));
-                    fragment.setArguments(bundle);
-                    FragmentManager fragmentManager = (((AppCompatActivity) context).getSupportFragmentManager());
-                    FragmentTransaction fragmentTransaction = fragmentManager
-                            .beginTransaction();
-                    fragmentTransaction.addToBackStack(fragment.getClass().getSimpleName());
-                    fragmentTransaction.replace(R.id.content_frame, fragment);
-                    fragmentTransaction.commit();
+
+                    Intent i = new Intent(context,OrderDetailsActivity.class);
+                    i.putExtra("order_id",data.get(position).id);
+                    i.putExtra("data",data.get(position));
+                    context.startActivity(i);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

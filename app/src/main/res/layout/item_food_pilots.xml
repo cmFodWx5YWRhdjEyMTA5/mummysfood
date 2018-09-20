@@ -5,20 +5,20 @@
     android:background="@color/white">
 
     <LinearLayout
-        android:layout_width="@dimen/dp200"
+        android:layout_width="@dimen/dp150"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_margin="@dimen/dp6">
 
         <RelativeLayout
-            android:layout_width="@dimen/dp200"
-            android:layout_height="@dimen/dp200"
+            android:layout_width="@dimen/dp150"
+            android:layout_height="@dimen/dp150"
             android:background="@drawable/rounded_white_smoke_bg">
             <ImageView
                 android:id="@+id/food_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@mipmap/pilot2"
+                android:src="@mipmap/foodimage"
                 android:scaleType="fitXY"
                 />
         </RelativeLayout>
