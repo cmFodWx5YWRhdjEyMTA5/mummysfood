@@ -107,6 +107,7 @@
     <string name="jain_mini_thali">Jain Mini Thali</string>
     <string name="title_activity_user_location">UserLocationActivity</string>
     <string name="title_activity_maps">Map</string>
+    <string name="change">Change</string>
 
 
 </resources>

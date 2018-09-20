@@ -9,13 +9,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <in.mummysfood.widgets.CkdTextview
         android:id="@+id/sub_item"
-        android:layout_width="32dp"
+        android:layout_width="30dp"
         android:layout_gravity="center"
         android:gravity="center"
         android:layout_marginRight="@dimen/dp4"
         android:textSize="22sp"
         android:textColor="@color/white"
-        android:layout_height="@dimen/dp32"
+        android:layout_height="30dp"
         android:background="@drawable/fill_rounded_primary_color"
         style="@style/textviewbold"
         android:text="-"/>

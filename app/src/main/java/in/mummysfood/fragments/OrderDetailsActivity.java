@@ -59,6 +59,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
     CkdTextview order_detail;
 
 
+
     @BindView(R.id.LunchSwitch)
     SwitchCompat LunchSwitch;
 
@@ -73,9 +74,6 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
     @BindView(R.id.place_order)
     CkdTextview place_order;
-
-    @BindView(R.id.collapsing_toolbar)
-    CollapsingToolbarLayout collapsing_toolbar;
 
     @BindView(R.id.sub_item)
     CkdTextview sub_item;
@@ -110,6 +108,9 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
     @BindView(R.id.userDelAddress)
     CkdTextview userDelAddress;
+
+    @BindView(R.id.backArrow)
+    ImageView backArrow;
 
     private int orderId;
    private DashBoardModel.Data data;
@@ -204,7 +205,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
             userDelAddress.setText(UserCUrrentAdd);
 
            // order_chef_name.setVisibility(View.GONE);
-            collapsing_toolbar.setTitle("MummysFood");
+            //collapsing_toolbar.setTitle("MummysFood");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -414,6 +415,12 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         enterOtherAct.putExtra("From","OrderDetails");
         startActivity(enterOtherAct);
 
+    }
+
+    @OnClick(R.id.backArrow)
+    public void backArrow()
+    {
+        finish();
     }
 
     @OnClick(R.id.processedButton)
