@@ -45,16 +45,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
 public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.OrderListner {
 
     @BindView(R.id.recommended_recyclerview)
     RecyclerView recommended_recyclerview;
     @BindView(R.id.near_you_recyclerview)
     RecyclerView near_you_recyclerview;
-    /*@BindView(R.id.near_you_recyclerview)
-    RecyclerView you_can_try_recyclerview;*/
-    /*@BindView(R.id.homeToolbar)
-    RelativeLayout homeToolbar;*/
 
     Context context;
     private LinearLayoutManager linearLayoutManager;
@@ -89,6 +86,30 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
         showProgress("Loading...");
         setHasOptionsMenu(true);
+
+
+        near_you_recyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                if (newState == RecyclerView.SCROLL_STATE_IDLE)
+                {
+                    //mBottomNav.setVisibility(View.VISIBLE);
+                }
+
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if (dy > 0 ||dy<0 && recyclerView.isShown())
+                {
+                  //  mBottomNav.setVisibility(View.GONE);
+                }
+            }
+        });
         return rootView;
     }
 

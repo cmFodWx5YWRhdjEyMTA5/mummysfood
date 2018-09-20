@@ -114,6 +114,7 @@
     <string name="food_txt">Food</string>
     <string name="monthly_txt">Monthly</string>
     <string name="weekly_txt">Weekly</string>
+    <string name="change">Change</string>
 
 
 </resources>
