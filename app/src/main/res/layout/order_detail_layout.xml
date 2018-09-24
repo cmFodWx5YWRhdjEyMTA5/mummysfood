@@ -401,8 +401,16 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:orientation="vertical"
+                android:orientation="horizontal"
+                android:weightSum="10"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_weight="8"
                 android:background="@color/white"
                 android:layout_height="wrap_content">
 
@@ -410,7 +418,8 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:weightSum="10"
-                    android:gravity="center"
+                    android:gravity="start"
+                    android:layout_marginLeft="@dimen/sp16"
                     android:padding="@dimen/dp4"
                     android:layout_height="wrap_content">
 
@@ -443,6 +452,7 @@
                         android:layout_weight="3"
                         android:layout_height="wrap_content"
                         android:elevation="0dp"
+                        android:visibility="gone"
                         android:textAppearance="@style/TextAppearance.AppCompat"
                         android:theme="@style/MySwitch" />
 
@@ -451,7 +461,8 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:weightSum="10"
-                   android:gravity="center"
+                   android:gravity="start"
+                    android:layout_marginLeft="@dimen/sp16"
                     android:padding="@dimen/dp4"
                     android:layout_height="wrap_content">
                     <in.mummysfood.widgets.CkdTextview
@@ -480,6 +491,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
+                        android:visibility="gone"
                         android:textAppearance="@style/TextAppearance.AppCompat"
                         android:theme="@style/MySwitch" />
                 </LinearLayout>
@@ -488,7 +500,8 @@
                     android:layout_width="match_parent"
                     android:weightSum="10"
                     android:padding="@dimen/dp4"
-                    android:gravity="center"
+                    android:gravity="start"
+                    android:layout_marginLeft="@dimen/sp16"
                     android:layout_height="wrap_content">
                     <in.mummysfood.widgets.CkdTextview
                         android:id="@+id/both"
@@ -518,13 +531,42 @@
                         android:gravity="center"
                         android:layout_height="wrap_content"
                         android:elevation="0dp"
-
+                        android:visibility="gone"
                         android:textAppearance="@style/TextAppearance.AppCompat"
                         android:theme="@style/MySwitch" />
                 </LinearLayout>
-
             </LinearLayout>
 
+                <RadioGroup
+                    android:id="@+id/radioAction"
+                    android:layout_width="0dp"
+                    android:gravity="center"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/radioLunch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="" />
+
+                    <RadioButton
+                        android:id="@+id/radioDinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+
+
+                    <RadioButton
+                        android:id="@+id/radioBoth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="" />
+
+                </RadioGroup>
+            </LinearLayout>
             <LinearLayout
                 android:id="@+id/order_pilot_profile"
                 android:layout_width="wrap_content"

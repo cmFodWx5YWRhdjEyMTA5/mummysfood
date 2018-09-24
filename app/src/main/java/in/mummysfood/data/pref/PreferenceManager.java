@@ -24,32 +24,7 @@ public class PreferenceManager {
     public static final String ORDER_PRICE = "order_price";
     public static final String ORDER_quantity = "order_quantity";
 
-    public static final String GCM_ID = "gcm_id";
-    //UsesCases
-    public static final String AUTH = "auth";
-    public static final String SELECTED_TAGS = "SELECTED_TAGS";
-    public static final String USER_CITY = "user_city";
-    public static final String USER_CITY_ID = "user_city_id";
-    public static final String USER_LAT = "user_lat";
-    public static final String USER_LONG = "user_long";
-    public static final String USER_RESOURCES = "res_user";
-    public static final String USER_RESOURCES_COUNT = "res_user_count";
-    public static final String USER_CITY_UPDATED = "is_city_upd";// indicated wheather user city id is replaced with the pincode id
-    public static final String USER_SHARED_PREF_CLEARED = "SHARED_PREF_CLEAR";//
-    public static final String RESOURCES_STORED = "res_stored";
-
-    public static final String VERSION_CODE = "VERSION_";
-
-    public static final String WALKTHROUGH_SHOWN = "walkthrough";
-
-    public static final String USER_LOCATION_TIME_STAMP = "loc_last_updated";
-    public static final String RESOURCE_UPDATE_TIME_STAMP = "res_update_time";
-    //public static final String BANNER_IMGS_JSON = "banner_js";
-    //public static final String POPULAR_ITEMS = "popular_items";
-    //public static final String REQUESTER_GUIDE_SHOWN = "req_guide_shown";
-    public static final String SHARER_GUIDE_SHOWN = "share_guide_shown";
     public static final String USER_ADDRESS = "user_address";
-    public static final String ACCESS_TOKEN = "access_token";
 
 
 

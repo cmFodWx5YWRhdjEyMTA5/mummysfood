@@ -17,6 +17,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
+import in.mummysfood.BuildConfig;
 import in.mummysfood.R;
 import in.mummysfood.fragments.OrderDetailsActivity;
 import in.mummysfood.models.DashBoardModel;
@@ -83,9 +84,15 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
 
         DashBoardModel.Data model = data.get(i);
 
-        viewHolder.orderTitle.setText(model.food_detail.name);
-        viewHolder.orderPrice.setText(context.getResources().getString(R.string.rupee_txt)+" "+model.food_detail.price);
-        viewHolder.ChefName.setText(model.name);
+
+        try {
+            viewHolder.orderTitle.setText(model.food_detail.name);
+            viewHolder.orderPrice.setText(context.getResources().getString(R.string.Rs)+" "+model.food_detail.price);
+            viewHolder.ChefName.setText(model.name);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         RoundRectShape roundRectShape = new RoundRectShape(new float[]{
                 100, 100, 100, 100,
@@ -95,8 +102,21 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
         viewHolder.foodImage.setBackground(shapeDrawable);
 
         try {
-            Glide.with(context).load(data.get(i).profile_image).placeholder(R.mipmap.foodimage).into(viewHolder.foodImage);
-        }catch (IllegalArgumentException e){
+
+            if (model.food_detail != null)
+            {
+                if(model.food_detail.food_media != null)
+                {
+                    if (model.food_detail.food_media.size() != 0)
+                    {
+                        String imageUrl = BuildConfig.BASE_URL+model.food_detail.food_media.get(0).media.name;
+                        Glide.with(context).load(imageUrl).placeholder(R.mipmap.foodimage).into(viewHolder.foodImage);
+                    }
+
+                }
+            }
+
+        }catch (Exception e){
             e.printStackTrace();
         }
 

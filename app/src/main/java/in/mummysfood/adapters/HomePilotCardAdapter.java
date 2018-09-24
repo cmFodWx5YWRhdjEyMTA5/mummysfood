@@ -20,11 +20,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+
+import in.mummysfood.BuildConfig;
 import in.mummysfood.R;
 import in.mummysfood.data.pref.PreferenceManager;
 import in.mummysfood.fragments.OrderDetailsActivity;
 import in.mummysfood.fragments.ProfileFragment;
 import in.mummysfood.models.DashBoardModel;
+import in.mummysfood.utils.AppConstants;
 import in.mummysfood.widgets.CkdTextview;
 
 import java.util.List;
@@ -78,26 +81,32 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         final ViewHolder holder = (ViewHolder) viewHolder;
 
-        pf = new PreferenceManager(context,PreferenceManager.ORDER_PREFERENCES_FILE);
+        DashBoardModel.Data dataModel = data.get(i);
 
-        holder.chef_name.setText(data.get(i).name);
-        if(data.get(i).profile_image != null){
-            try {
-                Glide.with(context).load(data.get(i).profile_image).into(holder.food_image);
-            }catch (IllegalArgumentException e){
-                e.printStackTrace();
+
+        try {
+            pf = new PreferenceManager(context,PreferenceManager.ORDER_PREFERENCES_FILE);
+
+
+            holder.chef_name.setText(dataModel.name);
+            if(data.get(i).profile_image != null){
+                try {
+                    String imageUrl = BuildConfig.BASE_URL+dataModel.food_detail.food_media.get(0).media.name;
+                    Glide.with(context).load(imageUrl).into(holder.food_image);
+                }catch (IllegalArgumentException e){
+                    e.printStackTrace();
+                }
+            }else{
+                holder.food_image.setImageResource(R.mipmap.foodimage);
             }
-        }else{
-            holder.food_image.setImageResource(R.mipmap.foodimage);
-        }
 
-        if (data.get(i).food_detail.price != null){
-            holder.food_price.setText(context.getResources().getString(R.string.rupee_txt)+" "+data.get(i).food_detail.price);
-        }
+            if (data.get(i).food_detail.price != null){
+                holder.food_price.setText(context.getResources().getString(R.string.rupee_txt)+" "+dataModel.food_detail.price);
+            }
 
-        if (data.get(i).food_detail.name != null){
-            holder.food_title.setText(data.get(i).food_detail.name);
-        }
+            if (data.get(i).food_detail.name != null){
+                holder.food_title.setText(dataModel.food_detail.name);
+            }
         /*BitmapDrawable drawable = (BitmapDrawable) holder.food_image.getDrawable();
         Bitmap mbitmap = drawable.getBitmap();
         Bitmap imageRounded = Bitmap.createBitmap(mbitmap.getWidth(), mbitmap.getHeight(), mbitmap.getConfig());
@@ -108,7 +117,7 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
         canvas.drawRoundRect((new RectF(0, 0, mbitmap.getWidth(), mbitmap.getHeight())), 100, 100, mpaint);// Round Image Corner 100 100 100 100
         holder.food_image.setImageBitmap(imageRounded);*/
 
-        //check share prefrence
+            //check share prefrence
         /*if (pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0 && pf.getIntForKey(PreferenceManager.USER_ID, 0) == data.get(i).id){
             holder.add_to_cart.setVisibility(View.GONE);
             holder.add_to_cart_item_layout.setVisibility(View.VISIBLE);
@@ -123,10 +132,15 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
             holder.add_to_cart_item_layout.setVisibility(View.GONE);
         }*/
 
-        holder.food_image.setTag(i);
-        holder.food_image.setOnClickListener(this);
-        holder.chef_name.setTag(i);
-        holder.chef_name.setOnClickListener(this);
+            holder.food_image.setTag(i);
+            holder.food_image.setOnClickListener(this);
+            holder.chef_name.setTag(i);
+            holder.chef_name.setOnClickListener(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         /*holder.add_to_cart.setTag(i);
         holder.add_to_cart.setOnClickListener(this);
         holder.sub_item.setTag(i);

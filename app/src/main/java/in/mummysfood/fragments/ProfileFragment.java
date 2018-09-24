@@ -26,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -67,22 +68,23 @@ public class ProfileFragment extends BaseFragment {
     CkdTextview profileUsername;
     @BindView(R.id.profile_about)
     CkdTextview profileAbout;
-    @BindView(R.id.is_vagitarian)
-    SwitchCompat is_vagitarian;
+/*    @BindView(R.id.is_vagitarian)
+    SwitchCompat is_vagitarian;*/
     @BindView(R.id.user_rating_layout)
     LinearLayout user_rating_layout;
     @BindView(R.id.expert_layout)
     LinearLayout expert_layout;
     @BindView(R.id.active_time_layout)
     LinearLayout active_time_layout;
-    @BindView(R.id.active_hour_see_more)
-    CkdTextview active_hour_see_more;
+  /*  @BindView(R.id.active_hour_see_more)
+    CkdTextview active_hour_see_more;*/
     @BindView(R.id.kitchen_media_layout)
     LinearLayout kitchen_media_layout;
-    @BindView(R.id.edit_about_img)
+ /*   @BindView(R.id.edit_about_img)
     ImageView edit_about_img;
     @BindView(R.id.update_profile_image)
-    RelativeLayout update_profile_image;
+    RelativeLayout update_profile_image;*/
+
 
     private Context context;
     private int userId;
@@ -161,18 +163,18 @@ public class ProfileFragment extends BaseFragment {
             user_rating_layout.setVisibility(View.GONE);
             expert_layout.setVisibility(View.GONE);
             active_time_layout.setVisibility(View.GONE);
-            active_hour_see_more.setVisibility(View.GONE);
+         //   active_hour_see_more.setVisibility(View.GONE);
             kitchen_media_layout.setVisibility(View.GONE);
-            edit_about_img.setVisibility(View.VISIBLE);
-            update_profile_image.setVisibility(View.VISIBLE);
+           // edit_about_img.setVisibility(View.VISIBLE);
+            //update_profile_image.setVisibility(View.VISIBLE);
         }else if (userData.type != null && userData.type.equalsIgnoreCase(AppConstants.CHEF)){
             user_rating_layout.setVisibility(View.VISIBLE);
             expert_layout.setVisibility(View.VISIBLE);
             active_time_layout.setVisibility(View.VISIBLE);
-            active_hour_see_more.setVisibility(View.VISIBLE);
+            //active_hour_see_more.setVisibility(View.VISIBLE);
             kitchen_media_layout.setVisibility(View.VISIBLE);
-            edit_about_img.setVisibility(View.GONE);
-            update_profile_image.setVisibility(View.GONE);
+            //edit_about_img.setVisibility(View.GONE);
+            //update_profile_image.setVisibility(View.GONE);
         }
 
         if (userData.chef_detail != null && userData.chef_detail.about != null && !"".equalsIgnoreCase(userData.chef_detail.about)){
@@ -180,9 +182,9 @@ public class ProfileFragment extends BaseFragment {
         }
 
         if (userData.is_vagitarian == 0){
-            is_vagitarian.setChecked(true);
+            //is_vagitarian.setChecked(true);
         }else {
-            is_vagitarian.setChecked(false);
+            //is_vagitarian.setChecked(false);
         }
 
         if (userData.type != null && !userData.type.isEmpty() && userData.type.equalsIgnoreCase(AppConstants.CHEF)){

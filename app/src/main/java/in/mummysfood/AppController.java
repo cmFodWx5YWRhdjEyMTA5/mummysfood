@@ -3,6 +3,7 @@ package in.mummysfood;
 import android.app.Application;
 import android.content.Context;
 
+import com.facebook.stetho.Stetho;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -18,6 +19,8 @@ public class AppController extends Application {
     super.onCreate();
     FirebaseApp.initializeApp(this);
     FirebaseInstanceId.getInstance().getToken();
+
+    Stetho.initializeWithDefaults(this);
 
     //AppController.context = getApplicationContext();
     //Firebase.setAndroidContext(this);
