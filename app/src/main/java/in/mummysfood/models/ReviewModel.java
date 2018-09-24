@@ -1,4 +1,4 @@
 package in.mummysfood.models;
 
-class ReviewModel {
+public class ReviewModel {
 }

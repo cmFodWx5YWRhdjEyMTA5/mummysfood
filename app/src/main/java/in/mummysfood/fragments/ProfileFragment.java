@@ -19,6 +19,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,10 +38,13 @@ import com.bumptech.glide.Glide;
 import butterknife.OnClick;
 import in.mummysfood.R;
 import in.mummysfood.activities.ProfileUpdateActivity;
+import in.mummysfood.adapters.HomeSpecialCardAdapter;
+import in.mummysfood.adapters.ReviewAdapter;
 import in.mummysfood.base.BaseFragment;
 import in.mummysfood.data.pref.PreferenceManager;
 import in.mummysfood.models.DashBoardModel;
 import in.mummysfood.models.ProfileModel;
+import in.mummysfood.models.ReviewModel;
 import in.mummysfood.utils.AppConstants;
 import in.mummysfood.widgets.CkdTextview;
 import com.mikhaellopez.circularimageview.CircularImageView;
@@ -47,6 +53,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -68,22 +75,29 @@ public class ProfileFragment extends BaseFragment {
     CkdTextview profileUsername;
     @BindView(R.id.profile_about)
     CkdTextview profileAbout;
-/*    @BindView(R.id.is_vagitarian)
-    SwitchCompat is_vagitarian;*/
+
     @BindView(R.id.user_rating_layout)
     LinearLayout user_rating_layout;
     @BindView(R.id.expert_layout)
     LinearLayout expert_layout;
     @BindView(R.id.active_time_layout)
     LinearLayout active_time_layout;
-  /*  @BindView(R.id.active_hour_see_more)
-    CkdTextview active_hour_see_more;*/
-    @BindView(R.id.kitchen_media_layout)
-    LinearLayout kitchen_media_layout;
+
  /*   @BindView(R.id.edit_about_img)
     ImageView edit_about_img;
     @BindView(R.id.update_profile_image)
     RelativeLayout update_profile_image;*/
+
+//    @BindView(R.id.active_hour_see_more)
+//    CkdTextview active_hour_see_more;
+    @BindView(R.id.kitchen_media_layout)
+    LinearLayout kitchen_media_layout;
+//    @BindView(R.id.edit_about_img)
+//    ImageView edit_about_img;
+//    @BindView(R.id.update_profile_image)
+//    RelativeLayout update_profile_image;
+    @BindView(R.id.review_recyclerview)
+    RecyclerView review_recyclerview;
 
 
     private Context context;
@@ -98,6 +112,8 @@ public class ProfileFragment extends BaseFragment {
     private Uri mImageUri;
     private Bitmap bitmapImage = null;
     private PreferenceManager pf;
+    private ArrayList<ReviewModel> reviewDataList;
+    private LinearLayoutManager linearLayoutManager;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -167,6 +183,7 @@ public class ProfileFragment extends BaseFragment {
             kitchen_media_layout.setVisibility(View.GONE);
            // edit_about_img.setVisibility(View.VISIBLE);
             //update_profile_image.setVisibility(View.VISIBLE);
+
         }else if (userData.type != null && userData.type.equalsIgnoreCase(AppConstants.CHEF)){
             user_rating_layout.setVisibility(View.VISIBLE);
             expert_layout.setVisibility(View.VISIBLE);
@@ -175,6 +192,7 @@ public class ProfileFragment extends BaseFragment {
             kitchen_media_layout.setVisibility(View.VISIBLE);
             //edit_about_img.setVisibility(View.GONE);
             //update_profile_image.setVisibility(View.GONE);
+
         }
 
         if (userData.chef_detail != null && userData.chef_detail.about != null && !"".equalsIgnoreCase(userData.chef_detail.about)){
@@ -187,10 +205,26 @@ public class ProfileFragment extends BaseFragment {
             //is_vagitarian.setChecked(false);
         }
 
+
         if (userData.type != null && !userData.type.isEmpty() && userData.type.equalsIgnoreCase(AppConstants.CHEF)){
 
         }else if (userData.type != null && !userData.type.isEmpty() && userData.type.equalsIgnoreCase(AppConstants.SEEKER)){
 
+        }
+
+        ReviewListPrepare();
+        linearLayoutManager = new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false);
+        review_recyclerview.setHasFixedSize(true);
+        review_recyclerview.setLayoutManager(linearLayoutManager);
+        review_recyclerview.setItemAnimator(new DefaultItemAnimator());
+        ReviewAdapter reviewAdapter = new ReviewAdapter(getActivity(),reviewDataList);
+        review_recyclerview.setAdapter(reviewAdapter);
+    }
+
+    private void ReviewListPrepare() {
+        reviewDataList = new ArrayList<>();
+        for (int i = 0; i<5; i++){
+            reviewDataList.add(new ReviewModel());
         }
     }
 
