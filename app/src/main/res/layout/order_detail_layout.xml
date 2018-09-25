@@ -62,11 +62,12 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                 <ImageView
-                android:id="@+id/order_image"
-                android:layout_width="match_parent"
-                android:layout_height="260dp"
-                android:background="@mipmap/foodimage" />
+                <ImageView
+                    android:id="@+id/order_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="260dp"
+                    android:background="@mipmap/foodimage"
+                    />
                 <ImageView
                     android:id="@+id/backArrow"
                     android:layout_width="@dimen/dp48"
@@ -120,14 +121,30 @@
                     style="@style/textviewbold"
                     android:layout_marginTop="@dimen/dp8"
                     android:layout_below="@+id/order_titile"/>
-                <include
-                    layout="@layout/add_item"
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/order_titile"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="@dimen/dp16"/>
-
+                    android:layout_alignParentEnd="true">
+                    <include
+                        layout="@layout/add_item"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"/>
+                    <in.mummysfood.widgets.CkdTextview
+                        android:id="@+id/add_to_cart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add_cart"
+                        android:layout_alignParentEnd="true"
+                        android:background="@drawable/fill_rounded_primary_color"
+                        android:padding="@dimen/dp8"
+                        android:paddingStart="@dimen/dp28"
+                        android:paddingEnd="@dimen/dp28"
+                        android:layout_centerVertical="true"
+                        android:textColor="@color/white"
+                        android:visibility="visible"/>
+                </RelativeLayout>
 
             </RelativeLayout>
             <RelativeLayout

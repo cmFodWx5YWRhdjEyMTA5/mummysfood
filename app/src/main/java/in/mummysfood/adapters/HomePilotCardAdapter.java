@@ -156,7 +156,6 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
         switch (v.getId()){
             case R.id.food_image:
                 try {
-
                     Intent i = new Intent(context,OrderDetailsActivity.class);
                     i.putExtra("order_id",data.get(position).id);
                     i.putExtra("data",data.get(position));

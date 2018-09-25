@@ -1,32 +1,24 @@
 package in.mummysfood.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.bumptech.glide.Glide;
 import in.mummysfood.Location.EnterFullAdressActivity;
-import in.mummysfood.Location.UserLocationActivtiy;
 import in.mummysfood.R;
 import in.mummysfood.activities.YourCartActivity;
 import in.mummysfood.base.BaseActivity;
-import in.mummysfood.base.BaseFragment;
 import in.mummysfood.data.pref.PreferenceManager;
 import in.mummysfood.models.DashBoardModel;
 import in.mummysfood.models.OrderModel;
@@ -126,6 +118,12 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
     @BindView(R.id.radioAction)
     RadioGroup radioAction;
 
+    @BindView(R.id.add_to_cart)
+    CkdTextview add_to_cart;
+
+    @BindView(R.id.add_to_cart_item_layout)
+    LinearLayout add_to_cart_item_layout;
+
 
     private int orderId;
     private DashBoardModel.Data data;
@@ -133,9 +131,10 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
     private PreferenceManager userPf;
     private int monthlyValue;
     private int weeklyValue;
-    private  int priceOrgValue;
-
+    private int priceOrgValue;
     private String UserCUrrentAdd = "";
+    private Context context;
+    private int item_quantity;
 
     public OrderDetailsActivity() {
         // Required empty public constructor
@@ -297,6 +296,103 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         showItemContainPopup();
     }
 
+    @OnClick(R.id.add_to_cart)
+    public void AddToCart(){
+
+        if (pf.getIntForKey(PreferenceManager.ORDER_ID,0) == 0){
+            setOrderItemData();
+        }else{
+            String msg = "Your cart contains dishes from "+ pf.getStringForKey(PreferenceManager.ORDER_NAME,null)+". Do you want to discard the selection and add dishes from "+data.food_detail.name+" ?";
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage(msg)
+                    .setCancelable(false)
+                    .setNegativeButton(R.string.no_txt,new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            if (dialog != null) {
+                                dialog.dismiss();
+                            }
+                        }
+                    })
+                    .setPositiveButton(R.string.yes_txt, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            pf.clearPref(context,PreferenceManager.ORDER_PREFERENCES_FILE);
+                            setOrderItemData();
+                        }
+                    });
+            // Create the AlertDialog object and return it
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+
+    }
+
+    private void CheckFoodAdd(){
+        if (pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0 && pf.getIntForKey(PreferenceManager.USER_ID, 0) == data.id){
+            add_to_cart.setVisibility(View.GONE);
+            add_to_cart_item_layout.setVisibility(View.VISIBLE);
+            if (pf.getIntForKey(PreferenceManager.ORDER_quantity, 0) != 0) {
+                item_count.setText("" + pf.getIntForKey(PreferenceManager.ORDER_quantity, 0));
+            } else {
+                add_to_cart.setVisibility(View.VISIBLE);
+                add_to_cart_item_layout.setVisibility(View.GONE);
+            }
+        }else {
+            add_to_cart.setVisibility(View.VISIBLE);
+            add_to_cart_item_layout.setVisibility(View.GONE);
+        }
+    }
+    private void setOrderItemData() {
+        if (!data.add_food) {
+            data.add_food = true;
+            item_quantity = 0;
+            sharePref(data,item_quantity);
+        }else{
+            data.quantity = 0;
+            pf.clearPref(context, PreferenceManager.ORDER_PREFERENCES_FILE);
+            CheckFoodAdd();
+        }
+    }
+
+    private void sharePref(DashBoardModel.Data foodData, int quantity) {
+        pf.saveIntForKey(PreferenceManager.USER_ID,foodData.id);
+        pf.saveIntForKey(PreferenceManager.ORDER_ID,foodData.food_detail.id);
+        pf.saveIntForKey(PreferenceManager.ODRDER_USER_ID,foodData.food_detail.user_id);
+        pf.saveIntForKey(PreferenceManager.ORDER_CATEGORY_ID,foodData.food_detail.category_id);
+        pf.saveStringForKey(PreferenceManager.ORDER_NAME,foodData.food_detail.name);
+        pf.saveStringForKey(PreferenceManager.ORDER_DETAILS,foodData.food_detail.details);
+        pf.saveStringForKey(PreferenceManager.ORDER_PRICE,foodData.food_detail.price);
+        pf.saveIntForKey(PreferenceManager.ORDER_quantity,quantity);
+    }
+
+    @OnClick(R.id.add_item)
+    public void AddFoodQuantity() {
+        int count = 0;
+        if (pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0 && pf.getIntForKey(PreferenceManager.USER_ID, 0) == data.id){
+            count = pf.getIntForKey(PreferenceManager.ORDER_quantity, 0);
+        }
+        count++;
+        pf.saveIntForKey(PreferenceManager.ORDER_quantity,count);
+
+        CheckFoodAdd();
+    }
+
+    @OnClick(R.id.sub_item)
+    public void SubFoodQuantity() {
+        int count = 0;
+        if (pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0 && pf.getIntForKey(PreferenceManager.USER_ID, 0) == data.id){
+            count = pf.getIntForKey(PreferenceManager.ORDER_quantity, 0);
+        }
+
+        if (count > 0) {
+            count--;
+            pf.saveIntForKey(PreferenceManager.ORDER_quantity,count);
+        }else{
+            data.add_food = false;
+            pf.clearPref(context, PreferenceManager.ORDER_PREFERENCES_FILE);
+        }
+        CheckFoodAdd();
+    }
+
     private void showItemContainPopup() {
 
         LayoutInflater li = LayoutInflater.from(this);
@@ -441,7 +537,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
     }
 
-    @OnClick(R.id.sub_item)
+   /* @OnClick(R.id.sub_item)
     public void SubFoodQuantity() {
         int count = 0;
         if (pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0 ){
@@ -468,7 +564,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         pf.saveIntForKey(PreferenceManager.ORDER_quantity,count);
 
         item_count.setText(String.valueOf(count));
-    }
+    }*/
 
 
 
