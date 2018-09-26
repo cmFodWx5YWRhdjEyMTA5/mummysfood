@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import in.mummysfood.BuildConfig;
 import in.mummysfood.R;
 import in.mummysfood.fragments.OrderDetailsActivity;
+import in.mummysfood.fragments.ProfileFragment;
 import in.mummysfood.models.DashBoardModel;
 import in.mummysfood.widgets.CkdTextview;
 
@@ -51,7 +52,18 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
                 }
 
                 break;
-
+            case R.id.chef_name:
+                ProfileFragment fragment1 = new ProfileFragment();
+                Bundle bundle1 = new Bundle();
+                bundle1.putInt("user_id", data.get(position).chef_detail.user_id);
+                fragment1.setArguments(bundle1);
+                FragmentManager fragmentManager1 = (((AppCompatActivity) context).getSupportFragmentManager());
+                FragmentTransaction fragmentTransaction1 = fragmentManager1
+                        .beginTransaction();
+                fragmentTransaction1.addToBackStack(fragment1.getClass().getSimpleName());
+                fragmentTransaction1.replace(R.id.content_frame, fragment1);
+                fragmentTransaction1.commit();
+                break;
         }
 
         }
@@ -122,6 +134,7 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
 
         viewHolder.foodImage.setTag(i);
         viewHolder.foodImage.setOnClickListener(this);
+
 
     }
 
