@@ -1,15 +1,20 @@
 package in.mummysfood.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import com.google.firebase.auth.UserInfo;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import in.mummysfood.Location.EnterFullAdressActivity;
 import in.mummysfood.R;
 import in.mummysfood.base.BaseActivity;
 import in.mummysfood.data.pref.PreferenceManager;
@@ -32,6 +37,10 @@ public class YourCartActivity extends BaseActivity {
 
     @BindView(R.id.payatm)
     CkdTextview payatm;
+
+    @BindView(R.id.payatmOption)
+    CkdTextview payatmOption;
+
 
     @BindView(R.id.personInfo)
     CkdTextview personInfo;
@@ -56,7 +65,22 @@ public class YourCartActivity extends BaseActivity {
 
     @BindView(R.id.vegSysmbol)
     ImageView vegSysmbol;
+    @BindView(R.id.backArrowFinish)
+    ImageView backArrowFinish;
 
+
+
+    @BindView(R.id.scrollchange)
+    ScrollView scrollChange;
+
+    @BindView(R.id.checkedCod)
+    ImageView checkedCod;
+
+    @BindView(R.id.paytmChecked)
+    ImageView paytmChecked;
+
+    @BindView(R.id.changePaymentOption)
+    LinearLayout changePaymentOption;
 
 
     private DashBoardModel.Data modelData;
@@ -103,6 +127,7 @@ public class YourCartActivity extends BaseActivity {
             payatm.setText("Payatm "+"Rs."+modelData.food_detail.price+"/-");
             placeOrderprice.setText("Pay Rs."+modelData.food_detail.price+"/-");
 
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -114,6 +139,13 @@ public class YourCartActivity extends BaseActivity {
             placeOrderprice.setTextColor(getResources().getColor(R.color.black));
             placeOrderButtonCheckout.setTextColor(getResources().getColor(R.color.black));
 
+        }
+
+
+        try {
+            payatmOption.setText("Pay Rs."+modelData.food_detail.price+"/-");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
     }
@@ -131,8 +163,8 @@ public class YourCartActivity extends BaseActivity {
         }else
         {
             placeOrderButton.setBackground(getResources().getDrawable(R.drawable.fill_rounded_full_primary));
-            placeOrderprice.setTextColor(getResources().getColor(R.color.white));
-            placeOrderButtonCheckout.setTextColor(getResources().getColor(R.color.white));
+            placeOrderprice.setTextColor(getResources().getColor(R.color.black));
+            placeOrderButtonCheckout.setTextColor(getResources().getColor(R.color.black));
         }
     }
 
@@ -146,18 +178,110 @@ public class YourCartActivity extends BaseActivity {
     @OnClick(R.id.addressChange)
     public void addressChange()
     {
-
+        String addrsss = addressMain.getText().toString();
+        Intent adresIntent = new Intent(YourCartActivity.this,EnterFullAdressActivity.class);
+        adresIntent.putExtra("Address",addrsss);
+        adresIntent.putExtra("From","OrderDetails");
+        startActivityForResult(adresIntent,200);
     }
 
     @OnClick(R.id.patmentChange)
     public void patmentChange()
     {
 
+        scrollChange.setVisibility(View.GONE);
+        changePaymentOption.setVisibility(View.VISIBLE);
+
+    }
+
+    @OnClick(R.id.COD)
+    public void COD()
+    {
+        checkedCod.setVisibility(View.VISIBLE);
+        changePaymentOption.setVisibility(View.GONE);
+        scrollChange.setVisibility(View.VISIBLE);
+
+        checkedCod.setVisibility(View.GONE);
+        paytmChecked.setVisibility(View.GONE);
+        try {
+            payatm.setText("COD "+"Rs."+modelData.food_detail.price+"/-");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @OnClick(R.id.logoPyatm)
+    public void setPayatm()
+    {
+        paytmChecked.setVisibility(View.VISIBLE);
+        changePaymentOption.setVisibility(View.GONE);
+        scrollChange.setVisibility(View.VISIBLE);
+        checkedCod.setVisibility(View.GONE);
+        paytmChecked.setVisibility(View.GONE);
+        try {
+            payatm.setText("Payatm "+"Rs."+modelData.food_detail.price+"/-");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    @OnClick(R.id.payatmOption)
+    public void payatmOption()
+    {
+
+
+        try {
+            payatm.setText("Payatm "+"Rs."+modelData.food_detail.price+"/-");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        paytmChecked.setVisibility(View.VISIBLE);
+        changePaymentOption.setVisibility(View.GONE);
+        scrollChange.setVisibility(View.VISIBLE);
+        checkedCod.setVisibility(View.GONE);
+        paytmChecked.setVisibility(View.GONE);
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+
+        if (changePaymentOption.getVisibility() ==View.VISIBLE)
+        {
+            changePaymentOption.setVisibility(View.GONE);
+            scrollChange.setVisibility(View.VISIBLE);
+
+        }else
+        {
+            finish();
+        }
+
+    }
+
+    @OnClick(R.id.backArrowFinish)
+    public void backArrowFinish()
+    {
         finish();
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // check that it is the SecondActivity with an OK result
+        if (requestCode == 200) {
+            if (resultCode == RESULT_OK) {
+
+                String dataValue = data.getStringExtra("Address");
+
+                addressMain.setText(dataValue);
+
+                showToast(dataValue);
+            }
+        }
     }
 }

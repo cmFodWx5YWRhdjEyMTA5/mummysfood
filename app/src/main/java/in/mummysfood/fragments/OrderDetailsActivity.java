@@ -24,6 +24,8 @@ import in.mummysfood.models.DashBoardModel;
 import in.mummysfood.models.OrderModel;
 import in.mummysfood.utils.AppConstants;
 import in.mummysfood.widgets.CkdTextview;
+
+import com.bumptech.glide.Glide;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.io.IOException;
@@ -217,7 +219,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
         userAddress = "Khajarana Ganesh Mandir";
         try {
-            //  Glide.with(this).load(data.profile_image).into(order_chef_profile_img);
+           //  Glide.with(this).load(data.profile_image).into(order_chef_profile_img);
             order_chef_name.setText(data.f_name);
             order_titile.setText(data.food_detail.name);
             order_detail.setText(data.food_detail.details);
@@ -236,6 +238,18 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
             dinnerPrice.setText(String.valueOf(weeklyValue));
             lunchPrice.setText(String.valueOf(weeklyValue));
             bothPrice.setText(String.valueOf(weeklyValue+weeklyValue));
+
+            if(data.food_detail.food_media.get(0) != null){
+                try {
+                    String imageUrl = "http://cdn.mummysfood.in/"+data.food_detail.food_media.get(0).media.name;
+                    Log.d("ImageUrl",imageUrl);
+                    Glide.with(this).load(imageUrl).into(order_image);
+                }catch (IllegalArgumentException e){
+                    e.printStackTrace();
+                }
+            }else{
+                order_image.setImageResource(R.mipmap.foodimage);
+            }
 
 
         } catch (Exception e) {

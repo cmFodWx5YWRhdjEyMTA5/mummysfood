@@ -7,29 +7,22 @@
     android:background="@color/white"
     android:orientation="vertical"
     tools:context="in.mummysfood.activities.YourCartActivity">
-
-    <ScrollView
-        android:fillViewport="true"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dp48"
         android:background="@color/colorPrimary"
-        android:padding="@dimen/dp16"
+        android:padding="@dimen/dp8"
         android:orientation="vertical">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:src="@mipmap/profile_icon"/>
+                android:id="@+id/backArrowFinish"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:padding="@dimen/dp4"
+                android:tint="@color/white"
+                android:src="@drawable/ic_back_arrow"/>
             <in.mummysfood.widgets.CkdTextview
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -45,6 +38,17 @@
                 android:src="@mipmap/profile_icon"/>
         </RelativeLayout>
     </LinearLayout>
+    <ScrollView
+        android:fillViewport="true"
+        android:id="@+id/scrollchange"
+        android:layout_width="match_parent"
+        android:visibility="visible"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
 
 
     <LinearLayout
@@ -474,4 +478,83 @@
     </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/changePaymentOption"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:padding="@dimen/dp8"
+            android:weightSum="10"
+            android:layout_height="wrap_content">
+
+            <in.mummysfood.widgets.CkdTextview
+                android:id="@+id/COD"
+                android:layout_width="wrap_content"
+                android:text="COD (Cash on delivery)"
+                android:textColor="@color/black_effective"
+                android:layout_margin="@dimen/dp8"
+                android:paddingTop="@dimen/dp8"
+                android:layout_weight="7"
+                android:paddingRight="@dimen/dp8"
+                style="@style/textviewregular"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/checkedCod"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tint="@color/black_effective"
+                android:src="@drawable/ic_check"
+                android:layout_weight="2"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:padding="@dimen/dp8"
+            android:weightSum="10"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/logoPyatm"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp32"
+                android:layout_marginLeft="@dimen/dp8"
+                android:src="@drawable/paytm"
+                android:layout_weight="3"
+                android:layout_gravity="center"
+                />
+            <in.mummysfood.widgets.CkdTextview
+                android:id="@+id/payatmOption"
+                android:layout_width="wrap_content"
+                android:text=""
+                android:textColor="@color/black_effective"
+                android:layout_margin="@dimen/dp8"
+                android:paddingLeft="@dimen/dp8"
+                android:layout_weight="5"
+                android:paddingRight="@dimen/dp8"
+                style="@style/textviewregular"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/paytmChecked"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tint="@color/black_effective"
+                android:src="@drawable/ic_check"
+                android:visibility="gone"
+                android:layout_weight="2"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
 </LinearLayout>

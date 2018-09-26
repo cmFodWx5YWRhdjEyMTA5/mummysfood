@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.bumptech.glide.Glide;
 
 import in.mummysfood.BuildConfig;
 import in.mummysfood.R;
+import in.mummysfood.data.network.RetrofitApiService;
 import in.mummysfood.data.pref.PreferenceManager;
 import in.mummysfood.fragments.OrderDetailsActivity;
 import in.mummysfood.fragments.ProfileFragment;
@@ -89,9 +91,10 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
 
 
             holder.chef_name.setText(dataModel.name);
-            if(data.get(i).profile_image != null){
+            if(data.get(i).food_detail.food_media.get(0) != null){
                 try {
-                    String imageUrl = BuildConfig.BASE_URL+dataModel.food_detail.food_media.get(0).media.name;
+                    String imageUrl = "http://cdn.mummysfood.in/"+dataModel.food_detail.food_media.get(0).media.name;
+                    Log.d("ImageUrl",imageUrl);
                     Glide.with(context).load(imageUrl).into(holder.food_image);
                 }catch (IllegalArgumentException e){
                     e.printStackTrace();

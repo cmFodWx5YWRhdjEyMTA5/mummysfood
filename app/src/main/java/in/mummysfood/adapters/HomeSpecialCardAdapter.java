@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.bumptech.glide.Glide;
 
 import in.mummysfood.BuildConfig;
 import in.mummysfood.R;
+import in.mummysfood.data.network.RetrofitApiService;
 import in.mummysfood.fragments.OrderDetailsActivity;
 import in.mummysfood.fragments.ProfileFragment;
 import in.mummysfood.models.DashBoardModel;
@@ -39,7 +41,7 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
     public void onClick(View v) {
         int position = (Integer) v.getTag();
         switch (v.getId()) {
-            case R.id.chef_image:
+            case R.id.food_image_bg:
 
                 try {
 
@@ -81,7 +83,7 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
             orderTitle = itemView.findViewById(R.id.order_titile);
             orderPrice = itemView.findViewById(R.id.order_price);
             ChefName = itemView.findViewById(R.id.chef_name);
-            foodImage = itemView.findViewById(R.id.chef_image);
+            foodImage = itemView.findViewById(R.id.food_image_bg);
         }
     }
 
@@ -106,22 +108,25 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
             e.printStackTrace();
         }
 
-        RoundRectShape roundRectShape = new RoundRectShape(new float[]{
+   /*     RoundRectShape roundRectShape = new RoundRectShape(new float[]{
                 100, 100, 100, 100,
                 100, 100, 100, 100}, null, null);
         ShapeDrawable shapeDrawable = new ShapeDrawable(roundRectShape);
-        shapeDrawable.getPaint().setColor(Color.parseColor("#FFFFFF"));
-        viewHolder.foodImage.setBackground(shapeDrawable);
+    //    shapeDrawable.getPaint().setColor(Color.parseColor("#FFFFFF"));
+        viewHolder.foodImage.setBackground(shapeDrawable);*/
 
         try {
 
             if (model.food_detail != null)
             {
-                if(model.food_detail.food_media != null)
-                {
+                if(model.food_detail.food_media != null){
+
                     if (model.food_detail.food_media.size() != 0)
                     {
-                        String imageUrl = BuildConfig.BASE_URL+model.food_detail.food_media.get(0).media.name;
+                        String imageUrl = "http://cdn.mummysfood.in/"+model.food_detail.food_media.get(0).media.name;
+
+                        Log.d("ImageUrl",imageUrl);
+
                         Glide.with(context).load(imageUrl).placeholder(R.mipmap.foodimage).into(viewHolder.foodImage);
                     }
 

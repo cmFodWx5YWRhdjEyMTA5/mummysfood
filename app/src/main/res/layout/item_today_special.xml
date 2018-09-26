@@ -21,11 +21,10 @@
             android:padding="@dimen/dp2"
             android:layout_height="match_parent">
             <ImageView
-                android:id="@+id/chef_image"
+                android:id="@+id/food_image_bg"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:scaleType="fitXY"
-                android:src="@mipmap/pilot2"
                 />
             <RatingBar
                 android:id="@+id/rating"

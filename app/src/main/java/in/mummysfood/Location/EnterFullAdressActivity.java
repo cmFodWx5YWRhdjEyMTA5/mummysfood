@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 import in.mummysfood.R;
 import in.mummysfood.activities.MainBottomBarActivity;
+import in.mummysfood.activities.YourCartActivity;
 import in.mummysfood.base.BaseActivity;
 import in.mummysfood.data.pref.PreferenceManager;
 
@@ -80,10 +81,12 @@ public class EnterFullAdressActivity extends BaseActivity {
 
 
     //        listner.updateAdd(address);
-            listner.updateAddressInterface(updatedText);
+          //  listner.updateAddressInterface(updatedText);
 
+            Intent output = new Intent();
+            output.putExtra("Address", updatedText);
+            setResult(RESULT_OK, output);
             finish();
-
 
         }else
         {

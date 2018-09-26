@@ -46,7 +46,7 @@
                 <android.support.v7.widget.SearchView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/rounded_white_smoke_bg"
+                    android:background="@drawable/fill_rounded_full_primary"
                     android:layout_marginTop="@dimen/dp16"
                     app:queryHint="@string/home_search"/>
             </LinearLayout>
