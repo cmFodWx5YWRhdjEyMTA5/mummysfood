@@ -80,6 +80,9 @@ public interface RetrofitApiService {
         @POST("order")
         Call<OrderModel.Data> orderPlace(@Body OrderModel.Data orderModel);
 
+        @POST("subscribe")
+        Call<OrderModel.Data> subscribeOrder(@Body OrderModel.Data orderModel);
+
         @GET
         Call<LocationModel> getTopRatedMovies(@Url String url);
 

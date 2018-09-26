@@ -1,8 +1,11 @@
 package in.mummysfood.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -10,6 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 import com.google.firebase.auth.UserInfo;
+
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,7 +24,12 @@ import in.mummysfood.R;
 import in.mummysfood.base.BaseActivity;
 import in.mummysfood.data.pref.PreferenceManager;
 import in.mummysfood.models.DashBoardModel;
+import in.mummysfood.models.OrderModel;
+import in.mummysfood.utils.AppConstants;
 import in.mummysfood.widgets.CkdTextview;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class YourCartActivity extends BaseActivity {
 
@@ -88,6 +98,8 @@ public class YourCartActivity extends BaseActivity {
     PreferenceManager pfUMobile;
     PreferenceManager pfUAddress;
 
+    private int radioValue;
+
     private String userAdd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +111,7 @@ public class YourCartActivity extends BaseActivity {
         if (getIntent() != null)
         {
             modelData = (DashBoardModel.Data) getIntent().getSerializableExtra("data");
+            radioValue = getIntent().getIntExtra("radioAction",0);
         }
 
 
@@ -122,7 +135,7 @@ public class YourCartActivity extends BaseActivity {
             order_price.setText(modelData.food_detail.price);
             order_price_basedQuantity.setText(modelData.food_detail.price);
             totalValue.setText(modelData.food_detail.price);
-            order_taxes.setText(modelData.food_detail.price);
+            order_taxes.setText(modelData.food_detail.taxes);
             placeOrderprice.setText(modelData.food_detail.price);
             payatm.setText("Payatm "+"Rs."+modelData.food_detail.price+"/-");
             placeOrderprice.setText("Pay Rs."+modelData.food_detail.price+"/-");
@@ -155,6 +168,7 @@ public class YourCartActivity extends BaseActivity {
     {
         if (addressMain == null && "".equalsIgnoreCase(userAdd))
         {
+
             placeOrderButton.setBackground(getResources().getDrawable(R.drawable.fill_rounded_white_smoke));
             placeOrderprice.setTextColor(getResources().getColor(R.color.black));
             placeOrderButtonCheckout.setTextColor(getResources().getColor(R.color.black));
@@ -166,6 +180,8 @@ public class YourCartActivity extends BaseActivity {
             placeOrderprice.setTextColor(getResources().getColor(R.color.black));
             placeOrderButtonCheckout.setTextColor(getResources().getColor(R.color.black));
         }
+
+        placeOrderDialog();
     }
 
     @OnClick(R.id.infoChange)
@@ -284,4 +300,97 @@ public class YourCartActivity extends BaseActivity {
             }
         }
     }
+
+    public void placeOrderDialog()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Place Order")
+                .setCancelable(false)
+                .setNegativeButton(R.string.no_txt,new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        if (dialog != null) {
+                            dialog.dismiss();
+                        }
+                    }
+                })
+                .setPositiveButton(R.string.yes_txt, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        placeOrderData();
+                    }
+                });
+        // Create the AlertDialog object and return it
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void placeOrderData()
+    {
+
+        OrderModel.Data orderModel = new OrderModel.Data();
+        orderModel.food_user_id = modelData.chef_detail.user_id;
+        orderModel.order_by = modelData.id;
+        orderModel.order_for = modelData.chef_detail.user_id;
+        orderModel.food_detail = modelData.food_detail.details;
+        orderModel.food_name = modelData.food_detail.name;
+        orderModel.chef_name = modelData.f_name;
+        orderModel.house_no = "Address";
+        orderModel.landmark = "vijay nagar";
+        orderModel.street = "scheme no. 74";
+        orderModel.city = "indore";
+        orderModel.state = "MP";
+        orderModel.pincode = "452010";
+        orderModel.address_type = modelData.f_name;
+        orderModel.price = modelData.food_detail.price;
+        orderModel.quantity =1;
+        orderModel.payment_status = "confirm";
+        orderModel.is_order_confirmed = 1;
+        orderModel.user_id = 1;
+        orderModel.subscribe_to = modelData.chef_detail.user_id;
+        orderModel.number_of_days = radioValue;
+        orderModel.status = "Active";
+        orderModel.ordered_plates = 2;
+
+
+
+        Call<OrderModel.Data> loginRequestCall = AppConstants.restAPI.subscribeOrder(orderModel);
+
+        loginRequestCall.enqueue(new Callback<OrderModel.Data>() {
+            @Override
+            public void onResponse(Call<OrderModel.Data> call, Response<OrderModel.Data> response) {
+
+                if (response != null){
+
+                    if (response.isSuccessful()){
+                        OrderModel.Data res = response.body();
+                        if (res.status != null && res.status.equalsIgnoreCase(AppConstants.SUCCESS)){
+
+                        }else{
+                        }
+
+                    }else {
+
+                        try {
+                            Log.e("Response is not success",""+response.errorBody().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }else {
+                    try {
+                        Log.e("Response is null",""+response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OrderModel.Data> call, Throwable t) {
+                Log.e("Response is failure", ""+t);
+
+            }
+        });
+    }
+
 }

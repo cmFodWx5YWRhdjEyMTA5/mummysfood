@@ -235,9 +235,9 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
             monthlyValue = priceOrgValue * 31;
             weeklyValue = priceOrgValue * 7;
 
-            dinnerPrice.setText(String.valueOf(weeklyValue));
-            lunchPrice.setText(String.valueOf(weeklyValue));
-            bothPrice.setText(String.valueOf(weeklyValue+weeklyValue));
+            dinnerPrice.setText(String.valueOf(data.food_detail.week_dinner_price));
+            lunchPrice.setText(String.valueOf(data.food_detail.week_lunch_price));
+            bothPrice.setText(String.valueOf(data.food_detail.week_dinner_price+data.food_detail.week_lunch_price));
 
             if(data.food_detail.food_media.get(0) != null){
                 try {
@@ -450,11 +450,10 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         weekly.setBackground(getResources().getDrawable(R.drawable.border_gray));
 
 
-        dinnerPrice.setText(String.valueOf(monthlyValue));
+        dinnerPrice.setText(String.valueOf(data.food_detail.month_dinner_price));
+        lunchPrice.setText(String.valueOf(data.food_detail.month_lunch_price));
+        bothPrice.setText(String.valueOf(data.food_detail.month_dinner_price+data.food_detail.month_lunch_price));
 
-        lunchPrice.setText(String.valueOf(monthlyValue));
-
-        bothPrice.setText(String.valueOf(monthlyValue+monthlyValue));
 
     }
 
@@ -465,11 +464,9 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         weekly.setBackground(getResources().getDrawable(R.drawable.border_primary));
 
 
-            dinnerPrice.setText(String.valueOf(weeklyValue));
-
-            lunchPrice.setText(String.valueOf(weeklyValue));
-
-            bothPrice.setText(String.valueOf(weeklyValue+weeklyValue));
+        dinnerPrice.setText(String.valueOf(data.food_detail.week_dinner_price));
+        lunchPrice.setText(String.valueOf(data.food_detail.week_lunch_price));
+        bothPrice.setText(String.valueOf(data.food_detail.week_dinner_price+data.food_detail.week_lunch_price));
 
     }
 
@@ -604,6 +601,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
     {
         Intent yourCart = new Intent(this, YourCartActivity.class);
         yourCart.putExtra("data",data);
+        yourCart.putExtra("radioAction",getRadioSelected());
         startActivity(yourCart);
     }
 
@@ -615,10 +613,26 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
     private int getRadioSelected() {
 
-
+          int price = 0;
         int selectedId = radioAction.getCheckedRadioButtonId();
 
-          return selectedId;
+        if (selectedId== R.id.radioDinner)
+        {
+            price = Integer.parseInt(dinnerPrice.getText().toString());
+        }
+        if (selectedId == R.id.radioLunch)
+        {
+            price = Integer.parseInt(lunchPrice.getText().toString());
+
+        }
+
+        if (selectedId == R.id.radioBoth)
+        {
+            price = Integer.parseInt(bothPrice.getText().toString());
+
+        }
+
+          return price;
     }
 
     @Override

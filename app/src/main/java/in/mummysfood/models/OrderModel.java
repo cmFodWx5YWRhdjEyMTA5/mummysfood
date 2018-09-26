@@ -67,5 +67,9 @@ public class OrderModel {
         public String updated_at;
         @SerializedName("user_id")
         public int user_id;
+
+        public int subscribe_to;
+        public int number_of_days;
+        public int ordered_plates;
     }
 }
