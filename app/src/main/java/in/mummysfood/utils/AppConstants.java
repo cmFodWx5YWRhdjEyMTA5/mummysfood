@@ -66,6 +66,8 @@ public final class AppConstants {
     public static final String GOOGLE = "google";
     public static final String MOBILE = "mobile";
 
+    public static final String IMAGEURL = "http://cdn.mummysfood.in/";
+
     private AppConstants() {
         // This utility class is not publicly instantiable
     }
