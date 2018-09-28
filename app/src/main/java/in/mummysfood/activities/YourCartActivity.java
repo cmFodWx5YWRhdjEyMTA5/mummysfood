@@ -350,8 +350,6 @@ public class YourCartActivity extends BaseActivity {
         orderModel.status = "Active";
         orderModel.ordered_plates = 2;
 
-
-
         Call<OrderModel.Data> loginRequestCall = AppConstants.restAPI.subscribeOrder(orderModel);
 
         loginRequestCall.enqueue(new Callback<OrderModel.Data>() {
@@ -364,6 +362,10 @@ public class YourCartActivity extends BaseActivity {
                         OrderModel.Data res = response.body();
                         if (res.status != null && res.status.equalsIgnoreCase(AppConstants.SUCCESS)){
 
+                            Intent ActIntent = new Intent(YourCartActivity.this,CongratualtionsActivtiy.class);
+                            ActIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(ActIntent);
+                            finish();
                         }else{
                         }
 

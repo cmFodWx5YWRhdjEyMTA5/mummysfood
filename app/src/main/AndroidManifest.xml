@@ -31,7 +31,7 @@
         </provider>
 
         <activity
-            android:name=".activities.MainBottomBarActivity"
+            android:name=".activities.LoginAndSignupActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,7 +44,7 @@
         <activity android:name=".activities.RateYourselfActivity" />
         <activity android:name=".Location.UserLocationActivtiy" />
         <activity android:name=".activities.ChooseFoodTypeActivity" />
-        <activity android:name=".activities.LoginAndSignupActivity" />
+        <activity android:name=".activities.MainBottomBarActivity" />
         <activity android:name=".fragments.OrderDetailsActivity">
 
             <!--
@@ -104,7 +104,8 @@
             android:resource="@color/colorAccent" />
         <!-- end firebase push notification -->
 
-        <activity android:name=".activities.YourCartActivity"></activity>
+        <activity android:name=".activities.YourCartActivity" />
+        <activity android:name=".activities.CongratualtionsActivtiy"></activity>
     </application>
 
 </manifest>
