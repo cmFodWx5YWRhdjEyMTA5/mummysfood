@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/progressBar1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:layout_gravity="center">
+    <ProgressBar
+        android:layout_width="@dimen/dp32"
+        android:layout_height="@dimen/dp32" />
+    <com.shoppingpost.util.SpTextview
+        android:id="@+id/loading_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp16"
+        android:text="@string/loading"
+        style="@style/textviewbold"
+        android:layout_marginStart="@dimen/dp2"
+        />
+</LinearLayout>
