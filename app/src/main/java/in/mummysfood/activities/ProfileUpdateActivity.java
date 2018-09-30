@@ -280,62 +280,7 @@ public class ProfileUpdateActivity extends BaseActivity {
         request.os = "";
         request.l_name = "";
 
-        Call<LoginRequest> loginRequestCall = AppConstants.restAPI.saveUserInfo(request);
-
-        loginRequestCall.enqueue(new Callback<LoginRequest>() {
-            @Override
-            public void onResponse(Call<LoginRequest> call, Response<LoginRequest> response)
-            {
-
-                /*Intent intent = new Intent(ProfileUpdateActivity.this, UserLocationActivtiy.class);
-                intent.putExtra("user_id",1);
-                startActivity(intent);*/
-
-
-                if (response != null){
-                    if (response.isSuccessful()){
-                        if (response.body().status != null && response.body().status.equalsIgnoreCase(AppConstants.SUCCESS)){
-                            DashBoardModel.Data data = response.body().data.get(0);
-                            saveSharePrefrenceData(data);
-                            Intent intent = new Intent(ProfileUpdateActivity.this,UserLocationActivtiy.class);
-                            intent.putExtra("user_id",data.id);
-                            startActivity(intent);
-                        }else if (response.body().status != null && response.body().status.equalsIgnoreCase(AppConstants.STATUS_CODE_ALREADY)) {
-
-                                DashBoardModel.Data data = response.body().data.get(0);
-                                saveSharePrefrenceData(data);
-                                Intent intent = new Intent(ProfileUpdateActivity.this,UserLocationActivtiy.class);
-                                intent.putExtra("user_id",data.id);
-                                startActivity(intent);
-
-                        }else {
-                            showDialogBox("Authentication Failed","OK");
-                            /*Intent intent = new Intent(ProfileUpdateActivity.this,UserLocationActivtiy.class);
-                            intent.putExtra("user_id",1);
-                            startActivity(intent);*/
-
-                        }
-                    }else{
-                        try {
-                            Log.e("status",response.errorBody().string());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }else {
-                    Log.e("response","null ");
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<LoginRequest> call, Throwable t) {
-                //showSnackBar(mainRelative,"Response is failure");
-                Log.e("error",""+t
-                );
-
-            }
-        });
+        //LoginAndSignupActivity
     }
 
     private void saveSharePrefrenceData(DashBoardModel.Data data) {

@@ -26,6 +26,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import in.mummysfood.R;
+import in.mummysfood.base.BaseActivity;
+import in.mummysfood.data.pref.PreferenceManager;
 import in.mummysfood.utils.AppConstants;
 
 import java.io.IOException;
@@ -40,7 +42,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UserLocationActivtiy extends AppCompatActivity implements  ContactsAdapter.ContactsAdapterListener
+public class UserLocationActivtiy extends BaseActivity implements  ContactsAdapter.ContactsAdapterListener
 {
 
     @BindView(R.id.searchText)
@@ -100,6 +102,8 @@ public class UserLocationActivtiy extends AppCompatActivity implements  Contacts
 
         handler = new Handler();
 
+        pf = new PreferenceManager(this);
+
         searchText.setQueryHint("search your location");
 
         searchText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -139,11 +143,6 @@ public class UserLocationActivtiy extends AppCompatActivity implements  Contacts
 
     public void  autocomplete(String input)
     {
-
-
-
-
-
 
         Call<LocationModel> call = AppConstants.restAPI.getTopRatedMovies(PLACES_API_BASE+TYPE_AUTOCOMPLETE+OUT_JSON+"?key="+API_KEY+"&components=country:in&input="+input);
 
@@ -187,6 +186,7 @@ public class UserLocationActivtiy extends AppCompatActivity implements  Contacts
     public void onContactSelected(LocationModel.Predictions contact) {
         Toast.makeText(getApplicationContext(), "Selected: " + contact.description , Toast.LENGTH_LONG).show();
 
+        pf.saveStringForKey("CurrentAddress",contact.description);
         Intent enterOtherAct = new Intent(UserLocationActivtiy.this,EnterFullAdressActivity.class);
         enterOtherAct.putExtra("Address",contact.description);
         startActivity(enterOtherAct);
@@ -238,6 +238,8 @@ public class UserLocationActivtiy extends AppCompatActivity implements  Contacts
                     String postalCode = addresses.get(0).getPostalCode();
                     String knownName = addresses.get(0).getFeatureName();
 
+
+                    pf.saveStringForKey("CurrentAddress",address);
                     Intent enterOtherAct = new Intent(UserLocationActivtiy.this,EnterFullAdressActivity.class);
                     enterOtherAct.putExtra("Address",address);
                     startActivity(enterOtherAct);
@@ -248,24 +250,13 @@ public class UserLocationActivtiy extends AppCompatActivity implements  Contacts
                     pin_code =postalCode;
 
                 }
-
-
-
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }else{
-
                 showSettingsAlert();
-
-
         }
-
     }
-
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
@@ -376,4 +367,15 @@ public class UserLocationActivtiy extends AppCompatActivity implements  Contacts
         alertDialog.show();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (noDataFound.getVisibility() == View.VISIBLE)
+        {
+            noDataFound.setVisibility(View.GONE);
+            automaticLocation.setVisibility(View.VISIBLE);
+        }else {
+            finish();
+        }
+    }
 }

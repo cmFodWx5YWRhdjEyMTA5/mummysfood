@@ -5,9 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context="chef.ckd.com.locationforckd.UserLocationActivtiy"
-    tools:showIn="@layout/activity_user_location_activtiy">
+    android:background="@color/white">
 
     <android.support.v7.widget.SearchView
         android:id="@+id/searchText"
@@ -71,6 +69,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/dp24"
             android:gravity="center"
+            android:padding="@dimen/dp8"
             android:layout_height="wrap_content"
             android:text="Detect automatic location"/>
     </LinearLayout>

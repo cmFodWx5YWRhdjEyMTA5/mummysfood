@@ -32,6 +32,7 @@ public class CongratualtionsActivtiy extends BaseActivity {
     public void setVisitAction()
     {
         Intent ActIntent = new Intent(CongratualtionsActivtiy.this,MainBottomBarActivity.class);
+        ActIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(ActIntent);
         finish();
     }
@@ -40,6 +41,7 @@ public class CongratualtionsActivtiy extends BaseActivity {
     public void setgotItAction()
     {
         Intent ActIntent = new Intent(CongratualtionsActivtiy.this,MainBottomBarActivity.class);
+        ActIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(ActIntent);
         finish();
     }
@@ -49,6 +51,7 @@ public class CongratualtionsActivtiy extends BaseActivity {
         super.onBackPressed();
 
         Intent ActIntent = new Intent(CongratualtionsActivtiy.this,MainBottomBarActivity.class);
+        ActIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(ActIntent);
         finish();
     }

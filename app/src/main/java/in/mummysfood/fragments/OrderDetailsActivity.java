@@ -215,9 +215,6 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
     private void prepareOrderDetails() {
 
 
-        String userAddress = pf.getStringForKey("UserAddress", "");
-
-        userAddress = "Khajarana Ganesh Mandir";
         try {
            //  Glide.with(this).load(data.profile_image).into(order_chef_profile_img);
             order_chef_name.setText(data.f_name);
@@ -472,6 +469,8 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
     @OnClick(R.id.place_order)
     public void PlaceOrder(){
+
+
         OrderModel.Data orderModel = new OrderModel.Data();
         orderModel.food_user_id = data.chef_detail.user_id;
         orderModel.order_by = data.id;

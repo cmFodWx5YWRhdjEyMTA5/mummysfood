@@ -23,9 +23,12 @@ import android.widget.Toast;
 
 import in.mummysfood.Location.UserLocationActivtiy;
 import in.mummysfood.R;
+import in.mummysfood.base.BaseActivity;
 import in.mummysfood.data.network.model.LoginRequest;
 import in.mummysfood.data.pref.PreferenceManager;
 import in.mummysfood.models.DashBoardModel;
+import in.mummysfood.models.UserInsert;
+import in.mummysfood.models.UserModel;
 import in.mummysfood.utils.AppConstants;
 import com.eralp.circleprogressview.CircleProgressView;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -39,16 +42,20 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MobileOtpVerificationActivity extends AppCompatActivity implements View.OnClickListener {
+public class MobileOtpVerificationActivity extends BaseActivity implements View.OnClickListener {
     boolean otpactive = false;
 
     // [START declare_auth]
@@ -70,6 +77,8 @@ public class MobileOtpVerificationActivity extends AppCompatActivity implements 
     private boolean mobile_verify = true;
     private boolean active = false;
     PreferenceManager pf;
+
+
 
     @BindView(R.id.signIn_editText_mobile)
     EditText mobile;
@@ -324,26 +333,57 @@ public class MobileOtpVerificationActivity extends AppCompatActivity implements 
         LoginRequest request = new LoginRequest();
 
         request.mobile = mobile.getText().toString();
+        request.login_type = "mobile";
+        request.is_email_verified = 1;
+        request.is_mobile_verified = 1;
+        request.is_vagitarian = 1;
+        request.type = "seeker";
 
-        Call<LoginRequest> loginRequestCall = AppConstants.restAPI.saveUserInfo(request);
+        Call<ResponseBody> loginRequestCall = AppConstants.restAPI.saveUserInfo(request);
 
-        loginRequestCall.enqueue(new Callback<LoginRequest>() {
+        loginRequestCall.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<LoginRequest> call, Response<LoginRequest> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                 if (response.isSuccessful()){
 
                     if (response != null){
-                        LoginRequest res = response.body();
-                        if (res.status != null && res.status.equalsIgnoreCase(AppConstants.SUCCESS)){
 
-                            Intent i = new Intent(MobileOtpVerificationActivity.this,ProfileUpdateActivity.class);
-                            i.putExtra("mobile", mobile.getText().toString());
-                            i.putExtra("logintype","mobile");
-                            startActivity(i);
+                        try {
+                            String resp = response.body().string();
 
-                        }else if (res.status != null && res.status.equalsIgnoreCase(AppConstants.ALREADY)){
-                            DashBoardModel.Data data = res.data.get(0);
+                            JSONObject json = new JSONObject(resp)
+;
+                            UserInsert.Data data = new UserInsert.Data();
+
+                            if (json.getString("status").equalsIgnoreCase(AppConstants.SUCCESS))
+                            {
+                                data.id = json.getJSONObject("data").getInt("id");
+                                data.mobile = json.getJSONObject("data").getString("mobile");
+
+                                try {
+                                //    data.f_name = json.getJSONObject("data").getString("f_name");
+                                   // data.profile_image = json.getJSONObject("data").getString("profile_image");
+                                    //data.email = json.getJSONObject("data").getString("email");
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+
+                            }else if (json.getString("status").equalsIgnoreCase(AppConstants.ALREADY))
+                            {
+
+                                data.id = json.getJSONArray("data").getJSONObject(0).getInt("id");
+                                data.mobile = json.getJSONArray("data").getJSONObject(0).getString("mobile");
+                                data.f_name = json.getJSONArray("data").getJSONObject(0).getString("f_name");
+                                data.profile_image = json.getJSONArray("data").getJSONObject(0).getString("profile_image");
+                                data.email =json.getJSONArray("data").getJSONObject(0).getString("email");
+
+                            }else
+                            {
+                                  showToast("Please try again");
+                                  finish();
+                            }
                             pf.saveIntForKey(PreferenceManager.USER_ID, data.id);
                             if (data.f_name != null && data.f_name.isEmpty())
                                 pf.saveStringForKey(PreferenceManager.FIRST_NM, data.f_name);
@@ -353,8 +393,8 @@ public class MobileOtpVerificationActivity extends AppCompatActivity implements 
                                 pf.saveStringForKey(PreferenceManager.USER_EMAIl_Id, data.email);
                             if (data.mobile != null && data.mobile.isEmpty())
                                 pf.saveStringForKey(PreferenceManager.USER_MOBILE, data.mobile);
-                            String savedLocation = pf.getStringForKey("SaveLocation","");
-                            if (savedLocation != null &&savedLocation.equalsIgnoreCase("gotitlocation")){
+                            String savedLocation = pf.getStringForKey("CurrentAddress","");
+                            if (savedLocation != null && !"".equalsIgnoreCase(savedLocation)){
                                 startActivity(new Intent(MobileOtpVerificationActivity.this,MainBottomBarActivity.class));
                                 finish();
                             }else{
@@ -362,7 +402,12 @@ public class MobileOtpVerificationActivity extends AppCompatActivity implements 
                                 finish();
                             }
 
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
+
 
                     }else {
 
@@ -383,7 +428,7 @@ public class MobileOtpVerificationActivity extends AppCompatActivity implements 
             }
 
             @Override
-            public void onFailure(Call<LoginRequest> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.e("Response is failure",""+t);
 
             }

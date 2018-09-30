@@ -119,9 +119,10 @@ public class YourCartActivity extends BaseActivity {
             pfUName = new PreferenceManager(this,PreferenceManager.FIRST_NM);
             pfUAddress = new PreferenceManager(this,PreferenceManager.USER_ADDRESS);
             pfUMobile = new PreferenceManager(this,PreferenceManager.USER_MOBILE);
+            pf = new PreferenceManager(this);
 
 
-            userAdd = pfUAddress.getStringForKey(PreferenceManager.USER_ADDRESS,"");
+            userAdd = pfUAddress.getStringForKey("CurrentAddress","");
             addressMain.setText(userAdd);
             personInfo.setText(pfUAddress.getStringForKey(PreferenceManager.USER_MOBILE,"")+" , "+pfUAddress.getStringForKey(PreferenceManager.USER_MOBILE,""));
 
@@ -347,7 +348,7 @@ public class YourCartActivity extends BaseActivity {
         orderModel.user_id = 1;
         orderModel.subscribe_to = modelData.chef_detail.user_id;
         orderModel.number_of_days = radioValue;
-        orderModel.status = "Active";
+        orderModel.status = "";
         orderModel.ordered_plates = 2;
 
         Call<OrderModel.Data> loginRequestCall = AppConstants.restAPI.subscribeOrder(orderModel);

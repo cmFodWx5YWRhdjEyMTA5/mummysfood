@@ -3,6 +3,8 @@ package in.mummysfood.data.pref;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import in.mummysfood.Location.UserLocationActivtiy;
+
 
 /**
  * Created by Nilesh Deokar on 03/09/15.
@@ -33,6 +35,15 @@ public class PreferenceManager {
     public static String LOGIN_PREFERENCES_FILE = "LoginAppPref";
     public static String ORDER_PREFERENCES_FILE = "OrderAppPref";
 
+
+    private String SHARED_PREFERENCES_FILE = "msf_Pref";
+
+
+    public PreferenceManager(Context context) {
+        sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+    }
+
     //user data
 
 
@@ -40,6 +51,7 @@ public class PreferenceManager {
         sharedPreferences = context.getSharedPreferences(prefFile, Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
+
 
     public void saveIntForKey(String key, int data) {
 

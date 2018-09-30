@@ -9,6 +9,8 @@ import in.mummysfood.models.AddressModel;
 import in.mummysfood.models.DashBoardModel;
 import in.mummysfood.models.OrderModel;
 import in.mummysfood.models.ProfileModel;
+import in.mummysfood.models.UserInsert;
+import in.mummysfood.models.UserModel;
 import in.mummysfood.models.UserProfileModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -16,6 +18,7 @@ import com.google.gson.GsonBuilder;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -53,7 +56,7 @@ public interface RetrofitApiService {
                 .build();
 
         @POST("user")
-        Call<LoginRequest>saveUserInfo(@Body LoginRequest request);
+        Call<ResponseBody>saveUserInfo(@Body LoginRequest request);
 
         @GET("user")
         Call<LogoutResponse> getUserInfo();
