@@ -1,8 +1,6 @@
 package in.mummysfood.activities;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -18,21 +16,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -40,11 +31,8 @@ import in.mummysfood.R;
 import in.mummysfood.adapters.PlacesRecyclerViewAdapter;
 import in.mummysfood.base.BaseActivity;
 import in.mummysfood.data.pref.PreferenceManager;
-import in.mummysfood.fragments.PlaceOnMapFragment;
-import in.mummysfood.interfac.ClickListener;
 import in.mummysfood.models.AddressModel;
 import in.mummysfood.utils.AppConstants;
-import in.mummysfood.widgets.RecyclerTouchListener;
 ;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -63,7 +51,6 @@ import com.google.android.gms.location.places.PlaceDetectionClient;
 import com.google.android.gms.location.places.PlaceLikelihood;
 import com.google.android.gms.location.places.PlaceLikelihoodBufferResponse;
 import com.google.android.gms.location.places.Places;
-import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.RuntimeExecutionException;
@@ -73,13 +60,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UserLocationActivity extends BaseActivity implements PlacesRecyclerViewAdapter.locationListner {
+public class UserLocationActivityOld extends BaseActivity implements PlacesRecyclerViewAdapter.locationListner {
 
     public static final String TAG = "CurrentLocNearByPlaces";
     private static final int LOC_REQ_CODE = 1;
@@ -122,7 +108,7 @@ public class UserLocationActivity extends BaseActivity implements PlacesRecycler
 
         placeDetectionClient = Places.getPlaceDetectionClient(this, null);
         checkGpsStatus();
-        checkPermission(UserLocationActivity.this);
+        checkPermission(UserLocationActivityOld.this);
 
 
     }
@@ -146,25 +132,31 @@ public class UserLocationActivity extends BaseActivity implements PlacesRecycler
 
             AddressModel.Data addressModel = new AddressModel.Data();
 
-            addressModel.city = "Indore";
+
+            try {
+                addressModel.city = location.getAddressLine(0);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             addressModel.landmark = String.valueOf(place.getAddress());
             addressModel.latitude = location.getLatitude();
             addressModel.longitude = location.getLongitude();
             addressModel.user_id = 3;
 
 
-            Call<AddressModel.Data> addressCall = AppConstants.restAPI.postAddress(addressModel);
+            Call<AddressModel> addressCall = AppConstants.restAPI.postAddress(addressModel);
 
 
-            addressCall.enqueue(new Callback<AddressModel.Data>() {
+            addressCall.enqueue(new Callback<AddressModel>() {
                 @Override
-                public void onResponse(Call<AddressModel.Data> call, Response<AddressModel.Data> response) {
+                public void onResponse(Call<AddressModel> call, Response<AddressModel> response) {
                     if (response.isSuccessful()) {
 
                         if (response != null) {
 
                             pf.saveStringForKey("SaveLocation", "gotitlocation");
-                            startActivity(new Intent(UserLocationActivity.this, MainBottomBarActivity.class));
+                            startActivity(new Intent(UserLocationActivityOld.this, MainBottomBarActivity.class));
                             finish();
                         }
                     } else {
@@ -177,7 +169,7 @@ public class UserLocationActivity extends BaseActivity implements PlacesRecycler
                 }
 
                 @Override
-                public void onFailure(Call<AddressModel.Data> call, Throwable t) {
+                public void onFailure(Call<AddressModel> call, Throwable t) {
 
                     showToast("Please try Again");
                 }
@@ -230,7 +222,7 @@ public class UserLocationActivity extends BaseActivity implements PlacesRecycler
                         dismissProgress();
                         PlacesRecyclerViewAdapter recyclerViewAdapter = new
                                 PlacesRecyclerViewAdapter(placesList,
-                                UserLocationActivity.this,UserLocationActivity.this);
+                                UserLocationActivityOld.this,UserLocationActivityOld.this);
                         recyclerView.setAdapter(recyclerViewAdapter);
 
                     }catch (RuntimeExecutionException e){
@@ -323,7 +315,7 @@ public class UserLocationActivity extends BaseActivity implements PlacesRecycler
     private void enableLoc() {
 
         if (geoDataClient == null) {
-            googleApiClient = new GoogleApiClient.Builder(UserLocationActivity.this)
+            googleApiClient = new GoogleApiClient.Builder(UserLocationActivityOld.this)
                     .addApi(LocationServices.API)
                     .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
                         @Override
@@ -364,7 +356,7 @@ public class UserLocationActivity extends BaseActivity implements PlacesRecycler
                         case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
                             try {
 
-                                status.startResolutionForResult(UserLocationActivity.this, REQUEST_LOCATION);
+                                status.startResolutionForResult(UserLocationActivityOld.this, REQUEST_LOCATION);
 
                             } catch (IntentSender.SendIntentException e) {
                                 // Ignore the error.
@@ -394,30 +386,30 @@ public class UserLocationActivity extends BaseActivity implements PlacesRecycler
     public void checkGpsStatus()
     {
 
-        final LocationManager manager = (LocationManager) UserLocationActivity.this.getSystemService(Context.LOCATION_SERVICE);
-        if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER) && hasGPSDevice(UserLocationActivity.this)) {
+        final LocationManager manager = (LocationManager) UserLocationActivityOld.this.getSystemService(Context.LOCATION_SERVICE);
+        if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER) && hasGPSDevice(UserLocationActivityOld.this)) {
 
-            Toast.makeText(UserLocationActivity.this,"Gps already enabled",Toast.LENGTH_SHORT).show();
+            Toast.makeText(UserLocationActivityOld.this,"Gps already enabled",Toast.LENGTH_SHORT).show();
 
             getCurrentPlaceItems();
 
         }
 
-        if(!hasGPSDevice(UserLocationActivity.this)){
-            Toast.makeText(UserLocationActivity.this,"Gps not Supported",Toast.LENGTH_SHORT).show();
+        if(!hasGPSDevice(UserLocationActivityOld.this)){
+            Toast.makeText(UserLocationActivityOld.this,"Gps not Supported",Toast.LENGTH_SHORT).show();
         }
 
-        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER) && hasGPSDevice(UserLocationActivity.this)) {
-          //  Toast.makeText(UserLocationActivity.this,"Gps not enabled",Toast.LENGTH_SHORT).show();
+        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER) && hasGPSDevice(UserLocationActivityOld.this)) {
+          //  Toast.makeText(UserLocationActivityOld.this,"Gps not enabled",Toast.LENGTH_SHORT).show();
             enableLoc();
 
-            Toast.makeText(UserLocationActivity.this,"Gps not enabled",Toast.LENGTH_SHORT).show();
+            Toast.makeText(UserLocationActivityOld.this,"Gps not enabled",Toast.LENGTH_SHORT).show();
 
             enableLoc();
 
 /*
 
-                boolean result = checkPermission(UserLocationActivity.this);
+                boolean result = checkPermission(UserLocationActivityOld.this);
                 if (result)
                     enableLoc();
 
@@ -426,9 +418,9 @@ public class UserLocationActivity extends BaseActivity implements PlacesRecycler
         }else {
 
             getCurrentPlaceItems();
-            Toast.makeText(UserLocationActivity.this,"Gps already enabled",Toast.LENGTH_SHORT).show();
+            Toast.makeText(UserLocationActivityOld.this,"Gps already enabled",Toast.LENGTH_SHORT).show();
 
-          /*  boolean result = checkPermission(UserLocationActivity.this);
+          /*  boolean result = checkPermission(UserLocationActivityOld.this);
             if (result)
                 getCurrentPlaceItems();*/
         }
@@ -469,6 +461,8 @@ public class UserLocationActivity extends BaseActivity implements PlacesRecycler
     public void locationService(int posiiton, Place place) {
         NetworkCallForSaveLocation(place);
     }
+
+
 
 
     /* private void showOnMap(Place place){

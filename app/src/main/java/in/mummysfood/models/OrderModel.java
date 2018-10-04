@@ -71,5 +71,8 @@ public class OrderModel {
         public int subscribe_to;
         public int number_of_days;
         public int ordered_plates;
+        public int is_dinner;
+        public int is_lunch;
+        public String payment_type;
     }
 }

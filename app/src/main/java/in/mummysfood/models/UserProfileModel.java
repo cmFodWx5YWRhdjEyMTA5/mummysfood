@@ -2,21 +2,22 @@ package in.mummysfood.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by acer on 8/8/2018.
  */
 
-public class UserProfileModel {
+public class UserProfileModel implements Serializable{
     public String status;
     public List<Data> data;
 
-    public static class Addresses
+    public static class Addresses implements Serializable
     {
     }
 
-    public static class Orders {
+    public static class Orders implements Serializable {
         public int id;
         public int food_user_id;
         public int order_by;
@@ -38,6 +39,7 @@ public class UserProfileModel {
         public String payment_status;
         public int is_order_confirmed;
         public String pick_at;
+        public String payment_type;
         public String deliver_at;
         public String status;
         public String created_at;
@@ -45,7 +47,7 @@ public class UserProfileModel {
         public int user_id;
     }
 
-    public static class Subscribes {
+    public static class Subscribes implements Serializable{
         public int id;
         public int user_id;
         public int subscribe_to;
@@ -57,7 +59,7 @@ public class UserProfileModel {
         public List<Orders> orders;
     }
 
-    public static class Data {
+    public static class Data implements Serializable{
         public int id;public String f_name;
         public String l_name;
         public String mobile;

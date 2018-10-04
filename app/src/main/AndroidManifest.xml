@@ -45,7 +45,8 @@
         <activity android:name=".Location.UserLocationActivtiy" />
         <activity android:name=".activities.ChooseFoodTypeActivity" />
         <activity android:name=".activities.MainBottomBarActivity" />
-        <activity android:name=".fragments.OrderDetailsActivity">
+        <activity android:name=".fragments.OrderDetailsActivity"/>
+        <activity android:name=".activities.ActiveOrderActivtiy"/>
 
             <!--
             <intent-filter>
@@ -54,7 +55,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             -->
-        </activity>
+       <!-- </activity>-->
         <activity android:name=".activities.MobileOtpVerificationActivity" />
         <activity android:name=".Location.EnterFullAdressActivity" />
 

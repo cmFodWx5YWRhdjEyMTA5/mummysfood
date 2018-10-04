@@ -39,6 +39,8 @@ public class MainBottomBarActivity extends BaseActivity {
         ButterKnife.bind(this);
         pf = new PreferenceManager(this,PreferenceManager.LOGIN_PREFERENCES_FILE);
         pf.getIntForKey(PreferenceManager.USER_ID,0);
+
+        pf.saveIntForKey(PreferenceManager.USER_ID,1);
         //if (pf.getIntForKey(PreferenceManager.USER_ID,0) != 0){
             setBottomBar(savedInstanceState);
         /*}else {

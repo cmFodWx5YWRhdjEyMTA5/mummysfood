@@ -29,10 +29,11 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
     List<UserProfileModel.Subscribes> SubscribesListglobal;
     private String  orderStatus = "";
     private CancelOrderListener listener;
+    int remmainPlates = 0;
 
    public interface CancelOrderListener
     {
-        void actionOnOrder(int position, String action);
+        void actionOnOrder(int position, String action,int remainingPlates);
     }
 
 
@@ -60,6 +61,7 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
         UserProfileModel.Orders orders = ordersListglobal.get(position);
 
 
+
         if (SubscribesListglobal.size() != 0)
         {
             UserProfileModel.Subscribes subList = SubscribesListglobal.get(0);
@@ -68,8 +70,9 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
             int orderPlates = subList.ordered_plates;
 
            holder.remainingPlates.setText("Remaining plates : "+String.valueOf(totalPlates - orderPlates));
-
+            remmainPlates = totalPlates - orderPlates;
         }
+
 
         holder.foodDetail.setText(orders.food_detail);
         holder.foodDetail.setText(orders.food_name);
@@ -77,10 +80,15 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
         holder.CancelOrder.setTag(position);
         holder.CancelOrder.setOnClickListener(this);
 
-        if (orders.status.equalsIgnoreCase("active"))
+        holder.UpdateOrder.setTag(position);
+        holder.UpdateOrder.setOnClickListener(this);
+
+
+
+        if (remmainPlates != 0)
         {
             orderStatus = "Active";
-            holder.CancelOrder.setText("Cancel Order");
+            holder.CancelOrder.setText("Show Details");
             holder.CancelOrder.setTextColor(ckdContext.getResources().getColor(R.color.colorPrimary));
             holder.CancelOrder.setBackground(ckdContext.getResources().getDrawable(R.drawable.fill_rounded_full_primary));
             holder.lineaarBg.setBackground(ckdContext.getResources().getDrawable(R.drawable.fill_rounded_full_primary));
@@ -95,6 +103,8 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
             holder.lineaarBg.setBackground(ckdContext.getResources().getDrawable(R.drawable.border_red_color));
 
         }
+
+
 
 
     }
@@ -116,12 +126,19 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
                 if (orderStatus.equalsIgnoreCase("Active"))
                 {
 
-                    listener.actionOnOrder(postion,"Cancel");
+                    listener.actionOnOrder(postion,"Show",remmainPlates);
                 }else
                 {
-                    listener.actionOnOrder(postion,"Delete");
+                    listener.actionOnOrder(postion,"Delete",remmainPlates);
                 }
                 break;
+            case R.id.UpdateOrder:
+
+
+                    listener.actionOnOrder(postion,"Update",remmainPlates);
+
+                break;
+
         }
 
     }
@@ -133,6 +150,7 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
         CkdTextview chefName;
         CkdTextview orderStatus;
         CkdTextview remainingPlates;
+        CkdTextview UpdateOrder;
         CkdTextview price;
         CkdTextview CancelOrder;
         LinearLayout lineaarBg;
@@ -143,6 +161,7 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
             foodname = (CkdTextview) itemView.findViewById(R.id.foodName);
             foodDetail = (CkdTextview) itemView.findViewById(R.id.foodDetails);
             remainingPlates = (CkdTextview) itemView.findViewById(R.id.remaningThali);
+            UpdateOrder = (CkdTextview) itemView.findViewById(R.id.UpdateOrder);
             CancelOrder = (CkdTextview) itemView.findViewById(R.id.CancelOrder);
             lineaarBg = (LinearLayout) itemView.findViewById(R.id.lineaarBg);
         }

@@ -55,4 +55,19 @@
         android:textColor="@color/colorPrimary"
         android:text="Cancel Order"
         />
+
+    <in.mummysfood.widgets.CkdTextview
+        android:id="@+id/UpdateOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:textSize="@dimen/sp14"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/dp4"
+        android:padding="@dimen/dp8"
+        android:layout_gravity="center"
+        style="@style/textviewregular"
+        android:background="@drawable/gray_border_no_bg"
+        android:textColor="@color/colorPrimary"
+        android:text="Update Order"
+        />
 </LinearLayout>

@@ -51,7 +51,7 @@
         android:layout_marginTop="@dimen/dp8"
         android:layout_height="wrap_content">
 
-        <AutoCompleteTextView
+        <EditText
             android:id="@+id/flatNo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
         android:layout_marginTop="@dimen/dp8"
         android:layout_height="wrap_content">
 
-        <AutoCompleteTextView
+        <EditText
             android:id="@+id/landMark"
             android:layout_width="match_parent"
             android:textSize="@dimen/sp14"
@@ -92,7 +92,7 @@
 
 
     <RadioGroup
-        android:id="@+id/radioGender"
+        android:id="@+id/radioTypeAction"
         android:layout_width="match_parent"
         android:gravity="center"
         android:layout_height="wrap_content"

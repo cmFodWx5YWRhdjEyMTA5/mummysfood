@@ -97,10 +97,15 @@ public class YourCartActivity extends BaseActivity {
     PreferenceManager pfUName;
     PreferenceManager pfUMobile;
     PreferenceManager pfUAddress;
+    PreferenceManager loginPref;
 
     private int radioValue;
+    private int numberOfDays,isLunch,isDinner;
 
     private String userAdd;
+    private String typeOfPackage;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,20 +116,25 @@ public class YourCartActivity extends BaseActivity {
         if (getIntent() != null)
         {
             modelData = (DashBoardModel.Data) getIntent().getSerializableExtra("data");
-            radioValue = getIntent().getIntExtra("radioAction",0);
+            typeOfPackage = getIntent().getStringExtra("typeOfPackage");
+            numberOfDays = getIntent().getIntExtra("numberOfDays",0);
+            isDinner = getIntent().getIntExtra("isDinner",0);
+            isLunch = getIntent().getIntExtra("isLunch",0);
+
         }
 
 
         try {
+
             pfUName = new PreferenceManager(this,PreferenceManager.FIRST_NM);
-            pfUAddress = new PreferenceManager(this,PreferenceManager.USER_ADDRESS);
+            loginPref = new PreferenceManager(this,PreferenceManager.LOGIN_PREFERENCES_FILE);
+            pfUAddress = new PreferenceManager(this);
             pfUMobile = new PreferenceManager(this,PreferenceManager.USER_MOBILE);
             pf = new PreferenceManager(this);
 
 
             userAdd = pfUAddress.getStringForKey("CurrentAddress","");
             addressMain.setText(userAdd);
-            personInfo.setText(pfUAddress.getStringForKey(PreferenceManager.USER_MOBILE,"")+" , "+pfUAddress.getStringForKey(PreferenceManager.USER_MOBILE,""));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -222,6 +232,7 @@ public class YourCartActivity extends BaseActivity {
         paytmChecked.setVisibility(View.GONE);
         try {
             payatm.setText("COD "+"Rs."+modelData.food_detail.price+"/-");
+            pf.saveStringForKey("paymentType","COD");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -236,6 +247,7 @@ public class YourCartActivity extends BaseActivity {
         scrollChange.setVisibility(View.VISIBLE);
         checkedCod.setVisibility(View.GONE);
         paytmChecked.setVisibility(View.GONE);
+        pf.saveStringForKey("paymentType","Payatm");
         try {
             payatm.setText("Payatm "+"Rs."+modelData.food_detail.price+"/-");
         } catch (Exception e) {
@@ -327,29 +339,38 @@ public class YourCartActivity extends BaseActivity {
     private void placeOrderData()
     {
 
+        String landmark = pfUAddress.getStringForKey("landmark","");
+        String house_no = pfUAddress.getStringForKey("house_no","");
+        String type = pfUAddress.getStringForKey("type","");
+        String pincode = pfUAddress.getStringForKey("pincode","");
+        String paymetTYpe = pf.getStringForKey("paymentType","");
+
         OrderModel.Data orderModel = new OrderModel.Data();
         orderModel.food_user_id = modelData.chef_detail.user_id;
-        orderModel.order_by = modelData.id;
+        orderModel.order_by =loginPref.getIntForKey("user_id",0);
         orderModel.order_for = modelData.chef_detail.user_id;
         orderModel.food_detail = modelData.food_detail.details;
         orderModel.food_name = modelData.food_detail.name;
-        orderModel.chef_name = modelData.f_name;
-        orderModel.house_no = "Address";
-        orderModel.landmark = "vijay nagar";
-        orderModel.street = "scheme no. 74";
+        orderModel.house_no = house_no;
+        orderModel.landmark = landmark;
+        orderModel.street = "";
         orderModel.city = "indore";
         orderModel.state = "MP";
-        orderModel.pincode = "452010";
-        orderModel.address_type = modelData.f_name;
+        orderModel.pincode = pincode;
+        orderModel.address_type = type;
         orderModel.price = modelData.food_detail.price;
         orderModel.quantity =1;
         orderModel.payment_status = "confirm";
         orderModel.is_order_confirmed = 1;
-        orderModel.user_id = 1;
+        orderModel.user_id = loginPref.getIntForKey("user_id",0);
         orderModel.subscribe_to = modelData.chef_detail.user_id;
-        orderModel.number_of_days = radioValue;
-        orderModel.status = "";
-        orderModel.ordered_plates = 2;
+        orderModel.number_of_days = numberOfDays;
+        orderModel.status = "active";
+        orderModel.is_dinner = isDinner;
+        orderModel.is_lunch = isLunch;
+        orderModel.ordered_plates = 1;
+        orderModel.chef_name = "privacy concern so name is not here";
+        orderModel.payment_type = paymetTYpe;
 
         Call<OrderModel.Data> loginRequestCall = AppConstants.restAPI.subscribeOrder(orderModel);
 

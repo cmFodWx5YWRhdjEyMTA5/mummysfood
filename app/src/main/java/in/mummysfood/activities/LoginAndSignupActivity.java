@@ -304,7 +304,6 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
     private void checkUserAvailableOrNot()
     {
 
-
     }
 
     private void networkcallForCheckUserInDb(final FirebaseUser user) {
@@ -411,9 +410,9 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t)
+            {
                 Log.e("Response is failure",""+t);
-
             }
         });
 

@@ -9,6 +9,7 @@ import in.mummysfood.models.AddressModel;
 import in.mummysfood.models.DashBoardModel;
 import in.mummysfood.models.OrderModel;
 import in.mummysfood.models.ProfileModel;
+import in.mummysfood.models.SubscribtionModel;
 import in.mummysfood.models.UserInsert;
 import in.mummysfood.models.UserModel;
 import in.mummysfood.models.UserProfileModel;
@@ -61,8 +62,8 @@ public interface RetrofitApiService {
         @GET("user")
         Call<LogoutResponse> getUserInfo();
 
-        @GET("geoUser?lat=22.7533&lng=75.8937")
-        Call<DashBoardModel>getChefData();
+        @GET()
+        Call<DashBoardModel>getChefData( @Url String url);
 
         @GET("user/{user_id}")
         Call<ProfileModel>getProfileUserData(@Path("user_id") int id);
@@ -78,13 +79,19 @@ public interface RetrofitApiService {
         Call<UserProfileModel> getProfileUserDataForOrder(@Path("id") int id);
 
         @POST("address")
-        Call<AddressModel.Data>postAddress(@Body AddressModel.Data addressModel);
+        Call<AddressModel>postAddress(@Body AddressModel.Data addressModel);
 
         @POST("order")
         Call<OrderModel.Data> orderPlace(@Body OrderModel.Data orderModel);
 
         @POST("subscribe")
         Call<OrderModel.Data> subscribeOrder(@Body OrderModel.Data orderModel);
+
+        @PUT("subscribe/{id}")
+        Call<SubscribtionModel> updateSubscribeOrder(@Path("id") int id,@Body SubscribtionModel.Data model);
+
+        @GET
+        Call<SubscribtionModel> subscribeOrderById(@Url String url);
 
         @GET
         Call<LocationModel> getTopRatedMovies(@Url String url);

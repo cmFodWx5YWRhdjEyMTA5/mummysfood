@@ -188,6 +188,8 @@ public class UserLocationActivtiy extends BaseActivity implements  ContactsAdapt
 
         pf.saveStringForKey("CurrentAddress",contact.description);
         Intent enterOtherAct = new Intent(UserLocationActivtiy.this,EnterFullAdressActivity.class);
+        enterOtherAct.putExtra("lat",latitudeS);
+        enterOtherAct.putExtra("long",lognitudeS);
         enterOtherAct.putExtra("Address",contact.description);
         startActivity(enterOtherAct);
         finish();
@@ -230,6 +232,8 @@ public class UserLocationActivtiy extends BaseActivity implements  ContactsAdapt
 
                 if (addresses.size() != 0){
 
+
+
                     String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
 
                     String city = addresses.get(0).getLocality();
@@ -237,17 +241,25 @@ public class UserLocationActivtiy extends BaseActivity implements  ContactsAdapt
                     String country = addresses.get(0).getCountryName();
                     String postalCode = addresses.get(0).getPostalCode();
                     String knownName = addresses.get(0).getFeatureName();
-
-
-                    pf.saveStringForKey("CurrentAddress",address);
-                    Intent enterOtherAct = new Intent(UserLocationActivtiy.this,EnterFullAdressActivity.class);
-                    enterOtherAct.putExtra("Address",address);
-                    startActivity(enterOtherAct);
-                    finish();
-
                     latitudeS = latitude;
                     lognitudeS = longitude;
                     pin_code =postalCode;
+
+                    pf.saveStringForKey("CurrentAddress",address);
+                    pf.saveDoubleForKey("latitude",latitude);
+                    pf.saveDoubleForKey("lognitude",longitude);
+
+                    Intent enterOtherAct = new Intent(UserLocationActivtiy.this,EnterFullAdressActivity.class);
+                    enterOtherAct.putExtra("Address",address);
+                    enterOtherAct.putExtra("city",city);
+                    enterOtherAct.putExtra("lat",String.valueOf(latitude));
+                    enterOtherAct.putExtra("long",String.valueOf(longitude));
+                    enterOtherAct.putExtra("pincode",postalCode);
+                    enterOtherAct.putExtra("state",state);
+                    startActivity(enterOtherAct);
+                    finish();
+
+
 
                 }
             } catch (IOException e) {

@@ -360,7 +360,7 @@
             android:id="@+id/personInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bindu patidar,8828376477"
+            android:text=""
             android:layout_marginLeft="@dimen/dp8"
             android:textColor="@color/gray"
             style="@style/textviewregular"

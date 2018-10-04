@@ -138,7 +138,15 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
     private Context context;
     private int item_quantity;
 
-    public OrderDetailsActivity() {
+    private String typeOfPackage = "";
+
+    private int numberOfDays;
+    private int isLunch;
+    private int isDinner;
+
+
+    public OrderDetailsActivity()
+    {
         // Required empty public constructor
     }
 
@@ -443,6 +451,9 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
     @OnClick(R.id.monthly)
     public void mothyClicked()
     {
+
+        typeOfPackage = "monthly";
+
         monthly.setBackground(getResources().getDrawable(R.drawable.border_primary));
         weekly.setBackground(getResources().getDrawable(R.drawable.border_gray));
 
@@ -457,6 +468,8 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
     @OnClick(R.id.weekly)
     public void weeklyCliked()
     {
+        typeOfPackage = "weekly";
+
         monthly.setBackground(getResources().getDrawable(R.drawable.border_gray));
         weekly.setBackground(getResources().getDrawable(R.drawable.border_primary));
 
@@ -477,13 +490,14 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         orderModel.order_for = data.chef_detail.user_id;
         orderModel.food_detail = data.food_detail.details;
         orderModel.food_name = data.food_detail.name;
-        orderModel.chef_name = data.f_name;
+        orderModel.chef_name = "hhjkffj";
         orderModel.subscribe_id =  0;
         orderModel.house_no = "dk-329";
         orderModel.landmark = "vijay nagar";
         orderModel.street = "scheme no. 74";
         orderModel.city = "indore";
         orderModel.state = "MP";
+        orderModel.status = "active";
         orderModel.pincode = "452010";
         orderModel.address_type = data.f_name;
         orderModel.price = data.food_detail.price;
@@ -598,9 +612,13 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
     @OnClick(R.id.processedButton)
     public  void processedButton()
     {
+
         Intent yourCart = new Intent(this, YourCartActivity.class);
         yourCart.putExtra("data",data);
-        yourCart.putExtra("radioAction",getRadioSelected());
+        yourCart.putExtra("typeOfPackage",typeOfPackage);
+        yourCart.putExtra("isLunch",isLunch);
+        yourCart.putExtra("isDinner",isDinner);
+        yourCart.putExtra("numberOfDays",numberOfDays);
         startActivity(yourCart);
     }
 
@@ -612,26 +630,59 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
     private int getRadioSelected() {
 
-          int price = 0;
+
         int selectedId = radioAction.getCheckedRadioButtonId();
+
+
 
         if (selectedId== R.id.radioDinner)
         {
-            price = Integer.parseInt(dinnerPrice.getText().toString());
+            if (typeOfPackage.equalsIgnoreCase("weekly"))
+            {
+                isDinner = 1;
+                isLunch =0;
+                numberOfDays = 6;
+            }else if (typeOfPackage.equalsIgnoreCase("monthly"))
+            {
+                isDinner = 1;
+                isLunch = 0;
+                numberOfDays = 30;
+            }
         }
         if (selectedId == R.id.radioLunch)
         {
-            price = Integer.parseInt(lunchPrice.getText().toString());
+
+            if (typeOfPackage.equalsIgnoreCase("weekly"))
+            {
+                 isLunch = 1;
+                 isDinner =0;
+                numberOfDays = 6;
+            }else if (typeOfPackage.equalsIgnoreCase("monthly"))
+            {
+                isLunch = 1;
+                isDinner =0;
+                numberOfDays = 30;
+            }
 
         }
 
         if (selectedId == R.id.radioBoth)
         {
-            price = Integer.parseInt(bothPrice.getText().toString());
+            if (typeOfPackage.equalsIgnoreCase("weekly"))
+            {
+                isDinner = 1;
+                isLunch = 1;
+                numberOfDays = 12;
+            }else if (typeOfPackage.equalsIgnoreCase("monthly"))
+            {
+                isDinner = 1;
+                isLunch = 1;
+                numberOfDays = 60;
+            }
 
         }
 
-          return price;
+          return numberOfDays;
     }
 
     @Override

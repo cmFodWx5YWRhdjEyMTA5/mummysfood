@@ -30,6 +30,7 @@ import in.mummysfood.R;
 import in.mummysfood.adapters.HomePilotCardAdapter;
 import in.mummysfood.adapters.HomeSpecialCardAdapter;
 import in.mummysfood.base.BaseFragment;
+import in.mummysfood.data.network.RetrofitApiService;
 import in.mummysfood.data.pref.PreferenceManager;
 import in.mummysfood.models.DashBoardModel;
 import in.mummysfood.utils.AppConstants;
@@ -59,6 +60,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     private HomePilotCardAdapter pilotCardAdapter;
     private HomeSpecialCardAdapter specialCardAdapter;
     private PreferenceManager pf;
+    private PreferenceManager addPref;
     private int item_quantity = 0;
     private Dialog dialog;
 
@@ -77,8 +79,8 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         //homeToolbar.setVisibility(View.GONE);
 
         DashBoardModel json = new DashBoardModel();
-        json.lat = 22.7368;
-        json.lng = 75.9086;
+     /*   json.lat = 22.7368;
+        json.lng = 75.9086;*/
 
         networkCallForData();
 
@@ -116,7 +118,17 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     private void networkCallForData() {
 
 
-        Call<DashBoardModel> chefData = AppConstants.restAPI.getChefData();
+
+        addPref = new PreferenceManager(getActivity());
+
+        Double lat = addPref.getDoubleForKey("latitude",0);
+        Double longArea = addPref.getDoubleForKey("lognitude",0);
+
+
+        String url = RetrofitApiService.BASEURL+"geoUser?lat="+String.valueOf(lat)+"&lng="+String.valueOf(longArea);
+
+
+        Call<DashBoardModel> chefData = AppConstants.restAPI.getChefData(url);
 
         chefData.enqueue(new Callback<DashBoardModel>() {
             @Override
