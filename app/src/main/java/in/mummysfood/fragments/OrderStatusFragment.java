@@ -51,6 +51,8 @@ public class OrderStatusFragment extends BaseFragment implements OrderStatusAdap
     private List<UserProfileModel.Orders>ordersList;
     private List<UserProfileModel.Subscribes>subscribesList;
 
+    private UserProfileModel.Data model ;
+
     private OrderStatusAdapter oAdapter;
 
     private int orderedPlate ;
@@ -108,12 +110,13 @@ public class OrderStatusFragment extends BaseFragment implements OrderStatusAdap
                     {
 
 
+                        model = response.body().data.get(0);
                         subscribesList = response.body().data.get(0).subscribes;
 
                         if (subscribesList.size() != 0)
                         {
 
-                            ordersList = response.body().data.get(0).subscribes.get(0).orders;
+
 
                             setAdapterForOrder(ordersList,subscribesList);
 
@@ -177,13 +180,36 @@ public class OrderStatusFragment extends BaseFragment implements OrderStatusAdap
 
         if (status.equalsIgnoreCase("Show"))
         {
-            Intent i = new Intent(getActivity(), ActiveOrderActivtiy.class);
-            i.putExtra("order",ordersList.get(position));
-            i.putExtra("remainingPlates",remainingPlates);
-            startActivity(i);
+            if (subscribesList != null)
+            {
+                if (subscribesList.size() != 0){
+                    Intent i = new Intent(getActivity(), ActiveOrderActivtiy.class);
+                    i.putExtra("order",subscribesList.get(position).orders.get(0));
+                    i.putExtra("remainingPlates",remainingPlates);
+                    startActivity(i);
+                }
+
+            }
+
         }else if (status.equalsIgnoreCase("Delete"))
         {
-            showToast("Deleted");
+            if (subscribesList != null)
+            {
+                if (subscribesList.size() != 0){
+                    Intent i = new Intent(getActivity(), ActiveOrderActivtiy.class);
+
+                    i.putExtra("order",subscribesList.get(position).orders.get(0));
+                    i.putExtra("remainingPlates",0);
+
+                    try {
+                        i.putExtra("mobile",model.mobile);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    startActivity(i);
+                }
+
+            }
 
         }else if (status.equalsIgnoreCase("Update"))
         {

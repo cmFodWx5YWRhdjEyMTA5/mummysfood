@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -41,6 +42,7 @@ import in.mummysfood.activities.ProfileUpdateActivity;
 import in.mummysfood.adapters.FoodDataAdapter;
 import in.mummysfood.adapters.HomeSpecialCardAdapter;
 import in.mummysfood.adapters.ReviewAdapter;
+import in.mummysfood.base.BaseActivity;
 import in.mummysfood.base.BaseFragment;
 import in.mummysfood.data.pref.PreferenceManager;
 import in.mummysfood.models.DashBoardModel;
@@ -68,7 +70,7 @@ import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static com.theartofdev.edmodo.cropper.CropImage.hasPermissionInManifest;
 
-public class ProfileFragment extends BaseFragment {
+public class ProfileFragmentChef extends BaseActivity {
 
     @BindView(R.id.profile_image)
     CircularImageView profileImage;
@@ -163,27 +165,26 @@ public class ProfileFragment extends BaseFragment {
     private ArrayList<ReviewModel> reviewDataList;
     private LinearLayoutManager linearLayoutManager;
 
-    public ProfileFragment() {
-        // Required empty public constructor
-    }
+
+
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        context = inflater.getContext();
-        ButterKnife.bind(this,rootView);
+        setContentView(R.layout.fragment_profile);
+        ButterKnife.bind(this);
 
-        pf = new PreferenceManager(context, PreferenceManager.LOGIN_PREFERENCES_FILE);
-        loggedInUserId = pf.getIntForKey(PreferenceManager.USER_ID,0);
 
-        Bundle bundle = getArguments();
-        if (bundle != null){
-            userId = bundle.getInt("user_id",0);
-            if (userId == loggedInUserId)
-                userId = loggedInUserId;
+        review_recyclerview.setNestedScrollingEnabled(false);
+//        pf = new PreferenceManager(context, PreferenceManager.LOGIN_PREFERENCES_FILE);
+
+     //   loggedInUserId = pf.getIntForKey(PreferenceManager.USER_ID,0);
+
+
+        if (getIntent() != null)
+        {
+            userId = getIntent().getIntExtra("user_id",0);
         }
 
         if (userId != 0){
@@ -210,7 +211,7 @@ public class ProfileFragment extends BaseFragment {
                 }
             });
         }
-        return rootView;
+
     }
 
     private void prepareUserData() {
@@ -246,7 +247,7 @@ public class ProfileFragment extends BaseFragment {
             review_recyclerview.setHasFixedSize(true);
             review_recyclerview.setLayoutManager(linearLayoutManager);
             review_recyclerview.setItemAnimator(new DefaultItemAnimator());
-            ReviewAdapter reviewAdapter = new ReviewAdapter(getActivity(),reviewDataList);
+            ReviewAdapter reviewAdapter = new ReviewAdapter(this,reviewDataList);
             review_recyclerview.setAdapter(reviewAdapter);
         }
 
@@ -256,10 +257,10 @@ public class ProfileFragment extends BaseFragment {
 
         if (userData.is_vagitarian == 0){
             is_vegitarian.setText(getString(R.string.vegetarian));
-            is_vegitarian.setTextColor(getContext().getResources().getColor(R.color.green));
+            is_vegitarian.setTextColor(getResources().getColor(R.color.green));
         }else {
             is_vegitarian.setText(getString(R.string.non_vegetarian));
-            is_vegitarian.setTextColor(getContext().getResources().getColor(R.color.red));
+            is_vegitarian.setTextColor(getResources().getColor(R.color.red));
         }
     }
 
@@ -268,7 +269,7 @@ public class ProfileFragment extends BaseFragment {
         foodRecyclerview.setHasFixedSize(true);
         foodRecyclerview.setLayoutManager(linearLayoutManager);
         foodRecyclerview.setItemAnimator(new DefaultItemAnimator());
-        FoodDataAdapter foodDataAdapter = new FoodDataAdapter(getActivity(),userData.food_detail.food_media);
+        FoodDataAdapter foodDataAdapter = new FoodDataAdapter(this,userData.food_detail.food_media);
         foodRecyclerview.setAdapter(foodDataAdapter);
     }
 
@@ -423,7 +424,7 @@ public class ProfileFragment extends BaseFragment {
                 .setRequestedSize(400, 400)
                 .setOutputCompressQuality(100)
                 .setScaleType(CropImageView.ScaleType.CENTER_CROP)
-                .start(getActivity());
+                .start(this);
     }
 
     //permissions for image selection
@@ -474,5 +475,11 @@ public class ProfileFragment extends BaseFragment {
 
         }
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

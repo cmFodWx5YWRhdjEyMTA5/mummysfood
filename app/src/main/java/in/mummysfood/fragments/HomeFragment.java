@@ -36,6 +36,7 @@ import in.mummysfood.models.DashBoardModel;
 import in.mummysfood.utils.AppConstants;
 import in.mummysfood.widgets.CkdButton;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -133,23 +134,35 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         chefData.enqueue(new Callback<DashBoardModel>() {
             @Override
             public void onResponse(Call<DashBoardModel> call, Response<DashBoardModel> response) {
-
                 dismissProgress();
-                if (response != null){
-                    DashBoardModel res = response.body();
-                    if (res.status != null) {
-                        if ( res.status.equals(AppConstants.SUCCESS))
-                        {
-                            fetchData = res.data;
-                            setAdapterData(recommended_recyclerview, 0);
-                            setAdapterData(near_you_recyclerview, 1);
+                if (response.isSuccessful())
+                {
+                    if (response != null){
+                        DashBoardModel res = response.body();
+                        if (res.status != null) {
+                            if ( res.status.equals(AppConstants.SUCCESS))
+                            {
+                                fetchData = res.data;
+                                setAdapterData(recommended_recyclerview, 0);
+                                setAdapterData(near_you_recyclerview, 1);
+                            }
                         }
                     }
+                }else {
+                    try {
+                        Log.d("Msgggg",response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
+
+
             }
 
             @Override
             public void onFailure(Call<DashBoardModel> call, Throwable t) {
+
+                Log.d("Msgggg",t.getMessage());
                 dismissProgress();
             }
         });
@@ -205,9 +218,9 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     public void AddToCart(final int i){
 
         if (pf.getIntForKey(PreferenceManager.ORDER_ID,0) == 0){
-            setOrderItemData(i);
+           // setOrderItemData(i);
         }else{
-            String msg = "Your cart contains dishes from "+ pf.getStringForKey(PreferenceManager.ORDER_NAME,null)+". Do you want to discard the selection and add dishes from "+fetchData.get(i).food_detail.name+" ?";
+            String msg = "Your cart contains dishes from "+ pf.getStringForKey(PreferenceManager.ORDER_NAME,null)+". Do you want to discard the selection and add dishes from "+fetchData.get(i).food_detail.get(0).name+" ?";
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setMessage(msg)
                     .setCancelable(false)
@@ -221,7 +234,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
                     .setPositiveButton(R.string.yes_txt, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             pf.clearPref(context,PreferenceManager.ORDER_PREFERENCES_FILE);
-                            setOrderItemData(i);
+                            //setOrderItemData(i);
                         }
                     });
             // Create the AlertDialog object and return it
@@ -230,9 +243,9 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         }
 
     }
-
+/*
     private void setOrderItemData(int i) {
-        if (!fetchData.get(i).add_food) {
+        if (!fetchData.get(i)..add_food) {
             fetchData.get(i).add_food = true;
             showDialogBasedOnAddToCart(i);
             //homeToolbar.setVisibility(View.VISIBLE);
@@ -243,7 +256,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
             //homeToolbar.setVisibility(View.GONE);
             pilotCardAdapter.notifyDataSetChanged();
         }
-    }
+    }*/
 
     private void showDialogBasedOnAddToCart(final int i) {
         dialog = new Dialog(context);
@@ -291,13 +304,13 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     }
 
     private void sharePref(int i, int quantity) {
-        pf.saveIntForKey(PreferenceManager.USER_ID,fetchData.get(i).id);
-        pf.saveIntForKey(PreferenceManager.ORDER_ID,fetchData.get(i).food_detail.id);
-        pf.saveIntForKey(PreferenceManager.ODRDER_USER_ID,fetchData.get(i).food_detail.user_id);
-        pf.saveIntForKey(PreferenceManager.ORDER_CATEGORY_ID,fetchData.get(i).food_detail.category_id);
-        pf.saveStringForKey(PreferenceManager.ORDER_NAME,fetchData.get(i).food_detail.name);
-        pf.saveStringForKey(PreferenceManager.ORDER_DETAILS,fetchData.get(i).food_detail.details);
-        pf.saveStringForKey(PreferenceManager.ORDER_PRICE,fetchData.get(i).food_detail.price);
+     //   pf.saveIntForKey(PreferenceManager.USER_ID,fetchData.get(i).id);
+        pf.saveIntForKey(PreferenceManager.ORDER_ID,fetchData.get(i).food_detail.get(0).id);
+        pf.saveIntForKey(PreferenceManager.ODRDER_USER_ID,fetchData.get(i).food_detail.get(0).user_id);
+        pf.saveIntForKey(PreferenceManager.ORDER_CATEGORY_ID,fetchData.get(i).food_detail.get(0).category_id);
+        pf.saveStringForKey(PreferenceManager.ORDER_NAME,fetchData.get(i).food_detail.get(0).name);
+        pf.saveStringForKey(PreferenceManager.ORDER_DETAILS,fetchData.get(i).food_detail.get(0).details);
+        pf.saveStringForKey(PreferenceManager.ORDER_PRICE,fetchData.get(i).food_detail.get(0).price);
         pf.saveIntForKey(PreferenceManager.ORDER_quantity,quantity);
     }
 
@@ -325,7 +338,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
             count--;
             pf.saveIntForKey(PreferenceManager.ORDER_quantity,count);
         }else{
-            fetchData.get(position).add_food = false;
+          //  fetchData.get(position).add_food = false;
             pf.clearPref(context, PreferenceManager.ORDER_PREFERENCES_FILE);
             //homeToolbar.setVisibility(View.GONE);
         }

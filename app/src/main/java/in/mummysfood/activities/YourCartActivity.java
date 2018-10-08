@@ -142,14 +142,14 @@ public class YourCartActivity extends BaseActivity {
 
 
         try {
-            order_titile.setText(modelData.food_detail.name);
-            order_price.setText(modelData.food_detail.price);
-            order_price_basedQuantity.setText(modelData.food_detail.price);
-            totalValue.setText(modelData.food_detail.price);
-            order_taxes.setText(modelData.food_detail.taxes);
-            placeOrderprice.setText(modelData.food_detail.price);
-            payatm.setText("Payatm "+"Rs."+modelData.food_detail.price+"/-");
-            placeOrderprice.setText("Pay Rs."+modelData.food_detail.price+"/-");
+            order_titile.setText(modelData.food_detail.get(0).name);
+            order_price.setText(modelData.food_detail.get(0).price);
+            order_price_basedQuantity.setText(modelData.food_detail.get(0).price);
+            totalValue.setText(modelData.food_detail.get(0).price);
+            order_taxes.setText(modelData.food_detail.get(0).taxes);
+            placeOrderprice.setText(modelData.food_detail.get(0).price);
+            payatm.setText("Payatm "+"Rs."+modelData.food_detail.get(0).price+"/-");
+            placeOrderprice.setText("Pay Rs."+modelData.food_detail.get(0).price+"/-");
 
 
         } catch (Exception e) {
@@ -167,7 +167,7 @@ public class YourCartActivity extends BaseActivity {
 
 
         try {
-            payatmOption.setText("Pay Rs."+modelData.food_detail.price+"/-");
+            payatmOption.setText("Pay Rs."+modelData.food_detail.get(0).price+"/-");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -231,7 +231,7 @@ public class YourCartActivity extends BaseActivity {
         checkedCod.setVisibility(View.GONE);
         paytmChecked.setVisibility(View.GONE);
         try {
-            payatm.setText("COD "+"Rs."+modelData.food_detail.price+"/-");
+            payatm.setText("COD "+"Rs."+modelData.food_detail.get(0).price+"/-");
             pf.saveStringForKey("paymentType","COD");
         } catch (Exception e) {
             e.printStackTrace();
@@ -249,7 +249,7 @@ public class YourCartActivity extends BaseActivity {
         paytmChecked.setVisibility(View.GONE);
         pf.saveStringForKey("paymentType","Payatm");
         try {
-            payatm.setText("Payatm "+"Rs."+modelData.food_detail.price+"/-");
+            payatm.setText("Payatm "+"Rs."+modelData.food_detail.get(0).price+"/-");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -263,7 +263,7 @@ public class YourCartActivity extends BaseActivity {
 
 
         try {
-            payatm.setText("Payatm "+"Rs."+modelData.food_detail.price+"/-");
+            payatm.setText("Payatm "+"Rs."+modelData.food_detail.get(0).price+"/-");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -349,8 +349,8 @@ public class YourCartActivity extends BaseActivity {
         orderModel.food_user_id = modelData.chef_detail.user_id;
         orderModel.order_by =loginPref.getIntForKey("user_id",0);
         orderModel.order_for = modelData.chef_detail.user_id;
-        orderModel.food_detail = modelData.food_detail.details;
-        orderModel.food_name = modelData.food_detail.name;
+        orderModel.food_detail = modelData.food_detail.get(0).details;
+        orderModel.food_name = modelData.food_detail.get(0).name;
         orderModel.house_no = house_no;
         orderModel.landmark = landmark;
         orderModel.street = "";
@@ -358,7 +358,7 @@ public class YourCartActivity extends BaseActivity {
         orderModel.state = "MP";
         orderModel.pincode = pincode;
         orderModel.address_type = type;
-        orderModel.price = modelData.food_detail.price;
+        orderModel.price = modelData.food_detail.get(0).price;
         orderModel.quantity =1;
         orderModel.payment_status = "confirm";
         orderModel.is_order_confirmed = 1;

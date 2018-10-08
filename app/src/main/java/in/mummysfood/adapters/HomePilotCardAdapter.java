@@ -1,18 +1,7 @@
 package in.mummysfood.adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapShader;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.RectF;
-import android.graphics.Shader;
-import android.graphics.drawable.BitmapDrawable;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,14 +11,11 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
-import in.mummysfood.BuildConfig;
 import in.mummysfood.R;
-import in.mummysfood.data.network.RetrofitApiService;
 import in.mummysfood.data.pref.PreferenceManager;
 import in.mummysfood.fragments.OrderDetailsActivity;
-import in.mummysfood.fragments.ProfileFragment;
+import in.mummysfood.fragments.ProfileFragmentChef;
 import in.mummysfood.models.DashBoardModel;
-import in.mummysfood.utils.AppConstants;
 import in.mummysfood.widgets.CkdTextview;
 
 import java.util.List;
@@ -91,9 +77,9 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
 
 
             holder.chef_name.setText(dataModel.name);
-            if(data.get(i).food_detail.food_media.get(0) != null){
+            if(data.get(i).food_detail.get(0).food_media.get(0) != null){
                 try {
-                    String imageUrl = "http://cdn.mummysfood.in/"+dataModel.food_detail.food_media.get(0).media.name;
+                    String imageUrl = "http://cdn.mummysfood.in/"+dataModel.food_detail.get(0).food_media.get(0).media.name;
                     Log.d("ImageUrl",imageUrl);
                     Glide.with(context).load(imageUrl).into(holder.food_image);
                 }catch (IllegalArgumentException e){
@@ -103,12 +89,12 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
                 holder.food_image.setImageResource(R.mipmap.foodimage);
             }
 
-            if (data.get(i).food_detail.price != null){
-                holder.food_price.setText(context.getResources().getString(R.string.rupee_txt)+" "+dataModel.food_detail.price);
+            if (data.get(i).food_detail.get(0).price != null){
+                holder.food_price.setText(context.getResources().getString(R.string.rupee_txt)+" "+dataModel.food_detail.get(0).price);
             }
 
-            if (data.get(i).food_detail.name != null){
-                holder.food_title.setText(dataModel.food_detail.name);
+            if (data.get(i).food_detail.get(0).name != null){
+                holder.food_title.setText(dataModel.food_detail.get(0).name);
             }
         /*BitmapDrawable drawable = (BitmapDrawable) holder.food_image.getDrawable();
         Bitmap mbitmap = drawable.getBitmap();
@@ -170,7 +156,7 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
                 break;
 
             case R.id.chef_name:
-                ProfileFragment fragment1 = new ProfileFragment();
+              /*  ProfileFragmentChef fragment1 = new ProfileFragmentChef();
                 Bundle bundle1 = new Bundle();
                 bundle1.putInt("user_id", data.get(position).chef_detail.user_id);
                 fragment1.setArguments(bundle1);
@@ -179,7 +165,12 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
                         .beginTransaction();
                 fragmentTransaction1.addToBackStack(fragment1.getClass().getSimpleName());
                 fragmentTransaction1.replace(R.id.content_frame, fragment1);
-                fragmentTransaction1.commit();
+                fragmentTransaction1.commit();*/
+
+
+                Intent profileIntent = new Intent(context,ProfileFragmentChef.class);
+                profileIntent.putExtra("user_id",data.get(position).chef_detail.user_id);
+                context.startActivity(profileIntent);
                 break;
 
             /*case R.id.add_to_cart:

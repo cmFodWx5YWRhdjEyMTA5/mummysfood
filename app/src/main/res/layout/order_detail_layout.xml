@@ -66,6 +66,7 @@
                     android:id="@+id/order_image"
                     android:layout_width="match_parent"
                     android:layout_height="260dp"
+                    android:scaleType="fitXY"
                     />
                 <ImageView
                     android:id="@+id/backArrow"
@@ -142,7 +143,7 @@
                         android:paddingEnd="@dimen/dp28"
                         android:layout_centerVertical="true"
                         android:textColor="@color/white"
-                        android:visibility="visible"/>
+                        android:visibility="gone"/>
                 </RelativeLayout>
 
             </RelativeLayout>

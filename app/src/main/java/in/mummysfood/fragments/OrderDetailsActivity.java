@@ -226,13 +226,13 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         try {
            //  Glide.with(this).load(data.profile_image).into(order_chef_profile_img);
             order_chef_name.setText(data.f_name);
-            order_titile.setText(data.food_detail.name);
-            order_detail.setText(data.food_detail.details);
-            order_price.setText("Rs. " + data.food_detail.price + "/-");
+            order_titile.setText(data.food_detail.get(0).name);
+            order_detail.setText(data.food_detail.get(0).details);
+            order_price.setText("Rs. " + data.food_detail.get(0).price + "/-");
             userDelAddress.setText(UserCUrrentAdd);
 
 
-            double price = Double.parseDouble(data.food_detail.price);
+            double price = Double.parseDouble(data.food_detail.get(0).price);
 
             priceOrgValue= (int) price;
 
@@ -240,13 +240,13 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
             monthlyValue = priceOrgValue * 31;
             weeklyValue = priceOrgValue * 7;
 
-            dinnerPrice.setText(String.valueOf(data.food_detail.week_dinner_price));
-            lunchPrice.setText(String.valueOf(data.food_detail.week_lunch_price));
-            bothPrice.setText(String.valueOf(data.food_detail.week_dinner_price+data.food_detail.week_lunch_price));
+            dinnerPrice.setText(String.valueOf(data.food_detail.get(0).week_dinner_price));
+            lunchPrice.setText(String.valueOf(data.food_detail.get(0).week_lunch_price));
+            bothPrice.setText(String.valueOf(data.food_detail.get(0).week_dinner_price+data.food_detail.get(0).week_lunch_price));
 
-            if(data.food_detail.food_media.get(0) != null){
+            if(data.food_detail.get(0).food_media.get(0) != null){
                 try {
-                    String imageUrl = "http://cdn.mummysfood.in/"+data.food_detail.food_media.get(0).media.name;
+                    String imageUrl = "http://cdn.mummysfood.in/"+data.food_detail.get(0).food_media.get(0).media.name;
                     Log.d("ImageUrl",imageUrl);
                     Glide.with(this).load(imageUrl).into(order_image);
                 }catch (IllegalArgumentException e){
@@ -321,7 +321,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         if (pf.getIntForKey(PreferenceManager.ORDER_ID,0) == 0){
             setOrderItemData();
         }else{
-            String msg = "Your cart contains dishes from "+ pf.getStringForKey(PreferenceManager.ORDER_NAME,null)+". Do you want to discard the selection and add dishes from "+data.food_detail.name+" ?";
+            String msg = "Your cart contains dishes from "+ pf.getStringForKey(PreferenceManager.ORDER_NAME,null)+". Do you want to discard the selection and add dishes from "+data.food_detail.get(0).name+" ?";
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setMessage(msg)
                     .setCancelable(false)
@@ -374,12 +374,12 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
     private void sharePref(DashBoardModel.Data foodData, int quantity) {
         pf.saveIntForKey(PreferenceManager.USER_ID,foodData.id);
-        pf.saveIntForKey(PreferenceManager.ORDER_ID,foodData.food_detail.id);
-        pf.saveIntForKey(PreferenceManager.ODRDER_USER_ID,foodData.food_detail.user_id);
-        pf.saveIntForKey(PreferenceManager.ORDER_CATEGORY_ID,foodData.food_detail.category_id);
-        pf.saveStringForKey(PreferenceManager.ORDER_NAME,foodData.food_detail.name);
-        pf.saveStringForKey(PreferenceManager.ORDER_DETAILS,foodData.food_detail.details);
-        pf.saveStringForKey(PreferenceManager.ORDER_PRICE,foodData.food_detail.price);
+        pf.saveIntForKey(PreferenceManager.ORDER_ID,foodData.food_detail.get(0).id);
+        pf.saveIntForKey(PreferenceManager.ODRDER_USER_ID,foodData.food_detail.get(0).user_id);
+        pf.saveIntForKey(PreferenceManager.ORDER_CATEGORY_ID,foodData.food_detail.get(0).category_id);
+        pf.saveStringForKey(PreferenceManager.ORDER_NAME,foodData.food_detail.get(0).name);
+        pf.saveStringForKey(PreferenceManager.ORDER_DETAILS,foodData.food_detail.get(0).details);
+        pf.saveStringForKey(PreferenceManager.ORDER_PRICE,foodData.food_detail.get(0).price);
         pf.saveIntForKey(PreferenceManager.ORDER_quantity,quantity);
     }
 
@@ -458,9 +458,9 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         weekly.setBackground(getResources().getDrawable(R.drawable.border_gray));
 
 
-        dinnerPrice.setText(String.valueOf(data.food_detail.month_dinner_price));
-        lunchPrice.setText(String.valueOf(data.food_detail.month_lunch_price));
-        bothPrice.setText(String.valueOf(data.food_detail.month_dinner_price+data.food_detail.month_lunch_price));
+        dinnerPrice.setText(String.valueOf(data.food_detail.get(0).month_dinner_price));
+        lunchPrice.setText(String.valueOf(data.food_detail.get(0).month_lunch_price));
+        bothPrice.setText(String.valueOf(data.food_detail.get(0).month_dinner_price+data.food_detail.get(0).month_lunch_price));
 
 
     }
@@ -474,9 +474,9 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         weekly.setBackground(getResources().getDrawable(R.drawable.border_primary));
 
 
-        dinnerPrice.setText(String.valueOf(data.food_detail.week_dinner_price));
-        lunchPrice.setText(String.valueOf(data.food_detail.week_lunch_price));
-        bothPrice.setText(String.valueOf(data.food_detail.week_dinner_price+data.food_detail.week_lunch_price));
+        dinnerPrice.setText(String.valueOf(data.food_detail.get(0).week_dinner_price));
+        lunchPrice.setText(String.valueOf(data.food_detail.get(0).week_lunch_price));
+        bothPrice.setText(String.valueOf(data.food_detail.get(0).week_dinner_price+data.food_detail.get(0).week_lunch_price));
 
     }
 
@@ -488,8 +488,8 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         orderModel.food_user_id = data.chef_detail.user_id;
         orderModel.order_by = data.id;
         orderModel.order_for = data.chef_detail.user_id;
-        orderModel.food_detail = data.food_detail.details;
-        orderModel.food_name = data.food_detail.name;
+        orderModel.food_detail = data.food_detail.get(0).details;
+        orderModel.food_name = data.food_detail.get(0).name;
         orderModel.chef_name = "hhjkffj";
         orderModel.subscribe_id =  0;
         orderModel.house_no = "dk-329";
@@ -500,7 +500,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         orderModel.status = "active";
         orderModel.pincode = "452010";
         orderModel.address_type = data.f_name;
-        orderModel.price = data.food_detail.price;
+        orderModel.price = data.food_detail.get(0).price;
         orderModel.quantity = pf.getIntForKey(PreferenceManager.ORDER_quantity, 1);
         orderModel.payment_status = "confirm";
         orderModel.is_order_confirmed = 1;
@@ -627,6 +627,14 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         userDelAddress.setText(address);
     }
 
+    @OnClick(R.id.order_chef_profile_img)
+    public void aVoid()
+    {
+
+        Intent profileIntent = new Intent(this,ProfileFragmentChef.class);
+        profileIntent.putExtra("user_id",data.chef_detail.user_id);
+        startActivity(profileIntent);
+    }
 
     private int getRadioSelected() {
 

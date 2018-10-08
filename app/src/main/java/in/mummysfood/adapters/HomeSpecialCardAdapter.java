@@ -2,13 +2,6 @@ package in.mummysfood.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.RoundRectShape;
-import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,11 +11,8 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
-import in.mummysfood.BuildConfig;
 import in.mummysfood.R;
-import in.mummysfood.data.network.RetrofitApiService;
 import in.mummysfood.fragments.OrderDetailsActivity;
-import in.mummysfood.fragments.ProfileFragment;
 import in.mummysfood.models.DashBoardModel;
 import in.mummysfood.widgets.CkdTextview;
 
@@ -55,7 +45,7 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
 
                 break;
             case R.id.chef_name:
-                ProfileFragment fragment1 = new ProfileFragment();
+              /*  ProfileFragmentChef fragment1 = new ProfileFragmentChef();
                 Bundle bundle1 = new Bundle();
                 bundle1.putInt("user_id", data.get(position).chef_detail.user_id);
                 fragment1.setArguments(bundle1);
@@ -64,7 +54,7 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
                         .beginTransaction();
                 fragmentTransaction1.addToBackStack(fragment1.getClass().getSimpleName());
                 fragmentTransaction1.replace(R.id.content_frame, fragment1);
-                fragmentTransaction1.commit();
+                fragmentTransaction1.commit();*/
                 break;
         }
 
@@ -100,8 +90,8 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
 
 
         try {
-            viewHolder.orderTitle.setText(model.food_detail.name);
-            viewHolder.orderPrice.setText(context.getResources().getString(R.string.Rs)+" "+model.food_detail.price);
+            viewHolder.orderTitle.setText(model.food_detail.get(0).name);
+            viewHolder.orderPrice.setText(context.getResources().getString(R.string.Rs)+" "+model.food_detail.get(0).price);
             viewHolder.ChefName.setText(model.name);
 
         } catch (Exception e) {
@@ -119,11 +109,11 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
 
             if (model.food_detail != null)
             {
-                if(model.food_detail.food_media != null){
+                if(model.food_detail.get(0).food_media != null){
 
-                    if (model.food_detail.food_media.size() != 0)
+                    if (model.food_detail.get(0).food_media.size() != 0)
                     {
-                        String imageUrl = "http://cdn.mummysfood.in/"+model.food_detail.food_media.get(0).media.name;
+                        String imageUrl = "http://cdn.mummysfood.in/"+model.food_detail.get(0).food_media.get(0).media.name;
 
                         Log.d("ImageUrl",imageUrl);
 

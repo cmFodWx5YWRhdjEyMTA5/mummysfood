@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/toolbarName"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp48"
         android:background="@color/colorPrimary"
@@ -41,10 +42,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/dp32"
-        android:layout_marginTop="@dimen/dp32"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbarName"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/dp24"
         android:orientation="vertical">
     <in.mummysfood.widgets.CkdTextview
         android:id="@+id/yourorderDetails"
@@ -242,6 +243,35 @@
             style="@style/textviewregular"
             />
     </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:padding="@dimen/dp8"
+            android:id="@+id/remainingLayout"
+            android:layout_height="wrap_content">
+            <in.mummysfood.widgets.CkdTextview
+                android:id="@+id/RemainingPlates"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Remaining Plates"
+                android:textSize="@dimen/sp14"
+                android:layout_marginLeft="@dimen/dp8"
+                android:textColor="@color/black"
+                style="@style/textviewregular"
+                />
+            <in.mummysfood.widgets.CkdTextview
+                android:id="@+id/RemainingPlates_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="@dimen/sp10"
+                android:layout_marginTop="@dimen/dp2"
+                android:layout_marginLeft="@dimen/dp8"
+                android:textColor="@color/black"
+                style="@style/textviewregular"
+                />
+        </LinearLayout>
     </LinearLayout>
 
     <in.mummysfood.widgets.CkdTextview
@@ -252,9 +282,85 @@
         android:background="@drawable/fill_rounded_primary_color"
         android:textSize="@dimen/sp18"
         style="@style/textviewbold"
+        android:layout_alignParentBottom="true"
         android:layout_gravity="center"
         android:gravity="center"
+        android:visibility="gone"
         android:layout_margin="@dimen/sp16"
         android:layout_height="@dimen/dp48" />
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/SkipOrderForTodayLayout"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:weightSum="10"
+        android:gravity="center"
+        android:layout_margin="@dimen/dp8"
+        android:layout_marginBottom="@dimen/dp32"
+        android:layout_height="wrap_content">
+
+        <in.mummysfood.widgets.CkdTextview
+            android:id="@+id/SkipOrderForToday"
+            android:layout_width="match_parent"
+            android:text="Skip order for today"
+            android:textColor="@color/black_effective"
+            android:textSize="@dimen/sp18"
+            style="@style/textviewregular"
+            android:layout_marginLeft="@dimen/dp8"
+            android:visibility="visible"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_below="@+id/SkipOrderForToday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <in.mummysfood.widgets.CkdTextview
+            android:id="@+id/lunchSkip"
+            android:layout_width="0dp"
+            android:text="Lunch"
+            android:textColor="@color/white"
+            android:layout_weight="3"
+
+            android:background="@drawable/fill_rounded_primary_color"
+            android:textSize="@dimen/sp12"
+            style="@style/textviewbold"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_margin="@dimen/sp16"
+            android:layout_height="@dimen/dp48" />
+
+        <in.mummysfood.widgets.CkdTextview
+            android:id="@+id/skipDinner"
+            android:layout_width="0dp"
+            android:text="Dinner"
+            android:textColor="@color/white"
+            android:layout_weight="3"
+            android:background="@drawable/fill_rounded_primary_color"
+            android:textSize="@dimen/sp12"
+            style="@style/textviewbold"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_margin="@dimen/sp16"
+            android:layout_height="@dimen/dp48" />
+
+        <in.mummysfood.widgets.CkdTextview
+            android:id="@+id/skipBoth"
+            android:layout_width="0dp"
+            android:text="Both"
+            android:textColor="@color/white"
+            android:layout_weight="3"
+            android:background="@drawable/fill_rounded_primary_color"
+            android:textSize="@dimen/sp12"
+            style="@style/textviewbold"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_margin="@dimen/sp16"
+            android:layout_height="@dimen/dp48" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
