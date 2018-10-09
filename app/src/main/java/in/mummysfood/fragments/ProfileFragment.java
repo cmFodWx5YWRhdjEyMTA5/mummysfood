@@ -150,6 +150,7 @@ public class ProfileFragment extends BaseFragment {
 
     private Context context;
     private int userId;
+    private String type;
     private ProfileModel.Data userData;
     private int loggedInUserId;
     //for image upload
@@ -182,8 +183,11 @@ public class ProfileFragment extends BaseFragment {
         Bundle bundle = getArguments();
         if (bundle != null){
             userId = bundle.getInt("user_id",0);
-            if (userId == loggedInUserId)
+            type = bundle.getString("type",null);
+            if (userId == loggedInUserId) {
                 userId = loggedInUserId;
+                type = AppConstants.SEEKER;
+            }
         }
 
         if (userId != 0){

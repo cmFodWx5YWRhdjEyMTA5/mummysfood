@@ -59,10 +59,11 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     private List<DashBoardModel.Data> fetchData = new ArrayList<>();
     private HomePilotCardAdapter pilotCardAdapter;
     private HomeSpecialCardAdapter specialCardAdapter;
-    private PreferenceManager pf;
+    private PreferenceManager pf,pf1;
     private PreferenceManager addPref;
     private int item_quantity = 0;
     private Dialog dialog;
+    private int loggedInUserId;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -75,6 +76,9 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         ButterKnife.bind(this,rootView);
 
         pf = new PreferenceManager(context, PreferenceManager.ORDER_PREFERENCES_FILE);
+
+        pf1 = new PreferenceManager(context, PreferenceManager.LOGIN_PREFERENCES_FILE);
+        loggedInUserId = pf1.getIntForKey(PreferenceManager.USER_ID,0);
 
         //homeToolbar.setVisibility(View.GONE);
 
@@ -179,6 +183,21 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.home_menu, menu);
+    }
+
+    @OnClick(R.id.user_profile_icon)
+    public void RedirectToProfile(){
+        ProfileFragment fragment1 = new ProfileFragment();
+        Bundle bundle1 = new Bundle();
+        bundle1.putInt("user_id", loggedInUserId);
+        bundle1.putString("type", AppConstants.SEEKER);
+        fragment1.setArguments(bundle1);
+        FragmentManager fragmentManager1 = (((AppCompatActivity) context).getSupportFragmentManager());
+        FragmentTransaction fragmentTransaction1 = fragmentManager1
+                .beginTransaction();
+        fragmentTransaction1.addToBackStack(fragment1.getClass().getSimpleName());
+        fragmentTransaction1.replace(R.id.content_frame, fragment1);
+        fragmentTransaction1.commit();
     }
 
     @Override

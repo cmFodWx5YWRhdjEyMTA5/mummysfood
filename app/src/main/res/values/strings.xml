@@ -128,6 +128,11 @@
     <string name="friday">Friday</string>
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
-
+    <string name="manage_address">Manage Address</string>
+    <string name="your_order">Your Orders</string>
+    <string name="manage_payment_option">Manage Payment Options</string>
+    <string name="notification_setting">Notification Settings</string>
+    <string name="help_support">Help &amp; Support</string>
+    <string name="logout">LogOut</string>
 
 </resources>
