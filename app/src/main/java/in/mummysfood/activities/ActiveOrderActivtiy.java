@@ -3,10 +3,13 @@ package in.mummysfood.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -14,8 +17,13 @@ import butterknife.OnClick;
 import in.mummysfood.R;
 import in.mummysfood.base.BaseActivity;
 import in.mummysfood.data.pref.PreferenceManager;
+import in.mummysfood.models.SubscribtionModel;
 import in.mummysfood.models.UserProfileModel;
+import in.mummysfood.utils.AppConstants;
 import in.mummysfood.widgets.CkdTextview;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by acer on 10/4/2018.
@@ -133,8 +141,15 @@ public class ActiveOrderActivtiy extends BaseActivity
             finish();
         }else
         {
-            yourorderDetails.setText("Order Details");
-            OrderActive.setText("Repeat Order");
+            Intent yourCart = new Intent(this, YourCartActivity.class);
+            yourCart.putExtra("data",orders);
+            yourCart.putExtra("typeOfPackage","");
+            yourCart.putExtra("isLunch",orders.is_lunch);
+            yourCart.putExtra("isDinner",orders.is_dinner);
+            yourCart.putExtra("numberOfDays",orders.number_of_days);
+            yourCart.putExtra("From","RepeatOrder");
+            startActivity(yourCart);
+            finish();
         }
     }
 
@@ -145,6 +160,8 @@ public class ActiveOrderActivtiy extends BaseActivity
 
         showToast("Send as email at supportmummysfood@gmail.com");
     }
+
+
 
 
     @OnClick(R.id.lunchSkip)
@@ -177,4 +194,52 @@ public class ActiveOrderActivtiy extends BaseActivity
         super.onBackPressed();
         finish();
     }
+
+    /*private void updateOrder(int remainingPlates) {
+
+        if (remainingPlates != 0)
+        {
+
+          int  orderedPlate   =remainingPlates -1;
+
+            subscribtionModel.ordered_plates = orderedPlate;
+
+            Call<SubscribtionModel> subModelUpdate = AppConstants.restAPI.updateSubscribeOrder(subsribeId,subscribtionModel);
+
+
+            subModelUpdate.enqueue(new Callback<SubscribtionModel>() {
+                @Override
+                public void onResponse(Call<SubscribtionModel> call, Response<SubscribtionModel> response) {
+                    if (response.isSuccessful())
+                    {
+                        if (response != null)
+                        {
+                            showToast("order Update");
+                        }else
+                        {
+                            showToast("response null");
+
+                        }
+                    }else {
+                        try {
+                            Log.d("Response",response.errorBody().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<SubscribtionModel> call, Throwable t) {
+                    showToast("response falier");
+
+                }
+            });
+
+        }else {
+            showToast("This order has completed");
+        }
+
+    }*/
+
 }

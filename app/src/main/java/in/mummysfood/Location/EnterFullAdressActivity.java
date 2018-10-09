@@ -12,7 +12,6 @@ import java.io.IOException;
 
 import in.mummysfood.R;
 import in.mummysfood.activities.MainBottomBarActivity;
-import in.mummysfood.activities.YourCartActivity;
 import in.mummysfood.base.BaseActivity;
 import in.mummysfood.data.pref.PreferenceManager;
 
