@@ -23,6 +23,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -54,6 +55,9 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     RecyclerView recommended_recyclerview;
     @BindView(R.id.near_you_recyclerview)
     RecyclerView near_you_recyclerview;
+    @BindView(R.id.activeOrder)
+    ImageView activeOrder;
+
 
     Context context;
     private LinearLayoutManager linearLayoutManager;
@@ -188,6 +192,11 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         }
     }
 
+    @OnClick(R.id.activeOrder)
+    public void activeOrder()
+    {
+        showToast("Active Orders");
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

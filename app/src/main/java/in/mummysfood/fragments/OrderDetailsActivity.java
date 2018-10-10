@@ -627,7 +627,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         userDelAddress.setText(address);
     }
 
-    @OnClick(R.id.order_chef_profile_img)
+    @OnClick(R.id.order_pilot_profile)
     public void aVoid()
     {
 
