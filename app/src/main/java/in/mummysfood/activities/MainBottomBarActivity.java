@@ -1,6 +1,7 @@
 package in.mummysfood.activities;
 
 import android.graphics.PorterDuff;
+import android.net.wifi.hotspot2.pps.HomeSp;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationMenuView;
@@ -22,7 +23,7 @@ import in.mummysfood.fragments.OrderStatusFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainBottomBarActivity extends BaseActivity {
+public class MainBottomBarActivity extends BaseActivity implements HomeFragment.orderActionListner {
 
     @BindView(R.id.bottom_navigation)
     BottomNavigationView mBottomNav;
@@ -205,4 +206,9 @@ public class MainBottomBarActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void activeOrder()
+    {
+         mBottomNav.setSelectedItemId(R.id.navigation_order);
+    }
 }

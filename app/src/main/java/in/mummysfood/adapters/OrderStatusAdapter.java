@@ -71,24 +71,11 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
             holder.remainingPlates.setText("Remaining plates : "+String.valueOf(totalPlates - orderPlates));
             remmainPlates = totalPlates - orderPlates;
 
-            if (subList.orders != null)
-            {
-                if (subList.orders.size() > 0)
-                {
+
+
                     holder.lineaarBg.setVisibility(View.VISIBLE);
                     holder.foodDetail.setText(modelSubscribe.orders.get(0).food_detail);
                     holder.foodDetail.setText(modelSubscribe.orders.get(0).food_name);
-                }else
-                {
-                    holder.lineaarBg.setVisibility(View.GONE);
-                }
-
-            }else
-            {
-                holder.lineaarBg.setVisibility(View.GONE);
-
-            }
-
 
 
 

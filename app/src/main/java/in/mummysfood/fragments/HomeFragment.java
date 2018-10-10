@@ -68,6 +68,12 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     private PreferenceManager addPref;
     private int item_quantity = 0;
     private Dialog dialog;
+    private orderActionListner orderActionListner;
+
+    public interface orderActionListner
+    {
+         void activeOrder();
+    }
 
     public HomeFragment() {
         // Required empty public constructor
@@ -195,7 +201,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     @OnClick(R.id.activeOrder)
     public void activeOrder()
     {
-        showToast("Active Orders");
+        orderActionListner.activeOrder();
     }
 
     @Override
@@ -352,5 +358,11 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
             //homeToolbar.setVisibility(View.GONE);
         }
         pilotCardAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        orderActionListner = (HomeFragment.orderActionListner) context;
     }
 }
