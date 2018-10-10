@@ -136,10 +136,6 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="@dimen/dp16"/>
 
-
-
-
-
     </RelativeLayout>
 
     <View
@@ -218,7 +214,6 @@
             android:id="@+id/order_taxes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/price"
             android:layout_alignParentEnd="true"
             android:layout_marginLeft="@dimen/dp8"
             android:textColor="@color/gray"

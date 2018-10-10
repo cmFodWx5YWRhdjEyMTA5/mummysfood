@@ -143,7 +143,17 @@ public class ActiveOrderActivtiy extends BaseActivity
         {
             Intent yourCart = new Intent(this, YourCartActivity.class);
             yourCart.putExtra("data",orders);
-            yourCart.putExtra("typeOfPackage","");
+            if (orders.number_of_days == 1)
+            {
+                yourCart.putExtra("typeOfPackage","today");
+            }else if (orders.number_of_days <= 7)
+            {
+                yourCart.putExtra("typeOfPackage","weekly");
+            }else if (orders.number_of_days <=15 )
+            {
+                yourCart.putExtra("typeOfPackage","montly");
+            }
+
             yourCart.putExtra("isLunch",orders.is_lunch);
             yourCart.putExtra("isDinner",orders.is_dinner);
             yourCart.putExtra("numberOfDays",orders.number_of_days);

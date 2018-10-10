@@ -79,8 +79,6 @@ public class YourCartActivity extends BaseActivity {
     @BindView(R.id.backArrowFinish)
     ImageView backArrowFinish;
 
-
-
     @BindView(R.id.scrollchange)
     ScrollView scrollChange;
 
@@ -92,6 +90,19 @@ public class YourCartActivity extends BaseActivity {
 
     @BindView(R.id.changePaymentOption)
     LinearLayout changePaymentOption;
+
+    @BindView(R.id.add_to_cart_item_layout)
+    LinearLayout add_to_cart_item_layout;
+
+    @BindView(R.id.sub_item)
+    CkdTextview subItem;
+
+    @BindView(R.id.add_item)
+    CkdTextview add_item;
+
+    @BindView(R.id.item_count)
+    CkdTextview item_count;
+
 
 
     private DashBoardModel.Data modelData;
@@ -118,9 +129,9 @@ public class YourCartActivity extends BaseActivity {
 
          ButterKnife.bind(this);
 
+
         if (getIntent() != null)
         {
-
 
             try {
                 location = getIntent().getStringExtra("From");
@@ -148,12 +159,22 @@ public class YourCartActivity extends BaseActivity {
                 isLunch = getIntent().getIntExtra("isLunch",0);
 
             }
-
-
         }
 
+            if (typeOfPackage.equalsIgnoreCase("today"))
+            {
+                add_to_cart_item_layout.setVisibility(View.VISIBLE);
+                order_price_basedQuantity.setVisibility(View.VISIBLE);
 
-
+            }else if (typeOfPackage.equalsIgnoreCase("monthly"))
+            {
+                add_to_cart_item_layout.setVisibility(View.GONE);
+                order_price_basedQuantity.setVisibility(View.GONE);
+            }else if (typeOfPackage.equalsIgnoreCase("weekly"))
+            {
+                add_to_cart_item_layout.setVisibility(View.GONE);
+                order_price_basedQuantity.setVisibility(View.GONE);
+            }
 
 
         try {
@@ -190,15 +211,20 @@ public class YourCartActivity extends BaseActivity {
         try {
             if (location.equalsIgnoreCase("RepeatOrder"))
             {
+
+
                 order_titile.setText(orders.food_name);
                 order_price.setText(orders.price);
-                order_price_basedQuantity.setText(orders.price);
+
+
+                order_price_basedQuantity.setText(orders.price );
                 totalValue.setText(orders.price);
-                order_taxes.setText("rr");
+                order_taxes.setText(String.valueOf(50));
                 placeOrderprice.setText(orders.price);
                 payatm.setText("Payatm "+"Rs."+orders.price+"/-");
                 placeOrderprice.setText("Pay Rs."+orders.price+"/-");
                 payatmOption.setText("Pay Rs."+orders.price+"/-");
+                order_taxes.setText(String.valueOf(50));
 
             }else
             {
@@ -206,17 +232,22 @@ public class YourCartActivity extends BaseActivity {
                 order_price.setText(modelData.food_detail.get(0).price);
                 order_price_basedQuantity.setText(modelData.food_detail.get(0).price);
                 totalValue.setText(modelData.food_detail.get(0).price);
-                order_taxes.setText(modelData.food_detail.get(0).taxes);
+
+
                 placeOrderprice.setText(modelData.food_detail.get(0).price);
                 payatm.setText("Payatm "+"Rs."+modelData.food_detail.get(0).price+"/-");
                 placeOrderprice.setText("Pay Rs."+modelData.food_detail.get(0).price+"/-");
                 payatmOption.setText("Pay Rs."+modelData.food_detail.get(0).price+"/-");
+                order_taxes.setText(String.valueOf(modelData.food_detail.get(0).taxes));
+
             }
 
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
 
 
         if (addressMain == null && "".equalsIgnoreCase(userAdd))
@@ -263,6 +294,82 @@ public class YourCartActivity extends BaseActivity {
 
     }
 
+    @OnClick(R.id.item_count)
+    public void itemCount()
+    {
+
+    }
+
+    @OnClick(R.id.sub_item)
+    public void sub_item()
+    {
+        float valuep;
+        int itemCountText = Integer.parseInt(item_count.getText().toString());
+        int itemTaxesText = Integer.parseInt(order_taxes.getText().toString());
+
+
+        if (itemCountText > 1)
+        {
+            int totalCount = itemCountText - 1;
+            item_count.setText(String.valueOf(totalCount));
+            if (location.equalsIgnoreCase("RepeatOrder"))
+            {
+                valuep  = Float.parseFloat(orders.price);
+            }else
+            {
+                valuep  = Float.parseFloat(modelData.food_detail.get(0).price);
+            }
+
+
+            int value  = (int) valuep;
+
+            int priceValue = value * itemCountText;
+            order_price_basedQuantity.setText(String.valueOf(priceValue));
+            int totalValueRs = priceValue+itemCountText;
+
+            totalValue.setText(String.valueOf(totalValueRs));
+
+            placeOrderprice.setText(String.valueOf(totalValueRs));
+            payatm.setText("Payatm "+"Rs."+String.valueOf(totalValueRs)+"/-");
+            placeOrderprice.setText("Pay Rs."+String.valueOf(totalValueRs)+"/-");
+            payatmOption.setText("Pay Rs."+String.valueOf(totalValueRs)+"/-");
+
+        }
+    }
+
+    @OnClick(R.id.add_item)
+    public void add_item()
+    {
+        float valuep;
+            int itemCountText = Integer.parseInt(item_count.getText().toString());
+            int itemTaxesText = Integer.parseInt(order_taxes.getText().toString());
+            int totalCount = itemCountText + 1;
+            item_count.setText(String.valueOf(totalCount));
+
+        if (location.equalsIgnoreCase("RepeatOrder"))
+        {
+            valuep  = Float.parseFloat(orders.price);
+        }else
+        {
+            valuep  = Float.parseFloat(modelData.food_detail.get(0).price);
+        }
+
+        int value  = (int) valuep;
+
+        int priceValue = value * itemCountText;
+
+        order_price_basedQuantity.setText(String.valueOf(priceValue));
+
+        int totalValueRs = priceValue+itemCountText;
+
+        totalValue.setText(String.valueOf(totalValueRs));
+
+        placeOrderprice.setText(String.valueOf(totalValueRs));
+        payatm.setText("Payatm "+"Rs."+String.valueOf(totalValueRs)+"/-");
+        placeOrderprice.setText("Pay Rs."+String.valueOf(totalValueRs)+"/-");
+        payatmOption.setText("Pay Rs."+String.valueOf(totalValueRs)+"/-");
+
+    }
 
     @OnClick(R.id.addressChange)
     public void addressChange()
@@ -426,6 +533,8 @@ public class YourCartActivity extends BaseActivity {
     private void placeOrderData()
     {
         OrderModel.Data orderModel = new OrderModel.Data();
+        int itemCountText = Integer.parseInt(item_count.getText().toString());
+
         if (location.equalsIgnoreCase("RepeatOrder"))
         {
 
@@ -456,7 +565,7 @@ public class YourCartActivity extends BaseActivity {
             orderModel.status = "active";
             orderModel.is_dinner = orders.is_dinner;
             orderModel.is_lunch =  orders.is_dinner;;
-            orderModel.ordered_plates = 1;
+            orderModel.ordered_plates = itemCountText;
             orderModel.chef_name = "privacy concern so name is not here";
 
         }else
@@ -483,7 +592,7 @@ public class YourCartActivity extends BaseActivity {
             orderModel.state = "MP";
 
             orderModel.price = modelData.food_detail.get(0).price;
-            orderModel.quantity =1;
+            orderModel.quantity =itemCountText;
             orderModel.payment_status = "confirm";
             orderModel.is_order_confirmed = 1;
             orderModel.user_id = loginPref.getIntForKey("user_id",0);
@@ -492,7 +601,7 @@ public class YourCartActivity extends BaseActivity {
             orderModel.status = "active";
             orderModel.is_dinner = isDinner;
             orderModel.is_lunch = isLunch;
-            orderModel.ordered_plates = 1;
+            orderModel.ordered_plates = itemCountText;
             orderModel.chef_name = "privacy concern so name is not here";
         }
 

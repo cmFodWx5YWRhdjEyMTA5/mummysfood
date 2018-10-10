@@ -58,7 +58,6 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     @BindView(R.id.activeOrder)
     ImageView activeOrder;
 
-
     Context context;
     private LinearLayoutManager linearLayoutManager;
     private List<DashBoardModel.Data> fetchData = new ArrayList<>();
@@ -72,7 +71,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
     public interface orderActionListner
     {
-         void activeOrder();
+        void activeOrder();
     }
 
     public HomeFragment() {
@@ -119,7 +118,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
                 if (dy > 0 ||dy<0 && recyclerView.isShown())
                 {
-                  //  mBottomNav.setVisibility(View.GONE);
+                    //  mBottomNav.setVisibility(View.GONE);
                 }
             }
         });
@@ -233,7 +232,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     public void AddToCart(final int i){
 
         if (pf.getIntForKey(PreferenceManager.ORDER_ID,0) == 0){
-           // setOrderItemData(i);
+            // setOrderItemData(i);
         }else{
             String msg = "Your cart contains dishes from "+ pf.getStringForKey(PreferenceManager.ORDER_NAME,null)+". Do you want to discard the selection and add dishes from "+fetchData.get(i).food_detail.get(0).name+" ?";
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -319,7 +318,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     }
 
     private void sharePref(int i, int quantity) {
-     //   pf.saveIntForKey(PreferenceManager.USER_ID,fetchData.get(i).id);
+        //   pf.saveIntForKey(PreferenceManager.USER_ID,fetchData.get(i).id);
         pf.saveIntForKey(PreferenceManager.ORDER_ID,fetchData.get(i).food_detail.get(0).id);
         pf.saveIntForKey(PreferenceManager.ODRDER_USER_ID,fetchData.get(i).food_detail.get(0).user_id);
         pf.saveIntForKey(PreferenceManager.ORDER_CATEGORY_ID,fetchData.get(i).food_detail.get(0).category_id);
@@ -353,7 +352,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
             count--;
             pf.saveIntForKey(PreferenceManager.ORDER_quantity,count);
         }else{
-          //  fetchData.get(position).add_food = false;
+            //  fetchData.get(position).add_food = false;
             pf.clearPref(context, PreferenceManager.ORDER_PREFERENCES_FILE);
             //homeToolbar.setVisibility(View.GONE);
         }

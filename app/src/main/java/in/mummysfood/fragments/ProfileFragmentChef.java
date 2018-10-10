@@ -156,6 +156,7 @@ public class ProfileFragmentChef extends BaseActivity {
 
     private Context context;
     private int userId;
+    private String type;
     private ProfileModel.Data userData;
     private int loggedInUserId;
     //for image upload
