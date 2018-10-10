@@ -64,6 +64,7 @@ public class ProfileModel implements Serializable {
         public int cooking_score;
         public int user_id;
         public int id;
+        public List<Chef_media> chef_media;
     }
 
     public static class Food_detail {
@@ -78,6 +79,16 @@ public class ProfileModel implements Serializable {
     }
 
     public static class Food_media {
+        public Media media;
+        public String updated_at;
+        public String created_at;
+        public String entity_media_type;
+        public int entity_media_id;
+        public int media_id;
+        public int id;
+    }
+
+    public static class Chef_media {
         public Media media;
         public String updated_at;
         public String created_at;

@@ -39,6 +39,7 @@ import com.bumptech.glide.Glide;
 import butterknife.OnClick;
 import in.mummysfood.R;
 import in.mummysfood.activities.ProfileUpdateActivity;
+import in.mummysfood.adapters.ChefFoodAdapter;
 import in.mummysfood.adapters.FoodDataAdapter;
 import in.mummysfood.adapters.HomeSpecialCardAdapter;
 import in.mummysfood.adapters.ReviewAdapter;
@@ -150,6 +151,9 @@ public class ProfileFragmentChef extends BaseActivity {
     @BindView(R.id.food_recyclerview)
     RecyclerView foodRecyclerview;
 
+    @BindView(R.id.kitchen_recyclerview)
+    RecyclerView kitchen_recyclerview;
+
     private Context context;
     private int userId;
     private ProfileModel.Data userData;
@@ -243,12 +247,17 @@ public class ProfileFragmentChef extends BaseActivity {
             FoodDataPrepare();
             //review
             ReviewListPrepare();
+
+            kitchen_recyclerviewData();
+
+
             linearLayoutManager = new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false);
             review_recyclerview.setHasFixedSize(true);
             review_recyclerview.setLayoutManager(linearLayoutManager);
             review_recyclerview.setItemAnimator(new DefaultItemAnimator());
             ReviewAdapter reviewAdapter = new ReviewAdapter(this,reviewDataList);
             review_recyclerview.setAdapter(reviewAdapter);
+
         }
 
         if (userData.chef_detail != null && userData.chef_detail.about != null && !"".equalsIgnoreCase(userData.chef_detail.about)){
@@ -265,13 +274,37 @@ public class ProfileFragmentChef extends BaseActivity {
     }
 
     private void FoodDataPrepare() {
-        linearLayoutManager = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false);
-        foodRecyclerview.setHasFixedSize(true);
-        foodRecyclerview.setLayoutManager(linearLayoutManager);
-        foodRecyclerview.setItemAnimator(new DefaultItemAnimator());
-        FoodDataAdapter foodDataAdapter = new FoodDataAdapter(this,userData.food_detail.food_media);
-        foodRecyclerview.setAdapter(foodDataAdapter);
+
+        if (userData.food_detail != null )
+        {
+            if (userData.food_detail.food_media != null&&userData.food_detail.food_media.size() != 0)
+            {
+                linearLayoutManager = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false);
+                foodRecyclerview.setHasFixedSize(true);
+                foodRecyclerview.setLayoutManager(linearLayoutManager);
+                foodRecyclerview.setItemAnimator(new DefaultItemAnimator());
+                FoodDataAdapter foodDataAdapter = new FoodDataAdapter(this,userData.food_detail.food_media);
+                foodRecyclerview.setAdapter(foodDataAdapter);
+            }
+
+        }
+
     }
+
+    private void kitchen_recyclerviewData() {
+
+        if (userData.chef_detail != null ) {
+            if (userData.chef_detail.chef_media != null && userData.chef_detail.chef_media.size() != 0) {
+                linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
+                kitchen_recyclerview.setHasFixedSize(true);
+                kitchen_recyclerview.setLayoutManager(linearLayoutManager);
+                kitchen_recyclerview.setItemAnimator(new DefaultItemAnimator());
+                ChefFoodAdapter foodDataAdapter = new ChefFoodAdapter(this, userData.chef_detail.chef_media);
+                kitchen_recyclerview.setAdapter(foodDataAdapter);
+            }
+        }
+    }
+
 
     private void ActiveTimePrepare() {
         ProfileModel.Chef_open_days activeTimeData = userData.chef_open_days;
