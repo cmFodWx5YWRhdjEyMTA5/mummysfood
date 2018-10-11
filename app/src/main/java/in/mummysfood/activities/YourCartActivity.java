@@ -113,8 +113,7 @@ public class YourCartActivity extends BaseActivity {
 
          ButterKnife.bind(this);
 
-        if (getIntent() != null)
-        {
+        if (getIntent() != null) {
             modelData = (DashBoardModel.Data) getIntent().getSerializableExtra("data");
             typeOfPackage = getIntent().getStringExtra("typeOfPackage");
             numberOfDays = getIntent().getIntExtra("numberOfDays",0);

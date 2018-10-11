@@ -185,8 +185,23 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         inflater.inflate(R.menu.home_menu, menu);
     }
 
-    @OnClick(R.id.user_profile_icon)
+    @OnClick(R.id.home_user_profile_icon)
     public void RedirectToProfile(){
+        ProfileFragment fragment1 = new ProfileFragment();
+        Bundle bundle1 = new Bundle();
+        bundle1.putInt("user_id", loggedInUserId);
+        bundle1.putString("type", AppConstants.SEEKER);
+        fragment1.setArguments(bundle1);
+        FragmentManager fragmentManager1 = (((AppCompatActivity) context).getSupportFragmentManager());
+        FragmentTransaction fragmentTransaction1 = fragmentManager1
+                .beginTransaction();
+        fragmentTransaction1.addToBackStack(fragment1.getClass().getSimpleName());
+        fragmentTransaction1.replace(R.id.content_frame, fragment1);
+        fragmentTransaction1.commit();
+    }
+
+    @OnClick(R.id.home_add_to_cart_icon)
+    public void AddToCart(){
         ProfileFragment fragment1 = new ProfileFragment();
         Bundle bundle1 = new Bundle();
         bundle1.putInt("user_id", loggedInUserId);

@@ -15,7 +15,6 @@ import in.mummysfood.adapters.OnBoardingViewPagerAdapter;
 import in.mummysfood.base.BaseActivity;
 import in.mummysfood.data.network.model.LoginRequest;
 import in.mummysfood.data.pref.PreferenceManager;
-import in.mummysfood.models.DashBoardModel;
 import in.mummysfood.models.UserInsert;
 import in.mummysfood.models.UserModel;
 import in.mummysfood.utils.AppConstants;
@@ -27,7 +26,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -229,13 +227,26 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            GoogleSignInAccount account = result.getSignInAccount();
-            firebaseAuthWithGoogle(account);
+            if (result != null){
+                if (result.isSuccess()) {
+                    // Google Sign In was successful, authenticate with Firebase
+                    GoogleSignInAccount account = result.getSignInAccount();
+                    firebaseAuthWithGoogle(account, result);
+                } else {
+                    // Google Sign In failed, update UI appropriately
+                    //popupDismiss();
+                    showToast("Authentication failed");
+                }
+            } else {
+                // Google Sign In failed, update UI appropriately
+                //popupDismiss();
+                showToast("Authentication failed");
+            }
         }
     }
 
     // [START auth_with_google]
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+    /*private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
 
         showProgress("loading");
 
@@ -288,6 +299,31 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
                         dismissProgress();
                     }
                 });
+    }*/
+
+    private void firebaseAuthWithGoogle(final GoogleSignInAccount acct, final GoogleSignInResult result) {
+
+        //get the shared instance of the FirebaseAuth object
+        mAuth = FirebaseAuth.getInstance();
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                //   Log.e("Google LOgin", "signInWithCredential:onComplete:" + task.isSuccessful());
+                // If sign in fails, display a message to the user. If sign in succeeds
+                // the auth state listener will be notified and logic to handle the
+                // signed in user can be handled in the listener.
+                if (!task.isSuccessful()) {
+                    //  popupDismiss();
+                    //     Log.e("Google LOgin", "signInWithCredential", task.getException());
+                    showToast("Authentication failed");
+                } else {
+                    networkcallForCheckUserInDb(acct);
+
+
+                }
+            }
+        });
     }
 
     private void setValueinFirebaseDb(FirebaseUser user) {
@@ -306,13 +342,13 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
 
     }
 
-    private void networkcallForCheckUserInDb(final FirebaseUser user) {
+    private void networkcallForCheckUserInDb(final GoogleSignInAccount user) {
 
 
         LoginRequest request = new LoginRequest();
 
         request.email = user.getEmail();
-
+        request.f_name = user.getDisplayName();
         request.mobile = "";
         request.login_type = "gmail";
         request.is_email_verified = 1;
@@ -338,49 +374,16 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
                                     ;
                             UserInsert.Data data = new UserInsert.Data();
 
-                            if (json.getString("status").equalsIgnoreCase(AppConstants.SUCCESS))
-                            {
-                                data.id = json.getJSONObject("data").getInt("id");
-                                data.mobile = json.getJSONObject("data").getString("mobile");
-
-                                try {
-                                    //    data.f_name = json.getJSONObject("data").getString("f_name");
-                                    // data.profile_image = json.getJSONObject("data").getString("profile_image");
-                                    //data.email = json.getJSONObject("data").getString("email");
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-
-
-                            }else if (json.getString("status").equalsIgnoreCase(AppConstants.ALREADY))
-                            {
-
+                            if (json.getString("status").equalsIgnoreCase(AppConstants.SUCCESS) || json.getString("status").equalsIgnoreCase(AppConstants.ALREADY)) {
                                 data.id = json.getJSONArray("data").getJSONObject(0).getInt("id");
                                 data.mobile = json.getJSONArray("data").getJSONObject(0).getString("mobile");
                                 data.f_name = json.getJSONArray("data").getJSONObject(0).getString("f_name");
                                 data.profile_image = json.getJSONArray("data").getJSONObject(0).getString("profile_image");
                                 data.email =json.getJSONArray("data").getJSONObject(0).getString("email");
+                                sharePrefrenceIntentActivity(data);
 
-                            }else
-                            {
+                            }else {
                                 showToast("Please try again");
-                                finish();
-                            }
-                            pf.saveIntForKey(PreferenceManager.USER_ID, data.id);
-                            if (data.f_name != null && data.f_name.isEmpty())
-                                pf.saveStringForKey(PreferenceManager.FIRST_NM, data.f_name);
-                            if (data.profile_image != null && data.profile_image.isEmpty())
-                                pf.saveStringForKey(PreferenceManager.USER_PROFILE_PIC, data.profile_image);
-                            if (data.email != null && data.email.isEmpty())
-                                pf.saveStringForKey(PreferenceManager.USER_EMAIl_Id, data.email);
-                            if (data.mobile != null && data.mobile.isEmpty())
-                                pf.saveStringForKey(PreferenceManager.USER_MOBILE, data.mobile);
-                            String savedLocation = pf.getStringForKey("CurrentAddress","");
-                            if (savedLocation != null && !"".equalsIgnoreCase(savedLocation)){
-                                startActivity(new Intent(LoginAndSignupActivity.this,MainBottomBarActivity.class));
-                                finish();
-                            }else{
-                                startActivity(new Intent(LoginAndSignupActivity.this,UserLocationActivtiy.class));
                                 finish();
                             }
 
@@ -416,6 +419,26 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
             }
         });
 
+    }
+
+    private void sharePrefrenceIntentActivity(UserInsert.Data data) {
+        pf.saveIntForKey(PreferenceManager.USER_ID, data.id);
+        if (data.f_name != null && data.f_name.isEmpty())
+            pf.saveStringForKey(PreferenceManager.FIRST_NM, data.f_name);
+        if (data.profile_image != null && data.profile_image.isEmpty())
+            pf.saveStringForKey(PreferenceManager.USER_PROFILE_PIC, data.profile_image);
+        if (data.email != null && data.email.isEmpty())
+            pf.saveStringForKey(PreferenceManager.USER_EMAIl_Id, data.email);
+        if (data.mobile != null && data.mobile.isEmpty())
+            pf.saveStringForKey(PreferenceManager.USER_MOBILE, data.mobile);
+        String savedLocation = pf.getStringForKey("CurrentAddress","");
+        //if (savedLocation != null && !"".equalsIgnoreCase(savedLocation)){
+            startActivity(new Intent(LoginAndSignupActivity.this,MainBottomBarActivity.class));
+            finish();
+        /*}else{
+            startActivity(new Intent(LoginAndSignupActivity.this,UserLocationActivtiy.class));
+            finish();
+        }*/
     }
 
     private void signIn() {
