@@ -200,7 +200,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         fragmentTransaction1.commit();
     }
 
-    @OnClick(R.id.home_add_to_cart_icon)
+    /*@OnClick(R.id.home_add_to_cart_icon)
     public void AddToCart(){
         ProfileFragment fragment1 = new ProfileFragment();
         Bundle bundle1 = new Bundle();
@@ -213,7 +213,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         fragmentTransaction1.addToBackStack(fragment1.getClass().getSimpleName());
         fragmentTransaction1.replace(R.id.content_frame, fragment1);
         fragmentTransaction1.commit();
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {

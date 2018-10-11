@@ -356,50 +356,25 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
 ;
                             UserInsert.Data data = new UserInsert.Data();
 
-                            if (json.getString("status").equalsIgnoreCase(AppConstants.SUCCESS))
-                            {
-                                data.id = json.getJSONObject("data").getInt("id");
-                                data.mobile = json.getJSONObject("data").getString("mobile");
-
-                                try {
-                                //    data.f_name = json.getJSONObject("data").getString("f_name");
-                                   // data.profile_image = json.getJSONObject("data").getString("profile_image");
-                                    //data.email = json.getJSONObject("data").getString("email");
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
+                            if (json.getString("status").equalsIgnoreCase(AppConstants.SUCCESS)) {
+                                Intent i = new Intent(MobileOtpVerificationActivity.this,ProfileUpdateActivity.class);
+                                i.putExtra("mobile", mobile.getText().toString());
+                                i.putExtra("logintype","mobile");
+                                startActivity(i);
 
 
-                            }else if (json.getString("status").equalsIgnoreCase(AppConstants.ALREADY))
-                            {
+                            }else if (json.getString("status").equalsIgnoreCase(AppConstants.ALREADY)) {
 
                                 data.id = json.getJSONArray("data").getJSONObject(0).getInt("id");
                                 data.mobile = json.getJSONArray("data").getJSONObject(0).getString("mobile");
                                 data.f_name = json.getJSONArray("data").getJSONObject(0).getString("f_name");
                                 data.profile_image = json.getJSONArray("data").getJSONObject(0).getString("profile_image");
                                 data.email =json.getJSONArray("data").getJSONObject(0).getString("email");
+                                sharePrefrenceIntentActivity(data);
 
-                            }else
-                            {
+                            }else {
                                   showToast("Please try again");
                                   finish();
-                            }
-                            pf.saveIntForKey(PreferenceManager.USER_ID, data.id);
-                            if (data.f_name != null && data.f_name.isEmpty())
-                                pf.saveStringForKey(PreferenceManager.FIRST_NM, data.f_name);
-                            if (data.profile_image != null && data.profile_image.isEmpty())
-                                pf.saveStringForKey(PreferenceManager.USER_PROFILE_PIC, data.profile_image);
-                            if (data.email != null && data.email.isEmpty())
-                                pf.saveStringForKey(PreferenceManager.USER_EMAIl_Id, data.email);
-                            if (data.mobile != null && data.mobile.isEmpty())
-                                pf.saveStringForKey(PreferenceManager.USER_MOBILE, data.mobile);
-                            String savedLocation = pf.getStringForKey("CurrentAddress","");
-                            if (savedLocation != null && !"".equalsIgnoreCase(savedLocation)){
-                                startActivity(new Intent(MobileOtpVerificationActivity.this,MainBottomBarActivity.class));
-                                finish();
-                            }else{
-                                startActivity(new Intent(MobileOtpVerificationActivity.this,UserLocationActivtiy.class));
-                                finish();
                             }
 
                         } catch (IOException e) {
@@ -434,6 +409,26 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
             }
         });
 
+    }
+
+    private void sharePrefrenceIntentActivity(UserInsert.Data data) {
+        pf.saveIntForKey(PreferenceManager.USER_ID, data.id);
+        if (data.f_name != null && data.f_name.isEmpty())
+            pf.saveStringForKey(PreferenceManager.FIRST_NM, data.f_name);
+        if (data.profile_image != null && data.profile_image.isEmpty())
+            pf.saveStringForKey(PreferenceManager.USER_PROFILE_PIC, data.profile_image);
+        if (data.email != null && data.email.isEmpty())
+            pf.saveStringForKey(PreferenceManager.USER_EMAIl_Id, data.email);
+        if (data.mobile != null && data.mobile.isEmpty())
+            pf.saveStringForKey(PreferenceManager.USER_MOBILE, data.mobile);
+        String savedLocation = pf.getStringForKey("CurrentAddress","");
+        if (savedLocation != null &&savedLocation.equalsIgnoreCase("gotitlocation")){
+            startActivity(new Intent(MobileOtpVerificationActivity.this,MainBottomBarActivity.class));
+            finish();
+        }else{
+            startActivity(new Intent(MobileOtpVerificationActivity.this,UserLocationActivtiy.class));
+            finish();
+        }
     }
 
     private void error(String message) {

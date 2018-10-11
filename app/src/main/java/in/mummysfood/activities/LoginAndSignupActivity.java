@@ -374,14 +374,20 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
                                     ;
                             UserInsert.Data data = new UserInsert.Data();
 
-                            if (json.getString("status").equalsIgnoreCase(AppConstants.SUCCESS) || json.getString("status").equalsIgnoreCase(AppConstants.ALREADY)) {
+                            if (json.getString("status").equalsIgnoreCase(AppConstants.SUCCESS)) {
+                                Intent intent = new Intent(LoginAndSignupActivity.this,ProfileUpdateActivity.class);
+                                intent.putExtra("fullname",user.getDisplayName());
+                                intent.putExtra("email",user.getEmail());
+                                intent.putExtra("profile_image",user.getPhotoUrl().toString());
+                                intent.putExtra("logintype","google");
+
+                            }else if(json.getString("status").equalsIgnoreCase(AppConstants.ALREADY)){
                                 data.id = json.getJSONArray("data").getJSONObject(0).getInt("id");
                                 data.mobile = json.getJSONArray("data").getJSONObject(0).getString("mobile");
                                 data.f_name = json.getJSONArray("data").getJSONObject(0).getString("f_name");
                                 data.profile_image = json.getJSONArray("data").getJSONObject(0).getString("profile_image");
                                 data.email =json.getJSONArray("data").getJSONObject(0).getString("email");
                                 sharePrefrenceIntentActivity(data);
-
                             }else {
                                 showToast("Please try again");
                                 finish();
@@ -432,13 +438,13 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
         if (data.mobile != null && data.mobile.isEmpty())
             pf.saveStringForKey(PreferenceManager.USER_MOBILE, data.mobile);
         String savedLocation = pf.getStringForKey("CurrentAddress","");
-        //if (savedLocation != null && !"".equalsIgnoreCase(savedLocation)){
+        if (savedLocation != null &&savedLocation.equalsIgnoreCase("gotitlocation")){
             startActivity(new Intent(LoginAndSignupActivity.this,MainBottomBarActivity.class));
             finish();
-        /*}else{
+        }else{
             startActivity(new Intent(LoginAndSignupActivity.this,UserLocationActivtiy.class));
             finish();
-        }*/
+        }
     }
 
     private void signIn() {
