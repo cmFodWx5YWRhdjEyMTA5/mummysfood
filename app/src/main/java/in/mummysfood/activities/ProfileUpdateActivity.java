@@ -41,6 +41,7 @@ import in.mummysfood.base.BaseActivity;
 import in.mummysfood.data.network.model.LoginRequest;
 import in.mummysfood.data.pref.PreferenceManager;
 import in.mummysfood.models.DashBoardModel;
+import in.mummysfood.models.UserInsert;
 import in.mummysfood.utils.AppConstants;
 import in.mummysfood.widgets.CkdButton;
 import in.mummysfood.widgets.CkdEditText;
@@ -49,6 +50,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -59,6 +63,8 @@ import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -115,22 +121,6 @@ public class ProfileUpdateActivity extends BaseActivity {
             mobileNumber = intent.getString("mobile");
 
         }
-
-        chooseGender.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    userGender = "male";
-                    maleIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-                    femaleIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.black));
-                } else {
-                    userGender = "female";
-                    femaleIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary));
-                    maleIcon.setColorFilter(ContextCompat.getColor(getApplicationContext(), R.color.black));
-                }
-
-            }
-        });
 
         chooseGender.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -280,7 +270,65 @@ public class ProfileUpdateActivity extends BaseActivity {
         request.os = "";
         request.l_name = "";
 
-        //LoginAndSignupActivity
+        Call<ResponseBody> loginRequestCall = AppConstants.restAPI.saveUserInfo(request);
+
+        loginRequestCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+
+
+                if (response != null){
+                    if (response.isSuccessful()){
+                        try {
+                            String resp = response.body().string();
+
+                            JSONObject json = new JSONObject(resp)
+                                    ;
+                            UserInsert.Data data = new UserInsert.Data();
+
+                            if (json.getString("status").equalsIgnoreCase(AppConstants.SUCCESS)) {
+                                data.id = json.getJSONArray("data").getJSONObject(0).getInt("id");
+                                data.mobile = json.getJSONArray("data").getJSONObject(0).getString("mobile");
+                                data.f_name = json.getJSONArray("data").getJSONObject(0).getString("f_name");
+                                data.profile_image = json.getJSONArray("data").getJSONObject(0).getString("profile_image");
+                                data.email =json.getJSONArray("data").getJSONObject(0).getString("email");
+                                sharePrefrenceIntentActivity(data);
+
+                            }else if(json.getString("status").equalsIgnoreCase(AppConstants.ALREADY)){
+                                data.id = json.getJSONArray("data").getJSONObject(0).getInt("id");
+                                data.mobile = json.getJSONArray("data").getJSONObject(0).getString("mobile");
+                                data.f_name = json.getJSONArray("data").getJSONObject(0).getString("f_name");
+                                data.profile_image = json.getJSONArray("data").getJSONObject(0).getString("profile_image");
+                                data.email =json.getJSONArray("data").getJSONObject(0).getString("email");
+                                sharePrefrenceIntentActivity(data);
+                            }else {
+                                showDialogBox("Authentication Failed","OK");
+                            }
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }else{
+                        try {
+                            Log.e("status",response.errorBody().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }else {
+                    Log.e("response","null ");
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("Response is failure",""+t);
+            }
+        });
     }
 
     private void saveSharePrefrenceData(DashBoardModel.Data data) {
@@ -289,6 +337,26 @@ public class ProfileUpdateActivity extends BaseActivity {
         pf.saveStringForKey(PreferenceManager.USER_PROFILE_PIC, data.profile_image);
         pf.saveStringForKey(PreferenceManager.USER_EMAIl_Id, data.email);
         pf.saveStringForKey(PreferenceManager.USER_MOBILE, data.mobile);
+    }
+
+    private void sharePrefrenceIntentActivity(UserInsert.Data data) {
+        pf.saveIntForKey(PreferenceManager.USER_ID, data.id);
+        if (data.f_name != null && data.f_name.isEmpty())
+            pf.saveStringForKey(PreferenceManager.FIRST_NM, data.f_name);
+        if (data.profile_image != null && data.profile_image.isEmpty())
+            pf.saveStringForKey(PreferenceManager.USER_PROFILE_PIC, data.profile_image);
+        if (data.email != null && data.email.isEmpty())
+            pf.saveStringForKey(PreferenceManager.USER_EMAIl_Id, data.email);
+        if (data.mobile != null && data.mobile.isEmpty())
+            pf.saveStringForKey(PreferenceManager.USER_MOBILE, data.mobile);
+        String savedLocation = pf.getStringForKey("CurrentAddress","");
+        if (savedLocation != null &&savedLocation.equalsIgnoreCase("gotitlocation")){
+            startActivity(new Intent(ProfileUpdateActivity.this,MainBottomBarActivity.class));
+            finish();
+        }else{
+            startActivity(new Intent(ProfileUpdateActivity.this,UserLocationActivtiy.class));
+            finish();
+        }
     }
 
     public boolean emailValidateField(String fieldvalue) {

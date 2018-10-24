@@ -184,7 +184,7 @@ public class ProfileFragmentChef extends BaseActivity {
         review_recyclerview.setNestedScrollingEnabled(false);
 //        pf = new PreferenceManager(context, PreferenceManager.LOGIN_PREFERENCES_FILE);
 
-     //   loggedInUserId = pf.getIntForKey(PreferenceManager.USER_ID,0);
+        //   loggedInUserId = pf.getIntForKey(PreferenceManager.USER_ID,0);
 
 
         if (getIntent() != null)

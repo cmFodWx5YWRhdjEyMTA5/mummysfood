@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:text="@string/pilot_name"
             style="@style/textviewbold"
+            android:textColor="@color/black"
             android:textSize="@dimen/sp16"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/dp8"/>
@@ -45,7 +46,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/manage_address"
-                style="@style/textviewbold"
                 android:textSize="@dimen/sp16"
                 android:textColor="@color/black"/>
             <ImageView
@@ -62,7 +62,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/your_order"
-                style="@style/textviewbold"
                 android:textSize="@dimen/sp16"
                 android:textColor="@color/black"/>
             <ImageView
@@ -79,7 +78,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/manage_payment_option"
-                style="@style/textviewbold"
                 android:textSize="@dimen/sp16"
                 android:textColor="@color/black"/>
             <ImageView
@@ -96,7 +94,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/notification_setting"
-                style="@style/textviewbold"
                 android:textSize="@dimen/sp16"
                 android:textColor="@color/black"/>
             <ImageView
@@ -113,7 +110,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/help_support"
-                style="@style/textviewbold"
                 android:textSize="@dimen/sp16"
                 android:textColor="@color/black"/>
             <ImageView
