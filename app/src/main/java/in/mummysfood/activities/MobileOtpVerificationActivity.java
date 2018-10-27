@@ -330,6 +330,10 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
 
     private void verifyMobile() {
 
+        pf = new PreferenceManager(this);
+
+        pf.saveStringForKey("Mobile",mobile.getText().toString());
+
         LoginRequest request = new LoginRequest();
 
         request.mobile = mobile.getText().toString();

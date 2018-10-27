@@ -198,7 +198,7 @@ public class PastOrderFragment extends BaseFragment   implements OrderStatusAdap
     }
 
     @Override
-    public void actionOnOrder(int position,String status,int remainingPlates)
+    public void actionOnOrder(int position,String status,int remainingPlates,int subid)
     {
 
         if (status.equalsIgnoreCase("Show"))
@@ -206,6 +206,17 @@ public class PastOrderFragment extends BaseFragment   implements OrderStatusAdap
             if (subscribesList != null)
             {
                 if (subscribesList.size() != 0){
+
+                    for (int q =0;q<=subscribesList.size() -1;q++)
+                    {
+                        int subId = subscribesList.get(q).id;
+
+                        if (subId == subid)
+                        {
+                            position = q;
+                            break;
+                        }
+                    }
                     Intent i = new Intent(getActivity(), ActiveOrderActivtiy.class);
                     i.putExtra("order",subscribesList.get(position).orders.get(0));
                     i.putExtra("remainingPlates",remainingPlates);

@@ -42,7 +42,7 @@
         android:fillViewport="true"
         android:id="@+id/scrollchange"
         android:layout_width="match_parent"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_height="match_parent">
         <LinearLayout
             android:orientation="vertical"
@@ -479,7 +479,7 @@
         android:id="@+id/changePaymentOption"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:visibility="visible"
         android:orientation="vertical">
         <LinearLayout
             android:orientation="horizontal"

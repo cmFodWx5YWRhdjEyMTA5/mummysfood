@@ -130,6 +130,8 @@ public class YourCartActivity extends BaseActivity {
          ButterKnife.bind(this);
 
 
+
+
         if (getIntent() != null)
         {
 
@@ -186,6 +188,12 @@ public class YourCartActivity extends BaseActivity {
             pf = new PreferenceManager(this);
 
 
+            try {
+                personInfo.setText(pf.getStringForKey("Username","")+" , "+pf.getStringForKey("Mobile",""));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             userAdd = pfUAddress.getStringForKey("CurrentAddress","");
 
             if (location.equalsIgnoreCase("RepeatOrder"))
@@ -228,16 +236,21 @@ public class YourCartActivity extends BaseActivity {
 
             }else
             {
+              float  orderPrice  = Float.parseFloat(modelData.food_detail.get(0).price);
+
+              int orderPriceInt = (int) orderPrice;
+
                 order_titile.setText(modelData.food_detail.get(0).name);
                 order_price.setText(modelData.food_detail.get(0).price);
                 order_price_basedQuantity.setText(modelData.food_detail.get(0).price);
-                totalValue.setText(modelData.food_detail.get(0).price);
+                order_price_finalTotal.setText(String.valueOf(orderPriceInt+modelData.food_detail.get(0).taxes));
+                totalValue.setText(String.valueOf(orderPriceInt+modelData.food_detail.get(0).taxes));
 
 
-                placeOrderprice.setText(modelData.food_detail.get(0).price);
-                payatm.setText("Payatm "+"Rs."+modelData.food_detail.get(0).price+"/-");
-                placeOrderprice.setText("Pay Rs."+modelData.food_detail.get(0).price+"/-");
-                payatmOption.setText("Pay Rs."+modelData.food_detail.get(0).price+"/-");
+                placeOrderprice.setText(String.valueOf(orderPriceInt+modelData.food_detail.get(0).taxes));
+                payatm.setText("Payatm "+"Rs."+String.valueOf(orderPriceInt +modelData.food_detail.get(0).taxes)+"/-");
+                placeOrderprice.setText("Pay Rs."+String.valueOf(orderPriceInt+modelData.food_detail.get(0).taxes)+"/-");
+                payatmOption.setText("Pay Rs."+String.valueOf(orderPriceInt+modelData.food_detail.get(0).taxes)+"/-");
                 order_taxes.setText(String.valueOf(modelData.food_detail.get(0).taxes));
 
             }
@@ -323,16 +336,17 @@ public class YourCartActivity extends BaseActivity {
 
             int value  = (int) valuep;
 
-            int priceValue = value * itemCountText;
+            int priceValue = value * totalCount;
             order_price_basedQuantity.setText(String.valueOf(priceValue));
-            int totalValueRs = priceValue+itemCountText;
+            int totalValueRs = priceValue;
 
             totalValue.setText(String.valueOf(totalValueRs));
 
             placeOrderprice.setText(String.valueOf(totalValueRs));
-            payatm.setText("Payatm "+"Rs."+String.valueOf(totalValueRs)+"/-");
-            placeOrderprice.setText("Pay Rs."+String.valueOf(totalValueRs)+"/-");
-            payatmOption.setText("Pay Rs."+String.valueOf(totalValueRs)+"/-");
+            order_price_finalTotal.setText(String.valueOf(totalValueRs+modelData.food_detail.get(0).taxes));
+            payatm.setText("Payatm "+"Rs."+String.valueOf(totalValueRs+modelData.food_detail.get(0).taxes)+"/-");
+            placeOrderprice.setText("Pay Rs."+String.valueOf(totalValueRs+modelData.food_detail.get(0).taxes)+"/-");
+            payatmOption.setText("Pay Rs."+String.valueOf(totalValueRs+modelData.food_detail.get(0).taxes)+"/-");
 
         }
     }
@@ -356,11 +370,11 @@ public class YourCartActivity extends BaseActivity {
 
         int value  = (int) valuep;
 
-        int priceValue = value * itemCountText;
+        int priceValue = value * totalCount;
 
         order_price_basedQuantity.setText(String.valueOf(priceValue));
 
-        int totalValueRs = priceValue+itemCountText;
+        int totalValueRs = priceValue;
 
         totalValue.setText(String.valueOf(totalValueRs));
 
@@ -368,6 +382,8 @@ public class YourCartActivity extends BaseActivity {
         payatm.setText("Payatm "+"Rs."+String.valueOf(totalValueRs)+"/-");
         placeOrderprice.setText("Pay Rs."+String.valueOf(totalValueRs)+"/-");
         payatmOption.setText("Pay Rs."+String.valueOf(totalValueRs)+"/-");
+        order_price_finalTotal.setText(String.valueOf(totalValueRs+modelData.food_detail.get(0).taxes));
+
 
     }
 

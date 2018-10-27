@@ -33,7 +33,7 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
 
    public interface CancelOrderListener
     {
-        void actionOnOrder(int position, String action,int remainingPlates);
+        void actionOnOrder(int position, String action,int remainingPlates,int subid);
     }
 
 
@@ -137,10 +137,10 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
 
                         if (remmainPlates>0)
                         {
-                            listener.actionOnOrder(postion,"Show",remmainPlates);
+                            listener.actionOnOrder(postion,"Show",remmainPlates,SubscribesListglobal.get(postion).id);
                         }else
                         {
-                            listener.actionOnOrder(postion,"Delete",remmainPlates);
+                            listener.actionOnOrder(postion,"Delete",remmainPlates,SubscribesListglobal.get(postion).id);
                         }
                     }
                 }

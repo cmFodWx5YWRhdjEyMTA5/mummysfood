@@ -344,11 +344,15 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
 
     private void networkcallForCheckUserInDb(final GoogleSignInAccount user) {
 
+        pf = new PreferenceManager(this);
+
+        pf.saveStringForKey("Username",user.getDisplayName().toString());
 
         LoginRequest request = new LoginRequest();
 
-        request.email = user.getEmail();
-        request.f_name = user.getDisplayName();
+        request.email = user.getEmail().toString();
+        request.f_name = user.getDisplayName().toLowerCase();
+
         request.mobile = "";
         request.login_type = "gmail";
         request.is_email_verified = 1;
