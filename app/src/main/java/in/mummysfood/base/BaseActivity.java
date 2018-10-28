@@ -8,10 +8,12 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -20,10 +22,19 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import in.mummysfood.R;
+import in.mummysfood.activities.LoginAndSignupActivity;
+import in.mummysfood.adapters.OnBoardingViewPagerAdapter;
 import in.mummysfood.data.pref.PreferenceManager;
 import in.mummysfood.utils.CommonUtils;
 import in.mummysfood.utils.NetworkUtils;
+import me.relex.circleindicator.CircleIndicator;
 
 
 public class BaseActivity extends AppCompatActivity {
@@ -31,6 +42,13 @@ public class BaseActivity extends AppCompatActivity {
     public ProgressDialog pd;
     public PreferenceManager pf;
     public Toolbar toolbar;
+    private static final Integer[] IMAGES = {R.mipmap.sign_up_bg_01, R.mipmap.sign_up_bg_02,R.mipmap.sign_up_bg_01, R.mipmap.sign_up_bg_02};
+    private ArrayList<Integer> ImagesArray = new ArrayList<Integer>();
+    private OnBoardingViewPagerAdapter onBoardingViewPagerAdapter;
+    private int currentPage = 0;
+    private int NUM_PAGES = 0;
+    private Runnable Update;
+    private Handler handler;
 
 
     public void showProgress(String msg)
@@ -179,5 +197,59 @@ public class BaseActivity extends AppCompatActivity {
                     getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+
+    public void ImageSlider(final ViewPager signUpViewpager, CircleIndicator viewPagerIndicator) {
+
+        for (int i = 0; i < IMAGES.length; i++)
+            ImagesArray.add(IMAGES[i]);
+
+
+        onBoardingViewPagerAdapter = new OnBoardingViewPagerAdapter(this, ImagesArray);
+        signUpViewpager.setAdapter(onBoardingViewPagerAdapter);
+
+        signUpViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
+
+
+        viewPagerIndicator.setViewPager(signUpViewpager);
+
+
+        NUM_PAGES = IMAGES.length + 1;
+
+        // Auto start of viewpager
+        handler = new Handler();
+        Update = new Runnable() {
+            public void run() {
+                if (currentPage == NUM_PAGES) {
+                    currentPage = 0;
+                }
+                signUpViewpager.setCurrentItem(currentPage++, true);
+            }
+        };
+
+        Timer swipeTimer = new Timer();
+        swipeTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(Update);
+            }
+        }, 2000, 2000);
+
+
+
+
     }
 }

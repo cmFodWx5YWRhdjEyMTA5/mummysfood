@@ -82,13 +82,7 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
     private DatabaseReference mDatabase;
     private boolean newUser = false;
 
-    private static final Integer[] IMAGES = {R.mipmap.sign_up_bg_01, R.mipmap.sign_up_bg_02,R.mipmap.sign_up_bg_01, R.mipmap.sign_up_bg_02};
-    private ArrayList<Integer> ImagesArray = new ArrayList<Integer>();
-    private OnBoardingViewPagerAdapter onBoardingViewPagerAdapter;
-    private int currentPage = 0;
-    private int NUM_PAGES = 0;
-    private Runnable Update;
-    private Handler handler;
+
     private   OnCompleteListener<AuthResult> completeListener;
     private GoogleApiClient mGoogleApiClient;
 
@@ -101,67 +95,16 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
         pf = new PreferenceManager(this,PreferenceManager.LOGIN_PREFERENCES_FILE);
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        init();
-
-
-    }
-
-    private void init() {
-
-        for (int i = 0; i < IMAGES.length; i++)
-            ImagesArray.add(IMAGES[i]);
-
-
-        onBoardingViewPagerAdapter = new OnBoardingViewPagerAdapter(LoginAndSignupActivity.this, ImagesArray);
-        signUpViewpager.setAdapter(onBoardingViewPagerAdapter);
-
-        signUpViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
-
-
-        viewPagerIndicator.setViewPager(signUpViewpager);
-
-
-        NUM_PAGES = IMAGES.length + 1;
-
-        // Auto start of viewpager
-        handler = new Handler();
-        Update = new Runnable() {
-            public void run() {
-                if (currentPage == NUM_PAGES) {
-                    currentPage = 0;
-                }
-                signUpViewpager.setCurrentItem(currentPage++, true);
-            }
-        };
-
-        Timer swipeTimer = new Timer();
-        swipeTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(Update);
-            }
-        }, 2000, 2000);
-
-
+        ImageSlider(signUpViewpager, viewPagerIndicator);
 
         // [START initialize_auth]
         mAuth = FirebaseAuth.getInstance();
 
         configureSignIn();
 
+
     }
+
 
     public void configureSignIn(){
 
