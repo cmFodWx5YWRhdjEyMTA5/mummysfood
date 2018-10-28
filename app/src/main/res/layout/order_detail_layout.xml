@@ -66,6 +66,7 @@
                     android:id="@+id/order_image"
                     android:layout_width="match_parent"
                     android:layout_height="260dp"
+                    android:scaleType="fitXY"
                     />
                 <ImageView
                     android:id="@+id/backArrow"
@@ -142,7 +143,7 @@
                         android:paddingEnd="@dimen/dp28"
                         android:layout_centerVertical="true"
                         android:textColor="@color/white"
-                        android:visibility="visible"/>
+                        android:visibility="gone"/>
                 </RelativeLayout>
 
             </RelativeLayout>
@@ -404,7 +405,22 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="monthly"
-                        android:layout_marginLeft="@dimen/dp24"
+                        android:layout_marginLeft="@dimen/dp4"
+                        android:textSize="@dimen/sp14"
+                        android:textColor="@color/black"
+                        android:paddingTop="@dimen/dp4"
+                        android:paddingBottom="@dimen/dp4"
+                        android:paddingLeft="@dimen/dp16"
+                        android:paddingRight="@dimen/dp16"
+                        android:background="@drawable/border_gray"
+                        style="@style/textviewregular"/>
+
+                    <in.mummysfood.widgets.CkdTextview
+                        android:id="@+id/onlyForToday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Only for today"
+                        android:layout_marginLeft="@dimen/dp4"
                         android:textSize="@dimen/sp14"
                         android:textColor="@color/black"
                         android:paddingTop="@dimen/dp4"

@@ -25,6 +25,7 @@ import in.mummysfood.base.BaseActivity;
 import in.mummysfood.data.pref.PreferenceManager;
 import in.mummysfood.models.DashBoardModel;
 import in.mummysfood.models.OrderModel;
+import in.mummysfood.models.UserProfileModel;
 import in.mummysfood.utils.AppConstants;
 import in.mummysfood.widgets.CkdTextview;
 import retrofit2.Call;
@@ -78,8 +79,6 @@ public class YourCartActivity extends BaseActivity {
     @BindView(R.id.backArrowFinish)
     ImageView backArrowFinish;
 
-
-
     @BindView(R.id.scrollchange)
     ScrollView scrollChange;
 
@@ -92,8 +91,22 @@ public class YourCartActivity extends BaseActivity {
     @BindView(R.id.changePaymentOption)
     LinearLayout changePaymentOption;
 
+    @BindView(R.id.add_to_cart_item_layout)
+    LinearLayout add_to_cart_item_layout;
+
+    @BindView(R.id.sub_item)
+    CkdTextview subItem;
+
+    @BindView(R.id.add_item)
+    CkdTextview add_item;
+
+    @BindView(R.id.item_count)
+    CkdTextview item_count;
+
+
 
     private DashBoardModel.Data modelData;
+    private DashBoardModel.Food_detail model;
     PreferenceManager pfUName;
     PreferenceManager pfUMobile;
     PreferenceManager pfUAddress;
@@ -102,8 +115,11 @@ public class YourCartActivity extends BaseActivity {
     private int radioValue;
     private int numberOfDays,isLunch,isDinner;
 
+    UserProfileModel.Orders orders = new UserProfileModel.Orders();
+
     private String userAdd;
     private String typeOfPackage;
+    private String location = "";
 
 
     @Override
@@ -113,14 +129,54 @@ public class YourCartActivity extends BaseActivity {
 
          ButterKnife.bind(this);
 
-        if (getIntent() != null) {
-            modelData = (DashBoardModel.Data) getIntent().getSerializableExtra("data");
-            typeOfPackage = getIntent().getStringExtra("typeOfPackage");
-            numberOfDays = getIntent().getIntExtra("numberOfDays",0);
-            isDinner = getIntent().getIntExtra("isDinner",0);
-            isLunch = getIntent().getIntExtra("isLunch",0);
 
+
+
+        if (getIntent() != null)
+        {
+
+            try {
+                location = getIntent().getStringExtra("From");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            if (location == null)
+            {
+                location = "";
+            }
+            if (location.equalsIgnoreCase("RepeatOrder"))
+            {
+                orders = (UserProfileModel.Orders) getIntent().getSerializableExtra("data");
+                typeOfPackage = getIntent().getStringExtra("typeOfPackage");
+                numberOfDays = getIntent().getIntExtra("numberOfDays",0);
+                isDinner = getIntent().getIntExtra("isDinner",0);
+                isLunch = getIntent().getIntExtra("isLunch",0);
+            }else
+            {
+                modelData = (DashBoardModel.Data) getIntent().getSerializableExtra("data");
+                typeOfPackage = getIntent().getStringExtra("typeOfPackage");
+                numberOfDays = getIntent().getIntExtra("numberOfDays",0);
+                isDinner = getIntent().getIntExtra("isDinner",0);
+                isLunch = getIntent().getIntExtra("isLunch",0);
+
+            }
         }
+
+            if (typeOfPackage.equalsIgnoreCase("today"))
+            {
+                add_to_cart_item_layout.setVisibility(View.VISIBLE);
+                order_price_basedQuantity.setVisibility(View.VISIBLE);
+
+            }else if (typeOfPackage.equalsIgnoreCase("monthly"))
+            {
+                add_to_cart_item_layout.setVisibility(View.GONE);
+                order_price_basedQuantity.setVisibility(View.GONE);
+            }else if (typeOfPackage.equalsIgnoreCase("weekly"))
+            {
+                add_to_cart_item_layout.setVisibility(View.GONE);
+                order_price_basedQuantity.setVisibility(View.GONE);
+            }
 
 
         try {
@@ -132,8 +188,28 @@ public class YourCartActivity extends BaseActivity {
             pf = new PreferenceManager(this);
 
 
+            try {
+                personInfo.setText(pf.getStringForKey("Username","")+" , "+pf.getStringForKey("Mobile",""));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             userAdd = pfUAddress.getStringForKey("CurrentAddress","");
-            addressMain.setText(userAdd);
+
+            if (location.equalsIgnoreCase("RepeatOrder"))
+            {
+
+                try {
+                    addressMain.setText(orders.landmark);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    addressMain.setText(userAdd);
+                }
+            }else
+            {
+                addressMain.setText(userAdd);
+            }
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -141,19 +217,50 @@ public class YourCartActivity extends BaseActivity {
 
 
         try {
-            order_titile.setText(modelData.food_detail.name);
-            order_price.setText(modelData.food_detail.price);
-            order_price_basedQuantity.setText(modelData.food_detail.price);
-            totalValue.setText(modelData.food_detail.price);
-            order_taxes.setText(modelData.food_detail.taxes);
-            placeOrderprice.setText(modelData.food_detail.price);
-            payatm.setText("Payatm "+"Rs."+modelData.food_detail.price+"/-");
-            placeOrderprice.setText("Pay Rs."+modelData.food_detail.price+"/-");
+            if (location.equalsIgnoreCase("RepeatOrder"))
+            {
+
+
+                order_titile.setText(orders.food_name);
+                order_price.setText(orders.price);
+
+
+                order_price_basedQuantity.setText(orders.price );
+                totalValue.setText(orders.price);
+                order_taxes.setText(String.valueOf(50));
+                placeOrderprice.setText(orders.price);
+                payatm.setText("Payatm "+"Rs."+orders.price+"/-");
+                placeOrderprice.setText("Pay Rs."+orders.price+"/-");
+                payatmOption.setText("Pay Rs."+orders.price+"/-");
+                order_taxes.setText(String.valueOf(50));
+
+            }else
+            {
+              float  orderPrice  = Float.parseFloat(modelData.food_detail.get(0).price);
+
+              int orderPriceInt = (int) orderPrice;
+
+                order_titile.setText(modelData.food_detail.get(0).name);
+                order_price.setText(modelData.food_detail.get(0).price);
+                order_price_basedQuantity.setText(modelData.food_detail.get(0).price);
+                order_price_finalTotal.setText(String.valueOf(orderPriceInt+modelData.food_detail.get(0).taxes));
+                totalValue.setText(String.valueOf(orderPriceInt+modelData.food_detail.get(0).taxes));
+
+
+                placeOrderprice.setText(String.valueOf(orderPriceInt+modelData.food_detail.get(0).taxes));
+                payatm.setText("Payatm "+"Rs."+String.valueOf(orderPriceInt +modelData.food_detail.get(0).taxes)+"/-");
+                placeOrderprice.setText("Pay Rs."+String.valueOf(orderPriceInt+modelData.food_detail.get(0).taxes)+"/-");
+                payatmOption.setText("Pay Rs."+String.valueOf(orderPriceInt+modelData.food_detail.get(0).taxes)+"/-");
+                order_taxes.setText(String.valueOf(modelData.food_detail.get(0).taxes));
+
+            }
 
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
 
 
         if (addressMain == null && "".equalsIgnoreCase(userAdd))
@@ -166,7 +273,7 @@ public class YourCartActivity extends BaseActivity {
 
 
         try {
-            payatmOption.setText("Pay Rs."+modelData.food_detail.price+"/-");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -200,6 +307,85 @@ public class YourCartActivity extends BaseActivity {
 
     }
 
+    @OnClick(R.id.item_count)
+    public void itemCount()
+    {
+
+    }
+
+    @OnClick(R.id.sub_item)
+    public void sub_item()
+    {
+        float valuep;
+        int itemCountText = Integer.parseInt(item_count.getText().toString());
+        int itemTaxesText = Integer.parseInt(order_taxes.getText().toString());
+
+
+        if (itemCountText > 1)
+        {
+            int totalCount = itemCountText - 1;
+            item_count.setText(String.valueOf(totalCount));
+            if (location.equalsIgnoreCase("RepeatOrder"))
+            {
+                valuep  = Float.parseFloat(orders.price);
+            }else
+            {
+                valuep  = Float.parseFloat(modelData.food_detail.get(0).price);
+            }
+
+
+            int value  = (int) valuep;
+
+            int priceValue = value * totalCount;
+            order_price_basedQuantity.setText(String.valueOf(priceValue));
+            int totalValueRs = priceValue;
+
+            totalValue.setText(String.valueOf(totalValueRs));
+
+            placeOrderprice.setText(String.valueOf(totalValueRs));
+            order_price_finalTotal.setText(String.valueOf(totalValueRs+modelData.food_detail.get(0).taxes));
+            payatm.setText("Payatm "+"Rs."+String.valueOf(totalValueRs+modelData.food_detail.get(0).taxes)+"/-");
+            placeOrderprice.setText("Pay Rs."+String.valueOf(totalValueRs+modelData.food_detail.get(0).taxes)+"/-");
+            payatmOption.setText("Pay Rs."+String.valueOf(totalValueRs+modelData.food_detail.get(0).taxes)+"/-");
+
+        }
+    }
+
+    @OnClick(R.id.add_item)
+    public void add_item()
+    {
+        float valuep;
+            int itemCountText = Integer.parseInt(item_count.getText().toString());
+            int itemTaxesText = Integer.parseInt(order_taxes.getText().toString());
+            int totalCount = itemCountText + 1;
+            item_count.setText(String.valueOf(totalCount));
+
+        if (location.equalsIgnoreCase("RepeatOrder"))
+        {
+            valuep  = Float.parseFloat(orders.price);
+        }else
+        {
+            valuep  = Float.parseFloat(modelData.food_detail.get(0).price);
+        }
+
+        int value  = (int) valuep;
+
+        int priceValue = value * totalCount;
+
+        order_price_basedQuantity.setText(String.valueOf(priceValue));
+
+        int totalValueRs = priceValue;
+
+        totalValue.setText(String.valueOf(totalValueRs));
+
+        placeOrderprice.setText(String.valueOf(totalValueRs));
+        payatm.setText("Payatm "+"Rs."+String.valueOf(totalValueRs)+"/-");
+        placeOrderprice.setText("Pay Rs."+String.valueOf(totalValueRs)+"/-");
+        payatmOption.setText("Pay Rs."+String.valueOf(totalValueRs)+"/-");
+        order_price_finalTotal.setText(String.valueOf(totalValueRs+modelData.food_detail.get(0).taxes));
+
+
+    }
 
     @OnClick(R.id.addressChange)
     public void addressChange()
@@ -230,8 +416,17 @@ public class YourCartActivity extends BaseActivity {
         checkedCod.setVisibility(View.GONE);
         paytmChecked.setVisibility(View.GONE);
         try {
-            payatm.setText("COD "+"Rs."+modelData.food_detail.price+"/-");
-            pf.saveStringForKey("paymentType","COD");
+            if (location.equalsIgnoreCase("RepeatOrder"))
+            {
+                payatm.setText("COD "+"Rs."+orders.price+"/-");
+                pf.saveStringForKey("paymentType","COD");
+
+            }else
+            {
+                payatm.setText("COD "+"Rs."+modelData.food_detail.get(0).price+"/-");
+                pf.saveStringForKey("paymentType","COD");
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -246,9 +441,18 @@ public class YourCartActivity extends BaseActivity {
         scrollChange.setVisibility(View.VISIBLE);
         checkedCod.setVisibility(View.GONE);
         paytmChecked.setVisibility(View.GONE);
-        pf.saveStringForKey("paymentType","Payatm");
+
         try {
-            payatm.setText("Payatm "+"Rs."+modelData.food_detail.price+"/-");
+            if (location.equalsIgnoreCase("RepeatOrder"))
+            {
+                payatm.setText("Payatm "+"Rs."+orders.price+"/-");
+                pf.saveStringForKey("paymentType","Payatm");
+            }else
+            {
+                payatm.setText("Payatm "+"Rs."+modelData.food_detail.get(0).price+"/-");
+                pf.saveStringForKey("paymentType","Payatm");
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -262,7 +466,14 @@ public class YourCartActivity extends BaseActivity {
 
 
         try {
-            payatm.setText("Payatm "+"Rs."+modelData.food_detail.price+"/-");
+            if (location.equalsIgnoreCase("RepeatOrder"))
+            {
+                payatm.setText("Payatm "+"Rs."+orders.price+"/-");
+            }else
+            {
+                payatm.setText("Payatm "+"Rs."+modelData.food_detail.get(0).price+"/-");
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -337,39 +548,83 @@ public class YourCartActivity extends BaseActivity {
 
     private void placeOrderData()
     {
-
-        String landmark = pfUAddress.getStringForKey("landmark","");
-        String house_no = pfUAddress.getStringForKey("house_no","");
-        String type = pfUAddress.getStringForKey("type","");
-        String pincode = pfUAddress.getStringForKey("pincode","");
-        String paymetTYpe = pf.getStringForKey("paymentType","");
-
         OrderModel.Data orderModel = new OrderModel.Data();
-        orderModel.food_user_id = modelData.chef_detail.user_id;
-        orderModel.order_by =loginPref.getIntForKey("user_id",0);
-        orderModel.order_for = modelData.chef_detail.user_id;
-        orderModel.food_detail = modelData.food_detail.details;
-        orderModel.food_name = modelData.food_detail.name;
-        orderModel.house_no = house_no;
-        orderModel.landmark = landmark;
-        orderModel.street = "";
-        orderModel.city = "indore";
-        orderModel.state = "MP";
-        orderModel.pincode = pincode;
-        orderModel.address_type = type;
-        orderModel.price = modelData.food_detail.price;
-        orderModel.quantity =1;
-        orderModel.payment_status = "confirm";
-        orderModel.is_order_confirmed = 1;
-        orderModel.user_id = loginPref.getIntForKey("user_id",0);
-        orderModel.subscribe_to = modelData.chef_detail.user_id;
-        orderModel.number_of_days = numberOfDays;
-        orderModel.status = "active";
-        orderModel.is_dinner = isDinner;
-        orderModel.is_lunch = isLunch;
-        orderModel.ordered_plates = 1;
-        orderModel.chef_name = "privacy concern so name is not here";
-        orderModel.payment_type = paymetTYpe;
+        int itemCountText = Integer.parseInt(item_count.getText().toString());
+
+        if (location.equalsIgnoreCase("RepeatOrder"))
+        {
+
+            String paymetTYpe = orders.payment_type;
+            orderModel.house_no = orders.house_no;
+            orderModel.landmark = orders.landmark;
+            orderModel.pincode = orders.pincode;
+            orderModel.address_type = orders.address_type;
+            orderModel.payment_type = paymetTYpe;
+
+            orderModel.food_user_id = orders.order_for;
+            orderModel.order_by =orders.order_by;
+            orderModel.order_for =  orders.order_for;
+            orderModel.food_detail = orders.food_detail;
+            orderModel.food_name = orders.food_name;
+
+            orderModel.street = "";
+            orderModel.city = "indore";
+            orderModel.state = "MP";
+
+            orderModel.price = orders.price;
+            orderModel.quantity =1;
+            orderModel.payment_status = "confirm";
+            orderModel.is_order_confirmed = 1;
+            orderModel.user_id = orders.user_id;
+            orderModel.subscribe_to = orders.subscribe_to;
+            orderModel.number_of_days = orders.number_of_days;
+            orderModel.status = "active";
+            orderModel.is_dinner = orders.is_dinner;
+            orderModel.is_lunch =  orders.is_dinner;;
+            orderModel.ordered_plates = itemCountText;
+            orderModel.chef_name = "privacy concern so name is not here";
+
+        }else
+        {
+            String landmark = pfUAddress.getStringForKey("landmark","");
+            String house_no = pfUAddress.getStringForKey("house_no","");
+            String type = pfUAddress.getStringForKey("type","");
+            String pincode = pfUAddress.getStringForKey("pincode","");
+            String paymetTYpe = pf.getStringForKey("paymentType","");
+            orderModel.house_no = house_no;
+            orderModel.landmark = landmark;
+            orderModel.pincode = pincode;
+            orderModel.address_type = type;
+            orderModel.payment_type = paymetTYpe;
+
+            orderModel.food_user_id = modelData.chef_detail.user_id;
+            orderModel.order_by =loginPref.getIntForKey("user_id",0);
+            orderModel.order_for = modelData.chef_detail.user_id;
+            orderModel.food_detail = modelData.food_detail.get(0).details;
+            orderModel.food_name = modelData.food_detail.get(0).name;
+
+            orderModel.street = "";
+            orderModel.city = "indore";
+            orderModel.state = "MP";
+
+            orderModel.price = modelData.food_detail.get(0).price;
+            orderModel.quantity =itemCountText;
+            orderModel.payment_status = "confirm";
+            orderModel.is_order_confirmed = 1;
+            orderModel.user_id = loginPref.getIntForKey("user_id",0);
+            orderModel.subscribe_to = modelData.chef_detail.user_id;
+            orderModel.number_of_days = numberOfDays;
+            orderModel.status = "active";
+            orderModel.is_dinner = isDinner;
+            orderModel.is_lunch = isLunch;
+            orderModel.ordered_plates = itemCountText;
+            orderModel.chef_name = "privacy concern so name is not here";
+        }
+
+
+
+
+
 
         Call<OrderModel.Data> loginRequestCall = AppConstants.restAPI.subscribeOrder(orderModel);
 

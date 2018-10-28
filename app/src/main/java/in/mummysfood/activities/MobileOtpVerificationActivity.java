@@ -84,8 +84,6 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
     EditText mobile;
     @BindView(R.id.signIn_login_button)
     Button generateOTP;
-    @BindView(R.id.progressBar2)
-    ProgressBar progress;
     @BindView(R.id.resend)
     TextView resend;
     @BindView(R.id.signIn_editText_otp)
@@ -329,6 +327,10 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
     }
 
     private void verifyMobile() {
+
+        pf = new PreferenceManager(this);
+
+        pf.saveStringForKey("Mobile",mobile.getText().toString());
 
         LoginRequest request = new LoginRequest();
 

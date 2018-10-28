@@ -39,12 +39,18 @@ public class UserProfileModel implements Serializable{
         public String payment_status;
         public int is_order_confirmed;
         public String pick_at;
-        public String payment_type;
         public String deliver_at;
         public String status;
         public String created_at;
         public String updated_at;
         public int user_id;
+
+        public int subscribe_to;
+        public int number_of_days;
+        public int ordered_plates;
+        public int is_dinner;
+        public int is_lunch;
+        public String payment_type;
     }
 
     public static class Subscribes implements Serializable{

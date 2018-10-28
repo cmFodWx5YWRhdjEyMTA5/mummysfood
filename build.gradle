@@ -2,15 +2,20 @@
 
 buildscript {
     repositories {
-        jcenter()
-        maven { url 'https://maven.google.com' }
-
         google()
+
+        maven {                                  // <-- Add this
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
+        jcenter()
+
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.2'
         classpath 'com.jakewharton:butterknife-gradle-plugin:8.7.0'
         classpath 'com.google.gms:google-services:4.0.2'
+        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
 
 
 
@@ -21,10 +26,15 @@ buildscript {
 
 allprojects {
     repositories {
+        google()
         jcenter()
         mavenCentral()
-        google()
-        maven { url 'https://jitpack.io' }
+        maven { url "https://jitpack.io" }
+        maven { url 'https://dl.bintray.com/android-infoedge/maven/' }
+        maven {
+            url 'https://maven.google.com/'
+            name 'Google'
+        }
     }
 }
 

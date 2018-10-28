@@ -56,6 +56,10 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
     @BindView(R.id.weekly)
     CkdTextview weekly;
 
+    @BindView(R.id.onlyForToday)
+    CkdTextview onlyForToday;
+
+
     @BindView(R.id.monthly)
     CkdTextview monthly;
     @BindView(R.id.lunchPrice)
@@ -217,6 +221,22 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         });*/
 
         prepareOrderDetails();
+
+        setDefaultPackage();
+    }
+
+    private void setDefaultPackage() {
+
+        typeOfPackage = "weekly";
+
+        monthly.setBackground(getResources().getDrawable(R.drawable.border_gray));
+        weekly.setBackground(getResources().getDrawable(R.drawable.border_primary));
+        onlyForToday.setBackground(getResources().getDrawable(R.drawable.border_gray));
+
+        dinnerPrice.setText(String.valueOf(data.food_detail.get(0).week_dinner_price));
+        lunchPrice.setText(String.valueOf(data.food_detail.get(0).week_lunch_price));
+        bothPrice.setText(String.valueOf(data.food_detail.get(0).week_dinner_price+data.food_detail.get(0).week_lunch_price));
+
     }
 
 
@@ -226,13 +246,13 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         try {
            //  Glide.with(this).load(data.profile_image).into(order_chef_profile_img);
             order_chef_name.setText(data.f_name);
-            order_titile.setText(data.food_detail.name);
-            order_detail.setText(data.food_detail.details);
-            order_price.setText("Rs. " + data.food_detail.price + "/-");
+            order_titile.setText(data.food_detail.get(0).name);
+            order_detail.setText(data.food_detail.get(0).details);
+            order_price.setText("Rs. " + data.food_detail.get(0).price + "/-");
             userDelAddress.setText(UserCUrrentAdd);
 
 
-            double price = Double.parseDouble(data.food_detail.price);
+            double price = Double.parseDouble(data.food_detail.get(0).price);
 
             priceOrgValue= (int) price;
 
@@ -240,13 +260,13 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
             monthlyValue = priceOrgValue * 31;
             weeklyValue = priceOrgValue * 7;
 
-            dinnerPrice.setText(String.valueOf(data.food_detail.week_dinner_price));
-            lunchPrice.setText(String.valueOf(data.food_detail.week_lunch_price));
-            bothPrice.setText(String.valueOf(data.food_detail.week_dinner_price+data.food_detail.week_lunch_price));
+            dinnerPrice.setText(String.valueOf(data.food_detail.get(0).week_dinner_price));
+            lunchPrice.setText(String.valueOf(data.food_detail.get(0).week_lunch_price));
+            bothPrice.setText(String.valueOf(data.food_detail.get(0).week_dinner_price+data.food_detail.get(0).week_lunch_price));
 
-            if(data.food_detail.food_media.get(0) != null){
+            if(data.food_detail.get(0).food_media.get(0) != null){
                 try {
-                    String imageUrl = "http://cdn.mummysfood.in/"+data.food_detail.food_media.get(0).media.name;
+                    String imageUrl = "http://cdn.mummysfood.in/"+data.food_detail.get(0).food_media.get(0).media.name;
                     Log.d("ImageUrl",imageUrl);
                     Glide.with(this).load(imageUrl).into(order_image);
                 }catch (IllegalArgumentException e){
@@ -315,102 +335,6 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         showItemContainPopup();
     }
 
-    @OnClick(R.id.add_to_cart)
-    public void AddToCart(){
-
-        if (pf.getIntForKey(PreferenceManager.ORDER_ID,0) == 0){
-            setOrderItemData();
-        }else{
-            String msg = "Your cart contains dishes from "+ pf.getStringForKey(PreferenceManager.ORDER_NAME,null)+". Do you want to discard the selection and add dishes from "+data.food_detail.name+" ?";
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setMessage(msg)
-                    .setCancelable(false)
-                    .setNegativeButton(R.string.no_txt,new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            if (dialog != null) {
-                                dialog.dismiss();
-                            }
-                        }
-                    })
-                    .setPositiveButton(R.string.yes_txt, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            pf.clearPref(context,PreferenceManager.ORDER_PREFERENCES_FILE);
-                            setOrderItemData();
-                        }
-                    });
-            // Create the AlertDialog object and return it
-            AlertDialog alert = builder.create();
-            alert.show();
-        }
-
-    }
-
-    private void CheckFoodAdd(){
-        if (pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0 && pf.getIntForKey(PreferenceManager.USER_ID, 0) == data.id){
-            add_to_cart.setVisibility(View.GONE);
-            add_to_cart_item_layout.setVisibility(View.VISIBLE);
-            if (pf.getIntForKey(PreferenceManager.ORDER_quantity, 0) != 0) {
-                item_count.setText("" + pf.getIntForKey(PreferenceManager.ORDER_quantity, 0));
-            } else {
-                add_to_cart.setVisibility(View.VISIBLE);
-                add_to_cart_item_layout.setVisibility(View.GONE);
-            }
-        }else {
-            add_to_cart.setVisibility(View.VISIBLE);
-            add_to_cart_item_layout.setVisibility(View.GONE);
-        }
-    }
-    private void setOrderItemData() {
-        if (!data.add_food) {
-            data.add_food = true;
-            item_quantity = 0;
-            sharePref(data,item_quantity);
-        }else{
-            data.quantity = 0;
-            pf.clearPref(context, PreferenceManager.ORDER_PREFERENCES_FILE);
-            CheckFoodAdd();
-        }
-    }
-
-    private void sharePref(DashBoardModel.Data foodData, int quantity) {
-        pf.saveIntForKey(PreferenceManager.USER_ID,foodData.id);
-        pf.saveIntForKey(PreferenceManager.ORDER_ID,foodData.food_detail.id);
-        pf.saveIntForKey(PreferenceManager.ODRDER_USER_ID,foodData.food_detail.user_id);
-        pf.saveIntForKey(PreferenceManager.ORDER_CATEGORY_ID,foodData.food_detail.category_id);
-        pf.saveStringForKey(PreferenceManager.ORDER_NAME,foodData.food_detail.name);
-        pf.saveStringForKey(PreferenceManager.ORDER_DETAILS,foodData.food_detail.details);
-        pf.saveStringForKey(PreferenceManager.ORDER_PRICE,foodData.food_detail.price);
-        pf.saveIntForKey(PreferenceManager.ORDER_quantity,quantity);
-    }
-
-    @OnClick(R.id.add_item)
-    public void AddFoodQuantity() {
-        int count = 0;
-        if (pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0 && pf.getIntForKey(PreferenceManager.USER_ID, 0) == data.id){
-            count = pf.getIntForKey(PreferenceManager.ORDER_quantity, 0);
-        }
-        count++;
-        pf.saveIntForKey(PreferenceManager.ORDER_quantity,count);
-
-        CheckFoodAdd();
-    }
-
-    @OnClick(R.id.sub_item)
-    public void SubFoodQuantity() {
-        int count = 0;
-        if (pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0 && pf.getIntForKey(PreferenceManager.USER_ID, 0) == data.id){
-            count = pf.getIntForKey(PreferenceManager.ORDER_quantity, 0);
-        }
-
-        if (count > 0) {
-            count--;
-            pf.saveIntForKey(PreferenceManager.ORDER_quantity,count);
-        }else{
-            data.add_food = false;
-            pf.clearPref(context, PreferenceManager.ORDER_PREFERENCES_FILE);
-        }
-        CheckFoodAdd();
-    }
 
     private void showItemContainPopup() {
 
@@ -448,6 +372,33 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
     }
 
+
+    @OnClick(R.id.onlyForToday)
+    public void onlyForToday()
+    {
+
+        typeOfPackage = "today";
+
+        onlyForToday.setBackground(getResources().getDrawable(R.drawable.border_primary));
+        weekly.setBackground(getResources().getDrawable(R.drawable.border_gray));
+        monthly.setBackground(getResources().getDrawable(R.drawable.border_gray));
+
+
+        dinnerPrice.setText(String.valueOf(data.food_detail.get(0).price));
+        lunchPrice.setText(String.valueOf(data.food_detail.get(0).price));
+
+
+
+        float valuep = Float.parseFloat(data.food_detail.get(0).price);
+
+        int value  = (int) valuep;
+
+        value = value +value;
+
+        bothPrice.setText(String.valueOf(value));
+
+    }
+
     @OnClick(R.id.monthly)
     public void mothyClicked()
     {
@@ -456,14 +407,17 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
         monthly.setBackground(getResources().getDrawable(R.drawable.border_primary));
         weekly.setBackground(getResources().getDrawable(R.drawable.border_gray));
+        onlyForToday.setBackground(getResources().getDrawable(R.drawable.border_gray));
 
 
-        dinnerPrice.setText(String.valueOf(data.food_detail.month_dinner_price));
-        lunchPrice.setText(String.valueOf(data.food_detail.month_lunch_price));
-        bothPrice.setText(String.valueOf(data.food_detail.month_dinner_price+data.food_detail.month_lunch_price));
+
+        dinnerPrice.setText(String.valueOf(data.food_detail.get(0).month_dinner_price));
+        lunchPrice.setText(String.valueOf(data.food_detail.get(0).month_lunch_price));
+        bothPrice.setText(String.valueOf(data.food_detail.get(0).month_dinner_price+data.food_detail.get(0).month_lunch_price));
 
 
     }
+
 
     @OnClick(R.id.weekly)
     public void weeklyCliked()
@@ -472,94 +426,14 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
         monthly.setBackground(getResources().getDrawable(R.drawable.border_gray));
         weekly.setBackground(getResources().getDrawable(R.drawable.border_primary));
+        onlyForToday.setBackground(getResources().getDrawable(R.drawable.border_gray));
 
-
-        dinnerPrice.setText(String.valueOf(data.food_detail.week_dinner_price));
-        lunchPrice.setText(String.valueOf(data.food_detail.week_lunch_price));
-        bothPrice.setText(String.valueOf(data.food_detail.week_dinner_price+data.food_detail.week_lunch_price));
-
-    }
-
-    @OnClick(R.id.place_order)
-    public void PlaceOrder(){
-
-
-        OrderModel.Data orderModel = new OrderModel.Data();
-        orderModel.food_user_id = data.chef_detail.user_id;
-        orderModel.order_by = data.id;
-        orderModel.order_for = data.chef_detail.user_id;
-        orderModel.food_detail = data.food_detail.details;
-        orderModel.food_name = data.food_detail.name;
-        orderModel.chef_name = "hhjkffj";
-        orderModel.subscribe_id =  0;
-        orderModel.house_no = "dk-329";
-        orderModel.landmark = "vijay nagar";
-        orderModel.street = "scheme no. 74";
-        orderModel.city = "indore";
-        orderModel.state = "MP";
-        orderModel.status = "active";
-        orderModel.pincode = "452010";
-        orderModel.address_type = data.f_name;
-        orderModel.price = data.food_detail.price;
-        orderModel.quantity = pf.getIntForKey(PreferenceManager.ORDER_quantity, 1);
-        orderModel.payment_status = "confirm";
-        orderModel.is_order_confirmed = 1;
-
-        if (getRadioSelected() == R.id.radioDinner)
-        {
-            dinnerPrice.setText(String.valueOf(weeklyValue));
-        }
-        if (getRadioSelected() == R.id.radioLunch)
-        {
-            lunchPrice.setText(String.valueOf(weeklyValue));
-        }
-
-        if (getRadioSelected() == R.id.radioBoth)
-        {
-            bothPrice.setText(String.valueOf(weeklyValue+weeklyValue));
-        }
-
-        Call<OrderModel.Data> loginRequestCall = AppConstants.restAPI.orderPlace(orderModel);
-
-        loginRequestCall.enqueue(new Callback<OrderModel.Data>() {
-            @Override
-            public void onResponse(Call<OrderModel.Data> call, Response<OrderModel.Data> response) {
-
-                if (response != null){
-
-                    if (response.isSuccessful()){
-                        OrderModel.Data res = response.body();
-                        if (res.status != null && res.status.equalsIgnoreCase(AppConstants.SUCCESS)){
-
-                        }else{
-                        }
-
-                    }else {
-
-                        try {
-                            Log.e("Response is not success",""+response.errorBody().string());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                }else {
-                    try {
-                        Log.e("Response is null",""+response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<OrderModel.Data> call, Throwable t) {
-                Log.e("Response is failure", ""+t);
-
-            }
-        });
+        dinnerPrice.setText(String.valueOf(data.food_detail.get(0).week_dinner_price));
+        lunchPrice.setText(String.valueOf(data.food_detail.get(0).week_lunch_price));
+        bothPrice.setText(String.valueOf(data.food_detail.get(0).week_dinner_price+data.food_detail.get(0).week_lunch_price));
 
     }
+
 
    /* @OnClick(R.id.sub_item)
     public void SubFoodQuantity() {
@@ -618,7 +492,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         yourCart.putExtra("typeOfPackage",typeOfPackage);
         yourCart.putExtra("isLunch",isLunch);
         yourCart.putExtra("isDinner",isDinner);
-        yourCart.putExtra("numberOfDays",numberOfDays);
+        yourCart.putExtra("numberOfDays",getRadioSelected());
         startActivity(yourCart);
     }
 
@@ -627,6 +501,14 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         userDelAddress.setText(address);
     }
 
+    @OnClick(R.id.order_pilot_profile)
+    public void aVoid()
+    {
+
+        Intent profileIntent = new Intent(this,ProfileFragmentChef.class);
+        profileIntent.putExtra("user_id",data.chef_detail.user_id);
+        startActivity(profileIntent);
+    }
 
     private int getRadioSelected() {
 
@@ -647,7 +529,13 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
                 isDinner = 1;
                 isLunch = 0;
                 numberOfDays = 30;
+            }else if (typeOfPackage.equalsIgnoreCase("today"))
+            {
+                isDinner = 1;
+                isLunch = 0;
+                numberOfDays = 1;
             }
+
         }
         if (selectedId == R.id.radioLunch)
         {
@@ -662,6 +550,11 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
                 isLunch = 1;
                 isDinner =0;
                 numberOfDays = 30;
+            }else if (typeOfPackage.equalsIgnoreCase("today"))
+            {
+                isDinner = 1;
+                isLunch = 0;
+                numberOfDays = 1;
             }
 
         }
@@ -678,6 +571,11 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
                 isDinner = 1;
                 isLunch = 1;
                 numberOfDays = 60;
+            }else if (typeOfPackage.equalsIgnoreCase("today"))
+            {
+                isDinner = 1;
+                isLunch = 1;
+                numberOfDays = 2;
             }
 
         }
