@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -84,8 +85,6 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
     EditText mobile;
     @BindView(R.id.signIn_login_button)
     Button generateOTP;
-    @BindView(R.id.progressBar2)
-    ProgressBar progress;
     @BindView(R.id.resend)
     TextView resend;
     @BindView(R.id.signIn_editText_otp)
@@ -98,6 +97,12 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
     @BindView(R.id.circle_progress_view)
     CircleProgressView mCircleProgressView;
 
+    @BindView(R.id.sign_up_viewpager)
+    ViewPager signUpViewpager;
+
+    @BindView(R.id.indicator)
+    me.relex.circleindicator.CircleIndicator viewPagerIndicator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,6 +113,8 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
 
         mAuth = FirebaseAuth.getInstance();
         mAuth.signOut();
+
+        ImageSlider(signUpViewpager, viewPagerIndicator);
 
 
         mobile.addTextChangedListener(new TextWatcher() {
