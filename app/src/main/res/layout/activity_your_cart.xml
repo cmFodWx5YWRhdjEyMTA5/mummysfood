@@ -21,12 +21,13 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:padding="@dimen/dp4"
-                android:tint="@color/white"
+                android:tint="#ffffff"
                 android:src="@drawable/ic_back_arrow"/>
             <in.mummysfood.widgets.CkdTextview
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/textviewbold"
+                android:visibility="gone"
                 android:textColor="@color/white"
                 android:text="@string/app_name"
                 android:textAllCaps="true"
@@ -35,6 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:visibility="gone"
                 android:src="@mipmap/profile_icon"/>
         </RelativeLayout>
     </LinearLayout>
@@ -42,7 +44,7 @@
         android:fillViewport="true"
         android:id="@+id/scrollchange"
         android:layout_width="match_parent"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_height="match_parent">
         <LinearLayout
             android:orientation="vertical"
@@ -473,13 +475,11 @@
     </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-
     <LinearLayout
         android:id="@+id/changePaymentOption"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
+        android:visibility="gone"
         android:orientation="vertical">
         <LinearLayout
             android:orientation="horizontal"
@@ -552,4 +552,78 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/changePersonInfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:padding="@dimen/dp8"
+            android:weightSum="10"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/userImage"
+                android:layout_width="@dimen/dp32"
+                android:layout_height="@dimen/dp32"
+                android:padding="@dimen/dp2"
+                android:tint="@color/black_effective"
+                android:src="@mipmap/profile_icon"
+                android:visibility="visible"
+                android:layout_gravity="center"
+                />
+
+            <EditText
+                android:id="@+id/userNameUpdated"
+                android:layout_width="match_parent"
+                android:padding="@dimen/dp8"
+                android:hint="Name"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:weightSum="10"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/mobileIcon"
+                android:layout_width="@dimen/dp32"
+                android:layout_height="@dimen/dp32"
+                android:layout_marginLeft="@dimen/dp8"
+                android:src="@drawable/mobileicon"
+                android:tint="@color/black_effective"
+                android:layout_gravity="center"
+                />
+           <EditText
+                android:id="@+id/mobileNumberUpdation"
+                android:layout_width="match_parent"
+                android:text=""
+               android:hint="mobile number"
+                android:textColor="@color/black_effective"
+                android:layout_margin="@dimen/dp8"
+                android:padding="@dimen/dp8"
+               android:inputType="phone"
+                style="@style/textviewregular"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <in.mummysfood.widgets.CkdButton
+            android:id="@+id/nameSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/fill_rounded_primary_color"
+            android:layout_gravity="center_horizontal"
+            style="@style/textviewbold"
+            android:textColor="@color/white"
+            android:text="Save"
+            />
+
+    </LinearLayout>
+
 </LinearLayout>

@@ -2,6 +2,7 @@ package in.mummysfood.adapters;
 
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import butterknife.BindView;
 import in.mummysfood.R;
 import in.mummysfood.models.UserProfileModel;
 import in.mummysfood.widgets.CkdButton;
@@ -61,9 +63,7 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
 
         UserProfileModel.Subscribes modelSubscribe = SubscribesListglobal.get(position);
 
-
-
-            UserProfileModel.Subscribes subList = SubscribesListglobal.get(position);
+        UserProfileModel.Subscribes subList = SubscribesListglobal.get(position);
 
             int totalPlates = subList.number_of_days;
             int orderPlates = subList.ordered_plates;
@@ -72,10 +72,18 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
             remmainPlates = totalPlates - orderPlates;
 
 
+        holder.lineaarBg.setVisibility(View.VISIBLE);
 
-                    holder.lineaarBg.setVisibility(View.VISIBLE);
-                    holder.foodDetail.setText(modelSubscribe.orders.get(0).food_detail);
-                    holder.foodDetail.setText(modelSubscribe.orders.get(0).food_name);
+
+        try {
+            holder.foodDetail.setText(modelSubscribe.orders.get(0).food_detail);
+            holder.foodNameEntry.setText(modelSubscribe.orders.get(0).food_name);
+            holder.foodNameEntry.setVisibility(View.GONE);
+            holder.chefName_order.setText(modelSubscribe.orders.get(0).food_name);
+            holder.foodLocation_order.setText(modelSubscribe.orders.get(0).city);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
 
@@ -83,22 +91,20 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
         {
             orderStatus = "Active";
             holder.CancelOrder.setText("Show Details");
-            holder.CancelOrder.setTextColor(ckdContext.getResources().getColor(R.color.colorPrimary));
-            holder.CancelOrder.setBackground(ckdContext.getResources().getDrawable(R.drawable.fill_rounded_full_primary));
-            holder.lineaarBg.setBackground(ckdContext.getResources().getDrawable(R.drawable.fill_rounded_full_primary));
+           // holder.CancelOrder.setTextColor(ckdContext.getResources().getColor(R.color.colorPrimary));
+            //older.CancelOrder.setBackground(ckdContext.getResources().getDrawable(R.drawable.fill_rounded_full_primary));
+           // holder.lineaarBg.setBackground(ckdContext.getResources().getDrawable(R.drawable.fill_rounded_full_primary));
         }else
         {
 
             orderStatus = "Closed";
             holder.remainingPlates.setText("Order Closed");
             holder.CancelOrder.setText("Completed");
-            holder.CancelOrder.setTextColor(ckdContext.getResources().getColor(R.color.red));
-            holder.CancelOrder.setBackground(ckdContext.getResources().getDrawable(R.drawable.border_red_color));
-            holder.lineaarBg.setBackground(ckdContext.getResources().getDrawable(R.drawable.border_red_color));
+         //   holder.CancelOrder.setTextColor(ckdContext.getResources().getColor(R.color.red));
+           // holder.CancelOrder.setBackground(ckdContext.getResources().getDrawable(R.drawable.border_red_color));
+         //   holder.lineaarBg.setBackground(ckdContext.getResources().getDrawable(R.drawable.border_red_color));
 
         }
-
-
 
         holder.CancelOrder.setTag(position);
         holder.CancelOrder.setOnClickListener(this);
@@ -165,20 +171,32 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
         CkdTextview chefName;
         CkdTextview orderStatus;
         CkdTextview remainingPlates;
+        CkdTextview foodNameEntry;
     ///    CkdTextview UpdateOrder;
         CkdTextview price;
         CkdTextview CancelOrder;
-        LinearLayout lineaarBg;
+        CardView lineaarBg;
+
+        CkdTextview chefName_order;
+
+        CkdTextview foodLocation_order;
+
+        ImageView food_imagehere;
+
 
         public MyHolder(View itemView) {
             super(itemView);
 
-            foodname = (CkdTextview) itemView.findViewById(R.id.foodName);
+            foodname = (CkdTextview) itemView.findViewById(R.id.foodNameEntry);
             foodDetail = (CkdTextview) itemView.findViewById(R.id.foodDetails);
             remainingPlates = (CkdTextview) itemView.findViewById(R.id.remaningThali);
+            chefName_order = (CkdTextview) itemView.findViewById(R.id.chefName_order);
+            foodNameEntry = (CkdTextview) itemView.findViewById(R.id.foodNameEntry);
+            foodLocation_order = (CkdTextview) itemView.findViewById(R.id.foodLocation_order);
            // UpdateOrder = (CkdTextview) itemView.findViewById(R.id.UpdateOrder);
             CancelOrder = (CkdTextview) itemView.findViewById(R.id.CancelOrder);
-            lineaarBg = (LinearLayout) itemView.findViewById(R.id.lineaarBg);
+            lineaarBg = (CardView) itemView.findViewById(R.id.lineaarBg);
+            food_imagehere =  itemView.findViewById(R.id.food_imagehere);
         }
     }
 }

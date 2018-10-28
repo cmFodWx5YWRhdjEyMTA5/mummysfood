@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="@dimen/dp8"
+
+    android:background="@drawable/fill_rounded_white_color"
+    android:layout_height="wrap_content">
+
+
+    <in.mummysfood.widgets.CkdTextview
+        android:id="@+id/permissionDesc"
+        android:text="Add items in your cart First"
+        android:textSize="18sp"
+        android:padding="@dimen/dp8"
+        android:layout_marginLeft="@dimen/dp8"
+        android:layout_marginTop="@dimen/dp8"
+        android:textColor="@color/black_effective"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_gravity="end"
+        android:layout_below="@+id/permissionDesc"
+        android:layout_marginTop="@dimen/dp8"
+        android:gravity="end"
+        android:layout_height="wrap_content">
+
+        <in.mummysfood.widgets.CkdTextview
+            android:id="@+id/permissionPos"
+            android:text="Okay"
+            android:textSize="14sp"
+            android:background="@drawable/fill_rounded_primary_color"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/dp8"
+            android:padding="6dp"
+            android:textColor="@color/white"
+            android:layout_width="65dp"
+            android:gravity="center"
+            android:layout_height="@dimen/dp32" />
+    </LinearLayout>
+
+
+</RelativeLayout>

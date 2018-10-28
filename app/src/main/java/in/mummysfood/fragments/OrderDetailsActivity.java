@@ -19,6 +19,7 @@ import in.mummysfood.Location.EnterFullAdressActivity;
 import in.mummysfood.R;
 import in.mummysfood.activities.YourCartActivity;
 import in.mummysfood.base.BaseActivity;
+import in.mummysfood.data.db.DataBaseHelperNew;
 import in.mummysfood.data.pref.PreferenceManager;
 import in.mummysfood.models.DashBoardModel;
 import in.mummysfood.models.OrderModel;
@@ -29,6 +30,8 @@ import com.bumptech.glide.Glide;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -147,6 +150,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
     private int numberOfDays;
     private int isLunch;
     private int isDinner;
+    private String location = "";
 
 
     public OrderDetailsActivity()
@@ -173,6 +177,12 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
                 orderId = getIntent().getIntExtra("order_id", 0);
                 data = (DashBoardModel.Data) getIntent().getSerializableExtra("data");
 
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                location = getIntent().getStringExtra("location");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -486,6 +496,17 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
     @OnClick(R.id.processedButton)
     public  void processedButton()
     {
+        DataBaseHelperNew db = new DataBaseHelperNew(this);
+
+        if (location == null ||"".equalsIgnoreCase(location))
+        {
+            List<DashBoardModel.Data>modelData  = new ArrayList<>();
+
+            modelData.add(data);
+
+            db.insertAddToCart(modelData);
+        }
+
 
         Intent yourCart = new Intent(this, YourCartActivity.class);
         yourCart.putExtra("data",data);

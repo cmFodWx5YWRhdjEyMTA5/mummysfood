@@ -3,30 +3,28 @@ package in.mummysfood.activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-
-import com.google.firebase.auth.UserInfo;
-
 import java.io.IOException;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.mummysfood.Location.EnterFullAdressActivity;
 import in.mummysfood.R;
 import in.mummysfood.base.BaseActivity;
+import in.mummysfood.data.db.DataBaseHelperNew;
 import in.mummysfood.data.pref.PreferenceManager;
 import in.mummysfood.models.DashBoardModel;
 import in.mummysfood.models.OrderModel;
 import in.mummysfood.models.UserProfileModel;
 import in.mummysfood.utils.AppConstants;
+import in.mummysfood.widgets.CkdButton;
 import in.mummysfood.widgets.CkdTextview;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,7 +49,6 @@ public class YourCartActivity extends BaseActivity {
 
     @BindView(R.id.payatmOption)
     CkdTextview payatmOption;
-
 
     @BindView(R.id.personInfo)
     CkdTextview personInfo;
@@ -103,7 +100,17 @@ public class YourCartActivity extends BaseActivity {
     @BindView(R.id.item_count)
     CkdTextview item_count;
 
+    @BindView(R.id.userNameUpdated)
+    EditText userNameUpdated;
 
+    @BindView(R.id.mobileNumberUpdation)
+    EditText mobileNumberUpdation;
+
+    @BindView(R.id.changePersonInfo)
+    LinearLayout changePersonInfo;
+
+    @BindView(R.id.nameSave)
+    CkdButton nameSave;
 
     private DashBoardModel.Data modelData;
     private DashBoardModel.Food_detail model;
@@ -120,6 +127,7 @@ public class YourCartActivity extends BaseActivity {
     private String userAdd;
     private String typeOfPackage;
     private String location = "";
+    private DataBaseHelperNew db;
 
 
     @Override
@@ -130,6 +138,7 @@ public class YourCartActivity extends BaseActivity {
          ButterKnife.bind(this);
 
 
+         db = new DataBaseHelperNew(this);
 
 
         if (getIntent() != null)
@@ -406,6 +415,31 @@ public class YourCartActivity extends BaseActivity {
 
     }
 
+    @OnClick(R.id.infoChange)
+    public void infoChange()
+    {
+        scrollChange.setVisibility(View.GONE);
+        changePersonInfo.setVisibility(View.VISIBLE);
+    }
+
+    @OnClick(R.id.nameSave)
+    public void nameSave()
+    {
+        String username  = userNameUpdated.getText().toString();
+        String mobileName   = mobileNumberUpdation.getText().toString();
+
+        scrollChange.setVisibility(View.VISIBLE);
+        changePersonInfo.setVisibility(View.GONE);
+
+        if (!"".equalsIgnoreCase(username))
+        {
+            pf = new PreferenceManager(this);
+            pf.saveStringForKey("Username",username);
+            pf.saveStringForKey("Mobile",mobileName);
+            personInfo.setText(username +" , "+mobileName);
+        }
+    }
+
     @OnClick(R.id.COD)
     public void COD()
     {
@@ -494,6 +528,10 @@ public class YourCartActivity extends BaseActivity {
             changePaymentOption.setVisibility(View.GONE);
             scrollChange.setVisibility(View.VISIBLE);
 
+        }else  if(changePaymentOption.getVisibility() ==View.VISIBLE)
+        {
+            changePersonInfo.setVisibility(View.GONE);
+            scrollChange.setVisibility(View.VISIBLE);
         }else
         {
             finish();
@@ -504,7 +542,20 @@ public class YourCartActivity extends BaseActivity {
     @OnClick(R.id.backArrowFinish)
     public void backArrowFinish()
     {
-        finish();
+        if (changePaymentOption.getVisibility() ==View.VISIBLE)
+        {
+            changePaymentOption.setVisibility(View.GONE);
+            scrollChange.setVisibility(View.VISIBLE);
+
+        }else  if(changePaymentOption.getVisibility() ==View.VISIBLE)
+        {
+            changePersonInfo.setVisibility(View.GONE);
+            scrollChange.setVisibility(View.VISIBLE);
+        }else
+        {
+            finish();
+        }
+
     }
 
 
@@ -637,6 +688,8 @@ public class YourCartActivity extends BaseActivity {
                     if (response.isSuccessful()){
                         OrderModel.Data res = response.body();
                         if (res.status != null && res.status.equalsIgnoreCase(AppConstants.SUCCESS)){
+
+                            db.deleteTable(DataBaseHelperNew.TABLE_ADD_TO_CART);
 
                             Intent ActIntent = new Intent(YourCartActivity.this,CongratualtionsActivtiy.class);
                             ActIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
