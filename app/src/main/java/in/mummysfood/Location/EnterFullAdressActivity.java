@@ -126,7 +126,8 @@ public class EnterFullAdressActivity extends BaseActivity {
     private void networkCallForAsavingAddress() {
         pf = new PreferenceManager(this,PreferenceManager.LOGIN_PREFERENCES_FILE);
 
-        user_id = pf.getIntForKey(PreferenceManager.USER_ID,0);
+      //  user_id = pf.getIntForKey(PreferenceManager.USER_ID,0);
+        user_id = 1;
 
         String landMarkText = landMark.getText().toString();
         String flatNoText = flatNo.getText().toString();
@@ -136,6 +137,7 @@ public class EnterFullAdressActivity extends BaseActivity {
         data.city = city;
         data.state = state;
         data.pin= postalCode;
+
         data.latitude = Double.parseDouble(latitude);
         data.longitude= Double.parseDouble(longitude);
         data.type = getRadioSelected();

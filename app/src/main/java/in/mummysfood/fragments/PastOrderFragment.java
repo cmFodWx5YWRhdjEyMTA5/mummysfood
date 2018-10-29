@@ -115,9 +115,6 @@ public class PastOrderFragment extends BaseFragment   implements OrderStatusAdap
 
                         if (subscribesList.size() != 0)
                         {
-
-
-
                             for (int i = 0;i <= subscribesList.size() - 1; i++) {
 
                                 UserProfileModel.Subscribes subList = subscribesList.get(i);
@@ -129,7 +126,7 @@ public class PastOrderFragment extends BaseFragment   implements OrderStatusAdap
                                     int remmainPlates = totalPlates - orderPlates;
 
 
-                                    if (remmainPlates < 0) {
+                                    if (remmainPlates == 0) {
                                         if (subList.orders != null)
                                         {
                                             if ( subList.orders.size() != 0)
@@ -188,13 +185,8 @@ public class PastOrderFragment extends BaseFragment   implements OrderStatusAdap
     }
 
     private void setAdapterForOrder(List<UserProfileModel.Orders> ordersList, List<UserProfileModel.Subscribes> subscribesList) {
-
-
-
         oAdapter = new OrderStatusAdapter(getActivity(),ordersList,subscribesList,this);
-
         recyclerView.setAdapter(oAdapter);
-
     }
 
     @Override
@@ -233,7 +225,7 @@ public class PastOrderFragment extends BaseFragment   implements OrderStatusAdap
                 {
 
                     Intent i = new Intent(getActivity(), ActiveOrderActivtiy.class);
-                    i.putExtra("order",subscribesList.get(position).orders.get(0));
+                    i.putExtra("order",PastsubscribesList.get(position).orders.get(0));
                     i.putExtra("remainingPlates",0);
 
                     try {

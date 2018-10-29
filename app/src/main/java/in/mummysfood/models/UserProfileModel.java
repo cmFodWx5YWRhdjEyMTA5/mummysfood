@@ -83,8 +83,30 @@ public class UserProfileModel implements Serializable{
         public String login_type;
         public String name;
         public List<Addresses> addresses;
-        public String food_detail;
         public String chef_detail;
+        public List<Food_detail> food_detail;
+
         public List<Subscribes> subscribes;
+    }
+
+    public static class Food_detail {
+        public List<ProfileModel.Food_media> food_media;
+        public String price;
+        public String media_type;
+        public String details;
+        public String name;
+        public int category_id;
+        public int user_id;
+        public int id;
+    }
+
+    public static class Food_media {
+        public ProfileModel.Media media;
+        public String updated_at;
+        public String created_at;
+        public String entity_media_type;
+        public int entity_media_id;
+        public int media_id;
+        public int id;
     }
 }

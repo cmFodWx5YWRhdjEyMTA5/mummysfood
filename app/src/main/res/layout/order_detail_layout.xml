@@ -387,14 +387,30 @@
                     android:layout_width="match_parent"
                     android:layout_below="@+id/constantSub"
                     android:layout_height="wrap_content">
+
+                    <in.mummysfood.widgets.CkdTextview
+                        android:id="@+id/onlyForToday"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Only for today"
+                        android:layout_marginLeft="@dimen/dp4"
+                        android:textSize="@dimen/sp14"
+                        android:textColor="@color/black"
+                        android:paddingTop="@dimen/dp4"
+                        android:paddingBottom="@dimen/dp4"
+                        android:paddingLeft="@dimen/dp16"
+                        android:paddingRight="@dimen/dp16"
+                        android:background="@drawable/border_primary"
+                        style="@style/textviewregular"/>
                     <in.mummysfood.widgets.CkdTextview
                         android:id="@+id/weekly"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="weekly"
                         android:textSize="@dimen/sp14"
+                        android:layout_marginLeft="@dimen/dp4"
                         android:textColor="@color/black"
-                        android:background="@drawable/border_primary"
+                        android:background="@drawable/border_gray"
                         android:paddingTop="@dimen/dp4"
                         android:paddingBottom="@dimen/dp4"
                         android:paddingLeft="@dimen/dp16"
@@ -415,20 +431,7 @@
                         android:background="@drawable/border_gray"
                         style="@style/textviewregular"/>
 
-                    <in.mummysfood.widgets.CkdTextview
-                        android:id="@+id/onlyForToday"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Only for today"
-                        android:layout_marginLeft="@dimen/dp4"
-                        android:textSize="@dimen/sp14"
-                        android:textColor="@color/black"
-                        android:paddingTop="@dimen/dp4"
-                        android:paddingBottom="@dimen/dp4"
-                        android:paddingLeft="@dimen/dp16"
-                        android:paddingRight="@dimen/dp16"
-                        android:background="@drawable/border_gray"
-                        style="@style/textviewregular"/>
+
                 </LinearLayout>
             </RelativeLayout>
 

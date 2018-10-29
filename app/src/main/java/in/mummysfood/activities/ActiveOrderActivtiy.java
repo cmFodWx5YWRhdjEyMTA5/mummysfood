@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -85,6 +86,10 @@ public class ActiveOrderActivtiy extends BaseActivity
 
         ButterKnife.bind(this);
 
+        pf = new PreferenceManager(this);
+        String userName  =     pf.getStringForKey("Username","");
+        String mobileNumber = pf.getStringForKey("Mobile","");
+
 
         if (getIntent() != null)
         {
@@ -99,15 +104,19 @@ public class ActiveOrderActivtiy extends BaseActivity
                 e.printStackTrace();
             }
 
-            payment_type_value.setText(orders.payment_type);
+            payment_type_value.setText(orders.price);
 
-            order_created_value.setText(String.valueOf(orders.created_at));
+            try {
+                order_created_value.setText(getDate(orders.created_at));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
             order_id_value.setText(String.valueOf(orders.id));
 
-            PhoneNUm_value.setText(String.valueOf(mobile));
+            PhoneNUm_value.setText(mobileNumber);
 
-            delivery_Add_value.setText(orders.landmark);
+            delivery_Add_value.setText(userName+" at "+orders.address_type +" Location :"+orders.landmark);
         }
 
         if (remainPlates != 0)
