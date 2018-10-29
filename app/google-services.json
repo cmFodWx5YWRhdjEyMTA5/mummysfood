@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "685097313931-bprq99jch0uq2c4l4kvav2eb5ghdl591.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.mummysfood",
+            "certificate_hash": "0496bbe12e23e833e98a0807d662a23519362d78"
+          }
+        },
+        {
           "client_id": "685097313931-4dghbcjk66lo9hond409idq2lndn2kfm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -23,11 +31,11 @@
           }
         },
         {
-          "client_id": "685097313931-slsatmfro4975ius400q94d9996ui6b5.apps.googleusercontent.com",
+          "client_id": "685097313931-buhkfn6ianplql4akcgvdi20jhkpicj5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "in.mummysfood",
-            "certificate_hash": "0496bbe12e23e833e98a0807d662a23519362d78"
+            "certificate_hash": "dc4c8f65ba0a6c67475140de7294f2c117c45ce4"
           }
         },
         {

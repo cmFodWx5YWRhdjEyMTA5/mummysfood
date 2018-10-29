@@ -3,12 +3,14 @@ package in.mummysfood.fragments;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,8 +19,10 @@ import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +31,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -36,7 +41,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import butterknife.OnClick;
+import in.mummysfood.ManageAddressesActivity;
 import in.mummysfood.R;
+import in.mummysfood.activities.LoginAndSignupActivity;
 import in.mummysfood.activities.ProfileUpdateActivity;
 import in.mummysfood.adapters.FoodDataAdapter;
 import in.mummysfood.adapters.HomeSpecialCardAdapter;
@@ -48,6 +55,8 @@ import in.mummysfood.models.ProfileModel;
 import in.mummysfood.models.ReviewModel;
 import in.mummysfood.utils.AppConstants;
 import in.mummysfood.widgets.CkdTextview;
+
+import com.google.firebase.auth.FirebaseAuth;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -82,6 +91,7 @@ public class ProfileFragment extends BaseFragment {
     private ProfileModel.Data userData;
     private int loggedInUserId;
     private PreferenceManager pf;
+    private FirebaseAuth mAuth;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -144,5 +154,66 @@ public class ProfileFragment extends BaseFragment {
         if (userData.name != null && !"".equalsIgnoreCase(userData.name)){
             profileUsername.setText(userData.name.trim());
         }
+    }
+
+    @OnClick(R.id.manage_address)
+    public void ManageAddress(){
+        Intent intent=new Intent(context,ManageAddressesActivity.class);
+        context.startActivity(intent);
+    }
+
+    @OnClick(R.id.your_orders)
+    public void RedirectToOrders(){
+        Fragment frag = new OrderStatusFragment();
+        if (frag != null) {
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_frame, frag, frag.getTag());
+            ft.commit();
+        }
+    }
+
+    @OnClick(R.id.manage_payment_options)
+    public void ManagePaymentOptions(){
+        Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.payment_options_layout);
+        dialog.show();
+    }
+
+    @OnClick(R.id.help_support)
+    public void HelpSupport(){
+
+    }
+
+    @OnClick(R.id.logout)
+    public void LogOut(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("Are you sure you want to log out?")
+                .setTitle("Logout")
+                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        mAuth = FirebaseAuth.getInstance();
+
+                        mAuth.signOut();
+
+                        //--- clear user  preferences  ----//
+                        pf.clearPref(context, pf.LOGIN_PREFERENCES_FILE);
+                        pf.clearPref(context, pf.ORDER_PREFERENCES_FILE);
+
+                        //-- start new with login --//
+                        Intent intent=new Intent(context,LoginAndSignupActivity.class);
+                        intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        context.startActivity(intent);
+                        ((AppCompatActivity)context).finish();
+                        showToast(context.getString(R.string.toast_logout));
+                    }})
+                .setNegativeButton("NO",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {}});
+
+        // Create the AlertDialog object and return it
+        AlertDialog alert = builder.create();
+        alert.show();
+
     }
 }

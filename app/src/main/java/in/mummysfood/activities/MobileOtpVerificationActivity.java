@@ -433,13 +433,13 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
         if (data.mobile != null && data.mobile.isEmpty())
             pf.saveStringForKey(PreferenceManager.USER_MOBILE, data.mobile);
         String savedLocation = pf.getStringForKey("CurrentAddress","");
-        if (savedLocation != null &&savedLocation.equalsIgnoreCase("gotitlocation")){
+        //if (savedLocation != null &&savedLocation.equalsIgnoreCase("gotitlocation")){
             startActivity(new Intent(MobileOtpVerificationActivity.this,MainBottomBarActivity.class));
             finish();
-        }else{
+        /*}else{
             startActivity(new Intent(MobileOtpVerificationActivity.this,UserLocationActivtiy.class));
             finish();
-        }
+        }*/
     }
 
     private void error(String message) {

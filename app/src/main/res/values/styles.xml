@@ -82,7 +82,7 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-        <style name="AppTabLayout" parent="Widget.Design.TabLayout">
+    <style name="AppTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabIndicatorColor">@color/black_effective</item>
         <item name="tabIndicatorHeight">4dp</item>
         <item name="tabPaddingStart">6dp</item>
@@ -97,5 +97,9 @@
         <item name="android:textColor">@color/black_effective</item>
         <item name="textAllCaps">false</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

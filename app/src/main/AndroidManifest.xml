@@ -45,18 +45,18 @@
         <activity android:name=".Location.UserLocationActivtiy" />
         <activity android:name=".activities.ChooseFoodTypeActivity" />
         <activity android:name=".activities.MainBottomBarActivity" />
-        <activity android:name=".fragments.OrderDetailsActivity"/>
-        <activity android:name=".activities.ActiveOrderActivtiy"/>
-        <activity android:name=".fragments.ProfileFragmentChef"/>
+        <activity android:name=".fragments.OrderDetailsActivity" />
+        <activity android:name=".activities.ActiveOrderActivtiy" />
+        <activity android:name=".fragments.ProfileFragmentChef" />
 
-            <!--
+        <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            -->
-       <!-- </activity>-->
+        -->
+        <!-- </activity> -->
         <activity android:name=".activities.MobileOtpVerificationActivity" />
         <activity android:name=".Location.EnterFullAdressActivity" />
 
@@ -107,7 +107,11 @@
         <!-- end firebase push notification -->
 
         <activity android:name=".activities.YourCartActivity" />
-        <activity android:name=".activities.CongratualtionsActivtiy"></activity>
+        <activity android:name=".activities.CongratualtionsActivtiy" />
+        <activity
+            android:name=".ManageAddressesActivity"
+            android:label="@string/title_activity_manage_addresses"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

@@ -40,6 +40,7 @@
         android:background="@color/white"
         android:padding="@dimen/dp24">
         <RelativeLayout
+            android:id="@+id/manage_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <in.mummysfood.widgets.CkdTextview
@@ -55,6 +56,7 @@
                 android:layout_alignParentEnd="true"/>
         </RelativeLayout>
         <RelativeLayout
+            android:id="@+id/your_orders"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp16">
@@ -71,6 +73,7 @@
                 android:layout_alignParentEnd="true"/>
         </RelativeLayout>
         <RelativeLayout
+            android:id="@+id/manage_payment_options"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp16">
@@ -87,6 +90,7 @@
                 android:layout_alignParentEnd="true"/>
         </RelativeLayout>
         <RelativeLayout
+            android:id="@+id/notification_settings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp16">
@@ -103,6 +107,7 @@
                 android:layout_alignParentEnd="true"/>
         </RelativeLayout>
         <RelativeLayout
+            android:id="@+id/help_support"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp16">
@@ -126,6 +131,7 @@
         android:background="@color/white"
         android:layout_marginTop="@dimen/dp8">
         <in.mummysfood.widgets.CkdTextview
+            android:id="@+id/logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/logout"

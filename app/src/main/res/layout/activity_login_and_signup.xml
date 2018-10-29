@@ -107,7 +107,5 @@
                 android:layout_marginBottom="@dimen/dp16"/>
         </LinearLayout>
 
-
-
     </LinearLayout>
 </RelativeLayout>

@@ -128,11 +128,20 @@
     <string name="friday">Friday</string>
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
-    <string name="manage_address">Manage Address</string>
+    <string name="manage_address">Manage Addresses</string>
     <string name="your_order">Your Orders</string>
     <string name="manage_payment_option">Manage Payment Options</string>
     <string name="notification_setting">Notification Settings</string>
     <string name="help_support">Help &amp; Support</string>
     <string name="logout">LogOut</string>
+    <string name="toast_logout">Logout Successful</string>
+    <string name="payment_method">Select Default Payment Method</string>
+    <string name="paytm">PayTm</string>
+    <string name="cash">Cash</string>
+    <string name="saved_address">Saved Address</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="add_new_address">Add New Address</string>
+    <string name="title_activity_manage_addresses">ManageAddressesActivity</string>
 
 </resources>

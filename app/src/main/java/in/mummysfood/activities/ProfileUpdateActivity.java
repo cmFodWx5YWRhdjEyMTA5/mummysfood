@@ -350,13 +350,13 @@ public class ProfileUpdateActivity extends BaseActivity {
         if (data.mobile != null && data.mobile.isEmpty())
             pf.saveStringForKey(PreferenceManager.USER_MOBILE, data.mobile);
         String savedLocation = pf.getStringForKey("CurrentAddress","");
-        if (savedLocation != null &&savedLocation.equalsIgnoreCase("gotitlocation")){
+        //if (savedLocation != null &&savedLocation.equalsIgnoreCase("gotitlocation")){
             startActivity(new Intent(ProfileUpdateActivity.this,MainBottomBarActivity.class));
             finish();
-        }else{
+        /*}else{
             startActivity(new Intent(ProfileUpdateActivity.this,UserLocationActivtiy.class));
             finish();
-        }
+        }*/
     }
 
     public boolean emailValidateField(String fieldvalue) {
