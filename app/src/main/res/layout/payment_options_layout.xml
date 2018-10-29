@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginStart="@dimen/dp24"
+    android:layout_marginEnd="@dimen/dp24"
+    android:paddingTop="@dimen/dp24"
+    android:paddingBottom="@dimen/dp24">
+    <in.mummysfood.widgets.CkdTextview
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/textviewregular"
+        android:text="@string/payment_method"
+        android:textColor="@color/black"/>
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/paytm"/>
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cash"/>
+    </RadioGroup>
+</LinearLayout>

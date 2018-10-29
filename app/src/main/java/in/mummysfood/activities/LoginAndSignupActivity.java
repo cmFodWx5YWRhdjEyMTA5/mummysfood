@@ -154,6 +154,7 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
         Intent intent = new Intent(this,MobileOtpVerificationActivity.class);
 
         startActivity(intent);
+        finish();
     }
 
     /*@Override
@@ -287,15 +288,11 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
 
     private void networkcallForCheckUserInDb(final GoogleSignInAccount user) {
 
-        pf = new PreferenceManager(this);
-
-        pf.saveStringForKey("Username",user.getDisplayName().toString());
 
         LoginRequest request = new LoginRequest();
 
-        request.email = user.getEmail().toString();
-        request.f_name = user.getDisplayName().toLowerCase();
-
+        request.email = user.getEmail();
+        request.f_name = user.getDisplayName();
         request.mobile = "";
         request.login_type = "gmail";
         request.is_email_verified = 1;
@@ -403,6 +400,7 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
         if (user != null){
             Intent intent = new Intent(this,MainBottomBarActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 

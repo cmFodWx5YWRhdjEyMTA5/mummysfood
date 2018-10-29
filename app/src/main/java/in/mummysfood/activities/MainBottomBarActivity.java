@@ -19,6 +19,7 @@ import in.mummysfood.base.BaseActivity;
 import in.mummysfood.data.pref.PreferenceManager;
 import in.mummysfood.fragments.HomeFragment;
 import in.mummysfood.fragments.OrderStatusFragment;
+import in.mummysfood.fragments.ProfileFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -149,11 +150,11 @@ public class MainBottomBarActivity extends BaseActivity implements HomeFragment.
                 break;
             case R.id.navigation_profile:
                 item.setChecked(true);
-              /*  frag = new ProfileFragmentChef();
+                frag = new ProfileFragment();
                 Bundle bundle = new Bundle();
 //                bundle.putInt("user_id",pf.getIntForKey(PreferenceManager.USER_ID,0));
                 frag.setArguments(bundle);
-                replaceFragment(frag);*/
+                replaceFragment(frag);
 
                 break;
         }

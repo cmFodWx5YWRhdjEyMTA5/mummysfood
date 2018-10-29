@@ -10,9 +10,16 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import in.mummysfood.models.DashBoardModel;
 
 /**
  * Created by Nilesh Deokar on 7/9/2015.
@@ -30,7 +37,7 @@ public class DataBaseHelperNew extends SQLiteOpenHelper {
 
     public static final String TABLE_ORDER = "Order";
 
-    public static final String TABLE_SUBSCRIBTION = "subscribe";
+    public static final String TABLE_ADD_TO_CART= "cart";
 
 
     private static final int DATABASE_VERSION = 1;
@@ -56,6 +63,9 @@ public class DataBaseHelperNew extends SQLiteOpenHelper {
                 "create table contacts " +
                         "(id integer primary key, name text,phone text,email text, street text,place text)"
         );
+
+        db.execSQL("create table "+ TABLE_ADD_TO_CART + "(model TEXT)");
+
     }
 
     @Override
@@ -122,4 +132,99 @@ public class DataBaseHelperNew extends SQLiteOpenHelper {
         }
         return array_list;
     }
+
+    public void insertAddToCart(List<DashBoardModel.Data> tagsModelList)
+
+    {
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
+
+
+            Gson gson = new Gson();
+
+            String inputString = gson.toJson(tagsModelList);
+
+
+            values.put("model", inputString);
+
+
+            db.insert(TABLE_ADD_TO_CART, null, values);
+
+
+            db.close();
+
+        } catch (SQLiteException exception) {
+            exception.printStackTrace();
+        }
+
+    }
+
+
+
+
+    public List<DashBoardModel.Data> getAddToCartItem() {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+
+        String value = null;
+
+        String countQuery;
+
+
+
+        countQuery = "SELECT  *  FROM  " + TABLE_ADD_TO_CART ;
+
+
+        Cursor cursor = db.rawQuery(countQuery, null);
+
+        try {
+
+
+            if (cursor.moveToFirst()) {
+                do {
+                    value = cursor.getString(cursor.getColumnIndex("model"));
+
+                } while (cursor.moveToNext());
+            }
+
+
+            cursor.close();
+            db.close();
+
+
+        } catch (SQLiteException e) {
+            e.printStackTrace();
+        }
+
+
+        Gson gson = new Gson();
+
+        Type type = new TypeToken<List<DashBoardModel.Data>>() {}.getType();
+
+        List<DashBoardModel.Data> finalOutputString = gson.fromJson(value, type);
+
+
+        return finalOutputString;
+
+    }
+    public boolean deleteTable(String tableName)
+
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        try {
+
+
+            return   db.delete(tableName,"",null)>0;
+
+        } catch (SQLiteException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+
 }

@@ -23,6 +23,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RadioButton;
@@ -31,6 +32,7 @@ import in.mummysfood.R;
 import in.mummysfood.adapters.HomePilotCardAdapter;
 import in.mummysfood.adapters.HomeSpecialCardAdapter;
 import in.mummysfood.base.BaseFragment;
+import in.mummysfood.data.db.DataBaseHelperNew;
 import in.mummysfood.data.network.RetrofitApiService;
 import in.mummysfood.data.pref.PreferenceManager;
 import in.mummysfood.models.DashBoardModel;
@@ -44,6 +46,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import in.mummysfood.widgets.CkdTextview;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,6 +61,11 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     @BindView(R.id.activeOrder)
     ImageView activeOrder;
 
+    @BindView(R.id.home_add_to_cart_icon)
+    ImageView home_add_to_cart_icon;
+
+
+
     Context context;
     private LinearLayoutManager linearLayoutManager;
     private List<DashBoardModel.Data> fetchData = new ArrayList<>();
@@ -68,6 +76,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     private int item_quantity = 0;
     private Dialog dialog;
     private orderActionListner orderActionListner;
+    private List<DashBoardModel.Data>dModel;
 
     public interface orderActionListner
     {
@@ -87,6 +96,25 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         pf = new PreferenceManager(context, PreferenceManager.ORDER_PREFERENCES_FILE);
 
         //homeToolbar.setVisibility(View.GONE);
+
+
+        DataBaseHelperNew db = null;
+        try {
+            db = new DataBaseHelperNew(getActivity());
+            dModel = db.getAddToCartItem();
+
+            if (dModel != null)
+            {
+                if (dModel.size() != 0)
+                {
+                      home_add_to_cart_icon.setImageResource(R.drawable.itemsincart);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
 
         DashBoardModel json = new DashBoardModel();
      /*   json.lat = 22.7368;
@@ -224,20 +252,32 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         fragmentTransaction1.commit();
     }*/
 
-    /*@OnClick(R.id.home_add_to_cart_icon)
+    @OnClick(R.id.home_add_to_cart_icon)
     public void AddToCart(){
-        ProfileFragment fragment1 = new ProfileFragment();
-        Bundle bundle1 = new Bundle();
-        bundle1.putInt("user_id", loggedInUserId);
-        bundle1.putString("type", AppConstants.SEEKER);
-        fragment1.setArguments(bundle1);
-        FragmentManager fragmentManager1 = (((AppCompatActivity) context).getSupportFragmentManager());
-        FragmentTransaction fragmentTransaction1 = fragmentManager1
-                .beginTransaction();
-        fragmentTransaction1.addToBackStack(fragment1.getClass().getSimpleName());
-        fragmentTransaction1.replace(R.id.content_frame, fragment1);
-        fragmentTransaction1.commit();
-    }*/
+        try {
+
+            if (dModel != null)
+            {
+                if (dModel.size() != 0)
+                {
+                    Intent i = new Intent(context,OrderDetailsActivity.class);
+                    i.putExtra("order_id",dModel.get(0).id);
+                    i.putExtra("location","Cart");
+                    i.putExtra("data",dModel.get(0));
+                    context.startActivity(i);
+                }else
+                {
+                    showItemsIntoCart();
+                }
+            }else
+            {
+                showItemsIntoCart();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
@@ -394,5 +434,29 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     public void onAttach(Context context) {
         super.onAttach(context);
         orderActionListner = (HomeFragment.orderActionListner) context;
+    }
+
+
+    private void showItemsIntoCart()
+    {
+        final Dialog dialogd = new Dialog(getActivity());
+        dialogd.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogd.setContentView(R.layout.dialog);
+
+
+        CkdTextview textDesc = (CkdTextview) dialogd.findViewById(R.id.permissionDesc);
+        CkdTextview textPos = (CkdTextview) dialogd.findViewById(R.id.permissionPos);
+
+
+        textPos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialogd.dismiss();
+            }
+        });
+
+        dialogd.show();
+
     }
 }

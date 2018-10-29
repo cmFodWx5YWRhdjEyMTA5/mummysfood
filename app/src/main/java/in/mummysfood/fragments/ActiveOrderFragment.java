@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ import in.mummysfood.data.pref.PreferenceManager;
 import in.mummysfood.models.SubscribtionModel;
 import in.mummysfood.models.UserProfileModel;
 import in.mummysfood.utils.AppConstants;
+import in.mummysfood.widgets.CkdTextview;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,6 +44,7 @@ public class ActiveOrderFragment extends BaseFragment   implements OrderStatusAd
 
     private Context context;
     private PreferenceManager pf;
+
 
     private List<UserProfileModel.Orders> ordersList;
     private List<UserProfileModel.Subscribes>subscribesList;
