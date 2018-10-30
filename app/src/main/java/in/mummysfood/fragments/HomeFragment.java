@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,6 +30,7 @@ import android.widget.RelativeLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import in.mummysfood.R;
+import in.mummysfood.adapters.HomeFilterAdapter;
 import in.mummysfood.adapters.HomePilotCardAdapter;
 import in.mummysfood.adapters.HomeSpecialCardAdapter;
 import in.mummysfood.base.BaseFragment;
@@ -36,6 +38,7 @@ import in.mummysfood.data.db.DataBaseHelperNew;
 import in.mummysfood.data.network.RetrofitApiService;
 import in.mummysfood.data.pref.PreferenceManager;
 import in.mummysfood.models.DashBoardModel;
+import in.mummysfood.models.FilterModel;
 import in.mummysfood.utils.AppConstants;
 import in.mummysfood.widgets.CkdButton;
 
@@ -52,8 +55,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.OrderListner {
+public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.OrderListner, HomeFilterAdapter.FilterListner {
 
+    @BindView(R.id.filter_recyclerview)
+    RecyclerView filter_recyclerview;
     @BindView(R.id.recommended_recyclerview)
     RecyclerView recommended_recyclerview;
     @BindView(R.id.near_you_recyclerview)
@@ -77,6 +82,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     private Dialog dialog;
     private orderActionListner orderActionListner;
     private List<DashBoardModel.Data>dModel;
+    private List<FilterModel> filterList;
 
     public interface orderActionListner
     {
@@ -180,6 +186,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
                             if ( res.status.equals(AppConstants.SUCCESS))
                             {
                                 fetchData = res.data;
+                                setFilterData();
                                 setAdapterData(recommended_recyclerview, 0);
                                 setAdapterData(near_you_recyclerview, 1);
                             }
@@ -204,6 +211,23 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
             }
         });
 
+    }
+
+    private void setFilterData() {
+        filterList = new ArrayList<>();
+        filterList.add(new FilterModel(0,getString(R.string.option_near_me),false));
+        filterList.add(new FilterModel(2,getString(R.string.explore),false));
+        filterList.add(new FilterModel(3,getString(R.string.top_food_options),false));
+        filterList.add(new FilterModel(4,getString(R.string.zara_hatke),false));
+        filterList.add(new FilterModel(5,getString(R.string.try_something_new),false));
+        filterList.add(new FilterModel(6,getString(R.string.my_favourite),false));
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(context,3,LinearLayoutManager.VERTICAL,false);
+        filter_recyclerview.setHasFixedSize(true);
+        filter_recyclerview.setLayoutManager(gridLayoutManager);
+        filter_recyclerview.setItemAnimator(new DefaultItemAnimator());
+        HomeFilterAdapter pilotCardAdapter = new HomeFilterAdapter(getActivity(),filterList, this);
+        filter_recyclerview.setAdapter(pilotCardAdapter);
     }
 
     private void setAdapterData(RecyclerView recyclerview, int type) {
@@ -328,6 +352,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         }
 
     }
+
 /*
     private void setOrderItemData(int i) {
         if (!fetchData.get(i)..add_food) {
@@ -437,8 +462,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     }
 
 
-    private void showItemsIntoCart()
-    {
+    private void showItemsIntoCart() {
         final Dialog dialogd = new Dialog(getActivity());
         dialogd.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogd.setContentView(R.layout.dialog);
@@ -457,6 +481,11 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         });
 
         dialogd.show();
+
+    }
+
+    @Override
+    public void clickOnFilter(int position) {
 
     }
 }
