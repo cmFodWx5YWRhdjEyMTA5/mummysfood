@@ -127,6 +127,7 @@ public class YourCartActivity extends BaseActivity {
     private String userAdd;
     private String typeOfPackage;
     private String location = "";
+    private String foodImage = "";
     private DataBaseHelperNew db;
 
 
@@ -168,6 +169,7 @@ public class YourCartActivity extends BaseActivity {
                 numberOfDays = getIntent().getIntExtra("numberOfDays",0);
                 isDinner = getIntent().getIntExtra("isDinner",0);
                 isLunch = getIntent().getIntExtra("isLunch",0);
+                foodImage = getIntent().getStringExtra("foodImage");
 
             }
         }
@@ -679,12 +681,8 @@ public class YourCartActivity extends BaseActivity {
             orderModel.is_lunch = isLunch;
             orderModel.ordered_plates = itemCountText;
             orderModel.chef_name = "privacy concern so name is not here";
+            orderModel.food_image = foodImage;
         }
-
-
-
-
-
 
         Call<OrderModel.Data> loginRequestCall = AppConstants.restAPI.subscribeOrder(orderModel);
 

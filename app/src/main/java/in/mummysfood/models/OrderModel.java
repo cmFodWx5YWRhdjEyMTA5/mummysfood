@@ -74,5 +74,6 @@ public class OrderModel {
         public int is_dinner;
         public int is_lunch;
         public String payment_type;
+        public String food_image;
     }
 }

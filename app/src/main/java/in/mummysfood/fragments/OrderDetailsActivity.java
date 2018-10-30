@@ -151,6 +151,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
     private int isLunch;
     private int isDinner;
     private String location = "";
+    private String foodImage = "";
 
 
     public OrderDetailsActivity()
@@ -288,6 +289,8 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
                     String imageUrl = "http://cdn.mummysfood.in/"+data.food_detail.get(0).food_media.get(0).media.name;
                     Log.d("ImageUrl",imageUrl);
                     Glide.with(this).load(imageUrl).into(order_image);
+
+                    foodImage= imageUrl;
                 }catch (IllegalArgumentException e){
                     e.printStackTrace();
                 }
@@ -522,6 +525,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         yourCart.putExtra("typeOfPackage",typeOfPackage);
         yourCart.putExtra("isLunch",isLunch);
         yourCart.putExtra("isDinner",isDinner);
+        yourCart.putExtra("foodImage",foodImage);
         yourCart.putExtra("numberOfDays",getRadioSelected());
         startActivity(yourCart);
     }
