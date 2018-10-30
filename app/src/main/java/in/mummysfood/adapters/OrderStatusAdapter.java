@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import butterknife.BindView;
 import in.mummysfood.R;
 import in.mummysfood.models.UserProfileModel;
@@ -81,6 +83,7 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
             holder.foodNameEntry.setVisibility(View.GONE);
             holder.chefName_order.setText(modelSubscribe.orders.get(0).food_name);
             holder.foodLocation_order.setText(modelSubscribe.orders.get(0).city);
+            Glide.with(ckdContext).load(modelSubscribe.orders.get(0).food_image).into(holder.food_imagehere);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -111,6 +114,10 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
 
       //  holder.UpdateOrder.setTag(position);
         //holder.UpdateOrder.setOnClickListener(this);
+
+
+
+
 
     }
 

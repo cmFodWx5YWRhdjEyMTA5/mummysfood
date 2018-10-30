@@ -46,6 +46,7 @@ public class UserProfileModel implements Serializable{
         public int user_id;
 
         public int subscribe_to;
+        public String food_image;
         public int number_of_days;
         public int ordered_plates;
         public int is_dinner;
