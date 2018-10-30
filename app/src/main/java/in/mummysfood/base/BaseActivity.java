@@ -24,7 +24,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -252,4 +256,16 @@ public class BaseActivity extends AppCompatActivity {
 
 
     }
+
+    public static String getDate(String dateStr) throws ParseException {
+
+        DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = inputFormat.parse(dateStr);
+        SimpleDateFormat df = new SimpleDateFormat("dd MMMM, yyyy");
+        String formattedDate = df.format(date);
+        return formattedDate;
+
+    }
+
 }
+

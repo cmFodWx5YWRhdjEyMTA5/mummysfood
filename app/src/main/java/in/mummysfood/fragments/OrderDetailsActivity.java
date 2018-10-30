@@ -236,16 +236,25 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
     }
 
     private void setDefaultPackage() {
+        typeOfPackage = "today";
 
-        typeOfPackage = "weekly";
-
+        onlyForToday.setBackground(getResources().getDrawable(R.drawable.border_primary));
+        weekly.setBackground(getResources().getDrawable(R.drawable.border_gray));
         monthly.setBackground(getResources().getDrawable(R.drawable.border_gray));
-        weekly.setBackground(getResources().getDrawable(R.drawable.border_primary));
-        onlyForToday.setBackground(getResources().getDrawable(R.drawable.border_gray));
 
-        dinnerPrice.setText(String.valueOf(data.food_detail.get(0).week_dinner_price));
-        lunchPrice.setText(String.valueOf(data.food_detail.get(0).week_lunch_price));
-        bothPrice.setText(String.valueOf(data.food_detail.get(0).week_dinner_price+data.food_detail.get(0).week_lunch_price));
+
+        dinnerPrice.setText(String.valueOf(data.food_detail.get(0).price));
+        lunchPrice.setText(String.valueOf(data.food_detail.get(0).price));
+
+
+
+        float valuep = Float.parseFloat(data.food_detail.get(0).price);
+
+        int value  = (int) valuep;
+
+        value = value +value;
+
+        bothPrice.setText(String.valueOf(value));
 
     }
 

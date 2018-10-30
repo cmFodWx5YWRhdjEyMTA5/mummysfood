@@ -23,6 +23,7 @@ import in.mummysfood.fragments.ProfileFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import in.mummysfood.fragments.ProfileFragment;
 
 public class MainBottomBarActivity extends BaseActivity implements HomeFragment.orderActionListner {
 
@@ -152,7 +153,7 @@ public class MainBottomBarActivity extends BaseActivity implements HomeFragment.
                 item.setChecked(true);
                 frag = new ProfileFragment();
                 Bundle bundle = new Bundle();
-//                bundle.putInt("user_id",pf.getIntForKey(PreferenceManager.USER_ID,0));
+                bundle.putInt("user_id",pf.getIntForKey(PreferenceManager.USER_ID,0));
                 frag.setArguments(bundle);
                 replaceFragment(frag);
 

@@ -246,8 +246,17 @@ public class YourCartActivity extends BaseActivity {
             }else
             {
               float  orderPrice  = Float.parseFloat(modelData.food_detail.get(0).price);
+                int orderPriceInt = 0;
+                orderPriceInt  = (int) orderPrice;
+                if (typeOfPackage.equalsIgnoreCase("monthly"))
+              {
+                  orderPriceInt = orderPriceInt*30;
+              }else if (typeOfPackage.equalsIgnoreCase("weekly"))
+              {
+                  orderPriceInt = orderPriceInt*7;
 
-              int orderPriceInt = (int) orderPrice;
+              }
+
 
                 order_titile.setText(modelData.food_detail.get(0).name);
                 order_price.setText(modelData.food_detail.get(0).price);
