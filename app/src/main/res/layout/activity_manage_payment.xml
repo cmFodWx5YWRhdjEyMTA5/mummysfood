@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:popupTheme="@style/AppTheme.PopupOverlay" />
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:theme="@style/ToolbarColoredBackArrow"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,6 +20,7 @@
         android:paddingBottom="@dimen/dp24"
         android:orientation="vertical">
         <RelativeLayout
+            android:id="@+id/cod_option_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <in.mummysfood.widgets.CkdTextview
@@ -27,6 +29,7 @@
                 android:layout_alignParentStart="true"
                 android:text="@string/cash"/>
             <ImageView
+                android:id="@+id/cod_check_img"
                 android:layout_width="@dimen/dp24"
                 android:layout_height="@dimen/dp24"
                 android:src="@drawable/ic_check"
@@ -34,6 +37,7 @@
                 android:tint="@color/colorPrimary"/>
         </RelativeLayout>
         <RelativeLayout
+            android:id="@+id/paytm_option_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp8">
@@ -51,6 +55,7 @@
                 android:layout_toEndOf="@+id/paytm_img"
                 android:layout_centerVertical="true"/>
             <ImageView
+                android:id="@+id/paytm_check_img"
                 android:layout_width="@dimen/dp24"
                 android:layout_height="@dimen/dp24"
                 android:src="@drawable/ic_check"

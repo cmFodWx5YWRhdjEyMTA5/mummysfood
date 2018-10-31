@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
@@ -41,7 +42,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import butterknife.OnClick;
+import in.mummysfood.HelpSupportActivity;
 import in.mummysfood.ManageAddressesActivity;
+import in.mummysfood.ManagePaymentActivity;
 import in.mummysfood.R;
 import in.mummysfood.activities.LoginAndSignupActivity;
 import in.mummysfood.activities.ProfileUpdateActivity;
@@ -159,6 +162,7 @@ public class ProfileFragment extends BaseFragment {
     @OnClick(R.id.manage_address)
     public void ManageAddress(){
         Intent intent=new Intent(context,ManageAddressesActivity.class);
+        intent.putExtra("addresses", (Parcelable) userData.addresses);
         context.startActivity(intent);
     }
 
@@ -174,15 +178,14 @@ public class ProfileFragment extends BaseFragment {
 
     @OnClick(R.id.manage_payment_options)
     public void ManagePaymentOptions(){
-        Dialog dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.payment_options_layout);
-        dialog.show();
+        Intent intent=new Intent(context,ManagePaymentActivity.class);
+        context.startActivity(intent);
     }
 
     @OnClick(R.id.help_support)
     public void HelpSupport(){
-
+        Intent intent=new Intent(context,HelpSupportActivity.class);
+        context.startActivity(intent);
     }
 
     @OnClick(R.id.logout)

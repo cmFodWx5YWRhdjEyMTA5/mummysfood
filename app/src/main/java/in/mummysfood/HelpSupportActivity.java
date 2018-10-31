@@ -1,48 +1,38 @@
 package in.mummysfood;
 
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.webkit.WebView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.mummysfood.base.BaseActivity;
-import in.mummysfood.models.DashBoardModel;
-import in.mummysfood.models.ProfileModel;
-import in.mummysfood.widgets.CkdTextview;
 
-public class ManageAddressesActivity extends BaseActivity {
+public class HelpSupportActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    private ArrayList<ProfileModel.Addresses> addresses;
+    @BindView(R.id.webview)
+    WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_addresses);
+        setContentView(R.layout.activity_help_support);
         ButterKnife.bind(this);
 
+        //toolbar set
         setSupportActionBar(toolbar);
-        toolbar.setTitle(getString(R.string.manage_address));
+        toolbar.setTitle(getString(R.string.help_support));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        if (getIntent() != null) {
+        webView.loadUrl("http://mummysfood.in/");
 
-            try {
-                addresses = (ArrayList<ProfileModel.Addresses>) getIntent().getSerializableExtra("addresses");
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     @Override

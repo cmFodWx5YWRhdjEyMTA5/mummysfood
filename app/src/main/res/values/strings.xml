@@ -137,11 +137,18 @@
     <string name="toast_logout">Logout Successful</string>
     <string name="payment_method">Select Default Payment Method</string>
     <string name="paytm">PayTm</string>
-    <string name="cash">Cash</string>
+    <string name="cash">COD(Cash on delivery)</string>
     <string name="saved_address">Saved Address</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="add_new_address">Add New Address</string>
     <string name="title_activity_manage_addresses">ManageAddressesActivity</string>
+
+    <string name="option_near_me">Option Near Me</string>
+    <string name="explore">Explore</string>
+    <string name="top_food_options">Top Food Options</string>
+    <string name="zara_hatke">Zara Hatke</string>
+    <string name="try_something_new">Try Something New</string>
+    <string name="my_favourite">My Favourite</string>
 
 </resources>
