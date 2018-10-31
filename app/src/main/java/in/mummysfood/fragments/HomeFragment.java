@@ -182,7 +182,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
                 {
                     if (response != null){
                         DashBoardModel res = response.body();
-                        if (res.status != null) {
+                         if (res.status != null) {
                             if ( res.status.equals(AppConstants.SUCCESS))
                             {
                                 fetchData = res.data;

@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_gravity="center"
-    android:background="@mipmap/foodimage"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent" android:background="@drawable/layerimgae"
+    android:layout_height="match_parent">
 
 
     <RelativeLayout
+        android:id="@+id/dialogThankyou"
         android:layout_width="match_parent"
         android:layout_margin="32dp"
         android:gravity="center"
-        android:padding="@dimen/dp16"
+        android:padding="@dimen/dp24"
         android:layout_centerInParent="true"
         android:background="@drawable/fill_rounded_white_color"
-        android:layout_height="150dp">
+        android:layout_height="180dp">
 
         <in.mummysfood.widgets.CkdTextview
             android:id="@+id/Thankyou"
@@ -31,7 +30,7 @@
 
         <in.mummysfood.widgets.CkdTextview
         android:id="@+id/orderplacedText"
-        android:text="Order Placed"
+        android:text="Your order has placed you meal will be delivered with in 40 mins "
         android:textSize="@dimen/sp14"
         android:gravity="center"
             android:layout_below="@+id/Thankyou"
@@ -42,42 +41,75 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+
+        <in.mummysfood.widgets.CkdTextview
+            android:id="@+id/gotItAction"
+            android:text="Got it"
+            android:textSize="12sp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/dp16"
+            android:paddingLeft="@dimen/dp24"
+            android:paddingRight="@dimen/dp24"
+            android:paddingTop="@dimen/dp8"
+            android:paddingBottom="@dimen/dp8"
+            android:layout_below="@+id/orderplacedText"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/fill_rounded_full_primary"
+            android:textColor="@color/black_effective"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp32" />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_gravity="end"
-        android:layout_below="@+id/orderplacedText"
-        android:layout_marginTop="@dimen/dp8"
         android:gravity="center"
+        android:visibility="gone"
+        android:layout_marginBottom="@dimen/dp8"
+        android:layout_below="@+id/orderplacedText"
         android:layout_height="wrap_content">
+
 
 
         <in.mummysfood.widgets.CkdTextview
             android:id="@+id/visitAction"
-            android:text="Got it"
-            android:textSize="12sp"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/dp8"
-            android:gravity="center"
-            android:padding="@dimen/dp8"
-            android:background="@drawable/fill_rounded_full_primary"
-            android:textColor="@color/black_effective"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp" />
-
-        <in.mummysfood.widgets.CkdTextview
-            android:id="@+id/gotItAction"
             android:text="Visit Order"
             android:textSize="12sp"
             android:layout_gravity="center"
             android:layout_margin="@dimen/dp8"
             android:background="@drawable/fill_rounded_full_primary"
             android:padding="@dimen/dp8"
+            android:visibility="gone"
             android:textColor="@color/black_effective"
             android:layout_width="wrap_content"
             android:gravity="center"
             android:layout_height="@dimen/dp32" />
     </LinearLayout>
 
+
+
     </RelativeLayout>
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/dialogThankyou"
+        android:layout_marginLeft="@dimen/dp8"
+        android:layout_marginRight="@dimen/dp8"
+        android:layout_height="wrap_content">
+    <android.support.v4.view.ViewPager
+        android:id="@+id/FullScreenViewPgaer"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"></android.support.v4.view.ViewPager>
+
+<in.mummysfood.widgets.CirclePageIndicator
+    android:id="@+id/circleIndicator"
+    android:layout_width="match_parent"
+    android:layout_centerHorizontal="true"
+    android:visibility="visible"
+    android:layout_marginTop="@dimen/dp16"
+    android:layout_below="@+id/FullScreenViewPgaer"
+    android:layout_height="wrap_content" />
+    </LinearLayout>
 </RelativeLayout>
