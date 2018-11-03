@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/home_icon"
+        android:id="@+id/typeImage"
         android:tint="@color/black"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,8 +23,10 @@
             android:layout_height="wrap_content"
             style="@style/textviewbold"
             android:textColor="@color/black"
+            android:id="@+id/addressType"
             android:text="@string/title_home"/>
         <in.mummysfood.widgets.CkdTextview
+            android:id="@+id/addressTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/textviewbold"
@@ -36,6 +39,7 @@
             android:orientation="horizontal"
             android:layout_marginTop="@dimen/dp8">
             <in.mummysfood.widgets.CkdTextview
+                android:id="@+id/editAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/textviewbold"
@@ -43,6 +47,7 @@
                 android:text="@string/edit"
                 android:textAllCaps="true"/>
             <in.mummysfood.widgets.CkdTextview
+                android:id="@+id/deleteAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/textviewbold"

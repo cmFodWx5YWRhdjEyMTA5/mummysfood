@@ -11,11 +11,11 @@ public class ProfileModel implements Serializable {
     public List<Data> data;
     public String status;
 
-    public static class Data {
+    public static class Data implements Serializable{
         public Chef_open_days chef_open_days;
         public List<String> subscribes;
         public Chef_detail chef_detail;
-        public Food_detail food_detail;
+        public List<Food_detail>food_detail;
         public List<Addresses> addresses;
         public String name;
         public String login_type;
@@ -36,7 +36,7 @@ public class ProfileModel implements Serializable {
         public int id;
     }
 
-    public static class Chef_open_days {
+    public static class Chef_open_days implements Serializable{
         public String sun_close_hr;
         public String sun_open_hr;
         public String sat_close_hr;
@@ -55,7 +55,7 @@ public class ProfileModel implements Serializable {
         public int id;
     }
 
-    public static class Chef_detail {
+    public static class Chef_detail implements Serializable{
         public String updated_at;
         public String created_at;
         public String about;
@@ -67,7 +67,7 @@ public class ProfileModel implements Serializable {
         public List<Chef_media> chef_media;
     }
 
-    public static class Food_detail {
+    public static class Food_detail implements Serializable {
         public List<Food_media> food_media;
         public String price;
         public String media_type;
@@ -78,7 +78,7 @@ public class ProfileModel implements Serializable {
         public int id;
     }
 
-    public static class Food_media {
+    public static class Food_media implements Serializable{
         public Media media;
         public String updated_at;
         public String created_at;
@@ -88,7 +88,7 @@ public class ProfileModel implements Serializable {
         public int id;
     }
 
-    public static class Chef_media {
+    public static class Chef_media implements Serializable{
         public Media media;
         public String updated_at;
         public String created_at;
@@ -98,7 +98,7 @@ public class ProfileModel implements Serializable {
         public int id;
     }
 
-    public static class Media {
+    public static class Media implements Serializable{
         public String updated_at;
         public String created_at;
         public String source;
@@ -108,7 +108,7 @@ public class ProfileModel implements Serializable {
         public int id;
     }
 
-    public static class Addresses {
+    public static class Addresses implements Serializable {
         public double latitude;
         public double longitude;
         public int user_id;
