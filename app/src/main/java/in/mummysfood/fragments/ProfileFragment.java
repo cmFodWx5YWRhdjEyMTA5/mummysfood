@@ -66,6 +66,7 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -92,6 +93,7 @@ public class ProfileFragment extends BaseFragment {
     private int userId;
     //private String type;
     private ProfileModel.Data userData;
+    public static List<ProfileModel.Addresses> addressesList;
     private int loggedInUserId;
     private PreferenceManager pf;
     private FirebaseAuth mAuth;
@@ -108,6 +110,8 @@ public class ProfileFragment extends BaseFragment {
 
         context = inflater.getContext();
         ButterKnife.bind(this,rootView);
+
+        addressesList = new ArrayList<>();
 
         pf = new PreferenceManager(context, PreferenceManager.LOGIN_PREFERENCES_FILE);
         loggedInUserId = pf.getIntForKey(PreferenceManager.USER_ID,0);
@@ -133,6 +137,14 @@ public class ProfileFragment extends BaseFragment {
                         if (res.status != null) {
                             if ( res.status.equals(AppConstants.SUCCESS)){
                                 userData = res.data.get(0);
+
+                                try {
+                                    addressesList = userData.addresses;
+
+                                    Log.d("ListSize",String.valueOf(userData.addresses.size()));
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                                 prepareUserData();
 
                             }
@@ -162,7 +174,6 @@ public class ProfileFragment extends BaseFragment {
     @OnClick(R.id.manage_address)
     public void ManageAddress(){
         Intent intent=new Intent(context,ManageAddressesActivity.class);
-        intent.putExtra("addresses", (Parcelable) userData.addresses);
         context.startActivity(intent);
     }
 

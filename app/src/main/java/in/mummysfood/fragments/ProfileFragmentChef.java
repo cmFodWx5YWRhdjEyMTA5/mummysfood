@@ -278,13 +278,13 @@ public class ProfileFragmentChef extends BaseActivity {
 
         if (userData.food_detail != null )
         {
-            if (userData.food_detail.food_media != null&&userData.food_detail.food_media.size() != 0)
+            if (userData.food_detail.get(0).food_media != null&&userData.food_detail.get(0).food_media.size() != 0)
             {
                 linearLayoutManager = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false);
                 foodRecyclerview.setHasFixedSize(true);
                 foodRecyclerview.setLayoutManager(linearLayoutManager);
                 foodRecyclerview.setItemAnimator(new DefaultItemAnimator());
-                FoodDataAdapter foodDataAdapter = new FoodDataAdapter(this,userData.food_detail.food_media);
+                FoodDataAdapter foodDataAdapter = new FoodDataAdapter(this,userData.food_detail.get(0).food_media);
                 foodRecyclerview.setAdapter(foodDataAdapter);
             }
 

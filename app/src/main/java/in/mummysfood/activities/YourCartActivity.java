@@ -645,6 +645,7 @@ public class YourCartActivity extends BaseActivity {
             orderModel.is_lunch =  orders.is_dinner;;
             orderModel.ordered_plates = itemCountText;
             orderModel.chef_name = "privacy concern so name is not here";
+            orderModel.food_image = foodImage;
 
         }else
         {

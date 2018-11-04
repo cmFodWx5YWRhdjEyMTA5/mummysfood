@@ -20,7 +20,7 @@
         android:layout_marginStart="@dimen/dp24"
         android:layout_marginEnd="@dimen/dp24"
         android:layout_marginTop="@dimen/dp8"/>
-    <include
+ <!--   <include
         layout="@layout/saved_address_item"/>
     <View
         android:layout_width="match_parent"
@@ -31,7 +31,12 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp1"
-        android:background="@color/gray"/>
+        android:background="@color/gray"/>-->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/addressRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
     <in.mummysfood.widgets.CkdTextview
         android:layout_width="match_parent"
