@@ -13,7 +13,6 @@ public class ProfileModel implements Serializable {
 
     public static class Data implements Serializable{
         public Chef_open_days chef_open_days;
-        public List<String> subscribes;
         public Chef_detail chef_detail;
         public List<Food_detail>food_detail;
         public List<Addresses> addresses;
@@ -123,6 +122,7 @@ public class ProfileModel implements Serializable {
         public String landmark;
         public String street;
         public String city;
+        public String complete_address;
         public int id;
     }
 }

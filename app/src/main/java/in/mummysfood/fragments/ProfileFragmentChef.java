@@ -309,40 +309,46 @@ public class ProfileFragmentChef extends BaseActivity {
 
     private void ActiveTimePrepare() {
         ProfileModel.Chef_open_days activeTimeData = userData.chef_open_days;
-        if (!activeTimeData.mon_open_hr.isEmpty())
-            first_day_open.setText(activeTimeData.mon_open_hr);
-        if (!activeTimeData.mon_close_hr.isEmpty())
-            first_day_close.setText(activeTimeData.mon_close_hr);
 
-        if (!activeTimeData.tues_open_hr.isEmpty())
-            second_day_open.setText(activeTimeData.tues_open_hr);
-        if (!activeTimeData.tues_close_hr.isEmpty())
-            second_day_close.setText(activeTimeData.tues_close_hr);
+        try {
+            if (!activeTimeData.mon_open_hr.isEmpty())
+                first_day_open.setText(activeTimeData.mon_open_hr);
+            if (!activeTimeData.mon_close_hr.isEmpty())
+                first_day_close.setText(activeTimeData.mon_close_hr);
 
-        if (!activeTimeData.wed_open_hr.isEmpty())
-            third_day_open.setText(activeTimeData.wed_open_hr);
-        if (!activeTimeData.wed_close_hr.isEmpty())
-            third_day_close.setText(activeTimeData.wed_close_hr);
+            if (!activeTimeData.tues_open_hr.isEmpty())
+                second_day_open.setText(activeTimeData.tues_open_hr);
+            if (!activeTimeData.tues_close_hr.isEmpty())
+                second_day_close.setText(activeTimeData.tues_close_hr);
 
-        if (!activeTimeData.thus_open_hr.isEmpty())
-            fourth_day_open.setText(activeTimeData.thus_open_hr);
-        if (!activeTimeData.thus_close_hr.isEmpty())
-            fourth_day_close.setText(activeTimeData.thus_close_hr);
+            if (!activeTimeData.wed_open_hr.isEmpty())
+                third_day_open.setText(activeTimeData.wed_open_hr);
+            if (!activeTimeData.wed_close_hr.isEmpty())
+                third_day_close.setText(activeTimeData.wed_close_hr);
 
-        if (!activeTimeData.fri_open_hr.isEmpty())
-            fifth_day_open.setText(activeTimeData.fri_open_hr);
-        if (!activeTimeData.fri_close_hr.isEmpty())
-            fifth_day_close.setText(activeTimeData.fri_close_hr);
+            if (!activeTimeData.thus_open_hr.isEmpty())
+                fourth_day_open.setText(activeTimeData.thus_open_hr);
+            if (!activeTimeData.thus_close_hr.isEmpty())
+                fourth_day_close.setText(activeTimeData.thus_close_hr);
 
-        if (!activeTimeData.sat_open_hr.isEmpty())
-            sixth_day_open.setText(activeTimeData.sat_open_hr);
-        if (!activeTimeData.sat_close_hr.isEmpty())
-            sixth_day_close.setText(activeTimeData.sat_close_hr);
+            if (!activeTimeData.fri_open_hr.isEmpty())
+                fifth_day_open.setText(activeTimeData.fri_open_hr);
+            if (!activeTimeData.fri_close_hr.isEmpty())
+                fifth_day_close.setText(activeTimeData.fri_close_hr);
 
-        if (!activeTimeData.sun_open_hr.isEmpty())
-            seventh_day_open.setText(activeTimeData.sun_open_hr);
-        if (!activeTimeData.sun_close_hr.isEmpty())
-            seventh_day_close.setText(activeTimeData.sun_close_hr);
+            if (!activeTimeData.sat_open_hr.isEmpty())
+                sixth_day_open.setText(activeTimeData.sat_open_hr);
+            if (!activeTimeData.sat_close_hr.isEmpty())
+                sixth_day_close.setText(activeTimeData.sat_close_hr);
+
+            if (!activeTimeData.sun_open_hr.isEmpty())
+                seventh_day_open.setText(activeTimeData.sun_open_hr);
+            if (!activeTimeData.sun_close_hr.isEmpty())
+                seventh_day_close.setText(activeTimeData.sun_close_hr);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
     }
 

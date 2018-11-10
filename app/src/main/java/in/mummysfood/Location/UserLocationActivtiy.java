@@ -7,18 +7,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
+import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.test.mock.MockPackageManager;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -77,6 +76,8 @@ public class UserLocationActivtiy extends BaseActivity implements  ContactsAdapt
 
     private Handler handler;
 
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+
 
     private static final String LOG_TAG = "Google Places Autocomplete";
     private static final String PLACES_API_BASE = "https://maps.googleapis.com/maps/api/place";
@@ -84,6 +85,8 @@ public class UserLocationActivtiy extends BaseActivity implements  ContactsAdapt
     private static final String OUT_JSON = "/json";
     private static final String API_KEY = "AIzaSyBbiDK90-7ghYlvEYFscFNcFApa6ks2oAo";
     private ArrayList<String> resultLis;
+    LocationManager locationManager;
+    String provider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +96,11 @@ public class UserLocationActivtiy extends BaseActivity implements  ContactsAdapt
         ButterKnife.bind(this);
 
         loading.setVisibility(View.GONE);
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        provider = locationManager.getBestProvider(new Criteria(), false);
+
 
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -135,7 +143,8 @@ public class UserLocationActivtiy extends BaseActivity implements  ContactsAdapt
     @OnClick(R.id.detectAutomatically)
     public void detectAutomatically()
     {
-        locationBased();
+
+        checkLocationPermission();
 
         //timerForsettingOn();
     }
@@ -199,126 +208,109 @@ public class UserLocationActivtiy extends BaseActivity implements  ContactsAdapt
     public  void locationBased()
     {
 
+        Context contex = this;
         try {
-            if (ActivityCompat.checkSelfPermission(this, mPermission)
+           /* if (ActivityCompat.checkSelfPermission(this, mPermission)
                     != MockPackageManager.PERMISSION_GRANTED) {
 
-                ActivityCompat.requestPermissions(this, new String[]{mPermission},
-                        REQUEST_CODE_PERMISSION);
+                checkLocationPermission();
+            }else {*/
+                gps = new GpsTracker(UserLocationActivtiy.this);
 
-            }
+                // check if GPS enabled
+                if(gps.canGetLocation()){
+
+                    double latitude = gps.getLatitude();
+                    double longitude = gps.getLongitude();
+
+
+
+
+                    Geocoder geocoder;
+                    List<Address> addresses;
+                    geocoder = new Geocoder(this, Locale.getDefault());
+
+                    try {
+                        addresses = geocoder.getFromLocation(latitude, longitude, 1);
+
+                        if (addresses.size() != 0){
+
+
+
+                            String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+
+                            showToast(address);
+                            String city = addresses.get(0).getLocality();
+                            String state = addresses.get(0).getAdminArea();
+                            String country = addresses.get(0).getCountryName();
+                            String postalCode = addresses.get(0).getPostalCode();
+                            String knownName = addresses.get(0).getFeatureName();
+                            latitudeS = latitude;
+                            lognitudeS = longitude;
+                            pin_code =postalCode;
+
+                            pf.saveStringForKey("CurrentAddress",address);
+                            pf.saveDoubleForKey("latitude",latitude);
+                            pf.saveDoubleForKey("lognitude",longitude);
+
+                            Intent enterOtherAct = new Intent(UserLocationActivtiy.this,EnterFullAdressActivity.class);
+                            enterOtherAct.putExtra("Address",address);
+                            enterOtherAct.putExtra("city",city);
+                            enterOtherAct.putExtra("lat",String.valueOf(latitude));
+                            enterOtherAct.putExtra("long",String.valueOf(longitude));
+                            enterOtherAct.putExtra("pincode",postalCode);
+                            enterOtherAct.putExtra("state",state);
+                            startActivity(enterOtherAct);
+                            finish();
+
+
+
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    gps.showSettingsAlert();
+                }
+           // }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
 
-        gps = new GpsTracker(this);
 
-        // check if GPS enabled
-        if(gps.canGetLocation()){
-
-            double latitude = gps.getLatitude();
-            double longitude = gps.getLongitude();
-
-
-
-
-            Geocoder geocoder;
-            List<Address> addresses;
-            geocoder = new Geocoder(this, Locale.getDefault());
-
-            try {
-                addresses = geocoder.getFromLocation(latitude, longitude, 1);
-
-                if (addresses.size() != 0){
-
-
-
-                    String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-
-                    String city = addresses.get(0).getLocality();
-                    String state = addresses.get(0).getAdminArea();
-                    String country = addresses.get(0).getCountryName();
-                    String postalCode = addresses.get(0).getPostalCode();
-                    String knownName = addresses.get(0).getFeatureName();
-                    latitudeS = latitude;
-                    lognitudeS = longitude;
-                    pin_code =postalCode;
-
-                    pf.saveStringForKey("CurrentAddress",address);
-                    pf.saveDoubleForKey("latitude",latitude);
-                    pf.saveDoubleForKey("lognitude",longitude);
-
-                    Intent enterOtherAct = new Intent(UserLocationActivtiy.this,EnterFullAdressActivity.class);
-                    enterOtherAct.putExtra("Address",address);
-                    enterOtherAct.putExtra("city",city);
-                    enterOtherAct.putExtra("lat",String.valueOf(latitude));
-                    enterOtherAct.putExtra("long",String.valueOf(longitude));
-                    enterOtherAct.putExtra("pincode",postalCode);
-                    enterOtherAct.putExtra("state",state);
-                    startActivity(enterOtherAct);
-                    finish();
-
-
-
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }else{
-                showSettingsAlert();
-        }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
-    {
-        switch (requestCode) {
-            case REQUEST_CODE_PERMISSION:
-            {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                {
-
-                    locationBased();
-
-                }
-
-            }
-            break;
-            default:
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-    }
-
-
-
-    public void checkGpsStatus()
+    public void checkGpsStatus(String yes)
     {
 
-        final LocationManager manager = (LocationManager) UserLocationActivtiy.this.getSystemService(Context.LOCATION_SERVICE);
+        /*final LocationManager manager = (LocationManager) UserLocationActivtiy.this.getSystemService(Context.LOCATION_SERVICE);
         if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER) && hasGPSDevice(UserLocationActivtiy.this)) {
 
             Toast.makeText(UserLocationActivtiy.this,"Gps already enabled", Toast.LENGTH_SHORT).show();
 
             locationBased();
 
+        }*/
+
+        if (yes.equalsIgnoreCase("Done"))
+        {
+            locationBased();
         }
+
 
         if(!hasGPSDevice(UserLocationActivtiy.this)){
             Toast.makeText(UserLocationActivtiy.this,"Gps not Supported", Toast.LENGTH_SHORT).show();
         }
 
-        if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER) && hasGPSDevice(UserLocationActivtiy.this)) {
+       /* if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER) && hasGPSDevice(UserLocationActivtiy.this)) {
 
             showSettingsAlert();
 
         }else {
 
             locationBased();
-        }
-
-
-
+        }*/
     }
 
     private boolean hasGPSDevice(Context context) {
@@ -333,51 +325,18 @@ public class UserLocationActivtiy extends BaseActivity implements  ContactsAdapt
     }
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-    }
-
     public void timerForsettingOn() {
         handler.postDelayed(new Runnable() {
             public void run() {
 
-                checkGpsStatus();
+                checkGpsStatus("Done");
             }
 
         }, 1 * 3000);
     }
 
 
-    public void showSettingsAlert(){
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
 
-        // Setting Dialog Title
-        alertDialog.setTitle("GPS is settings");
-
-        // Setting Dialog Message
-        alertDialog.setMessage("GPS is not enabled. Do you want to go to settings menu?");
-
-        // On pressing Settings button
-        alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(intent);
-                timerForsettingOn();
-            }
-        });
-
-        // on pressing cancel button
-        alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        // Showing Alert Message
-        alertDialog.show();
-    }
 
     @Override
     public void onBackPressed() {
@@ -390,4 +349,89 @@ public class UserLocationActivtiy extends BaseActivity implements  ContactsAdapt
             finish();
         }
     }
+
+
+
+    public boolean checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                new AlertDialog.Builder(this)
+                        .setTitle("location needed")
+                        .setMessage("Access this need location permission")
+                        .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Prompt the user once explanation has been shown
+                                ActivityCompat.requestPermissions(UserLocationActivtiy.this,
+                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                        MY_PERMISSIONS_REQUEST_LOCATION);
+                            }
+                        })
+                        .create()
+                        .show();
+
+
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+            }
+            return false;
+        } else {
+            locationBased();
+            return true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // location-related task you need to do.
+                    if (ContextCompat.checkSelfPermission(this,
+                            Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+
+                      locationBased();
+                        //Request location updates:
+                    //    locationManager.requestLocationUpdates(provider, 400, 1, UserLocationActivtiy.this);
+                    }
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+
+                }
+                return;
+            }
+
+        }
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        gps = new GpsTracker(this);
+        locationBased();
+    }
+
 }

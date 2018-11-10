@@ -81,6 +81,12 @@ public interface RetrofitApiService {
         @POST("address")
         Call<AddressModel>postAddress(@Body AddressModel.Data addressModel);
 
+        @PUT("address/{id}")
+        Call<AddressModel>postAddressUpdate(@Path("id") int id,@Body AddressModel.Data addressModel);
+
+        @DELETE("address/{id}")
+        Call<ResponseBody>postAddressDelete(@Path("id") int id);
+
         @POST("order")
         Call<OrderModel.Data> orderPlace(@Body OrderModel.Data orderModel);
 

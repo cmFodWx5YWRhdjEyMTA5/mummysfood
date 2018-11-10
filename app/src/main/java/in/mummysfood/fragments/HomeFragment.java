@@ -214,20 +214,26 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     }
 
     private void setFilterData() {
-        filterList = new ArrayList<>();
-        filterList.add(new FilterModel(0,getString(R.string.option_near_me),false));
-        filterList.add(new FilterModel(2,getString(R.string.explore),false));
-        filterList.add(new FilterModel(3,getString(R.string.top_food_options),false));
-        filterList.add(new FilterModel(4,getString(R.string.zara_hatke),false));
-        filterList.add(new FilterModel(5,getString(R.string.try_something_new),false));
-        filterList.add(new FilterModel(6,getString(R.string.my_favourite),false));
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(context,3,LinearLayoutManager.VERTICAL,false);
-        filter_recyclerview.setHasFixedSize(true);
-        filter_recyclerview.setLayoutManager(gridLayoutManager);
-        filter_recyclerview.setItemAnimator(new DefaultItemAnimator());
-        HomeFilterAdapter pilotCardAdapter = new HomeFilterAdapter(getActivity(),filterList, this);
-        filter_recyclerview.setAdapter(pilotCardAdapter);
+        try {
+            filterList = new ArrayList<>();
+            filterList.add(new FilterModel(0,getString(R.string.option_near_me),false));
+            filterList.add(new FilterModel(2,getString(R.string.explore),false));
+            filterList.add(new FilterModel(3,getString(R.string.top_food_options),false));
+            filterList.add(new FilterModel(4,getString(R.string.zara_hatke),false));
+            filterList.add(new FilterModel(5,getString(R.string.try_something_new),false));
+            filterList.add(new FilterModel(6,getString(R.string.my_favourite),false));
+
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(context,3,LinearLayoutManager.VERTICAL,false);
+            filter_recyclerview.setHasFixedSize(true);
+            filter_recyclerview.setLayoutManager(gridLayoutManager);
+            filter_recyclerview.setItemAnimator(new DefaultItemAnimator());
+            HomeFilterAdapter pilotCardAdapter = new HomeFilterAdapter(getActivity(),filterList, this);
+            filter_recyclerview.setAdapter(pilotCardAdapter);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void setAdapterData(RecyclerView recyclerview, int type) {

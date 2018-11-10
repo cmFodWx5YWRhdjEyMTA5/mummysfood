@@ -31,7 +31,7 @@
         </provider>
 
         <activity
-            android:name=".activities.SpashAcctivity"
+            android:name=".Location.UserLocationActivtiy"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,7 +42,7 @@
         <activity android:name=".activities.LoginAndSignupActivity" />
         <activity android:name=".activities.InterestActivity" />
         <activity android:name=".activities.RateYourselfActivity" />
-        <activity android:name=".Location.UserLocationActivtiy" />
+        <activity android:name=".activities.SpashAcctivity" />
         <activity android:name=".activities.ChooseFoodTypeActivity" />
         <activity android:name=".activities.MainBottomBarActivity" />
         <activity android:name=".fragments.OrderDetailsActivity" />
@@ -92,6 +92,8 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
+        <service android:name=".Location.GpsTracker"/>
 
         <!-- Set custom default icon. This is used when no icon is set for incoming notification messages -->
         <meta-data

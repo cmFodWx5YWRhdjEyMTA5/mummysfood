@@ -122,7 +122,6 @@ public class ProfileFragment extends BaseFragment {
             //type = bundle.getString("type",null);
             if (userId == 0) {
                 userId = loggedInUserId;
-                //type = AppConstants.SEEKER;
             }
         }
 

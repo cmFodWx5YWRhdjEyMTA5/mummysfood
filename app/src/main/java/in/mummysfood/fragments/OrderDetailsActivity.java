@@ -40,6 +40,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static in.mummysfood.fragments.ProfileFragment.addressesList;
+
 public class OrderDetailsActivity extends BaseActivity implements EnterFullAdressActivity.updateAdd {
 
     @BindView(R.id.order_image)

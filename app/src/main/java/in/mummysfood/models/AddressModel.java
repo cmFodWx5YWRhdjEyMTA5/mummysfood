@@ -37,6 +37,7 @@ public class AddressModel {
         public String nearby;
         @SerializedName("created_at")
         public String created_at;
+        public String complete_address;
         @SerializedName("updated_at")
         public String updated_at;
         @SerializedName("user_id")
@@ -45,5 +46,7 @@ public class AddressModel {
         public double longitude;
         @SerializedName("latitude")
         public double latitude;
+
+
     }
 }
