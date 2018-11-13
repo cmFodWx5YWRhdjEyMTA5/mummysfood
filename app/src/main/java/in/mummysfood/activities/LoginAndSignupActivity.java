@@ -1,8 +1,15 @@
 package in.mummysfood.activities;
 
+import android.Manifest;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
@@ -86,6 +93,16 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
     private   OnCompleteListener<AuthResult> completeListener;
     private GoogleApiClient mGoogleApiClient;
 
+    static ArrayList<String> contactListArray = new ArrayList<>();
+    private int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
+    private static final String[] PROJECTION = new String[]{
+            ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
+            ContactsContract.Contacts.DISPLAY_NAME,
+            ContactsContract.CommonDataKinds.Phone.NUMBER
+    };
+    public static Boolean syncContact;
+    String mobile_data;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,6 +118,9 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
         mAuth = FirebaseAuth.getInstance();
 
         configureSignIn();
+
+        //read mobile contact list
+        readContacts();
 
 
     }
@@ -382,13 +402,13 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
         if (data.mobile != null && data.mobile.isEmpty())
             pf.saveStringForKey(PreferenceManager.USER_MOBILE, data.mobile);
         String savedLocation = pf.getStringForKey("CurrentAddress","");
-        if (savedLocation != null &&savedLocation.equalsIgnoreCase("gotitlocation")){
+        //if (savedLocation != null &&savedLocation.equalsIgnoreCase("gotitlocation")){
             startActivity(new Intent(LoginAndSignupActivity.this,MainBottomBarActivity.class));
             finish();
-        }else{
+        /*}else{
             startActivity(new Intent(LoginAndSignupActivity.this,UserLocationActivtiy.class));
             finish();
-        }
+        }*/
     }
 
     private void signIn() {
@@ -407,5 +427,109 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
+    }
+
+    /*read mobile contact no.*/
+    private void readContacts() {
+        // Check the SDK version and whether the permission is already granted or not.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, PERMISSIONS_REQUEST_READ_CONTACTS);
+        } else {
+            AsyncTaskRunner runner = new AsyncTaskRunner();
+            runner.execute("import_contact");
+        }
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == PERMISSIONS_REQUEST_READ_CONTACTS) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission is granted
+                AsyncTaskRunner runner = new AsyncTaskRunner();
+                runner.execute("import_contact");
+                //Log.e("Permission","Granted");
+            } else {
+                //Log.e("Permission","Deny");
+                syncContact = true;
+            }
+        }
+    }
+
+    private class AsyncTaskRunner extends AsyncTask<Object, Object, ArrayList<String>> {
+        @Override
+        protected ArrayList<String> doInBackground(Object... strings) {
+            getContacts();
+            return contactListArray;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<String> s) {
+            super.onPostExecute(s);
+
+            //  Log.e("mobile ","on post execute");
+            syncContact = true;
+            syncContacts(contactListArray);
+        }
+
+    }
+
+    public void getContacts() {
+        //Log.e("Permission","start import contact");
+        long startnow;
+        long endnow;
+
+        startnow = android.os.SystemClock.uptimeMillis();
+
+        ContentResolver cr = getContentResolver();
+        Cursor cursor = cr.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, PROJECTION, null, null, null);
+        if (cursor != null) {
+            try {
+                final int nameIndex = cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME);
+                final int numberIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+
+                String number;
+                ArrayList<String> mobileArr = new ArrayList<>();
+                while (cursor.moveToNext()) {
+                    if(cursor != null) {
+                        if (cursor.getString(numberIndex) != null) {
+                            number = cursor.getString(numberIndex);
+                            if (number != null) {
+                                number = number.replaceAll("[\\s\\-()]", "");
+                                number = number.replaceAll("[^0-9]", "");
+                                if (number.length() > 10) {
+                                    int len = number.length() - 10;
+                                    number = number.substring(len);
+                                }
+                                if (!mobileArr.contains(number)) {
+                                    if (number.trim().length() == 10) {
+                                        mobileArr.add(number);
+                                        contactListArray.add(number);
+                                        mobile_data = mobile_data + " , " + number;
+                                        //Log.e("Mobile"," Name : " + name + " number : " + number);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+            } finally {
+                cursor.close();
+            }
+
+        }
+
+        endnow = android.os.SystemClock.uptimeMillis();
+        //Log.e("Contact", "TimeForContacts " + (endnow - startnow) + " ms");
+
+    }
+
+    private void syncContacts(final ArrayList<String> contactListArray) {
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                showToast("Api Call");
+            }
+        }, 500);
     }
 }

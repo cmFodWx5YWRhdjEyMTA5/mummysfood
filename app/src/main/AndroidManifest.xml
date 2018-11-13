@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
         android:name=".AppController"
@@ -31,7 +32,7 @@
         </provider>
 
         <activity
-            android:name=".Location.UserLocationActivtiy"
+            android:name=".activities.SpashAcctivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,7 +43,7 @@
         <activity android:name=".activities.LoginAndSignupActivity" />
         <activity android:name=".activities.InterestActivity" />
         <activity android:name=".activities.RateYourselfActivity" />
-        <activity android:name=".activities.SpashAcctivity" />
+        <activity android:name=".Location.UserLocationActivtiy" />
         <activity android:name=".activities.ChooseFoodTypeActivity" />
         <activity android:name=".activities.MainBottomBarActivity" />
         <activity android:name=".fragments.OrderDetailsActivity" />
@@ -98,7 +99,7 @@
         <!-- Set custom default icon. This is used when no icon is set for incoming notification messages -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_launcher_foreground" />
+            android:resource="@mipmap/spwhite" />
         <!--
              Set color used with incoming notification messages. This is used when no color is set for the incoming
              notification message. See README(https://goo.gl/6BKBk7) for more.
@@ -116,6 +117,8 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".ManagePaymentActivity" />
         <activity android:name=".HelpSupportActivity"></activity>
+
+
     </application>
 
 </manifest>
