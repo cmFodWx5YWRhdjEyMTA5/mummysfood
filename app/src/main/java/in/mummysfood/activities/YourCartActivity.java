@@ -30,6 +30,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static in.mummysfood.fragments.ProfileFragment.addressesList;
+
 public class YourCartActivity extends BaseActivity {
 
     @BindView(R.id.order_price_finalTotal)
@@ -162,6 +164,7 @@ public class YourCartActivity extends BaseActivity {
                 numberOfDays = getIntent().getIntExtra("numberOfDays",0);
                 isDinner = getIntent().getIntExtra("isDinner",0);
                 isLunch = getIntent().getIntExtra("isLunch",0);
+                foodImage = orders.food_image;
             }else
             {
                 modelData = (DashBoardModel.Data) getIntent().getSerializableExtra("data");
@@ -414,6 +417,8 @@ public class YourCartActivity extends BaseActivity {
         Intent adresIntent = new Intent(YourCartActivity.this,EnterFullAdressActivity.class);
         adresIntent.putExtra("Address",addrsss);
         adresIntent.putExtra("From","OrderDetails");
+        adresIntent.putExtra("landMark",orders.landmark);
+        adresIntent.putExtra("flatNo",orders.house_no);
         startActivityForResult(adresIntent,200);
     }
 

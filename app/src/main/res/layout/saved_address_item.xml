@@ -21,7 +21,7 @@
         <in.mummysfood.widgets.CkdTextview
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/textviewbold"
+            style="@style/textviewregular"
             android:textColor="@color/black"
             android:id="@+id/addressType"
             android:text="@string/title_home"/>
@@ -29,7 +29,7 @@
             android:id="@+id/addressTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/textviewbold"
+            style="@style/textviewregular"
             android:textColor="@color/gray"
             android:layout_marginTop="@dimen/dp8"
             android:text="Ch-19, Scheme No.74c, Vijay Nagar, Indore, Madhya Pradesh 452010, India"/>
@@ -42,7 +42,7 @@
                 android:id="@+id/editAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/textviewbold"
+                style="@style/textviewregular"
                 android:textColor="@color/colorPrimary"
                 android:text="@string/edit"
                 android:textAllCaps="true"/>
@@ -50,7 +50,7 @@
                 android:id="@+id/deleteAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/textviewbold"
+                style="@style/textviewregular"
                 android:textColor="@color/colorPrimary"
                 android:text="@string/delete"
                 android:textAllCaps="true"

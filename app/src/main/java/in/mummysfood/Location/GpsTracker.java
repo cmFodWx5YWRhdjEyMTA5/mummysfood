@@ -25,6 +25,8 @@ public class GpsTracker extends Service implements LocationListener {
     // flag for network status
     boolean isNetworkEnabled = false;
 
+    public static boolean isFromSetting=false;
+
     // flag for GPS status
     boolean canGetLocation = false;
 
@@ -176,6 +178,7 @@ public class GpsTracker extends Service implements LocationListener {
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 mContext.startActivity(intent);
+                isFromSetting = true;
 
             }
         });

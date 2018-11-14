@@ -66,6 +66,7 @@
                     android:id="@+id/order_image"
                     android:layout_width="match_parent"
                     android:layout_height="260dp"
+                    android:adjustViewBounds="true"
                     android:scaleType="fitXY"
                     />
                 <ImageView
@@ -602,13 +603,15 @@
 
                 </RadioGroup>
             </LinearLayout>
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/order_pilot_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp8"
                 android:orientation="horizontal"
                 android:gravity="center"
+                android:padding="@dimen/dp4"
+                android:background="@drawable/fill_rounded_white_smoke_radius"
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="@dimen/dp16">
                 <com.mikhaellopez.circularimageview.CircularImageView
@@ -616,18 +619,19 @@
                     android:layout_width="@dimen/dp40"
                     android:layout_height="@dimen/dp40"
                     android:src="@mipmap/pilot1"
-                    app:civ_border_color="@color/white"
                     app:civ_shadow="false" />
+
                 <in.mummysfood.widgets.CkdTextview
                     android:id="@+id/order_chef_name"
+                    style="@style/textviewbold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/pilot_name"
-                    android:background="@drawable/fill_rounded_white_smoke"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="36dp"
                     android:padding="@dimen/dp6"
-                    style="@style/textviewbold"
-                    android:textColor="@color/colorPrimary"/>
-            </LinearLayout>
+                    android:text="@string/pilot_name"
+                    android:textColor="@color/colorPrimary" />
+            </RelativeLayout>
 
             <in.mummysfood.widgets.CkdTextview
                 android:id="@+id/chefPosition"

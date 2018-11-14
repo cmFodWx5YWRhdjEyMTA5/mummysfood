@@ -43,6 +43,8 @@ import in.mummysfood.data.pref.PreferenceManager;
 import in.mummysfood.models.DashBoardModel;
 import in.mummysfood.models.UserInsert;
 import in.mummysfood.utils.AppConstants;
+import in.mummysfood.utils.FilePath;
+import in.mummysfood.utils.Permission;
 import in.mummysfood.widgets.CkdButton;
 import in.mummysfood.widgets.CkdEditText;
 import in.mummysfood.widgets.CkdTextview;
@@ -63,6 +65,8 @@ import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -103,6 +107,7 @@ public class ProfileUpdateActivity extends BaseActivity {
     private Uri mImageUri;
     private Bitmap bitmapImage = null;
     private PreferenceManager pf;
+    private String entityType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,8 +164,13 @@ public class ProfileUpdateActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.profile_image})
-    public void uploadProfileImage(){
+    @OnClick(R.id.profile_image)
+    public void UploadProfileImage(){
+        selectImage("user");
+    }
+
+    public void selectImage(String entity_type) {
+        entityType = entity_type;
         final CharSequence[] items = {"Take Photo", "Choose from Library", "Cancel"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -187,6 +197,27 @@ public class ProfileUpdateActivity extends BaseActivity {
         });
         builder.show();
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Permission.onRequestPermissionsResult(
+                requestCode, permissions, grantResults, this);
+
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE : {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (userChoosenTask != null && userChoosenTask.equals("Choose from Library")) {
+                        galleryIntent();
+                    } else if (userChoosenTask != null && userChoosenTask.equals("Take Photo")) {
+                        cameraIntent();
+                    }
+                } else {
+                }
+                return;
+            }
+        }
+
+    }
 
     private void cameraIntent() {
         final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -204,6 +235,101 @@ public class ProfileUpdateActivity extends BaseActivity {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
         startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_PHOTO);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //image upload
+        if (resultCode != 0 && requestCode == SELECT_PHOTO ) {
+            mImageUri = data.getData();
+            if (mImageUri == null) {
+                showToast("Error in uploading image.Please try again.");
+            } else {
+                uploadFile(mImageUri);
+            }
+        } else if (resultCode != 0 && requestCode == CAMERA_REQUEST) {
+            if (mImageUri == null) {
+                showToast("Error in uploading image.Please try again.");
+            } else {
+                //showToast("Image Upload.");
+                uploadFile(mImageUri);
+            }
+        } else if (resultCode == RESULT_CANCELED) {
+            Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
+        } else if (data == null) {
+            Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
+        }
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();
+                //Log.e("image uri", resultUri.toString());
+                if (resultUri == null) {
+                    showToast("Could not upload profile image. Please try again.");
+                } else {
+                    showToast("Crop Image Upload.");
+                    /*try {
+                        Image = MediaStore.Images.Media.getBitmap(getContentResolver(), resultUri);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }*/
+                }
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
+        }
+    }
+
+    private void uploadFile(Uri mImageUri) {
+
+        //   showProgress(getLangMappingBasedOnKeyOnevalue("loading"));
+        String filename = "";
+
+        try{
+
+            filename = FilePath.getPath(this, mImageUri);
+
+            //  filename = compressImage(mImageUri.toString());
+
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
+        File file = new File(filename);
+
+        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
+
+        MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), reqFile);
+
+        Call<ResponseBody> call = AppConstants.restAPI.uploadImage(body,16,8,entityType);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                if (response.isSuccessful()) {
+                    if (response != null){
+                        try {
+                            Log.e("status",""+response.body().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }else{
+                    try {
+                        Log.e("Error", response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                dismissProgress();
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @OnClick(R.id.next_upload_profile)
@@ -365,57 +491,6 @@ public class ProfileUpdateActivity extends BaseActivity {
             return true;
         } else {
             return false;
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        //image upload
-        if (resultCode != 0 && requestCode == SELECT_PHOTO ) {
-            mImageUri = data.getData();
-            if (mImageUri == null) {
-                showToast("Error in uploading image.Please try again.");
-            } else {
-                performCrop();
-            }
-        } else if (resultCode != 0 && requestCode == CAMERA_REQUEST) {
-            if (mImageUri == null) {
-                showToast("Error in uploading image.Please try again.");
-            } else {
-                try {
-                    bitmapImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mImageUri);
-                    bitmapImage.createScaledBitmap(bitmapImage, 400, 400, true);
-                    performCrop();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        } else if (resultCode == RESULT_CANCELED) {
-            Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
-            bitmapImage = null;
-        } else if (data == null) {
-            Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
-            bitmapImage = null;
-        }
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == RESULT_OK) {
-                Uri resultUri = result.getUri();
-                //Log.e("image uri", resultUri.toString());
-                if (resultUri == null) {
-                    showToast("Could not upload profile image. Please try again.");
-                } else {
-                    try {
-                        bitmapImage = MediaStore.Images.Media.getBitmap(getContentResolver(), resultUri);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    profileImage.setImageBitmap(bitmapImage);
-                }
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Exception error = result.getError();
-            }
         }
     }
 

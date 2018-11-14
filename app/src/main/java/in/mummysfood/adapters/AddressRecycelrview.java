@@ -20,13 +20,37 @@ import in.mummysfood.utils.AppConstants;
 import in.mummysfood.widgets.CkdTextview;
 
 
-public class AddressRecycelrview extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AddressRecycelrview extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
     Context context;
     List<ProfileModel.Addresses> foodMediaList;
+    takeActionOnAddress listnerAction;
 
-    public AddressRecycelrview(Context context, List<ProfileModel.Addresses> foodMediaList) {
+    public interface takeActionOnAddress
+    {
+        void editAddress(int position);
+        void deleteAddress(int position);
+    }
+
+    public AddressRecycelrview(Context context, List<ProfileModel.Addresses> foodMediaList,takeActionOnAddress listnerAction) {
         this.context = context;
         this.foodMediaList = foodMediaList;
+        this.listnerAction = listnerAction;
+    }
+
+    @Override
+    public void onClick(View v)
+    {
+
+        int postion = (Integer) v.getTag();
+        switch(v.getId())
+        {
+            case R.id.editAddress:
+                listnerAction.editAddress(postion);
+                break;
+            case R.id.deleteAddress:
+                listnerAction.deleteAddress(postion);
+                break;
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -56,18 +80,34 @@ public class AddressRecycelrview extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
-        ChefFoodAdapter.ViewHolder holder = (ChefFoodAdapter.ViewHolder) viewHolder;
+        ViewHolder holder = (ViewHolder) viewHolder;
 
         ProfileModel.Addresses model = foodMediaList.get(i);
         if (model.type != null && !model.type.isEmpty())
         {
             if (model.type.equalsIgnoreCase("office"))
             {
+                holder.typeImage.setImageResource(R.drawable.ic_dashboard_black_24dp);
+                holder.addressType.setText(model.type);
+
 
             }else if (model.type.equalsIgnoreCase("home"))
             {
+                holder.addressType.setText(model.type);
+                holder.typeImage.setImageResource(R.drawable.ic_home_black_24dp);
 
             }
+
+            try {
+                holder.addressTitle.setText(model.complete_address);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            holder.editAddress.setTag(i);
+            holder.deleteAddress.setTag(i);
+            holder.editAddress.setOnClickListener(this);
+            holder.deleteAddress.setOnClickListener(this);
         }
 
 

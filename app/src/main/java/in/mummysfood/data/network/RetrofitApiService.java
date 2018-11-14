@@ -18,6 +18,7 @@ import com.google.gson.GsonBuilder;
 
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -26,8 +27,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Url;
 
@@ -81,6 +84,12 @@ public interface RetrofitApiService {
         @POST("address")
         Call<AddressModel>postAddress(@Body AddressModel.Data addressModel);
 
+        @PUT("address/{id}")
+        Call<AddressModel>postAddressUpdate(@Path("id") int id,@Body AddressModel.Data addressModel);
+
+        @DELETE("address/{id}")
+        Call<ResponseBody>postAddressDelete(@Path("id") int id);
+
         @POST("order")
         Call<OrderModel.Data> orderPlace(@Body OrderModel.Data orderModel);
 
@@ -95,5 +104,9 @@ public interface RetrofitApiService {
 
         @GET
         Call<LocationModel> getTopRatedMovies(@Url String url);
+
+        @Multipart
+        @POST("upload")
+        Call<ResponseBody> uploadImage(@Part MultipartBody.Part image, @Part("user_id") Integer desc, @Part("entity_id") Integer entityId, @Part("entity_type") String type);
 
 }
