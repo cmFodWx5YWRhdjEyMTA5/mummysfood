@@ -21,24 +21,16 @@ public class LocationModel {
     }
 
     public static class Structured_formatting {
-        public String main_text;
-        public List<Main_text_matched_substrings> main_text_matched_substrings;
-        public String secondary_text;
+
     }
 
     public static class Terms {
-        public int offset;
-        public String value;
+
     }
 
     public static class Predictions {
         public String description;
-        public String id;
-        public List<Matched_substrings> matched_substrings;
-        public String place_id;
-        public String reference;
-        public Structured_formatting structured_formatting;
-        public List<Terms> terms;
+
 
     }
 }
