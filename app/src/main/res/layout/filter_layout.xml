@@ -6,6 +6,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/filter_layout"
         android:layout_width="@dimen/dp100"
+        android:layout_gravity="center_vertical"
         android:layout_height="@dimen/dp100"
         android:layout_margin="@dimen/dp10"
         app:cardCornerRadius="@dimen/dp8"
@@ -16,7 +17,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/try_something_new"
-            android:padding="@dimen/dp16"
+            android:padding="@dimen/dp4"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textAllCaps="true"
             android:layout_gravity="center"
             />
     </android.support.v7.widget.CardView>

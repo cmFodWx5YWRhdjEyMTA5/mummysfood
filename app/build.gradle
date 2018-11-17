@@ -7,40 +7,42 @@ def test = rootProject.ext.testingLibraries;
 
 
 android {
-    compileSdkVersion cfg.compileVersion
-    buildToolsVersion cfg.buildToolsVersion
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
+
+    dataBinding {
+        enabled = true
+
+    }
     defaultConfig {
         applicationId cfg.package
         minSdkVersion cfg.minSdk
         targetSdkVersion cfg.compileVersion
         versionName cfg.version_name
+        versionCode cfg.version_code
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        File secretsExists = new File("secrets.properties")
-        if (secretsExists.exists()) {
-            def secretsFile = rootProject.file('secrets.properties')
-            def secrets = new Properties()
-            secrets.load(new FileInputStream(secretsFile))
-
-            buildConfigField "String", "BASE_URL", secrets.getProperty('BASE_URL')
-
-        } else {
-
-            buildConfigField "String", "BASE_URL", "\"Please update Base url.\""
-        }
         vectorDrawables.useSupportLibrary = true
     }
+
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro', 'proguard.cfg'
+
+        }
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-
-        debug {
-            ext.alwaysUpdateBuildId = false
-            // crashlytics generates new buildId for each build disable it to optimise build time
+            // shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    'proguard-rules.pro'
         }
     }
-    productFlavors {
+
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7

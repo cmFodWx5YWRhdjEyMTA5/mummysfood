@@ -223,19 +223,15 @@ public class UserLocationActivtiy extends BaseActivity implements  ContactsAdapt
                     double latitude = gps.getLatitude();
                     double longitude = gps.getLongitude();
 
-
-
-
                     Geocoder geocoder;
                     List<Address> addresses;
+
                     geocoder = new Geocoder(this, Locale.getDefault());
 
                     try {
                         addresses = geocoder.getFromLocation(latitude, longitude, 1);
 
                         if (addresses.size() != 0){
-
-
 
                             String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
 

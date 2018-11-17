@@ -169,10 +169,8 @@ public class EnterFullAdressActivity extends BaseActivity {
 
             data.latitude = Double.parseDouble(latitude);
             data.longitude= Double.parseDouble(longitude);
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-
-         //   String address =      pf.getStringForKey("CurrentAddress","");
             data.latitude = pf.getDoubleForKey("latitude",0);
             data.longitude = pf.getDoubleForKey ("lognitude",0);
         }

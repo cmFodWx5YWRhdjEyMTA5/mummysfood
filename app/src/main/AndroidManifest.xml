@@ -32,7 +32,7 @@
         </provider>
 
         <activity
-            android:name=".Location.UserLocationActivtiy"
+            android:name=".activities.SpashAcctivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,7 +43,7 @@
         <activity android:name=".activities.LoginAndSignupActivity" />
         <activity android:name=".activities.InterestActivity" />
         <activity android:name=".activities.RateYourselfActivity" />
-        <activity android:name=".activities.SpashAcctivity" />
+        <activity android:name=".Location.UserLocationActivtiy" />
         <activity android:name=".activities.ChooseFoodTypeActivity" />
         <activity android:name=".activities.MainBottomBarActivity" />
         <activity android:name=".fragments.OrderDetailsActivity" />
