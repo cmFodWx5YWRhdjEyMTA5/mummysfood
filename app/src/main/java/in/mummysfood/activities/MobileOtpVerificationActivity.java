@@ -367,16 +367,22 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
 ;
                             UserInsert.Data data = new UserInsert.Data();
 
+                            pf = new PreferenceManager(MobileOtpVerificationActivity.this);
+
+
+
+
+
                             if (json.getString("status").equalsIgnoreCase(AppConstants.SUCCESS)) {
+                                pf.saveIntForKey("user_id",json.getJSONObject("data").getInt("id"));
                                 Intent i = new Intent(MobileOtpVerificationActivity.this,ProfileUpdateActivity.class);
                                 i.putExtra("mobile", mobile.getText().toString());
                                 i.putExtra("logintype","mobile");
                                 startActivity(i);
 
-
-                            }else if (json.getString("status").equalsIgnoreCase(AppConstants.ALREADY)) {
-
-                                data.id = json.getJSONArray("data").getJSONObject(0).getInt("id");
+                                }else if (json.getString("status").equalsIgnoreCase(AppConstants.ALREADY)) {
+                                pf.saveIntForKey("user_id",json.getJSONObject("data").getInt("id"));
+                                data.id =json.getJSONObject("data").getInt("id");
                                 data.mobile = json.getJSONArray("data").getJSONObject(0).getString("mobile");
                                 data.f_name = json.getJSONArray("data").getJSONObject(0).getString("f_name");
                                 data.profile_image = json.getJSONArray("data").getJSONObject(0).getString("profile_image");

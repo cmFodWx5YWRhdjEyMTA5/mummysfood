@@ -5,6 +5,7 @@ package in.mummysfood.data.network;
 import in.mummysfood.Location.LocationModel;
 import in.mummysfood.data.network.model.LoginRequest;
 import in.mummysfood.data.network.model.LogoutResponse;
+import in.mummysfood.data.network.model.UploadMedia;
 import in.mummysfood.models.AddressModel;
 import in.mummysfood.models.DashBoardModel;
 import in.mummysfood.models.OrderModel;
@@ -18,6 +19,7 @@ import com.google.gson.GsonBuilder;
 
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -26,8 +28,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Url;
 
@@ -58,6 +62,11 @@ public interface RetrofitApiService {
 
         @POST("user")
         Call<ResponseBody>saveUserInfo(@Body LoginRequest request);
+
+
+
+        @PUT("user/{id}")
+        Call<ResponseBody>updateUserInfo(@Path("id") int id,@Body LoginRequest request);
 
         @GET("user")
         Call<LogoutResponse> getUserInfo();
@@ -101,5 +110,11 @@ public interface RetrofitApiService {
 
         @GET
         Call<LocationModel> getTopRatedMovies(@Url String url);
+
+    @Multipart
+    @POST("upload")
+    Call<UploadMedia> uploadImage(@Part MultipartBody.Part image, @Part("user_id") Integer desc, @Part("entity_id") Integer entityId, @Part("entity_type") String type);
+
+
 
 }
