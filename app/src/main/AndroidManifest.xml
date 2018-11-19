@@ -117,7 +117,9 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".ManagePaymentActivity" />
         <activity android:name=".HelpSupportActivity"></activity>
-
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
 
     </application>
 

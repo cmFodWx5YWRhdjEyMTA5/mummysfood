@@ -5,6 +5,7 @@ package in.mummysfood.data.network;
 import in.mummysfood.Location.LocationModel;
 import in.mummysfood.data.network.model.LoginRequest;
 import in.mummysfood.data.network.model.LogoutResponse;
+import in.mummysfood.data.network.model.UploadMedia;
 import in.mummysfood.models.AddressModel;
 import in.mummysfood.models.DashBoardModel;
 import in.mummysfood.models.OrderModel;
@@ -41,72 +42,79 @@ import retrofit2.http.Url;
 public interface RetrofitApiService {
 
 
-        public static String BASEURL = "http://mummysfood.in/";
+    public static String BASEURL = "http://mummysfood.in/";
 
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .readTimeout(2, TimeUnit.MINUTES)
-                .connectTimeout(2, TimeUnit.MINUTES)
-                .build();
+    OkHttpClient okHttpClient = new OkHttpClient.Builder()
+            .readTimeout(2, TimeUnit.MINUTES)
+            .connectTimeout(2, TimeUnit.MINUTES)
+            .build();
 
-        Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
-                .setLenient()
-                .create();
+    Gson gson = new GsonBuilder()
+            .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+            .setLenient()
+            .create();
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://mummysfood.in/")
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .client(okHttpClient)
-                .build();
+    Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("http://mummysfood.in/")
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .client(okHttpClient)
+            .build();
 
-        @POST("user")
-        Call<ResponseBody>saveUserInfo(@Body LoginRequest request);
+    @POST("user")
+    Call<ResponseBody>saveUserInfo(@Body LoginRequest request);
 
-        @GET("user")
-        Call<LogoutResponse> getUserInfo();
 
-        @GET()
-        Call<DashBoardModel>getChefData( @Url String url);
 
-        @GET("user/{user_id}")
-        Call<ProfileModel>getProfileUserData(@Path("user_id") int id);
+    @PUT("user/{id}")
+    Call<ResponseBody>updateUserInfo(@Path("id") int id,@Body LoginRequest request);
 
-        @GET
-        Call<UserProfileModel>getProfileUserDataForOrder(@Url String url);
+    @GET("user")
+    Call<LogoutResponse> getUserInfo();
+
+    @GET()
+    Call<DashBoardModel>getChefData( @Url String url);
+
+    @GET("user/{user_id}")
+    Call<ProfileModel>getProfileUserData(@Path("user_id") int id);
+
+    @GET
+    Call<UserProfileModel>getProfileUserDataForOrder(@Url String url);
 
 //        @PUT("order")
 //        Call<UserProfileModel>getProfileUserDataForOrder(@Url String url);
 
 
-        @GET("user/{id}")
-        Call<UserProfileModel> getProfileUserDataForOrder(@Path("id") int id);
+    @GET("user/{id}")
+    Call<UserProfileModel> getProfileUserDataForOrder(@Path("id") int id);
 
-        @POST("address")
-        Call<AddressModel>postAddress(@Body AddressModel.Data addressModel);
+    @POST("address")
+    Call<AddressModel>postAddress(@Body AddressModel.Data addressModel);
 
-        @PUT("address/{id}")
-        Call<AddressModel>postAddressUpdate(@Path("id") int id,@Body AddressModel.Data addressModel);
+    @PUT("address/{id}")
+    Call<AddressModel>postAddressUpdate(@Path("id") int id,@Body AddressModel.Data addressModel);
 
-        @DELETE("address/{id}")
-        Call<ResponseBody>postAddressDelete(@Path("id") int id);
+    @DELETE("address/{id}")
+    Call<ResponseBody>postAddressDelete(@Path("id") int id);
 
-        @POST("order")
-        Call<OrderModel.Data> orderPlace(@Body OrderModel.Data orderModel);
+    @POST("order")
+    Call<OrderModel.Data> orderPlace(@Body OrderModel.Data orderModel);
 
-        @POST("subscribe")
-        Call<OrderModel.Data> subscribeOrder(@Body OrderModel.Data orderModel);
+    @POST("subscribe")
+    Call<OrderModel.Data> subscribeOrder(@Body OrderModel.Data orderModel);
 
-        @PUT("subscribe/{id}")
-        Call<SubscribtionModel> updateSubscribeOrder(@Path("id") int id,@Body SubscribtionModel.Data model);
+    @PUT("subscribe/{id}")
+    Call<SubscribtionModel> updateSubscribeOrder(@Path("id") int id,@Body SubscribtionModel.Data model);
 
-        @GET
-        Call<SubscribtionModel> subscribeOrderById(@Url String url);
+    @GET
+    Call<SubscribtionModel> subscribeOrderById(@Url String url);
 
-        @GET
-        Call<LocationModel> getTopRatedMovies(@Url String url);
+    @GET
+    Call<LocationModel> getTopRatedMovies(@Url String url);
 
-        @Multipart
-        @POST("upload")
-        Call<ResponseBody> uploadImage(@Part MultipartBody.Part image, @Part("user_id") Integer desc, @Part("entity_id") Integer entityId, @Part("entity_type") String type);
+    @Multipart
+    @POST("upload")
+    Call<UploadMedia> uploadImage(@Part MultipartBody.Part image, @Part("user_id") Integer desc, @Part("entity_id") Integer entityId, @Part("entity_type") String type);
+
+
 
 }
