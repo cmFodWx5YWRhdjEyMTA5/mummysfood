@@ -50,6 +50,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.mummysfood.widgets.CkdTextview;
+import in.mummysfood.widgets.RecyclerItemClickListener;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -69,8 +70,6 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     @BindView(R.id.home_add_to_cart_icon)
     ImageView home_add_to_cart_icon;
 
-
-
     Context context;
     private LinearLayoutManager linearLayoutManager;
     private List<DashBoardModel.Data> fetchData = new ArrayList<>();
@@ -83,6 +82,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     private orderActionListner orderActionListner;
     private List<DashBoardModel.Data>dModel;
     private List<FilterModel> filterList;
+    private String globalUrl = "";
 
     public interface orderActionListner
     {
@@ -126,7 +126,15 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
      /*   json.lat = 22.7368;
         json.lng = 75.9086;*/
 
-        networkCallForData();
+        addPref = new PreferenceManager(getActivity());
+
+        Double lat = addPref.getDoubleForKey("latitude",0);
+        Double longArea = addPref.getDoubleForKey("lognitude",0);
+
+
+       globalUrl= RetrofitApiService.BASEURL+"geoUser?lat="+String.valueOf(lat)+"&lng="+String.valueOf(longArea);
+
+        networkCallForData(globalUrl);
 
         near_you_recyclerview.setNestedScrollingEnabled(false);
 
@@ -156,20 +164,48 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
                 }
             }
         });
+
+        setFilterData();
+
+        filter_recyclerview.addOnItemTouchListener(new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position)
+            {
+
+                if (position == 0)
+                {
+                    networkCallForData(globalUrl);
+                }else if (position ==1)
+                {
+                    networkCallForData(RetrofitApiService.BASEURL+"explorechef");
+                }else if (position ==2)
+                {
+                    networkCallForData(RetrofitApiService.BASEURL+"topfoodoption?filter=top");
+                }
+                else if (position ==3)
+                {
+                    networkCallForData(RetrofitApiService.BASEURL+"zarahatke?filter=zarahatke");
+
+
+                }
+                else if (position ==4)
+                {
+                    networkCallForData(RetrofitApiService.BASEURL+"trysomethingnew?filter=trysomethingnew");
+                }
+                else if (position ==5)
+                {
+                    networkCallForData(globalUrl);
+                    //    networkCallForData(AppConstants.BASE_URL+"trysomethingnew?filter=trysomethingnew");
+                }
+
+            }
+        }));
+
+
         return rootView;
     }
 
-    private void networkCallForData() {
-
-
-
-        addPref = new PreferenceManager(getActivity());
-
-        Double lat = addPref.getDoubleForKey("latitude",0);
-        Double longArea = addPref.getDoubleForKey("lognitude",0);
-
-
-        String url = RetrofitApiService.BASEURL+"geoUser?lat="+String.valueOf(lat)+"&lng="+String.valueOf(longArea);
+    private void networkCallForData(String url) {
 
 
         Call<DashBoardModel> chefData = AppConstants.restAPI.getChefData(url);
@@ -186,7 +222,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
                             if ( res.status.equals(AppConstants.SUCCESS))
                             {
                                 fetchData = res.data;
-                                setFilterData();
+
                                 setAdapterData(recommended_recyclerview, 0);
                                 setAdapterData(near_you_recyclerview, 1);
                             }
@@ -211,6 +247,8 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
             }
         });
 
+
+
     }
 
     private void setFilterData() {
@@ -218,11 +256,11 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         try {
             filterList = new ArrayList<>();
             filterList.add(new FilterModel(0,getString(R.string.option_near_me),false));
-            filterList.add(new FilterModel(2,getString(R.string.explore),false));
-            filterList.add(new FilterModel(3,getString(R.string.top_food_options),false));
-            filterList.add(new FilterModel(4,getString(R.string.zara_hatke),false));
-            filterList.add(new FilterModel(5,getString(R.string.try_something_new),false));
-            filterList.add(new FilterModel(6,getString(R.string.my_favourite),false));
+            filterList.add(new FilterModel(1,getString(R.string.explore),false));
+            filterList.add(new FilterModel(2,getString(R.string.top_food_options),false));
+            filterList.add(new FilterModel(3,getString(R.string.zara_hatke),false));
+            filterList.add(new FilterModel(4,getString(R.string.try_something_new),false));
+            filterList.add(new FilterModel(5,getString(R.string.my_favourite),false));
 
             GridLayoutManager gridLayoutManager = new GridLayoutManager(context,3,LinearLayoutManager.VERTICAL,false);
             filter_recyclerview.setHasFixedSize(true);
