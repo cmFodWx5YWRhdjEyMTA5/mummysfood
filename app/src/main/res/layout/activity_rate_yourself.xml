@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.mummysfood.activities.RateYourselfActivity">
-    <in.mummysfood.widgets.CkdTextview
+    tools:context="in.ckd.calenderkhanado.activities.RateYourselfActivity">
+    <in.ckd.calenderkhanado.widgets.CkdTextview
         android:id="@+id/rate_yourself_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

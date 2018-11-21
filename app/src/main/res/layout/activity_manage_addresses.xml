@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
 
-    <in.mummysfood.widgets.CkdTextview
+    <in.ckd.calenderkhanado.widgets.CkdTextview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/textviewbold"
@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
-    <in.mummysfood.widgets.CkdTextview
+    <in.ckd.calenderkhanado.widgets.CkdTextview
         android:id="@+id/addNewAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

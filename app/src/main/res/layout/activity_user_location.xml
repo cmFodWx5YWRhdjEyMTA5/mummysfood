@@ -6,7 +6,7 @@
     android:background="@color/white"
     android:id="@+id/mainRelativeLocationHolder"
     android:layout_height="match_parent">
-    <in.mummysfood.widgets.CkdTextview
+    <in.ckd.calenderkhanado.widgets.CkdTextview
         android:id="@+id/nearbyplace"
         android:layout_width="match_parent"
         android:layout_height="40dp"

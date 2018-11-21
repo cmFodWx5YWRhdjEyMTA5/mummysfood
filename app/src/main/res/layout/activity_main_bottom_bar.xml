@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.mummysfood.activities.MainBottomBarActivity"
+    tools:context="in.ckd.calenderkhanado.activities.MainBottomBarActivity"
     android:background="@color/white_smoke">
 
     <include layout="@layout/content_frame"

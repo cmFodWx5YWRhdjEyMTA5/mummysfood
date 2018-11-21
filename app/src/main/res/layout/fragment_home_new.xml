@@ -2,7 +2,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="in.mummysfood.fragments.HomeFragment"
+    tools:context="in.ckd.calenderkhanado.fragments.HomeFragment"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/white_smoke">
@@ -35,7 +35,7 @@
                         android:layout_alignParentStart="true"
                         android:tint="@color/white"
                         android:src="@drawable/activeorder"/>
-                    <in.mummysfood.widgets.CkdTextview
+                    <in.ckd.calenderkhanado.widgets.CkdTextview
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
@@ -76,14 +76,14 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <in.mummysfood.widgets.CkdTextview
+                    <in.ckd.calenderkhanado.widgets.CkdTextview
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/recommended"
                         style="@style/textviewregular"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dp16"/>
-                    <in.mummysfood.widgets.CkdTextview
+                    <in.ckd.calenderkhanado.widgets.CkdTextview
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/see_all"
@@ -105,14 +105,14 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <in.mummysfood.widgets.CkdTextview
+                    <in.ckd.calenderkhanado.widgets.CkdTextview
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/food_near_you"
                         style="@style/textviewregular"
                         android:textColor="@color/black"
                         android:textSize="@dimen/sp16"/>
-                    <in.mummysfood.widgets.CkdTextview
+                    <in.ckd.calenderkhanado.widgets.CkdTextview
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/see_all"

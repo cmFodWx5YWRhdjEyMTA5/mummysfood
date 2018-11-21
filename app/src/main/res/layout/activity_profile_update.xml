@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:focusableInTouchMode="true"
-    tools:context="in.mummysfood.activities.ProfileUpdateActivity">
+    tools:context="in.ckd.calenderkhanado.activities.ProfileUpdateActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -112,7 +112,7 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <in.mummysfood.widgets.CkdEditText
+            <in.ckd.calenderkhanado.widgets.CkdEditText
                 android:id="@+id/user_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -127,7 +127,7 @@
                 android:textColorHint="@color/gray"
                 android:textSize="@dimen/sp14" />
 
-            <in.mummysfood.widgets.CkdTextview
+            <in.ckd.calenderkhanado.widgets.CkdTextview
                 android:id="@+id/female_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -170,7 +170,7 @@
                 android:src="@mipmap/male_icon"
                 android:tint="@color/black" />
 
-            <in.mummysfood.widgets.CkdTextview
+            <in.ckd.calenderkhanado.widgets.CkdTextview
                 android:id="@+id/mele_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -181,7 +181,7 @@
                 android:layout_marginTop="@dimen/dp12"
                 android:textSize="@dimen/sp16" />
 
-            <in.mummysfood.widgets.CkdTextview
+            <in.ckd.calenderkhanado.widgets.CkdTextview
                 android:id="@+id/choose_food_type_txt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -210,7 +210,7 @@
                     android:text="@string/veg_nonveg"/>
             </RadioGroup>
 
-            <in.mummysfood.widgets.CkdTextview
+            <in.ckd.calenderkhanado.widgets.CkdTextview
                 android:id="@+id/next_upload_profile"
                 android:layout_width="@dimen/dp150"
                 android:layout_height="wrap_content"

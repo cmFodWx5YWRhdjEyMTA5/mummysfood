@@ -15,7 +15,7 @@
         android:background="@drawable/fill_rounded_white_color"
         android:layout_height="180dp">
 
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/Thankyou"
             android:text="Thank You"
             android:textSize="@dimen/sp14"
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content" />
 
 
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
         android:id="@+id/orderplacedText"
         android:text="Your order has placed you meal will be delivered with in 40 mins "
         android:textSize="@dimen/sp14"
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content" />
 
 
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/gotItAction"
             android:text="Got it"
             android:textSize="12sp"
@@ -70,7 +70,7 @@
 
 
 
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/visitAction"
             android:text="Visit Order"
             android:textSize="12sp"
@@ -103,7 +103,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"></android.support.v4.view.ViewPager>
 
-<in.mummysfood.widgets.CirclePageIndicator
+<in.ckd.calenderkhanado.widgets.CirclePageIndicator
     android:id="@+id/circleIndicator"
     android:layout_width="match_parent"
     android:layout_centerHorizontal="true"

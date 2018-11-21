@@ -18,7 +18,7 @@
         app:civ_border_width="@dimen/dp2"
         app:civ_shadow="false"
         android:layout_centerVertical="true"/>
-    <in.mummysfood.widgets.CkdTextview
+    <in.ckd.calenderkhanado.widgets.CkdTextview
         android:id="@+id/review_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         android:layout_toEndOf="@+id/review_user_image"
         android:layout_marginStart="@dimen/dp8"
         android:layout_centerVertical="true"/>
-    <in.mummysfood.widgets.CkdTextview
+    <in.ckd.calenderkhanado.widgets.CkdTextview
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:drawableEnd="@mipmap/star_filled"
@@ -37,7 +37,7 @@
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"/>
 </RelativeLayout>
-    <in.mummysfood.widgets.CkdTextview
+    <in.ckd.calenderkhanado.widgets.CkdTextview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/kitchen_description"

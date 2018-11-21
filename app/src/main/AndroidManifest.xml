@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="in.mummysfood">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="in.ckd.calenderkhanado"
+    android:versionCode="1"
+    android:versionName="1.0.0">
 
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -14,13 +17,12 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
-        android:name=".AppController"
+        android:name="in.ckd.calenderkhanado.AppController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:largeHeap="true">
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -32,7 +34,7 @@
         </provider>
 
         <activity
-            android:name=".activities.SpashAcctivity"
+            android:name="in.ckd.calenderkhanado.activities.SpashAcctivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,26 +42,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.LoginAndSignupActivity" />
-        <activity android:name=".activities.InterestActivity" />
-        <activity android:name=".activities.RateYourselfActivity" />
-        <activity android:name=".Location.UserLocationActivtiy" />
-        <activity android:name=".activities.ChooseFoodTypeActivity" />
-        <activity android:name=".activities.MainBottomBarActivity" />
-        <activity android:name=".fragments.OrderDetailsActivity" />
-        <activity android:name=".activities.ActiveOrderActivtiy" />
-        <activity android:name=".fragments.ProfileFragmentChef" />
-
-        <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        -->
-        <!-- </activity> -->
-        <activity android:name=".activities.MobileOtpVerificationActivity" />
-        <activity android:name=".Location.EnterFullAdressActivity" />
+        <activity android:name="in.ckd.calenderkhanado.activities.LoginAndSignupActivity" />
+        <activity android:name="in.ckd.calenderkhanado.activities.InterestActivity" />
+        <activity android:name="in.ckd.calenderkhanado.activities.RateYourselfActivity" />
+        <activity android:name="in.ckd.calenderkhanado.Location.UserLocationActivtiy" />
+        <activity android:name="in.ckd.calenderkhanado.activities.ChooseFoodTypeActivity" />
+        <activity android:name="in.ckd.calenderkhanado.activities.MainBottomBarActivity" />
+        <activity android:name="in.ckd.calenderkhanado.fragments.OrderDetailsActivity" />
+        <activity android:name="in.ckd.calenderkhanado.activities.ActiveOrderActivtiy" />
+        <activity android:name="in.ckd.calenderkhanado.fragments.ProfileFragmentChef" />
+        <activity android:name="in.ckd.calenderkhanado.activities.MobileOtpVerificationActivity" />
+        <activity android:name="in.ckd.calenderkhanado.Location.EnterFullAdressActivity" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -78,23 +71,23 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".activities.ProfileUpdateActivity"
+            android:name="in.ckd.calenderkhanado.activities.ProfileUpdateActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- start firebase push notification -->
 
-        <service android:name=".service.MyFirebaseMessagingService">
+        <service android:name="in.ckd.calenderkhanado.service.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".service.MyFirebaseInstanceIDService">
+        <service android:name="in.ckd.calenderkhanado.service.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
-        <service android:name=".Location.GpsTracker"/>
+        <service android:name="in.ckd.calenderkhanado.Location.GpsTracker"/>
 
         <!-- Set custom default icon. This is used when no icon is set for incoming notification messages -->
         <meta-data
@@ -109,14 +102,14 @@
             android:resource="@color/colorAccent" />
         <!-- end firebase push notification -->
 
-        <activity android:name=".activities.YourCartActivity" />
-        <activity android:name=".activities.CongratualtionsActivtiy" />
+        <activity android:name="in.ckd.calenderkhanado.activities.YourCartActivity" />
+        <activity android:name="in.ckd.calenderkhanado.activities.CongratualtionsActivtiy" />
         <activity
-            android:name=".ManageAddressesActivity"
+            android:name="in.ckd.calenderkhanado.ManageAddressesActivity"
             android:label="@string/title_activity_manage_addresses"
             android:theme="@style/AppTheme" />
-        <activity android:name=".ManagePaymentActivity" />
-        <activity android:name=".HelpSupportActivity"></activity>
+        <activity android:name="in.ckd.calenderkhanado.ManagePaymentActivity" />
+        <activity android:name="in.ckd.calenderkhanado.HelpSupportActivity"></activity>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />

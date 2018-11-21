@@ -7,7 +7,7 @@
     android:layout_alignParentEnd="true"
     android:background="@drawable/border_primary"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <in.mummysfood.widgets.CkdTextview
+    <in.ckd.calenderkhanado.widgets.CkdTextview
         android:id="@+id/sub_item"
         android:layout_width="30dp"
         android:layout_gravity="center"
@@ -19,14 +19,14 @@
         android:background="@drawable/fill_rounded_primary_color"
         style="@style/textviewbold"
         android:text="-"/>
-    <in.mummysfood.widgets.CkdTextview
+    <in.ckd.calenderkhanado.widgets.CkdTextview
         android:id="@+id/item_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/textviewbold"
         android:text="1"
         android:padding="@dimen/dp4"/>
-    <in.mummysfood.widgets.CkdTextview
+    <in.ckd.calenderkhanado.widgets.CkdTextview
         android:id="@+id/add_item"
         android:layout_width="32dp"
         android:layout_gravity="center"

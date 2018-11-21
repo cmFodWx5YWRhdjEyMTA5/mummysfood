@@ -38,14 +38,14 @@
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/dp8"
                 android:layout_marginBottom="@dimen/dp8">
-                <in.mummysfood.widgets.CkdTextview
+                <in.ckd.calenderkhanado.widgets.CkdTextview
                     android:id="@+id/populor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/popular"
                     android:textColor="@color/colorPrimary"
                     style="@style/textviewregular"/>
-                <in.mummysfood.widgets.CkdTextview
+                <in.ckd.calenderkhanado.widgets.CkdTextview
                     android:id="@+id/food_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <in.mummysfood.widgets.CkdTextview
+                    <in.ckd.calenderkhanado.widgets.CkdTextview
                         android:id="@+id/food_price"
                         style="@style/textviewregular"
                         android:layout_width="wrap_content"
@@ -68,7 +68,7 @@
                         android:text="@string/price"
                         android:textColor="@color/colorPrimary" />
 
-                    <in.mummysfood.widgets.CkdTextview
+                    <in.ckd.calenderkhanado.widgets.CkdTextview
                         android:id="@+id/chef_name"
                         style="@style/textviewregular"
                         android:layout_width="wrap_content"

@@ -13,7 +13,7 @@
         android:layout_height="wrap_content">
 
 
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/titleForSub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
                 android:text="Other"
                 android:textSize="14sp"/>
         </RadioGroup>
-        <in.mummysfood.widgets.CkdEditText
+        <in.ckd.calenderkhanado.widgets.CkdEditText
             android:layout_width="wrap_content"
             android:layout_gravity="start"
             android:padding="@dimen/dp8"
@@ -77,7 +77,7 @@
             android:layout_marginBottom="@dimen/dp16"
             android:layout_height="match_parent" />
 
-        <in.mummysfood.widgets.CkdButton
+        <in.ckd.calenderkhanado.widgets.CkdButton
             android:id="@+id/submitThali"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp32"

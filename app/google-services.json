@@ -39,6 +39,30 @@
           }
         },
         {
+          "client_id": "685097313931-vutsno4847pajn64qaea1bfi5t24lr7e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.mummysfood",
+            "certificate_hash": "c77f29a46e63a59d8dc334eed02365bf67408cee"
+          }
+        },
+        {
+          "client_id": "685097313931-f5vrs15a2e7eksqrf3s5o7o1jqqomfgg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.mummysfood",
+            "certificate_hash": "f718d6b65330d2e39f3dc0360cbbed240900c1ac"
+          }
+        },
+        {
+          "client_id": "685097313931-3bfatk38agea3l6hcl8r1femvnp7r6pk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.mummysfood",
+            "certificate_hash": "cd8779c1528640b485928df6c44e3a433a408ea1"
+          }
+        },
+        {
           "client_id": "685097313931-svg2egsd67i3solla0vcddqp2hav20io.apps.googleusercontent.com",
           "client_type": 3
         }

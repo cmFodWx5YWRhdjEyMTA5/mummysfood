@@ -12,7 +12,7 @@
         app:cardCornerRadius="@dimen/dp8"
         app:cardElevation="@dimen/dp2"
         app:cardBackgroundColor="@color/white_smoke">
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/filter_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

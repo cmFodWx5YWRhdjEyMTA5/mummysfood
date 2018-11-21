@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context="in.mummysfood.activities.YourCartActivity">
+    tools:context="in.ckd.calenderkhanado.activities.YourCartActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp48"
@@ -23,7 +23,7 @@
                 android:padding="@dimen/dp4"
                 android:tint="#ffffff"
                 android:src="@drawable/ic_back_arrow"/>
-            <in.mummysfood.widgets.CkdTextview
+            <in.ckd.calenderkhanado.widgets.CkdTextview
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/textviewbold"
@@ -59,7 +59,7 @@
         android:padding="@dimen/dp8"
         android:layout_height="wrap_content">
 
-    <in.mummysfood.widgets.CkdTextview
+    <in.ckd.calenderkhanado.widgets.CkdTextview
         android:id="@+id/yourCartCons"
         android:layout_width="match_parent"
         android:text="Your Cart"
@@ -85,7 +85,7 @@
             android:layout_width="@dimen/dp32"
             android:layout_height="@dimen/dp32"
             android:src="@mipmap/vegimage"/>
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/order_titile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
             android:textColor="@color/black"
             style="@style/textviewbold"/>
 
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
@@ -106,7 +106,7 @@
             android:layout_alignTop="@+id/order_titile"
             android:textSize="@dimen/sp10"/>
 
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/order_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -119,7 +119,7 @@
             android:layout_below="@+id/order_titile"/>
 
 
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/order_price_basedQuantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -148,7 +148,7 @@
         android:layout_marginLeft="@dimen/dp24"
         android:layout_marginRight="@dimen/dp24"
         android:layout_height="@dimen/dp0.5"/>
-    <in.mummysfood.widgets.CkdTextview
+    <in.ckd.calenderkhanado.widgets.CkdTextview
         android:id="@+id/promoCode"
         android:layout_width="match_parent"
         android:text="Promo Code"
@@ -160,7 +160,7 @@
         style="@style/textviewregular"
         android:layout_height="wrap_content" />
 
-    <in.mummysfood.widgets.CkdEditText
+    <in.ckd.calenderkhanado.widgets.CkdEditText
         android:id="@+id/enterPromocode"
         android:layout_width="match_parent"
         android:layout_marginTop="@dimen/dp4"
@@ -177,7 +177,7 @@
         android:layout_marginLeft="@dimen/sp8"
         android:background="@color/white">
 
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/order_subtotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -189,7 +189,7 @@
 
 
 
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/order_price_taxes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -201,7 +201,7 @@
             android:layout_marginTop="@dimen/dp8"
             android:layout_below="@+id/order_subtotal"/>
 
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/totalValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -212,7 +212,7 @@
             style="@style/textviewregular"
             android:textSize="@dimen/sp14"
             />
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/order_taxes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -245,7 +245,7 @@
         android:layout_marginLeft="@dimen/sp8"
         android:background="@color/white">
 
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/order_grandtotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -257,7 +257,7 @@
 
 
 
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/order_price_finalTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -287,7 +287,7 @@
         android:layout_marginLeft="@dimen/sp8"
         android:background="@color/white">
 
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/deliverToAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -298,7 +298,7 @@
 
 
 
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/addressMain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -310,7 +310,7 @@
             android:layout_marginTop="@dimen/dp8"
             android:layout_below="@+id/deliverToAddress"/>
 
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/addressChange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -341,7 +341,7 @@
         android:layout_marginLeft="@dimen/sp8"
         android:background="@color/white">
 
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/deliverTo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -353,7 +353,7 @@
 
 
 
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/personInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -366,7 +366,7 @@
             android:layout_marginTop="@dimen/dp8"
             android:layout_below="@+id/deliverTo"/>
 
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/infoChange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -397,7 +397,7 @@
         android:layout_marginLeft="@dimen/sp8"
         android:background="@color/white">
 
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/paymentOption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -409,7 +409,7 @@
 
 
 
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/payatm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -422,7 +422,7 @@
             android:layout_marginTop="@dimen/dp8"
             android:layout_below="@+id/paymentOption"/>
 
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/patmentChange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -446,7 +446,7 @@
         android:layout_marginTop="@dimen/dp8"
         android:background="@drawable/fill_rounded_primary_color"
         >
-    <in.mummysfood.widgets.CkdTextview
+    <in.ckd.calenderkhanado.widgets.CkdTextview
         android:id="@+id/placeOrderButtonCheckout"
         android:layout_width="wrap_content"
         android:text="Check Out"
@@ -457,7 +457,7 @@
         android:textAllCaps="true"
         android:layout_marginLeft="@dimen/dp24"
         android:layout_height="wrap_content" />
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/placeOrderprice"
             android:layout_width="wrap_content"
             android:text="pay Rs. 130/-"
@@ -488,7 +488,7 @@
             android:weightSum="10"
             android:layout_height="wrap_content">
 
-            <in.mummysfood.widgets.CkdTextview
+            <in.ckd.calenderkhanado.widgets.CkdTextview
                 android:id="@+id/COD"
                 android:layout_width="wrap_content"
                 android:text="COD (Cash on delivery)"
@@ -527,7 +527,7 @@
                 android:layout_weight="3"
                 android:layout_gravity="center"
                 />
-            <in.mummysfood.widgets.CkdTextview
+            <in.ckd.calenderkhanado.widgets.CkdTextview
                 android:id="@+id/payatmOption"
                 android:layout_width="wrap_content"
                 android:text=""
@@ -613,7 +613,7 @@
 
         </LinearLayout>
 
-        <in.mummysfood.widgets.CkdButton
+        <in.ckd.calenderkhanado.widgets.CkdButton
             android:id="@+id/nameSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -18,14 +18,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginStart="@dimen/dp8">
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/textviewregular"
             android:textColor="@color/black"
             android:id="@+id/addressType"
             android:text="@string/title_home"/>
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/addressTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="@dimen/dp8">
-            <in.mummysfood.widgets.CkdTextview
+            <in.ckd.calenderkhanado.widgets.CkdTextview
                 android:id="@+id/editAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                 android:textColor="@color/colorPrimary"
                 android:text="@string/edit"
                 android:textAllCaps="true"/>
-            <in.mummysfood.widgets.CkdTextview
+            <in.ckd.calenderkhanado.widgets.CkdTextview
                 android:id="@+id/deleteAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

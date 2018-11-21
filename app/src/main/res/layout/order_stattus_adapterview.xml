@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_marginLeft="@dimen/dp8"
             android:layout_height="wrap_content">
-            <in.mummysfood.widgets.CkdTextview
+            <in.ckd.calenderkhanado.widgets.CkdTextview
                 android:id="@+id/chefName_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
                 android:textColor="@color/black_effective"
                 android:text="SouthIndian"
                 />
-            <in.mummysfood.widgets.CkdTextview
+            <in.ckd.calenderkhanado.widgets.CkdTextview
                 android:id="@+id/foodLocation_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <in.mummysfood.widgets.CkdTextview
+            <in.ckd.calenderkhanado.widgets.CkdTextview
                 android:id="@+id/foodNameEntry"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
                 android:textColor="@color/black_effective"
                 android:text="Sounth"
                 />
-    <in.mummysfood.widgets.CkdTextview
+    <in.ckd.calenderkhanado.widgets.CkdTextview
         android:id="@+id/foodDetails"
         android:layout_width="match_parent"
         android:layout_marginBottom="@dimen/dp8"
@@ -94,7 +94,7 @@
         android:text="it's delicious"
         />
         </LinearLayout>
-    <in.mummysfood.widgets.CkdTextview
+    <in.ckd.calenderkhanado.widgets.CkdTextview
         android:id="@+id/remaningThali"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
             android:layout_marginBottom="@dimen/dp8"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp0.5"/>
-    <in.mummysfood.widgets.CkdTextview
+    <in.ckd.calenderkhanado.widgets.CkdTextview
         android:id="@+id/CancelOrder"
         android:layout_width="match_parent"
         android:layout_height="32dp"

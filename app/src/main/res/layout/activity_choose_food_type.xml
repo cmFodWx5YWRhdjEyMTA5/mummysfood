@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.mummysfood.activities.LoginAndSignupActivity"
+    tools:context="in.ckd.calenderkhanado.activities.LoginAndSignupActivity"
     android:background="@color/colorPrimary">
     <ImageView
         android:layout_width="@dimen/dp150"
@@ -21,7 +21,7 @@
         android:layout_alignParentBottom="true"
         android:elevation="@dimen/dp4">
 
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/food_type_title"
@@ -32,7 +32,7 @@
             android:layout_marginStart="@dimen/dp24"
             android:layout_marginEnd="@dimen/dp24"/>
 
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/veg"
@@ -44,7 +44,7 @@
             android:layout_marginTop="@dimen/dp24"
             android:layout_marginStart="@dimen/dp24"
             android:layout_marginEnd="@dimen/dp24"/>
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/veg_nonveg"
@@ -57,7 +57,7 @@
             android:layout_marginStart="@dimen/dp24"
             android:layout_marginEnd="@dimen/dp24"/>
 
-        <in.mummysfood.widgets.CkdTextview
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/choose_food_type_"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

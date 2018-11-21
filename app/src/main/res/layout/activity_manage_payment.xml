@@ -23,7 +23,7 @@
             android:id="@+id/cod_option_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <in.mummysfood.widgets.CkdTextview
+            <in.ckd.calenderkhanado.widgets.CkdTextview
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -48,7 +48,7 @@
                 android:src="@mipmap/paytm"
                 android:layout_alignParentStart="true"
                 android:paddingEnd="@dimen/dp2"/>
-            <in.mummysfood.widgets.CkdTextview
+            <in.ckd.calenderkhanado.widgets.CkdTextview
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="(65.66)"
