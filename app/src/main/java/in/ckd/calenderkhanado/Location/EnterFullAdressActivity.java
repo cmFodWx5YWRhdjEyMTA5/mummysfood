@@ -57,6 +57,7 @@ public class EnterFullAdressActivity extends BaseActivity {
     private PreferenceManager pf;
     private String updatedText = "";
     private int user_id;
+    private PreferenceManager ppref;
 
 
     private updateAdd listner;
@@ -74,6 +75,7 @@ public class EnterFullAdressActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         pf = new PreferenceManager(this,PreferenceManager.USER_ADDRESS);
+        ppref = new PreferenceManager(this);
 
 
 
@@ -150,8 +152,7 @@ public class EnterFullAdressActivity extends BaseActivity {
     private void networkCallForAsavingAddress(final String action) {
         pf = new PreferenceManager(this,PreferenceManager.LOGIN_PREFERENCES_FILE);
 
-      //  user_id = pf.getIntForKey(PreferenceManager.USER_ID,0);
-        user_id = 1;
+         user_id = ppref.getIntForKey("user_id",0);
 
         String landMarkText = landMark.getText().toString();
         String flatNoText = flatNo.getText().toString();
@@ -165,20 +166,45 @@ public class EnterFullAdressActivity extends BaseActivity {
 
 
         try {
+            if (latitude != null)
+            {
+                data.latitude = Double.parseDouble(latitude);
+                data.longitude= Double.parseDouble(longitude);
+            }else
+            {
 
-            data.latitude = Double.parseDouble(latitude);
-            data.longitude= Double.parseDouble(longitude);
+                //default lat long indore plasia
+                data.latitude = 22.7244;
+                data.longitude= 75.8839;
+            }
+            if (latitude != null)
+            {
+                data.latitude = Double.parseDouble(latitude);
+                data.longitude= Double.parseDouble(longitude);
+            }else
+            {
+
+                //default lat long indore plasia
+                data.latitude = 22.7244;
+                data.longitude= 75.8839;
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
-            data.latitude = pf.getDoubleForKey("latitude",0);
-            data.longitude = pf.getDoubleForKey ("lognitude",0);
+
         }
 
+        try {
+            data.complete_address = locationMain.getText().toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         data.type = getRadioSelected();
         data.landmark = landMarkText;
         data.house_no = flatNoText;
         data.user_id = user_id;
-        data.complete_address = address;
+
+
 
 
         if (action.equalsIgnoreCase("Save"))
@@ -199,56 +225,63 @@ public class EnterFullAdressActivity extends BaseActivity {
 
 
 
-        addressModelCall.enqueue(new Callback<AddressModel>() {
-            @Override
-            public void onResponse(Call<AddressModel> call, Response<AddressModel> response) {
-                if (response.isSuccessful())
-                {
-                    if (action.equalsIgnoreCase("Save"))
+        if (data.complete_address!= null && !"".equalsIgnoreCase(data.complete_address))
+        {
+            addressModelCall.enqueue(new Callback<AddressModel>() {
+                @Override
+                public void onResponse(Call<AddressModel> call, Response<AddressModel> response) {
+                    if (response.isSuccessful())
                     {
-                        if (AddNew !=null){
-                            if (AddNew.equalsIgnoreCase("Yes"))
+                        if (action.equalsIgnoreCase("Save"))
+                        {
+                            if (AddNew !=null){
+                                if (AddNew.equalsIgnoreCase("Yes"))
+                                {
+                                    Intent output = new Intent();
+                                    output.putExtra("Address", updatedText);
+                                    output.putExtra("landMark", landMark.getText().toString());
+                                    output.putExtra("flatNo", flatNo.getText().toString());
+                                    setResult(RESULT_OK, output);
+                                    finish();
+                                }
+                            }
+                            else
                             {
-                                Intent output = new Intent();
-                                output.putExtra("Address", updatedText);
-                                output.putExtra("landMark", landMark.getText().toString());
-                                output.putExtra("flatNo", flatNo.getText().toString());
-                                setResult(RESULT_OK, output);
+                                pf.saveStringForKey("CurrentAddress",updatedText);
+                                pf.saveStringForKey("type",updatedText);
+                                pf.saveStringForKey("landmark",updatedText);
+                                pf.saveStringForKey("house_no",updatedText);
+                                pf.saveStringForKey("pincode",postalCode);
+                                Intent mainIntent = new Intent(EnterFullAdressActivity.this, MainBottomBarActivity.class);
+                                startActivity(mainIntent);
                                 finish();
                             }
-                        }
-                      else
+
+                        }else
                         {
-                            pf.saveStringForKey("CurrentAddress",updatedText);
-                            pf.saveStringForKey("type",updatedText);
-                            pf.saveStringForKey("landmark",updatedText);
-                            pf.saveStringForKey("house_no",updatedText);
-                            pf.saveStringForKey("pincode",postalCode);
-                            Intent mainIntent = new Intent(EnterFullAdressActivity.this, MainBottomBarActivity.class);
-                            startActivity(mainIntent);
-                            finish();
+                            showToast("Updated");
                         }
 
-                    }else
-                    {
-                        showToast("Updated");
-                    }
+                    }else {
 
-                }else {
-
-                    try {
-                        Log.d("Error",response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        try {
+                            Log.d("Error",response.errorBody().string());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<AddressModel> call, Throwable t) {
+                @Override
+                public void onFailure(Call<AddressModel> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        }else
+        {
+            showToast("Please insert your address");
+        }
+
     }
 
 

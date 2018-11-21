@@ -67,11 +67,9 @@ public class PastOrderFragment extends BaseFragment   implements OrderStatusAdap
 
         View rootView = inflater.inflate(R.layout.order_status_layout, container, false);
 
-        context = getContext();
+        context = getActivity();
 
         ButterKnife.bind(this, rootView);
-
-        pf = new PreferenceManager(getActivity(),PreferenceManager.USER_ID);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -89,9 +87,10 @@ public class PastOrderFragment extends BaseFragment   implements OrderStatusAdap
     private void networkCallForGetOrder()
     {
 
-        pf = new PreferenceManager(context,PreferenceManager.LOGIN_PREFERENCES_FILE);
 
-        int userIf = pf.getIntForKey(PreferenceManager.USER_ID,0);
+        pf = new PreferenceManager(context);
+
+        int userIf = pf.getIntForKey("user_id",0);
 
         String url = AppConstants.restAPI.BASEURL+"user/"+userIf;
 
@@ -142,7 +141,7 @@ public class PastOrderFragment extends BaseFragment   implements OrderStatusAdap
 
                         }else
                         {
-                            showToast(String.valueOf(subscribesList.size()));
+                          //  showToast(String.valueOf(subscribesList.size()));
                         }
 
 

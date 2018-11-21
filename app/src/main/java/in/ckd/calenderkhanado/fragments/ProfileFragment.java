@@ -54,6 +54,7 @@ public class ProfileFragment extends BaseFragment {
     public static List<ProfileModel.Addresses> addressesList;
     private int loggedInUserId;
     private PreferenceManager pf;
+    private PreferenceManager pfpp;
     private FirebaseAuth mAuth;
 
     public ProfileFragment() {
@@ -72,18 +73,21 @@ public class ProfileFragment extends BaseFragment {
         addressesList = new ArrayList<>();
 
         pf = new PreferenceManager(context, PreferenceManager.LOGIN_PREFERENCES_FILE);
+        pfpp = new PreferenceManager(context);
         loggedInUserId = pf.getIntForKey(PreferenceManager.USER_ID,0);
+        loggedInUserId = pfpp.getIntForKey("user_id",0);
 
-        Bundle bundle = getArguments();
+        userId = loggedInUserId;
+      /*  Bundle bundle = getArguments();
         if (bundle != null){
             userId = bundle.getInt("user_id",0);
             //type = bundle.getString("type",null);
             if (userId == 0) {
                 userId = loggedInUserId;
             }
-        }
+        }*/
 
-        if (userId != 0){
+        if (loggedInUserId != 0){
             Call<ProfileModel> profileData = AppConstants.restAPI.getProfileUserData(userId);
             profileData.enqueue(new Callback<ProfileModel>() {
                 @Override
@@ -123,8 +127,8 @@ public class ProfileFragment extends BaseFragment {
             Glide.with(context).load(userData.profile_image).into(profileImage);
         }
 
-        if (userData.name != null && !"".equalsIgnoreCase(userData.name)){
-            profileUsername.setText(userData.name.trim());
+        if (userData.f_name != null && !"".equalsIgnoreCase(userData.f_name)){
+            profileUsername.setText(userData.f_name.trim());
         }
     }
 

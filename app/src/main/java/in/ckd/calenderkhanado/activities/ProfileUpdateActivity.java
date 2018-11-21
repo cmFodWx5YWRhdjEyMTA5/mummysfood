@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import in.ckd.calenderkhanado.Location.UserLocationActivtiy;
 import in.ckd.calenderkhanado.R;
 import in.ckd.calenderkhanado.base.BaseActivity;
 import in.ckd.calenderkhanado.data.network.model.LoginRequest;
@@ -369,13 +370,13 @@ public class ProfileUpdateActivity extends BaseActivity {
         if (data.mobile != null && data.mobile.isEmpty())
             pf.saveStringForKey(PreferenceManager.USER_MOBILE, data.mobile);
         String savedLocation = pf.getStringForKey("CurrentAddress","");
-        //if (savedLocation != null &&savedLocation.equalsIgnoreCase("gotitlocation")){
+        if (savedLocation != null &&savedLocation.equalsIgnoreCase("gotitlocation")){
         startActivity(new Intent(ProfileUpdateActivity.this,MainBottomBarActivity.class));
         finish();
-        /*}else{
+       }else{
             startActivity(new Intent(ProfileUpdateActivity.this,UserLocationActivtiy.class));
             finish();
-        }*/
+        }
     }
 
     public boolean emailValidateField(String fieldvalue) {
@@ -477,10 +478,10 @@ public class ProfileUpdateActivity extends BaseActivity {
 
         MediaRequest mediaRequest = new MediaRequest();
         mediaRequest.user_id = user_id;
-        mediaRequest.entity_id = 8;
+        mediaRequest.entity_id = 0;
         mediaRequest.entity_type = "user";
         mediaRequest.image = body;
-        Call<UploadMedia> call = AppConstants.restAPI.uploadImage(body,user_id,8,"user");
+        Call<UploadMedia> call = AppConstants.restAPI.uploadImage(body,0,user_id,"user");
 
         call.enqueue(new Callback<UploadMedia>() {
             @Override

@@ -87,9 +87,9 @@ public class ActiveOrderFragment extends BaseFragment   implements OrderStatusAd
     private void networkCallForGetOrder()
     {
 
-        pf = new PreferenceManager(context,PreferenceManager.LOGIN_PREFERENCES_FILE);
+        pf = new PreferenceManager(context);
 
-        int userIf = pf.getIntForKey(PreferenceManager.USER_ID,0);
+        int userIf = pf.getIntForKey("user_id",0);
 
         String url = AppConstants.restAPI.BASEURL+"user/"+userIf;
 
@@ -116,7 +116,7 @@ public class ActiveOrderFragment extends BaseFragment   implements OrderStatusAd
                             setAdapterForOrder(ordersList,subscribesList);
                         }else
                         {
-                            showToast(String.valueOf(subscribesList.size()));
+                            //showToast(String.valueOf(subscribesList.size()));
                         }
 
 

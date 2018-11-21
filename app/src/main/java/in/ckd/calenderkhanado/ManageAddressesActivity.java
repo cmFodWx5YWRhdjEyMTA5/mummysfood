@@ -126,9 +126,13 @@ public class ManageAddressesActivity extends BaseActivity implements AddressRecy
     public void addNewAdd()
     {
         Intent enterOtherAct = new Intent(ManageAddressesActivity.this,EnterFullAdressActivity.class);
-        enterOtherAct.putExtra("AddNew","Yes");
-        enterOtherAct.putExtra("lat",String.valueOf(addressesList.get(listPos).latitude));
-        enterOtherAct.putExtra("long",String.valueOf(addressesList.get(listPos).longitude));
+        if (addressesList.size() != 0)
+        {
+            enterOtherAct.putExtra("AddNew","Yes");
+            enterOtherAct.putExtra("lat",String.valueOf(addressesList.get(listPos).latitude));
+            enterOtherAct.putExtra("long",String.valueOf(addressesList.get(listPos).longitude));
+        }
+
         startActivityForResult(enterOtherAct,200);
     }
 
