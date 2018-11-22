@@ -126,7 +126,7 @@
             android:text="@string/price"
             android:layout_alignParentEnd="true"
             android:layout_marginLeft="@dimen/dp8"
-            android:layout_marginRight="@dimen/dp32"
+            android:layout_marginRight="@dimen/dp8"
             android:textColor="@color/colorPrimary"
             style="@style/textviewbold"
             android:layout_marginTop="@dimen/dp16"
@@ -135,8 +135,7 @@
             layout="@layout/add_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/dp16"/>
+            android:layout_alignParentEnd="true"/>
 
     </RelativeLayout>
 

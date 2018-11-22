@@ -108,41 +108,44 @@ public class PastOrderFragment extends BaseFragment   implements OrderStatusAdap
                     {
 
 
-                        model = response.body().data.get(0);
-                        subscribesList = response.body().data.get(0).subscribes;
+                        try {
+                            model = response.body().data.get(0);
+                            subscribesList = response.body().data.get(0).subscribes;
 
-                        if (subscribesList.size() != 0)
-                        {
-                            for (int i = 0;i <= subscribesList.size() - 1; i++) {
+                            if (subscribesList.size() != 0) {
+                                for (int i = 0;i <= subscribesList.size() - 1; i++) {
 
-                                UserProfileModel.Subscribes subList = subscribesList.get(i);
+                                    UserProfileModel.Subscribes subList = subscribesList.get(i);
 
-                                if (subList != null) {
-                                    int totalPlates = subList.number_of_days;
-                                    int orderPlates = subList.ordered_plates;
+                                    if (subList != null) {
+                                        int totalPlates = subList.number_of_days;
+                                        int orderPlates = subList.ordered_plates;
 
-                                    int remmainPlates = totalPlates - orderPlates;
+                                        int remmainPlates = totalPlates - orderPlates;
 
 
-                                    if (remmainPlates == 0) {
-                                        if (subList.orders != null)
-                                        {
-                                            if ( subList.orders.size() != 0)
+                                        if (remmainPlates == 0) {
+                                            if (subList.orders != null)
                                             {
-                                                PastsubscribesList.add(subList);
+                                                if ( subList.orders.size() != 0)
+                                                {
+                                                    PastsubscribesList.add(subList);
+                                                }
                                             }
                                         }
                                     }
+
                                 }
 
+                                setAdapterForOrder(ordersList, PastsubscribesList);
+
+                            }else {
+                                //  showToast(String.valueOf(subscribesList.size()));
                             }
+                        }catch (IndexOutOfBoundsException e){
 
-                            setAdapterForOrder(ordersList, PastsubscribesList);
-
-                        }else
-                        {
-                          //  showToast(String.valueOf(subscribesList.size()));
                         }
+
 
 
                             /* ordersList  = response.body().data.get(0).;

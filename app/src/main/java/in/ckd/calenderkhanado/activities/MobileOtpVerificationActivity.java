@@ -377,8 +377,8 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
                                 i.putExtra("mobile", mobile.getText().toString());
                                 i.putExtra("logintype","mobile");
                                 startActivity(i);
-
-                                }else if (json.getString("status").equalsIgnoreCase(AppConstants.ALREADY)) {
+                                finish();
+                            }else if (json.getString("status").equalsIgnoreCase(AppConstants.ALREADY)) {
                                 pf.saveIntForKey("user_id",json.getJSONArray("data").getJSONObject(0).getInt("id"));
                                 data.id =json.getJSONArray("data").getJSONObject(0).getInt("id");
                                 data.mobile = json.getJSONArray("data").getJSONObject(0).getString("mobile");
