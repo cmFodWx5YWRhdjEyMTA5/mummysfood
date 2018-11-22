@@ -1,4 +1,4 @@
-package in.ckd.calenderkhanado.location;
+package in.ckd.calenderkhanado.Location;
 
 import android.Manifest;
 import android.app.AlertDialog;

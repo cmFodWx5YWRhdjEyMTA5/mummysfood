@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 
-import in.ckd.calenderkhanado.location.EnterFullAdressActivity;
+import in.ckd.calenderkhanado.Location.EnterFullAdressActivity;
 import in.ckd.calenderkhanado.R;
 import in.ckd.calenderkhanado.activities.YourCartActivity;
 import in.ckd.calenderkhanado.base.BaseActivity;

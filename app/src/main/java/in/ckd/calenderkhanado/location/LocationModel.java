@@ -1,4 +1,4 @@
-package in.ckd.calenderkhanado.location;
+package in.ckd.calenderkhanado.Location;
 
 import java.util.List;
 
