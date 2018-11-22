@@ -83,7 +83,7 @@ public class UserLocationActivtiy extends BaseActivity implements  ContactsAdapt
     private static final String PLACES_API_BASE = "https://maps.googleapis.com/maps/api/place";
     private static final String TYPE_AUTOCOMPLETE = "/autocomplete";
     private static final String OUT_JSON = "/json";
-    private static final String API_KEY = "AIzaSyBbiDK90-7ghYlvEYFscFNcFApa6ks2oAo";
+    private static final String API_KEY = "AIzaSyAiLBFmkx2Q0T7JwBUERsv6H8JH03ZGpJc";
     private ArrayList<String> resultLis;
     LocationManager locationManager;
     String provider;

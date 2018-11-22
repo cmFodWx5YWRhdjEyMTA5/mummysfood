@@ -8,57 +8,41 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:685097313931:android:5dd6984ab9d0376a",
+        "mobilesdk_app_id": "1:685097313931:android:46f41503aedae77a",
         "android_client_info": {
-          "package_name": "in.mummysfood"
+          "package_name": "in.ckd.calenderkhanado"
         }
       },
       "oauth_client": [
         {
-          "client_id": "685097313931-bprq99jch0uq2c4l4kvav2eb5ghdl591.apps.googleusercontent.com",
+          "client_id": "685097313931-ibbag30nfrsghc61vqe5rcn94hn3ac08.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "in.mummysfood",
-            "certificate_hash": "0496bbe12e23e833e98a0807d662a23519362d78"
-          }
-        },
-        {
-          "client_id": "685097313931-4dghbcjk66lo9hond409idq2lndn2kfm.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "in.mummysfood",
-            "certificate_hash": "f9bd43118a85d7e9424a119a228e60d92aa7ecc9"
-          }
-        },
-        {
-          "client_id": "685097313931-buhkfn6ianplql4akcgvdi20jhkpicj5.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "in.mummysfood",
+            "package_name": "in.ckd.calenderkhanado",
             "certificate_hash": "dc4c8f65ba0a6c67475140de7294f2c117c45ce4"
           }
         },
         {
-          "client_id": "685097313931-vutsno4847pajn64qaea1bfi5t24lr7e.apps.googleusercontent.com",
+          "client_id": "685097313931-oatq9gilgasl7d21t8ad3adr2n4rt1bn.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "in.mummysfood",
+            "package_name": "in.ckd.calenderkhanado",
             "certificate_hash": "c77f29a46e63a59d8dc334eed02365bf67408cee"
           }
         },
         {
-          "client_id": "685097313931-f5vrs15a2e7eksqrf3s5o7o1jqqomfgg.apps.googleusercontent.com",
+          "client_id": "685097313931-uhmv3e84kgi8p1u39abqiqpevfajtovk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "in.mummysfood",
-            "certificate_hash": "f718d6b65330d2e39f3dc0360cbbed240900c1ac"
+            "package_name": "in.ckd.calenderkhanado",
+            "certificate_hash": "1c6b8efb2a4e0ccefc4d6b3af36243feae0add7e"
           }
         },
         {
-          "client_id": "685097313931-3bfatk38agea3l6hcl8r1femvnp7r6pk.apps.googleusercontent.com",
+          "client_id": "685097313931-gd179ue2p13e7l9mjv2hvuel7et4l5ro.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "in.mummysfood",
+            "package_name": "in.ckd.calenderkhanado",
             "certificate_hash": "cd8779c1528640b485928df6c44e3a433a408ea1"
           }
         },

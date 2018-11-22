@@ -1,4 +1,4 @@
-package in.ckd.calenderkhanado;
+package in.ckd.calenderkhanado.activities;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import in.ckd.calenderkhanado.R;
 import in.ckd.calenderkhanado.base.BaseActivity;
 
 public class ManagePaymentActivity extends BaseActivity {

@@ -1,4 +1,4 @@
-package in.ckd.calenderkhanado;
+package in.ckd.calenderkhanado.activities;
 
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -7,6 +7,7 @@ import android.webkit.WebView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import in.ckd.calenderkhanado.R;
 import in.ckd.calenderkhanado.base.BaseActivity;
 
 public class HelpSupportActivity extends BaseActivity {

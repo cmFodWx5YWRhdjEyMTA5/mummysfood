@@ -1,4 +1,4 @@
-package in.ckd.calenderkhanado;
+package in.ckd.calenderkhanado.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.ckd.calenderkhanado.Location.EnterFullAdressActivity;
+import in.ckd.calenderkhanado.R;
 import in.ckd.calenderkhanado.adapters.AddressRecycelrview;
 import in.ckd.calenderkhanado.base.BaseActivity;
 import in.ckd.calenderkhanado.data.pref.PreferenceManager;
