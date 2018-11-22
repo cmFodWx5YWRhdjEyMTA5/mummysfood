@@ -66,7 +66,7 @@ public class ActiveOrderActivtiy extends BaseActivity
     CkdTextview skipBoth;
 
 
-    private UserProfileModel.Orders orders;
+    private UserProfileModel.Subscribes ordersSubs;
 
     private int mobile;
 
@@ -86,7 +86,7 @@ public class ActiveOrderActivtiy extends BaseActivity
 
         if (getIntent() != null)
         {
-            orders = (UserProfileModel.Orders) getIntent().getSerializableExtra("order");
+            ordersSubs = (UserProfileModel.Subscribes) getIntent().getSerializableExtra("order");
 
             remainPlates = getIntent().getIntExtra("remainingPlates",0);
 
@@ -97,35 +97,26 @@ public class ActiveOrderActivtiy extends BaseActivity
                 e.printStackTrace();
             }
 
-            if (orders.number_of_days == 1)
-            {
-
-                payment_type_value.setText( String .valueOf(Integer.parseInt(orders.price)*orders.quantity) +"For "+String.valueOf(orders.quantity)+" plates") ;
-
-            }else
-            {
-                if (orders.is_dinner == 1 && orders.is_lunch==1)
+           if (ordersSubs.orders.get(0).is_dinner == 1 && ordersSubs.orders.get(0).is_lunch==1)
                 {
-                    payment_type_value.setText(String.valueOf(orders.number_of_days * Integer.parseInt(orders.price)+
-                            orders.number_of_days * Integer.parseInt(orders.price))+ "Lunch and dinner both for "+String.valueOf(orders.number_of_days));
+                    payment_type_value.setText(String.valueOf(ordersSubs.number_of_days * Integer.parseInt(ordersSubs.orders.get(0).price)+
+                            ordersSubs.number_of_days * Integer.parseInt(ordersSubs.orders.get(0).price))+ "Lunch and dinner both for "+String.valueOf(ordersSubs.number_of_days));
                 }else {
-                    payment_type_value.setText(orders.number_of_days * Integer.parseInt(orders.price)+ " one time food for "+String.valueOf(orders.number_of_days));
+                    payment_type_value.setText(ordersSubs.number_of_days * Integer.parseInt(ordersSubs.orders.get(0).price)+ " for  "+String.valueOf(ordersSubs.number_of_days)+ " days");
                 }
 
 
-            }
-
             try {
-                order_created_value.setText(getDate(orders.created_at));
+                order_created_value.setText(getDate(ordersSubs.created_at));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
 
-            order_id_value.setText(String.valueOf(orders.id));
+            order_id_value.setText(String.valueOf(ordersSubs.id));
 
             PhoneNUm_value.setText(mobileNumber);
 
-            delivery_Add_value.setText(userName+" at "+orders.landmark +" Location :"+orders.landmark);
+            delivery_Add_value.setText(userName+" at "+ordersSubs.orders.get(0).landmark);
         }
 
         if (remainPlates != 0)
@@ -160,21 +151,21 @@ public class ActiveOrderActivtiy extends BaseActivity
         }else
         {
             Intent yourCart = new Intent(this, YourCartActivity.class);
-            yourCart.putExtra("data",orders);
-            if (orders.number_of_days == 1)
+            yourCart.putExtra("data",ordersSubs);
+            if (ordersSubs.number_of_days == 1)
             {
                 yourCart.putExtra("typeOfPackage","today");
-            }else if (orders.number_of_days <= 7)
+            }else if (ordersSubs.number_of_days <= 7)
             {
                 yourCart.putExtra("typeOfPackage","weekly");
-            }else if (orders.number_of_days <=15 )
+            }else if (ordersSubs.number_of_days <=15 )
             {
                 yourCart.putExtra("typeOfPackage","montly");
             }
 
-            yourCart.putExtra("isLunch",orders.is_lunch);
-            yourCart.putExtra("isDinner",orders.is_dinner);
-            yourCart.putExtra("numberOfDays",orders.number_of_days);
+            yourCart.putExtra("isLunch",ordersSubs.orders.get(0).is_lunch);
+            yourCart.putExtra("isDinner",ordersSubs.orders.get(0).is_dinner);
+            yourCart.putExtra("numberOfDays",ordersSubs.number_of_days);
             yourCart.putExtra("From","RepeatOrder");
             startActivity(yourCart);
             finish();

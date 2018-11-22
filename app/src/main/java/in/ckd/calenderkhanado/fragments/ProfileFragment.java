@@ -97,9 +97,9 @@ public class ProfileFragment extends BaseFragment {
                         ProfileModel res = response.body();
                         if (res.status != null) {
                             if ( res.status.equals(AppConstants.SUCCESS)){
-                                userData = res.data.get(0);
 
                                 try {
+                                    userData = res.data.get(0);
                                     addressesList = userData.addresses;
 
                                     Log.d("ListSize",String.valueOf(userData.addresses.size()));

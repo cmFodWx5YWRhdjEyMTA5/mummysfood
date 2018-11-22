@@ -207,7 +207,7 @@ public class ActiveOrderFragment extends BaseFragment   implements OrderStatusAd
 
                     if (subscribesList.get(position).orders.size() != 0)
                     {
-                        i.putExtra("order",subscribesList.get(position).orders.get(0));
+                        i.putExtra("order",subscribesList.get(position));
                         i.putExtra("remainingPlates",remainingPlates);
                         startActivity(i);
                     }

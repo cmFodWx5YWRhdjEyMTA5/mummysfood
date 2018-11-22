@@ -90,7 +90,7 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
             }
 
             if (data.get(i).food_detail.get(0).price != null){
-                holder.food_price.setText(context.getResources().getString(R.string.rupee_txt)+" "+dataModel.food_detail.get(0).price);
+                holder.food_price.setText(context.getResources().getString(R.string.Rs)+dataModel.food_detail.get(0).price);
             }
 
             if (data.get(i).food_detail.get(0).name != null){
