@@ -16,9 +16,9 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 
 import butterknife.OnClick;
-import in.ckd.calenderkhanado.HelpSupportActivity;
-import in.ckd.calenderkhanado.ManageAddressesActivity;
-import in.ckd.calenderkhanado.ManagePaymentActivity;
+import in.ckd.calenderkhanado.activities.HelpSupportActivity;
+import in.ckd.calenderkhanado.activities.ManageAddressesActivity;
+import in.ckd.calenderkhanado.activities.ManagePaymentActivity;
 import in.ckd.calenderkhanado.R;
 import in.ckd.calenderkhanado.activities.LoginAndSignupActivity;
 import in.ckd.calenderkhanado.base.BaseFragment;

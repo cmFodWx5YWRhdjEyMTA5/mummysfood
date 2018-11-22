@@ -1,4 +1,4 @@
-package in.ckd.calenderkhanado.Location;
+package in.ckd.calenderkhanado.location;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

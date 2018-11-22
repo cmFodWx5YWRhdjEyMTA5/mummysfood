@@ -2,7 +2,7 @@ package in.ckd.calenderkhanado.data.network;
 
 
 
-import in.ckd.calenderkhanado.Location.LocationModel;
+import in.ckd.calenderkhanado.location.LocationModel;
 import in.ckd.calenderkhanado.data.network.model.LoginRequest;
 import in.ckd.calenderkhanado.data.network.model.LogoutResponse;
 import in.ckd.calenderkhanado.data.network.model.UploadMedia;

@@ -1,4 +1,4 @@
-package in.ckd.calenderkhanado.Location;
+package in.ckd.calenderkhanado.location;
 
 import android.content.Intent;
 import android.os.Bundle;

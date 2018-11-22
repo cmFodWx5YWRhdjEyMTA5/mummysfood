@@ -26,7 +26,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
-import in.ckd.calenderkhanado.Location.UserLocationActivtiy;
+import in.ckd.calenderkhanado.location.UserLocationActivtiy;
 import in.ckd.calenderkhanado.R;
 import in.ckd.calenderkhanado.base.BaseActivity;
 import in.ckd.calenderkhanado.data.network.model.LoginRequest;
