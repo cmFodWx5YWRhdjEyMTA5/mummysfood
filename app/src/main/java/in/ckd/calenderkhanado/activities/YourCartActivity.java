@@ -658,7 +658,12 @@ public class YourCartActivity extends BaseActivity {
             String pincode = pfUAddress.getStringForKey("pincode","");
             String paymetTYpe = pf.getStringForKey("paymentType","");
             orderModel.house_no = house_no;
-            orderModel.landmark = landmark;
+
+            try {
+                orderModel.landmark = addressMain.getText().toString();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             orderModel.pincode = pincode;
             orderModel.address_type = type;
             orderModel.payment_type = paymetTYpe;

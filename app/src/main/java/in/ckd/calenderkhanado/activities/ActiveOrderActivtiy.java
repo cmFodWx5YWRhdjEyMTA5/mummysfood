@@ -61,6 +61,7 @@ public class ActiveOrderActivtiy extends BaseActivity
     @BindView(R.id.skipDinner)
     CkdTextview skipDinner;
 
+
     @BindView(R.id.skipBoth)
     CkdTextview skipBoth;
 
@@ -96,7 +97,23 @@ public class ActiveOrderActivtiy extends BaseActivity
                 e.printStackTrace();
             }
 
-            payment_type_value.setText(orders.price);
+            if (orders.number_of_days == 1)
+            {
+
+                payment_type_value.setText( String .valueOf(Integer.parseInt(orders.price)*orders.quantity) +"For "+String.valueOf(orders.quantity)+" plates") ;
+
+            }else
+            {
+                if (orders.is_dinner == 1 && orders.is_lunch==1)
+                {
+                    payment_type_value.setText(String.valueOf(orders.number_of_days * Integer.parseInt(orders.price)+
+                            orders.number_of_days * Integer.parseInt(orders.price))+ "Lunch and dinner both for "+String.valueOf(orders.number_of_days));
+                }else {
+                    payment_type_value.setText(orders.number_of_days * Integer.parseInt(orders.price)+ " one time food for "+String.valueOf(orders.number_of_days));
+                }
+
+
+            }
 
             try {
                 order_created_value.setText(getDate(orders.created_at));
@@ -108,7 +125,7 @@ public class ActiveOrderActivtiy extends BaseActivity
 
             PhoneNUm_value.setText(mobileNumber);
 
-            delivery_Add_value.setText(userName+" at "+orders.address_type +" Location :"+orders.landmark);
+            delivery_Add_value.setText(userName+" at "+orders.landmark +" Location :"+orders.landmark);
         }
 
         if (remainPlates != 0)
