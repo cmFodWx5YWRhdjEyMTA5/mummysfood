@@ -8,8 +8,7 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.
-    ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
@@ -39,6 +38,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -46,14 +46,14 @@
         <activity android:name="in.ckd.calenderkhanado.activities.LoginAndSignupActivity" />
         <activity android:name="in.ckd.calenderkhanado.activities.InterestActivity" />
         <activity android:name="in.ckd.calenderkhanado.activities.RateYourselfActivity" />
-        <activity android:name="in.ckd.calenderkhanado.Location.UserLocationActivtiy" />
+        <activity android:name="in.ckd.calenderkhanado.location.UserLocationActivtiy" />
         <activity android:name="in.ckd.calenderkhanado.activities.ChooseFoodTypeActivity" />
         <activity android:name="in.ckd.calenderkhanado.activities.MainBottomBarActivity" />
         <activity android:name="in.ckd.calenderkhanado.fragments.OrderDetailsActivity" />
         <activity android:name="in.ckd.calenderkhanado.activities.ActiveOrderActivtiy" />
         <activity android:name="in.ckd.calenderkhanado.fragments.ProfileFragmentChef" />
         <activity android:name="in.ckd.calenderkhanado.activities.MobileOtpVerificationActivity" />
-        <activity android:name="in.ckd.calenderkhanado.Location.EnterFullAdressActivity" />
+        <activity android:name="in.ckd.calenderkhanado.location.EnterFullAdressActivity" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -88,7 +88,7 @@
             </intent-filter>
         </service>
 
-        <service android:name="in.ckd.calenderkhanado.Location.GpsTracker"/>
+        <service android:name="in.ckd.calenderkhanado.location.GpsTracker"/>
 
         <!-- Set custom default icon. This is used when no icon is set for incoming notification messages -->
         <meta-data
@@ -110,7 +110,7 @@
             android:label="@string/title_activity_manage_addresses"
             android:theme="@style/AppTheme" />
         <activity android:name="in.ckd.calenderkhanado.activities.ManagePaymentActivity" />
-        <activity android:name="in.ckd.calenderkhanado.activities.HelpSupportActivity"></activity>
+        <activity android:name="in.ckd.calenderkhanado.activities.HelpSupportActivity"/>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />

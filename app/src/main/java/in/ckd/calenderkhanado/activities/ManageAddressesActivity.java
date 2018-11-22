@@ -15,7 +15,7 @@ import java.io.IOException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import in.ckd.calenderkhanado.Location.EnterFullAdressActivity;
+import in.ckd.calenderkhanado.location.EnterFullAdressActivity;
 import in.ckd.calenderkhanado.R;
 import in.ckd.calenderkhanado.adapters.AddressRecycelrview;
 import in.ckd.calenderkhanado.base.BaseActivity;
@@ -127,9 +127,13 @@ public class ManageAddressesActivity extends BaseActivity implements AddressRecy
     public void addNewAdd()
     {
         Intent enterOtherAct = new Intent(ManageAddressesActivity.this,EnterFullAdressActivity.class);
-        enterOtherAct.putExtra("AddNew","Yes");
-        enterOtherAct.putExtra("lat",String.valueOf(addressesList.get(listPos).latitude));
-        enterOtherAct.putExtra("long",String.valueOf(addressesList.get(listPos).longitude));
+        if (addressesList.size() != 0)
+        {
+            enterOtherAct.putExtra("AddNew","Yes");
+            enterOtherAct.putExtra("lat",String.valueOf(addressesList.get(listPos).latitude));
+            enterOtherAct.putExtra("long",String.valueOf(addressesList.get(listPos).longitude));
+        }
+
         startActivityForResult(enterOtherAct,200);
     }
 

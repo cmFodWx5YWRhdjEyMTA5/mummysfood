@@ -15,7 +15,7 @@ import java.io.IOException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import in.ckd.calenderkhanado.Location.EnterFullAdressActivity;
+import in.ckd.calenderkhanado.location.EnterFullAdressActivity;
 import in.ckd.calenderkhanado.R;
 import in.ckd.calenderkhanado.base.BaseActivity;
 import in.ckd.calenderkhanado.data.db.DataBaseHelperNew;
@@ -664,7 +664,7 @@ public class YourCartActivity extends BaseActivity {
             orderModel.payment_type = paymetTYpe;
 
             orderModel.food_user_id = modelData.chef_detail.user_id;
-            orderModel.order_by =loginPref.getIntForKey("user_id",0);
+            orderModel.order_by =pf.getIntForKey("user_id",0);
             orderModel.order_for = modelData.chef_detail.user_id;
             orderModel.food_detail = modelData.food_detail.get(0).details;
             orderModel.food_name = modelData.food_detail.get(0).name;
@@ -677,7 +677,7 @@ public class YourCartActivity extends BaseActivity {
             orderModel.quantity =itemCountText;
             orderModel.payment_status = "confirm";
             orderModel.is_order_confirmed = 1;
-            orderModel.user_id = loginPref.getIntForKey("user_id",0);
+            orderModel.user_id = pf.getIntForKey("user_id",0);
             orderModel.subscribe_to = modelData.chef_detail.user_id;
             orderModel.number_of_days = numberOfDays;
             orderModel.status = "active";

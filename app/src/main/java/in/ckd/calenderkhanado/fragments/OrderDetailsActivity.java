@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 
-import in.ckd.calenderkhanado.Location.EnterFullAdressActivity;
+import in.ckd.calenderkhanado.location.EnterFullAdressActivity;
 import in.ckd.calenderkhanado.R;
 import in.ckd.calenderkhanado.activities.YourCartActivity;
 import in.ckd.calenderkhanado.base.BaseActivity;
@@ -261,7 +261,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
             order_chef_name.setText(data.f_name);
             order_titile.setText(data.food_detail.get(0).name);
             order_detail.setText(data.food_detail.get(0).details);
-            order_price.setText("Rs. " + data.food_detail.get(0).price + "/-");
+            order_price.setText("Rs. " + data.food_detail.get(0).price);
             userDelAddress.setText(UserCUrrentAdd);
 
 

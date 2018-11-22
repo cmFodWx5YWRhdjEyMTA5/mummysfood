@@ -20,7 +20,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import in.ckd.calenderkhanado.Location.UserLocationActivtiy;
+import in.ckd.calenderkhanado.location.UserLocationActivtiy;
 import in.ckd.calenderkhanado.R;
 import in.ckd.calenderkhanado.base.BaseActivity;
 import in.ckd.calenderkhanado.data.network.model.LoginRequest;
@@ -74,6 +74,7 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
     private boolean mobile_verify = true;
     private boolean active = false;
     PreferenceManager pf;
+    PreferenceManager ppref;
 
 
 
@@ -106,6 +107,7 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
 
         ButterKnife.bind(this);
         pf = new PreferenceManager(this,PreferenceManager.LOGIN_PREFERENCES_FILE);
+        pf = new PreferenceManager(this);
 
         mAuth = FirebaseAuth.getInstance();
         mAuth.signOut();
@@ -377,8 +379,8 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
                                 startActivity(i);
 
                                 }else if (json.getString("status").equalsIgnoreCase(AppConstants.ALREADY)) {
-                                pf.saveIntForKey("user_id",json.getJSONObject("data").getInt("id"));
-                                data.id =json.getJSONObject("data").getInt("id");
+                                pf.saveIntForKey("user_id",json.getJSONArray("data").getJSONObject(0).getInt("id"));
+                                data.id =json.getJSONArray("data").getJSONObject(0).getInt("id");
                                 data.mobile = json.getJSONArray("data").getJSONObject(0).getString("mobile");
                                 data.f_name = json.getJSONArray("data").getJSONObject(0).getString("f_name");
                                 data.profile_image = json.getJSONArray("data").getJSONObject(0).getString("profile_image");

@@ -79,6 +79,7 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
     private FirebaseAuth mAuth;
     // [END declare_auth]
     private DatabaseReference mDatabase;
+    private PreferenceManager ppref;
     private boolean newUser = false;
 
 
@@ -93,7 +94,8 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
             ContactsContract.CommonDataKinds.Phone.NUMBER
     };
     public static Boolean syncContact;
-    String mobile_data;
+   private String mobile_data;
+   int  user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +104,7 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
         ButterKnife.bind(this);
 
         pf = new PreferenceManager(this,PreferenceManager.LOGIN_PREFERENCES_FILE);
+        ppref = new PreferenceManager(this);
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         ImageSlider(signUpViewpager, viewPagerIndicator);
@@ -337,6 +340,8 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
                                 intent.putExtra("profile_image",user.getPhotoUrl().toString());
                                 intent.putExtra("logintype","google");
 
+                                ppref.saveIntForKey("user_id",json.getJSONObject("data").getInt("id"));
+
                             }else if(json.getString("status").equalsIgnoreCase(AppConstants.ALREADY)){
                                 data.id = json.getJSONArray("data").getJSONObject(0).getInt("id");
                                 data.mobile = json.getJSONArray("data").getJSONObject(0).getString("mobile");
@@ -344,6 +349,8 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
                                 data.profile_image = json.getJSONArray("data").getJSONObject(0).getString("profile_image");
                                 data.email =json.getJSONArray("data").getJSONObject(0).getString("email");
                                 sharePrefrenceIntentActivity(data);
+
+                                ppref.saveIntForKey("user_id",data.id);
                             }else {
                                 showToast("Please try again");
                                 finish();
@@ -520,7 +527,7 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
 
             @Override
             public void run() {
-                showToast("Api Call");
+                //showToast("Api Call");
             }
         }, 500);
     }
