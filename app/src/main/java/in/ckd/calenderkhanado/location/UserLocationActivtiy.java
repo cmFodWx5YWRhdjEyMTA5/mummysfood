@@ -2,9 +2,11 @@ package in.ckd.calenderkhanado.location;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Criteria;
@@ -14,6 +16,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,6 +43,7 @@ import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 
 public class UserLocationActivtiy extends BaseActivity implements  ContactsAdapter.ContactsAdapterListener
 {
@@ -88,6 +92,8 @@ public class UserLocationActivtiy extends BaseActivity implements  ContactsAdapt
     LocationManager locationManager;
     String provider;
 
+    BroadcastReceiver gpsReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +102,26 @@ public class UserLocationActivtiy extends BaseActivity implements  ContactsAdapt
         ButterKnife.bind(this);
 
         loading.setVisibility(View.GONE);
+
+
+        //-------Status trigger when user on gps----------
+
+/*
+         gpsReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (intent.getAction().matches(LocationManager.PROVIDERS_CHANGED_ACTION)) {
+                  finish();
+                  showToast("yesINdu");
+                  startActivity(new Intent(UserLocationActivtiy.this,UserLocationActivtiy.class));
+                }
+            }
+        };
+
+        registerReceiver(gpsReceiver, new IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION));
+*/
+
+        //----------------------------------
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
@@ -192,7 +218,8 @@ public class UserLocationActivtiy extends BaseActivity implements  ContactsAdapt
     }
 
     @Override
-    public void onContactSelected(LocationModel.Predictions contact) {
+    public void onContactSelected(LocationModel.Predictions contact)
+    {
         Toast.makeText(getApplicationContext(), "Selected: " + contact.description , Toast.LENGTH_LONG).show();
 
         pf.saveStringForKey("CurrentAddress",contact.description);
@@ -425,9 +452,12 @@ public class UserLocationActivtiy extends BaseActivity implements  ContactsAdapt
     @Override
     public void onResume() {
         super.onResume();
-
-        gps = new GpsTracker(this);
-        locationBased();
+      checkLocationPermission();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+      //  LocalBroadcastManager.getInstance(this).unregisterReceiver(gpsReceiver);
+    }
 }

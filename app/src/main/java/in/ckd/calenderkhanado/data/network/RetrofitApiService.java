@@ -6,6 +6,7 @@ import in.ckd.calenderkhanado.location.LocationModel;
 import in.ckd.calenderkhanado.data.network.model.LoginRequest;
 import in.ckd.calenderkhanado.data.network.model.LogoutResponse;
 import in.ckd.calenderkhanado.data.network.model.UploadMedia;
+import in.ckd.calenderkhanado.location.LocationModel;
 import in.ckd.calenderkhanado.models.AddressModel;
 import in.ckd.calenderkhanado.models.DashBoardModel;
 import in.ckd.calenderkhanado.models.OrderModel;

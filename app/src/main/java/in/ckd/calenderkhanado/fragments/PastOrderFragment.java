@@ -226,7 +226,7 @@ public class PastOrderFragment extends BaseFragment   implements OrderStatusAdap
                 {
 
                     Intent i = new Intent(getActivity(), ActiveOrderActivtiy.class);
-                    i.putExtra("order",PastsubscribesList.get(position).orders.get(0));
+                    i.putExtra("order",PastsubscribesList.get(position));
                     i.putExtra("remainingPlates",0);
 
                     try {

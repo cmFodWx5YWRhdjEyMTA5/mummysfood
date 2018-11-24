@@ -10,6 +10,7 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import in.ckd.calenderkhanado.location.LocationModel;
 import in.ckd.calenderkhanado.R;
 
 import java.util.ArrayList;

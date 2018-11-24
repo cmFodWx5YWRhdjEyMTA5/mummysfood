@@ -15,6 +15,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.widget.RelativeLayout;
 
+import in.ckd.calenderkhanado.location.UserLocationActivtiy;
 import in.ckd.calenderkhanado.R;
 import in.ckd.calenderkhanado.base.BaseActivity;
 import in.ckd.calenderkhanado.data.network.model.LoginRequest;
@@ -339,7 +340,7 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
                                 intent.putExtra("email",user.getEmail());
                                 intent.putExtra("profile_image",user.getPhotoUrl().toString());
                                 intent.putExtra("logintype","google");
-
+                                sharePrefrenceIntentActivity(data);
                                 ppref.saveIntForKey("user_id",json.getJSONObject("data").getInt("id"));
 
                             }else if(json.getString("status").equalsIgnoreCase(AppConstants.ALREADY)){
@@ -401,13 +402,13 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
         if (data.mobile != null && data.mobile.isEmpty())
             pf.saveStringForKey(PreferenceManager.USER_MOBILE, data.mobile);
         String savedLocation = pf.getStringForKey("CurrentAddress","");
-        //if (savedLocation != null &&savedLocation.equalsIgnoreCase("gotitlocation")){
+       if (savedLocation != null &&savedLocation.equalsIgnoreCase("gotitlocation")){
             startActivity(new Intent(LoginAndSignupActivity.this,MainBottomBarActivity.class));
             finish();
-        /*}else{
+    }else{
             startActivity(new Intent(LoginAndSignupActivity.this,UserLocationActivtiy.class));
             finish();
-        }*/
+        }
     }
 
     private void signIn() {
