@@ -3,20 +3,28 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:padding="@dimen/dp8"
-
     android:background="@drawable/fill_rounded_white_color"
     android:layout_height="wrap_content">
 
+    <ImageView
+        android:id="@+id/emptyCartimage"
+        android:src="@drawable/ic_icon_shopping_cart"
+        android:layout_width="@dimen/dp48"
+        android:tint="@color/black"
+        android:layout_marginTop="@dimen/dp16"
+        android:layout_height="@dimen/dp48"/>
 
     <in.ckd.calenderkhanado.widgets.CkdTextview
         android:id="@+id/permissionDesc"
-        android:text="Add items in your cart First"
+        android:text="Your Cart is empty please add some food in your cart"
         android:textSize="18sp"
         android:padding="@dimen/dp8"
-        android:layout_marginLeft="@dimen/dp8"
+        android:gravity="center"
+        style="@style/textviewregular"
         android:layout_marginTop="@dimen/dp8"
+        android:layout_toEndOf="@+id/emptyCartimage"
         android:textColor="@color/black_effective"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <LinearLayout
@@ -24,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_gravity="end"
         android:layout_below="@+id/permissionDesc"
-        android:layout_marginTop="@dimen/dp8"
+        android:layout_marginTop="@dimen/dp4"
         android:gravity="end"
         android:layout_height="wrap_content">
 
@@ -36,6 +44,7 @@
             android:layout_gravity="center"
             android:layout_margin="@dimen/dp8"
             android:padding="6dp"
+            style="@style/textviewbold"
             android:textColor="@color/white"
             android:layout_width="65dp"
             android:gravity="center"

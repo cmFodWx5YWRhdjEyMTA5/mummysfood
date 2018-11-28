@@ -14,18 +14,21 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp24"
-        android:layout_marginEnd="@dimen/dp24"
-        android:paddingTop="@dimen/dp24"
-        android:paddingBottom="@dimen/dp24"
         android:orientation="vertical">
         <RelativeLayout
             android:id="@+id/cod_option_layout"
             android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/dp16"
+            android:layout_marginTop="@dimen/dp16"
+            android:layout_marginEnd="@dimen/dp16"
             android:layout_height="wrap_content">
             <in.ckd.calenderkhanado.widgets.CkdTextview
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/textviewregular"
+                android:textSize="@dimen/sp16"
+                android:layout_marginBottom="@dimen/dp16"
+                android:textColor="@color/black"
                 android:layout_alignParentStart="true"
                 android:text="@string/cash"/>
             <ImageView
@@ -36,15 +39,25 @@
                 android:layout_alignParentEnd="true"
                 android:tint="@color/colorPrimary"/>
         </RelativeLayout>
+
+        <View
+            android:background="@color/gray"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dp8"
+            android:layout_marginBottom="@dimen/dp8"
+            android:layout_height="0.5dp"/>
         <RelativeLayout
             android:id="@+id/paytm_option_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp16"
+            android:layout_marginBottom="@dimen/dp16"
+            android:layout_marginEnd="@dimen/dp16"
             android:layout_marginTop="@dimen/dp8">
             <ImageView
                 android:id="@+id/paytm_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="70dp"
+                android:layout_height="@dimen/dp32"
                 android:src="@mipmap/paytm"
                 android:layout_alignParentStart="true"
                 android:paddingEnd="@dimen/dp2"/>
@@ -52,6 +65,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="(65.66)"
+                android:visibility="gone"
+                style="@style/textviewbold"
+                android:layout_marginLeft="@dimen/dp8"
                 android:layout_toEndOf="@+id/paytm_img"
                 android:layout_centerVertical="true"/>
             <ImageView
@@ -62,5 +78,10 @@
                 android:layout_alignParentEnd="true"
                 android:tint="@color/colorPrimary"/>
         </RelativeLayout>
+        <View
+            android:background="@color/gray"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/dp8"
+            android:layout_height="0.5dp"/>
     </LinearLayout>
 </LinearLayout>

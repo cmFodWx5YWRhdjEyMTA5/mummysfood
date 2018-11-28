@@ -54,22 +54,24 @@
         android:layout_marginTop="@dimen/dp48"
         android:layout_height="wrap_content">
 
-        <TextView
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/or"
             android:layout_width="match_parent"
             android:layout_gravity="center"
             android:gravity="center"
-            android:textStyle="bold"
+            style="@style/textviewbold"
             android:layout_height="wrap_content"
             android:text="OR"/>
 
-        <TextView
+        <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/detectAutomatically"
             android:layout_width="match_parent"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/dp24"
             android:gravity="center"
+            android:textSize="@dimen/sp18"
             android:padding="@dimen/dp8"
+            style="@style/textviewregular"
             android:layout_height="wrap_content"
             android:text="Detect automatic location"/>
     </LinearLayout>

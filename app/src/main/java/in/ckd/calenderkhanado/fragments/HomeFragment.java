@@ -500,7 +500,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     private void showItemsIntoCart() {
         final Dialog dialogd = new Dialog(getActivity());
         dialogd.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogd.setContentView(R.layout.dialog);
+        dialogd.setContentView(R.layout.emptycartdialog);
 
 
         CkdTextview textDesc = (CkdTextview) dialogd.findViewById(R.id.permissionDesc);
