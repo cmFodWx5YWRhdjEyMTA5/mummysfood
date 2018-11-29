@@ -141,11 +141,11 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         Double longArea = addPref.getDoubleForKey("lognitude",0);
 
 
-        lottieAnimationViewLoading.setVisibility(View.VISIBLE);
+        //lottieAnimationViewLoading.setVisibility(View.VISIBLE);
 
         scrollNes.setVisibility(View.VISIBLE);
 
-        lottieAnimationViewLoading.playAnimation();
+     //   lottieAnimationViewLoading.playAnimation();
 
        globalUrl= RetrofitApiService.BASEURL+"geoUser?lat="+String.valueOf(lat)+"&lng="+String.valueOf(longArea);
 
@@ -153,7 +153,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
         near_you_recyclerview.setNestedScrollingEnabled(false);
 
-        //showProgress("Loading...");
+        showProgress("Loading...");
 
 
 
@@ -276,9 +276,9 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         chefData.enqueue(new Callback<DashBoardModel>() {
             @Override
             public void onResponse(Call<DashBoardModel> call, Response<DashBoardModel> response) {
-           //     dismissProgress();
-                lottieAnimationViewLoading.cancelAnimation();
-                lottieAnimationViewLoading.setVisibility(View.GONE);
+                dismissProgress();
+           //     lottieAnimationViewLoading.cancelAnimation();
+             //   lottieAnimationViewLoading.setVisibility(View.GONE);
                 scrollNes.setVisibility(View.VISIBLE);
                 if (response.isSuccessful())
                 {

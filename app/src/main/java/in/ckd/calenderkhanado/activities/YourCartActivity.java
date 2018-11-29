@@ -352,7 +352,7 @@ public class YourCartActivity extends BaseActivity {
     public void add_item() {
         float valuep;
         int itemCountText = Integer.parseInt(item_count.getText().toString());
-        int itemTaxesText = Integer.parseInt(String.valueOf(modelData.food_detail.get(0).taxes));
+//        int itemTaxesText = Integer.parseInt(String.valueOf(modelData.food_detail.get(0).taxes));
         int totalCount = itemCountText + 1;
         item_count.setText(String.valueOf(totalCount));
 
@@ -376,7 +376,7 @@ public class YourCartActivity extends BaseActivity {
         payatm.setText("Paytm " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
         placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
         payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
-        order_price_finalTotal.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + modelData.food_detail.get(0).taxes));
+        order_price_finalTotal.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
 
 
     }

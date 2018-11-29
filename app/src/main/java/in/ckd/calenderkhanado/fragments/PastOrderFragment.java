@@ -129,21 +129,30 @@ public class PastOrderFragment extends BaseFragment   implements OrderStatusAdap
                                     UserProfileModel.Subscribes subList = subscribesList.get(i);
 
                                     if (subList != null) {
+
                                         int totalPlates = subList.number_of_days;
                                         int orderPlates = subList.ordered_plates;
 
                                         int remmainPlates = totalPlates - orderPlates;
 
 
-                                        if (remmainPlates == 0) {
-                                            if (subList.orders != null)
-                                            {
-                                                if ( subList.orders.size() != 0)
+                                        if (subList.number_of_days == 1)
+                                        {
+                                            PastsubscribesList.add(subList);
+                                        }else
+                                        {
+                                            if (remmainPlates == 0) {
+                                                if (subList.orders != null)
                                                 {
-                                                    PastsubscribesList.add(subList);
+                                                    if ( subList.orders.size() != 0)
+                                                    {
+                                                        PastsubscribesList.add(subList);
+                                                    }
                                                 }
                                             }
                                         }
+
+
                                     }
 
                                 }
