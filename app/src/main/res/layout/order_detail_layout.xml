@@ -84,7 +84,8 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
                     android:layout_marginEnd="@dimen/dp24"
-                    android:layout_marginBottom="@dimen/dp24">
+                    android:layout_marginBottom="@dimen/dp16"
+                    android:paddingBottom="@dimen/dp24">
                     <RelativeLayout
                         android:id="@+id/order_star"
                         android:layout_width="@dimen/dp56"
@@ -111,7 +112,8 @@
                         android:background="@drawable/balloon_bg_down"
                         android:gravity="center"
                         android:text="4.5"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:layout_marginBottom="@dimen/dp2"/>
                 </RelativeLayout>
             </RelativeLayout>
         <LinearLayout

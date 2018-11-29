@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -60,6 +61,10 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
     @BindView(R.id.home_add_to_cart_icon)
     ImageView home_add_to_cart_icon;
+
+
+  /*  @BindView(R.id.swiperefresh)
+    SwipeRefreshLayout swipeRefreshLayout;*/
 
     Context context;
     private LinearLayoutManager linearLayoutManager;
@@ -191,6 +196,17 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
             }
         }));
+
+
+      /*  swipeRefreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        networkCallForData(globalUrl);
+                    }
+                }
+        );*/
+
 
 
         return rootView;
@@ -500,7 +516,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     private void showItemsIntoCart() {
         final Dialog dialogd = new Dialog(getActivity());
         dialogd.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialogd.setContentView(R.layout.dialog);
+        dialogd.setContentView(R.layout.emptycartdialog);
 
 
         CkdTextview textDesc = (CkdTextview) dialogd.findViewById(R.id.permissionDesc);

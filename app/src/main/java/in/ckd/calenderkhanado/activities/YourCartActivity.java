@@ -458,10 +458,10 @@ public class YourCartActivity extends BaseActivity {
         try {
             if (location.equalsIgnoreCase("RepeatOrder")) {
                 payatm.setText("Paytm " + getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
-                pf.saveStringForKey("paymentType", "Payatm");
+                pf.saveStringForKey("paymentType", "Paytm");
             } else {
                 payatm.setText("Paytm " + getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
-                pf.saveStringForKey("paymentType", "Payatm");
+                pf.saveStringForKey("paymentType", "Paytm");
             }
 
         } catch (Exception e) {

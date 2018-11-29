@@ -39,7 +39,7 @@ public class EnterFullAdressActivity extends BaseActivity {
     @BindView(R.id.radioTypeAction)
     RadioGroup radioAction;
 
-    @BindView(R.id.landMark)
+    @BindView(R.id.landmark)
     EditText landMark;
 
     @BindView(R.id.flatNo)

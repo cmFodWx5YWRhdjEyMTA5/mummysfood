@@ -137,7 +137,7 @@
     <string name="toast_logout">Logout Successful</string>
     <string name="payment_method">Select Default Payment Method</string>
     <string name="paytm">PayTm</string>
-    <string name="cash">COD(Cash on delivery)</string>
+    <string name="cash">COD (Cash on delivery) </string>
     <string name="saved_address">Saved Address</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
