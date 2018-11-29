@@ -9,14 +9,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <in.ckd.calenderkhanado.widgets.CkdTextview
         android:id="@+id/sub_item"
-        android:layout_width="30dp"
+        android:layout_width="@dimen/dp32"
         android:layout_gravity="center"
         android:gravity="center"
         android:layout_marginRight="@dimen/dp4"
         android:textSize="22sp"
         android:textColor="@color/white"
-        android:layout_height="30dp"
-        android:background="@drawable/fill_rounded_primary_color"
+        android:layout_height="@dimen/dp32"
+        android:background="@drawable/balloon_bg_down"
         style="@style/textviewbold"
         android:text="-"/>
     <in.ckd.calenderkhanado.widgets.CkdTextview
@@ -25,17 +25,19 @@
         android:layout_height="wrap_content"
         style="@style/textviewbold"
         android:text="1"
-        android:padding="@dimen/dp4"/>
+        android:padding="@dimen/dp4"
+        android:paddingStart="@dimen/dp8"
+        android:paddingEnd="@dimen/dp8"/>
     <in.ckd.calenderkhanado.widgets.CkdTextview
         android:id="@+id/add_item"
-        android:layout_width="32dp"
+        android:layout_width="@dimen/dp32"
         android:layout_gravity="center"
         android:gravity="center"
         android:textSize="22sp"
         android:textColor="@color/white"
         android:layout_marginLeft="@dimen/dp4"
         android:layout_height="@dimen/dp32"
-        android:background="@drawable/fill_rounded_primary_color"
+        android:background="@drawable/balloon_bg_up"
         style="@style/textviewbold"
         android:text="+"/>
 </LinearLayout>
