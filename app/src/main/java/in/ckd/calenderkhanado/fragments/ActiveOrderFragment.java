@@ -10,10 +10,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
+import com.airbnb.lottie.LottieAnimationView;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +44,12 @@ public class ActiveOrderFragment extends BaseFragment   implements OrderStatusAd
 
     @BindView(R.id.orderStausLayout)
     RecyclerView recyclerView;
+
+    @BindView(R.id.lottieAnimationView)
+    LottieAnimationView lottieAnimationView;
+
+    @BindView(R.id.lottiLayout)
+    LinearLayout lottiLayout;
 
     private Context context;
     private PreferenceManager pf;
@@ -117,6 +128,10 @@ public class ActiveOrderFragment extends BaseFragment   implements OrderStatusAd
                         }else
                         {
                             //showToast(String.valueOf(subscribesList.size()));
+
+                            lottiLayout.setVisibility(View.VISIBLE);
+                            lottieAnimationView.playAnimation();
+                            //loadItemsWithDelay();
                         }
 
 
@@ -393,5 +408,25 @@ public class ActiveOrderFragment extends BaseFragment   implements OrderStatusAd
         }
 
     }
+
+/*
+    private void loadItemsWithDelay() {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        lottieAnimationView.setVisibility(View.GONE);
+                    }
+                });
+
+            }
+        }, 3000);
+
+    }
+*/
 
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -21,7 +22,11 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
+
+import com.airbnb.lottie.LottieAnimationView;
+
 import in.ckd.calenderkhanado.R;
+import in.ckd.calenderkhanado.activities.FilterActivtiy;
 import in.ckd.calenderkhanado.adapters.HomeFilterAdapter;
 import in.ckd.calenderkhanado.adapters.HomePilotCardAdapter;
 import in.ckd.calenderkhanado.adapters.HomeSpecialCardAdapter;
@@ -54,8 +59,16 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     RecyclerView filter_recyclerview;
     @BindView(R.id.recommended_recyclerview)
     RecyclerView recommended_recyclerview;
+
+    @BindView(R.id.lottieAnimationViewLoading)
+    LottieAnimationView lottieAnimationViewLoading;
+
     @BindView(R.id.near_you_recyclerview)
     RecyclerView near_you_recyclerview;
+    @BindView(R.id.scrollNes)
+    NestedScrollView scrollNes;
+
+
     @BindView(R.id.activeOrder)
     ImageView activeOrder;
 
@@ -128,13 +141,22 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         Double longArea = addPref.getDoubleForKey("lognitude",0);
 
 
+        lottieAnimationViewLoading.setVisibility(View.VISIBLE);
+
+        scrollNes.setVisibility(View.VISIBLE);
+
+        lottieAnimationViewLoading.playAnimation();
+
        globalUrl= RetrofitApiService.BASEURL+"geoUser?lat="+String.valueOf(lat)+"&lng="+String.valueOf(longArea);
 
         networkCallForData(globalUrl);
 
         near_you_recyclerview.setNestedScrollingEnabled(false);
 
-        showProgress("Loading...");
+        //showProgress("Loading...");
+
+
+
         setHasOptionsMenu(true);
 
 
@@ -170,28 +192,62 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
                 if (position == 0)
                 {
-                    networkCallForData(globalUrl);
+
+
+                    Intent i = new Intent(getActivity(),FilterActivtiy.class);
+
+                    i.putExtra("url",globalUrl);
+
+                    getActivity().startActivity(i);
+
                 }else if (position ==1)
                 {
-                    networkCallForData(RetrofitApiService.BASEURL+"explorechef");
+                    globalUrl = RetrofitApiService.BASEURL+"explorechef";
+
+                    Intent i = new Intent(getActivity(),FilterActivtiy.class);
+
+                    i.putExtra("url",globalUrl);
+
+                    getActivity().startActivity(i);
                 }else if (position ==2)
                 {
-                    networkCallForData(RetrofitApiService.BASEURL+"topfoodoption?filter=top");
+                   globalUrl = RetrofitApiService.BASEURL+"topfoodoption?filter=top";
+
+                    Intent i = new Intent(getActivity(),FilterActivtiy.class);
+
+                    i.putExtra("url",globalUrl);
+
+                    getActivity().startActivity(i);
                 }
                 else if (position ==3)
                 {
-                    networkCallForData(RetrofitApiService.BASEURL+"zarahatke?filter=zarahatke");
 
+                    globalUrl = RetrofitApiService.BASEURL+"zarahatke?filter=zarahatke";
+                    Intent i = new Intent(getActivity(),FilterActivtiy.class);
+
+                    i.putExtra("url",globalUrl);
+
+                    getActivity().startActivity(i);
 
                 }
                 else if (position ==4)
                 {
-                    networkCallForData(RetrofitApiService.BASEURL+"trysomethingnew?filter=trysomethingnew");
+                    globalUrl = RetrofitApiService.BASEURL+"trysomethingnew?filter=trysomethingnew";
+
+                    Intent i = new Intent(getActivity(),FilterActivtiy.class);
+
+                    i.putExtra("url",globalUrl);
+
+                    getActivity().startActivity(i);
                 }
                 else if (position ==5)
                 {
-                    networkCallForData(globalUrl);
-                    //    networkCallForData(AppConstants.BASE_URL+"trysomethingnew?filter=trysomethingnew");
+                    Intent i = new Intent(getActivity(),FilterActivtiy.class);
+
+                    i.putExtra("url",globalUrl);
+
+                    getActivity().startActivity(i);
+
                 }
 
             }
@@ -220,7 +276,10 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         chefData.enqueue(new Callback<DashBoardModel>() {
             @Override
             public void onResponse(Call<DashBoardModel> call, Response<DashBoardModel> response) {
-                dismissProgress();
+           //     dismissProgress();
+                lottieAnimationViewLoading.cancelAnimation();
+                lottieAnimationViewLoading.setVisibility(View.GONE);
+                scrollNes.setVisibility(View.VISIBLE);
                 if (response.isSuccessful())
                 {
                     if (response != null){
@@ -536,7 +595,8 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     }
 
     @Override
-    public void clickOnFilter(int position) {
+    public void clickOnFilter(int position)
+    {
 
     }
 }
