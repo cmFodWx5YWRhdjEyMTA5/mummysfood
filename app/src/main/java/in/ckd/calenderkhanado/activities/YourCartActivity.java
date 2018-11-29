@@ -291,13 +291,13 @@ public class YourCartActivity extends BaseActivity {
         if (addressMain == null && "".equalsIgnoreCase(userAdd)) {
 
        //     placeOrderButton.setBackground(getResources().getDrawable(R.drawable.fill_rounded_white_smoke));
-            placeOrderprice.setTextColor(getResources().getColor(R.color.black));
+       //     placeOrderprice.setTextColor(getResources().getColor(R.color.black));
          //   placeOrderButtonCheckout.setTextColor(getResources().getColor(R.color.black));
             addressMain.setError("Insert Valid Address");
 
         } else {
          //   placeOrderButton.setBackground(getResources().getDrawable(R.drawable.fill_rounded_full_primary));
-            placeOrderprice.setTextColor(getResources().getColor(R.color.black));
+        //    placeOrderprice.setTextColor(getResources().getColor(R.color.black));
            // placeOrderButtonCheckout.setTextColor(getResources().getColor(R.color.black));
         }
 
@@ -387,8 +387,14 @@ public class YourCartActivity extends BaseActivity {
         Intent adresIntent = new Intent(YourCartActivity.this, EnterFullAdressActivity.class);
         adresIntent.putExtra("Address", addrsss);
         adresIntent.putExtra("From", "OrderDetails");
-        adresIntent.putExtra("landMark",  ordersSub.orders.get(0).landmark);
-        adresIntent.putExtra("flatNo",  ordersSub.orders.get(0).house_no);
+
+        try {
+            adresIntent.putExtra("landMark",  ordersSub.orders.get(0).landmark);
+            adresIntent.putExtra("flatNo",  ordersSub.orders.get(0).house_no);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         adresIntent.putExtra("AddNew","Yes");
         startActivityForResult(adresIntent, 200);
     }
@@ -504,6 +510,9 @@ public class YourCartActivity extends BaseActivity {
         } else if (changePaymentOption.getVisibility() == View.VISIBLE) {
             changePersonInfo.setVisibility(View.GONE);
             scrollChange.setVisibility(View.VISIBLE);
+        }else if (changePersonInfo.getVisibility() == View.VISIBLE){
+            scrollChange.setVisibility(View.VISIBLE);
+            changePersonInfo.setVisibility(View.GONE);
         } else {
             finish();
         }
@@ -519,7 +528,11 @@ public class YourCartActivity extends BaseActivity {
         } else if (changePaymentOption.getVisibility() == View.VISIBLE) {
             changePersonInfo.setVisibility(View.GONE);
             scrollChange.setVisibility(View.VISIBLE);
-        } else {
+        } else if (changePersonInfo.getVisibility() == View.VISIBLE){
+            scrollChange.setVisibility(View.VISIBLE);
+            changePersonInfo.setVisibility(View.GONE);
+        }else
+        {
             finish();
         }
 
