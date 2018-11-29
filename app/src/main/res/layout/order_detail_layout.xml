@@ -78,6 +78,41 @@
                     android:tint="@color/white"
                     android:src="@drawable/ic_back_arrow"
                     />
+                <RelativeLayout
+                    android:layout_width="@dimen/dp64"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="@dimen/dp24"
+                    android:layout_marginBottom="@dimen/dp24">
+                    <RelativeLayout
+                        android:id="@+id/order_star"
+                        android:layout_width="@dimen/dp56"
+                        android:layout_height="@dimen/dp32"
+                        android:layout_alignParentEnd="true"
+                        android:background="@drawable/white_vector">
+                    <ImageView
+                        android:layout_width="@dimen/dp32"
+                        android:layout_height="@dimen/dp32"
+                        android:src="@mipmap/star_filled"
+                        android:layout_alignParentEnd="true"
+                        android:paddingEnd="@dimen/dp8"
+                        android:padding="@dimen/dp4"
+                        />
+
+                    </RelativeLayout>
+                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                        android:id="@+id/order_rating"
+                        android:layout_width="@dimen/dp32"
+                        android:layout_height="@dimen/dp32"
+                        android:layout_alignEnd="@+id/order_star"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginEnd="30dp"
+                        android:background="@drawable/balloon_bg_down"
+                        android:gravity="center"
+                        android:text="4.5"
+                        android:textColor="@color/white" />
+                </RelativeLayout>
             </RelativeLayout>
         <LinearLayout
             android:orientation="vertical"
@@ -100,7 +135,7 @@
                     android:text="@string/jain_thali"
                     android:textSize="@dimen/sp16"
                     android:textColor="@color/black_effective"
-                    style="@style/textviewregular"/>
+                    style="@style/textviewbold"/>
 
                 <in.ckd.calenderkhanado.widgets.CkdTextview
                     android:layout_width="wrap_content"
@@ -160,7 +195,7 @@
                     android:text="@string/discription_txt"
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp16"
-                    style="@style/textviewregular"/>
+                    style="@style/textviewbold"/>
                 <in.ckd.calenderkhanado.widgets.CkdTextview
                     android:id="@+id/order_detail"
                     android:layout_width="wrap_content"
@@ -382,7 +417,7 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/sp16"
                     android:layout_marginBottom="@dimen/dp16"
-                    style="@style/textviewregular"/>
+                    style="@style/textviewbold"/>
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
@@ -465,7 +500,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="Lunch"
-                        android:layout_weight="3"
+                        android:layout_weight="4"
                         android:textSize="@dimen/sp14"
                         android:textAllCaps="true"
                         android:textColor="@color/black"
@@ -475,11 +510,10 @@
                         android:id="@+id/lunchPrice"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="1330/-"
+                        android:text="130/-"
                         android:layout_weight="3"
-
                         android:textSize="@dimen/sp14"
-                        android:gravity="center"
+                        android:gravity="start"
                         android:textColor="@color/colorPrimaryDark"
                         style="@style/textviewregular"/>
                     <android.support.v7.widget.SwitchCompat
@@ -507,7 +541,7 @@
                         android:layout_height="wrap_content"
                         android:text="Dinner"
                         android:textAllCaps="true"
-                        android:layout_weight="3"
+                        android:layout_weight="4"
                         android:textSize="@dimen/sp14"
                         android:textColor="@color/black"
                         style="@style/textviewregular"/>
@@ -518,7 +552,7 @@
                         android:layout_height="wrap_content"
                         android:text="1330/-"
                         android:layout_weight="3"
-                        android:gravity="center"
+                        android:gravity="start"
                         android:textSize="@dimen/sp14"
                         android:textColor="@color/colorPrimaryDark"
                         style="@style/textviewregular"/>
@@ -545,7 +579,7 @@
                         android:layout_height="wrap_content"
                         android:text="Both"
                         android:textAllCaps="true"
-                        android:layout_weight="3"
+                        android:layout_weight="4"
                         android:textSize="@dimen/sp14"
                         android:textColor="@color/black"
                         style="@style/textviewregular"/>
@@ -556,7 +590,7 @@
                         android:layout_height="wrap_content"
                         android:text="1330/-"
                         android:layout_weight="3"
-                        android:gravity="center"
+                        android:gravity="start"
                         android:textSize="@dimen/sp14"
                         android:textColor="@color/colorPrimaryDark"
                         style="@style/textviewregular"/>
@@ -610,7 +644,6 @@
                 android:layout_marginTop="@dimen/dp8"
                 android:orientation="horizontal"
                 android:gravity="center"
-                android:padding="@dimen/dp4"
                 android:background="@drawable/fill_rounded_white_smoke_radius"
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="@dimen/dp16">
@@ -619,7 +652,9 @@
                     android:layout_width="@dimen/dp40"
                     android:layout_height="@dimen/dp40"
                     android:src="@mipmap/pilot1"
-                    app:civ_shadow="false" />
+                    app:civ_shadow="false"
+                    app:civ_border_color="@color/colorPrimary"
+                    app:civ_border_width="@dimen/dp2"/>
 
                 <in.ckd.calenderkhanado.widgets.CkdTextview
                     android:id="@+id/order_chef_name"
@@ -629,6 +664,8 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="36dp"
                     android:padding="@dimen/dp6"
+                    android:paddingStart="@dimen/dp16"
+                    android:paddingEnd="@dimen/dp16"
                     android:text="@string/pilot_name"
                     android:textColor="@color/colorPrimary" />
             </RelativeLayout>
@@ -641,7 +678,6 @@
                 android:layout_marginTop="@dimen/dp8"
                 android:textSize="@dimen/sp12"
                 style="@style/textviewregular"
-                android:textColor="@color/black_effective"
                 android:layout_height="wrap_content" />
 
             <in.ckd.calenderkhanado.widgets.CkdTextview

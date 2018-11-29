@@ -90,7 +90,7 @@
     <string name="jain_thali">Jain Thali</string>
     <string name="price">50/-</string>
     <string name="discription_txt">Discription</string>
-    <string name="subscription_txt">Subscription-</string>
+    <string name="subscription_txt">Subscription</string>
     <string name="kitchen_description">Jain vegetarian diet is practiced by the followers of Jain culture and philosophy. ... The strictest forms of Jain diet is practiced by the ascetics; in addition to potatoes it may exclude other root vegetables.</string>
     <string name="kitchen_txt">KITCHEN</string>
     <string name="last_update">Last Update-</string>
@@ -150,6 +150,6 @@
     <string name="zara_hatke">Zara Hatke</string>
     <string name="try_something_new">Try Something New</string>
     <string name="my_favourite">My Favourite</string>
-    <string name="rs_symbol">\u20B9</string>
+    <string name="rs_symbol">Rs.</string>
 
 </resources>
