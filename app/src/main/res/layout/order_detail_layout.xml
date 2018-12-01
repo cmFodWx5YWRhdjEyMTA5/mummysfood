@@ -168,7 +168,7 @@
                         layout="@layout/add_item"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:visibility="visible"/>
+                        android:visibility="gone"/>
                     <in.ckd.calenderkhanado.widgets.CkdTextview
                         android:id="@+id/add_to_cart"
                         android:layout_width="wrap_content"

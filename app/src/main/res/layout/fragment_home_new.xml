@@ -64,6 +64,28 @@
                     android:layout_marginTop="@dimen/dp16"
                     app:queryHint="@string/home_search"/>
             </LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/choose_food_type_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="end"
+                android:orientation="horizontal"
+                android:layout_below="@+id/choose_food_type_txt"
+                android:layout_marginTop="@dimen/dp4">
+                <RadioButton
+                    android:id="@+id/veg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/capsoffveg"/>
+                <RadioButton
+                    android:id="@+id/non_veg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/capsoffveg_nonveg"/>
+            </RadioGroup>
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/filter_recyclerview"
                 android:layout_width="match_parent"

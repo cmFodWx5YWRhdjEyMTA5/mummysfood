@@ -66,7 +66,7 @@ public class FilterActivtiy extends BaseActivity {
 
                 if (query != null && !"".equalsIgnoreCase(query))
                 {
-                    showToast(query);
+                //    showToast(query);
                 }
 
                 return false;

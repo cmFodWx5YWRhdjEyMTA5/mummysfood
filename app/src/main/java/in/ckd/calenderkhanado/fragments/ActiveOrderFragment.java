@@ -129,8 +129,6 @@ public class ActiveOrderFragment extends BaseFragment   implements OrderStatusAd
                         {
                             //showToast(String.valueOf(subscribesList.size()));
 
-                            lottiLayout.setVisibility(View.VISIBLE);
-                            lottieAnimationView.playAnimation();
                             //loadItemsWithDelay();
                         }
 
@@ -164,6 +162,13 @@ public class ActiveOrderFragment extends BaseFragment   implements OrderStatusAd
                         }
 
                         setAdapterForOrder(ordersList,ActivesubscribesList);
+
+                        if (ActivesubscribesList.size() == 0)
+                        {
+
+                            lottiLayout.setVisibility(View.VISIBLE);
+                            lottieAnimationView.playAnimation();
+                        }
 
                     }
 

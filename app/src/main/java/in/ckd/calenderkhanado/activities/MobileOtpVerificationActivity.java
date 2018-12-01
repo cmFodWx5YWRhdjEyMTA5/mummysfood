@@ -527,4 +527,10 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
                 break;
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

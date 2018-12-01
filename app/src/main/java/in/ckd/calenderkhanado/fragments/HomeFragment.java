@@ -75,6 +75,9 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     @BindView(R.id.home_add_to_cart_icon)
     ImageView home_add_to_cart_icon;
 
+    @BindView(R.id.choose_food_type_layout)
+    RadioGroup radioAction;
+
 
   /*  @BindView(R.id.swiperefresh)
     SwipeRefreshLayout swipeRefreshLayout;*/
@@ -92,6 +95,8 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     private List<DashBoardModel.Data>dModel;
     private List<FilterModel> filterList;
     private String globalUrl = "";
+    private int UserFoodType ;
+    private PreferenceManager pref;
 
     public interface orderActionListner
     {
@@ -109,6 +114,9 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         ButterKnife.bind(this,rootView);
 
         pf = new PreferenceManager(context, PreferenceManager.ORDER_PREFERENCES_FILE);
+        pref = new PreferenceManager(getActivity());
+
+        UserFoodType = pref.getIntForKey("UserFoodType",0);
 
         //homeToolbar.setVisibility(View.GONE);
 
@@ -147,7 +155,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
      //   lottieAnimationViewLoading.playAnimation();
 
-       globalUrl= RetrofitApiService.BASEURL+"geoUser?lat="+String.valueOf(lat)+"&lng="+String.valueOf(longArea);
+        globalUrl= RetrofitApiService.BASEURL+"geoUser?lat="+String.valueOf(lat)+"&lng="+String.valueOf(longArea)+"&is_vegitarian="+UserFoodType;
 
         networkCallForData(globalUrl);
 
@@ -183,6 +191,10 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
             }
         });
 
+
+        near_you_recyclerview.setNestedScrollingEnabled(false);
+        recommended_recyclerview.setNestedScrollingEnabled(false);
+
         setFilterData();
 
         filter_recyclerview.addOnItemTouchListener(new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener() {
@@ -202,7 +214,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
                 }else if (position ==1)
                 {
-                    globalUrl = RetrofitApiService.BASEURL+"explorechef";
+                    globalUrl = RetrofitApiService.BASEURL+"explorechef"+"?is_vegitarian="+UserFoodType;
 
                     Intent i = new Intent(getActivity(),FilterActivtiy.class);
 
@@ -211,7 +223,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
                     getActivity().startActivity(i);
                 }else if (position ==2)
                 {
-                   globalUrl = RetrofitApiService.BASEURL+"topfoodoption?filter=top";
+                   globalUrl = RetrofitApiService.BASEURL+"topfoodoption?filter=top"+"&is_vegitarian="+UserFoodType;
 
                     Intent i = new Intent(getActivity(),FilterActivtiy.class);
 
@@ -222,7 +234,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
                 else if (position ==3)
                 {
 
-                    globalUrl = RetrofitApiService.BASEURL+"zarahatke?filter=zarahatke";
+                    globalUrl = RetrofitApiService.BASEURL+"zarahatke?filter=zarahatke"+"&is_vegitarian="+UserFoodType;
                     Intent i = new Intent(getActivity(),FilterActivtiy.class);
 
                     i.putExtra("url",globalUrl);
@@ -232,7 +244,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
                 }
                 else if (position ==4)
                 {
-                    globalUrl = RetrofitApiService.BASEURL+"trysomethingnew?filter=trysomethingnew";
+                    globalUrl = RetrofitApiService.BASEURL+"trysomethingnew?filter=trysomethingnew"+"&is_vegitarian="+UserFoodType;
 
                     Intent i = new Intent(getActivity(),FilterActivtiy.class);
 
@@ -264,6 +276,16 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         );*/
 
 
+        radioAction.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId)
+            {
+                   int value =  getRadioSelected();
+
+                globalUrl = RetrofitApiService.BASEURL+"explorechef"+"?is_vegitarian="+value;
+                networkCallForData(globalUrl);
+            }
+        });
 
         return rootView;
     }
@@ -332,6 +354,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
             filter_recyclerview.setHasFixedSize(true);
             filter_recyclerview.setLayoutManager(gridLayoutManager);
             filter_recyclerview.setItemAnimator(new DefaultItemAnimator());
+            filter_recyclerview.setNestedScrollingEnabled(false);
             HomeFilterAdapter pilotCardAdapter = new HomeFilterAdapter(getActivity(),filterList, this);
             filter_recyclerview.setAdapter(pilotCardAdapter);
         } catch (Exception e) {
@@ -597,6 +620,32 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     @Override
     public void clickOnFilter(int position)
     {
+
+    }
+
+    private int getRadioSelected() {
+
+
+        int selectedId = radioAction.getCheckedRadioButtonId();
+        int value = 0;
+
+
+
+        if (selectedId== R.id.veg)
+        {
+            pf.saveIntForKey("UserFoodType",0);
+            value = 0;
+            return   value;
+
+        }else
+        {
+            pf.saveIntForKey("UserFoodType",1);
+            value = 1;
+            return value;
+        }
+
+
+
 
     }
 }
