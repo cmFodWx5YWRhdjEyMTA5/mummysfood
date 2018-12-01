@@ -43,7 +43,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class UserLocationActivtiy extends BaseActivity implements  ContactsAdapter.ContactsAdapterListener
+public class UserLocationActivtiy extends BaseActivity
 {
 
     @BindView(R.id.searchText)
@@ -192,7 +192,7 @@ public class UserLocationActivtiy extends BaseActivity implements  ContactsAdapt
                         if (response.body().predictions.size() != 0)
                         {
                             noDataFound.setVisibility(View.GONE);
-                            setAdapter(response.body().predictions);
+                            //setAdapter(response.body().predictions);
                         }else
                         {
                             noDataFound.setVisibility(View.VISIBLE);
@@ -209,7 +209,7 @@ public class UserLocationActivtiy extends BaseActivity implements  ContactsAdapt
 
     }
 
-    private void setAdapter(List<LocationModel.Predictions> predictions) {
+  /*  private void setAdapter(List<LocationModel.Predictions> predictions) {
 
         ContactsAdapter mAdapter = new ContactsAdapter(this, predictions, this);
         recyclerviewSearch.setAdapter(mAdapter);
@@ -228,7 +228,7 @@ public class UserLocationActivtiy extends BaseActivity implements  ContactsAdapt
         startActivity(enterOtherAct);
         finish();
 
-    }
+    }*/
 
     public  void locationBased()
     {

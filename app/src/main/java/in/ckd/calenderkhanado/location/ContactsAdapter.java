@@ -18,8 +18,8 @@ import java.util.List;
 
 
 
-public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyViewHolder> implements Filterable {
-    private Context context;
+public class ContactsAdapter /*extends RecyclerView.Adapter<ContactsAdapter.MyViewHolder> implements Filterable*/ {
+   /* private Context context;
     private List<LocationModel.Predictions> contactList = new ArrayList<>();
     private List<LocationModel.Predictions> contactListFiltered = new ArrayList<>();
     private ContactsAdapterListener listener;
@@ -110,5 +110,5 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.MyView
                 }
             });
         }
-    }
+    }*/
 }

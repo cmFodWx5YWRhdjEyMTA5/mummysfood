@@ -2,9 +2,10 @@ package in.ckd.calenderkhanado.base;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.support.v4.BuildConfig;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
+
+import in.ckd.calenderkhanado.BuildConfig;
 
 
 /**

@@ -129,6 +129,7 @@ public class YourCartActivity extends BaseActivity {
     private String typeOfPackage;
     private String location = "";
     private String foodImage = "";
+    private String paymentType = "";
     private DataBaseHelperNew db;
 
 
@@ -142,6 +143,7 @@ public class YourCartActivity extends BaseActivity {
 
         db = new DataBaseHelperNew(this);
 
+        pf = new PreferenceManager(this);
 
         if (getIntent() != null) {
 
@@ -171,6 +173,8 @@ public class YourCartActivity extends BaseActivity {
 
             }
         }
+
+        checkPaymentOption();
 
         if (typeOfPackage.equalsIgnoreCase("today")) {
             add_to_cart_item_layout.setVisibility(View.VISIBLE);
@@ -232,7 +236,7 @@ public class YourCartActivity extends BaseActivity {
                 totalValue.setText(getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
                 order_taxes.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(50));
                 placeOrderprice.setText(getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
-                payatm.setText("Paytm " + getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
+                payatm.setText(paymentType +" " + getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
                 placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
                 payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
                 order_taxes.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(50));
@@ -257,7 +261,7 @@ public class YourCartActivity extends BaseActivity {
 
 
                 placeOrderprice.setText(String.valueOf(orderPriceInt + modelData.food_detail.get(0).taxes));
-                payatm.setText("Paytm " + getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + modelData.food_detail.get(0).taxes));
+                payatm.setText(paymentType +" " + getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + modelData.food_detail.get(0).taxes));
                 placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + modelData.food_detail.get(0).taxes));
                 payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + modelData.food_detail.get(0).taxes));
                 order_taxes.setText(getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).taxes);
@@ -283,6 +287,17 @@ public class YourCartActivity extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+
+    }
+
+    private void checkPaymentOption()
+    {
+
+        paymentType = pf.getStringForKey("paymentType","");
+
+     //   if (payatm == null ||payatm.)
 
     }
 
@@ -341,7 +356,7 @@ public class YourCartActivity extends BaseActivity {
 
             placeOrderprice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
             order_price_finalTotal.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + modelData.food_detail.get(0).taxes));
-            payatm.setText("Paytm " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + modelData.food_detail.get(0).taxes));
+            payatm.setText(paymentType +" " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + modelData.food_detail.get(0).taxes));
             placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + modelData.food_detail.get(0).taxes));
             payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + modelData.food_detail.get(0).taxes));
 
@@ -373,7 +388,7 @@ public class YourCartActivity extends BaseActivity {
         totalValue.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
 
         placeOrderprice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
-        payatm.setText("Paytm " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
+        payatm.setText(paymentType +" " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
         placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
         payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
         order_price_finalTotal.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
@@ -439,12 +454,17 @@ public class YourCartActivity extends BaseActivity {
         paytmChecked.setVisibility(View.GONE);
         try {
             if (location.equalsIgnoreCase("RepeatOrder")) {
-                payatm.setText("COD " + getResources().getString(R.string.rs_symbol) + getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
                 pf.saveStringForKey("paymentType", "COD");
 
+                paymentType = pf.getStringForKey("paymentType","");
+                payatm.setText(paymentType +" " + getResources().getString(R.string.rs_symbol) + getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
+
+
             } else {
-                payatm.setText("COD " + getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
                 pf.saveStringForKey("paymentType", "COD");
+                paymentType = pf.getStringForKey("paymentType","");
+                payatm.setText(paymentType +" " + getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
+
             }
 
         } catch (Exception e) {
@@ -463,11 +483,15 @@ public class YourCartActivity extends BaseActivity {
 
         try {
             if (location.equalsIgnoreCase("RepeatOrder")) {
-                payatm.setText("Paytm " + getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
                 pf.saveStringForKey("paymentType", "Paytm");
+                paymentType = pf.getStringForKey("paymentType","");
+                payatm.setText(paymentType +" "+ getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
+
             } else {
-                payatm.setText("Paytm " + getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
                 pf.saveStringForKey("paymentType", "Paytm");
+                paymentType = pf.getStringForKey("paymentType","");
+                payatm.setText(paymentType +" "+ getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
+
             }
 
         } catch (Exception e) {
@@ -483,9 +507,9 @@ public class YourCartActivity extends BaseActivity {
 
         try {
             if (location.equalsIgnoreCase("RepeatOrder")) {
-                payatm.setText("Paytm " + getResources().getString(R.string.rs_symbol) + getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
+                payatm.setText(paymentType +" " + getResources().getString(R.string.rs_symbol) + getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
             } else {
-                payatm.setText("Paytm " + getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
+                payatm.setText(paymentType +" "+ getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
             }
 
         } catch (Exception e) {
