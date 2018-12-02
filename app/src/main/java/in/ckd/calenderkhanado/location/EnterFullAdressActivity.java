@@ -129,13 +129,29 @@ public class EnterFullAdressActivity extends BaseActivity {
         updatedText   = locationMain.getText().toString();
 
 
+        pf.saveStringForKey("CurrentAddress",updatedText);
+
         if (OrderDetails != null &&!"".equalsIgnoreCase(OrderDetails)&&OrderDetails.equalsIgnoreCase("OrderDetails"))
         {
 
+
+            String landmarValue = "";
+            try {
+                landmarValue = landMark.getText().toString();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            String flatNoValue = "";
+            try {
+                flatNoValue = flatNo.getText().toString();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             Intent output = new Intent();
             output.putExtra("Address", updatedText);
-            output.putExtra("landMark", landMark.getText().toString());
-            output.putExtra("flatNo", flatNo.getText().toString());
+            output.putExtra("landMark",landmarValue);
+            output.putExtra("flatNo", flatNoValue);
             setResult(RESULT_OK, output);
             finish();
             networkCallForAsavingAddress("Update");

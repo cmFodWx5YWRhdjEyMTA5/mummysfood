@@ -75,6 +75,7 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
     private boolean active = false;
     PreferenceManager pf;
     PreferenceManager ppref;
+    private  String fromOrderPlace = "";
 
 
 
@@ -108,6 +109,12 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
         ButterKnife.bind(this);
         pf = new PreferenceManager(this,PreferenceManager.LOGIN_PREFERENCES_FILE);
         pf = new PreferenceManager(this);
+
+
+        if (getIntent() != null)
+        {
+            fromOrderPlace = getIntent().getStringExtra("PlaceOrder");
+        }
 
         mAuth = FirebaseAuth.getInstance();
         mAuth.signOut();
@@ -368,10 +375,16 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
                             pf = new PreferenceManager(MobileOtpVerificationActivity.this);
 
 
+                            if (fromOrderPlace != null && !"".equalsIgnoreCase(fromOrderPlace)&&fromOrderPlace.equalsIgnoreCase("PlaceOrder"))
+                            {
 
+                                Intent output = new Intent();
+                                output.putExtra("MobileNumber",  mobile.getText().toString());
 
+                                setResult(RESULT_OK, output);
+                                finish();
 
-                            if (json.getString("status").equalsIgnoreCase(AppConstants.SUCCESS)) {
+                            }else if (json.getString("status").equalsIgnoreCase(AppConstants.SUCCESS)) {
                                 pf.saveIntForKey("user_id",json.getJSONObject("data").getInt("id"));
                                 Intent i = new Intent(MobileOtpVerificationActivity.this,ProfileUpdateActivity.class);
                                 i.putExtra("mobile", mobile.getText().toString());

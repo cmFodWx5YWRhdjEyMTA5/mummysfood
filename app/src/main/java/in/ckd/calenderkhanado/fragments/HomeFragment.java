@@ -75,8 +75,8 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     @BindView(R.id.home_add_to_cart_icon)
     ImageView home_add_to_cart_icon;
 
-    @BindView(R.id.choose_food_type_layout)
-    RadioGroup radioAction;
+   /* @BindView(R.id.choose_food_type_layout)
+    RadioGroup radioAction;*/
 
 
   /*  @BindView(R.id.swiperefresh)
@@ -97,6 +97,8 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     private String globalUrl = "";
     private int UserFoodType ;
     private PreferenceManager pref;
+
+    private DataBaseHelperNew db = null;
 
     public interface orderActionListner
     {
@@ -121,7 +123,6 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         //homeToolbar.setVisibility(View.GONE);
 
 
-        DataBaseHelperNew db = null;
         try {
             db = new DataBaseHelperNew(getActivity());
             dModel = db.getAddToCartItem();
@@ -276,7 +277,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         );*/
 
 
-        radioAction.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+    /*    radioAction.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId)
             {
@@ -286,7 +287,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
                 networkCallForData(globalUrl);
             }
         });
-
+*/
         return rootView;
     }
 
@@ -409,9 +410,22 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         fragmentTransaction1.commit();
     }*/
 
+
+  @OnClick(R.id.filterFood)
+  public void filterFood()
+  {
+      showFilterDialog();
+  }
+
     @OnClick(R.id.home_add_to_cart_icon)
     public void AddToCart(){
         try {
+
+            try {
+                dModel = db.getAddToCartItem();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             if (dModel != null)
             {
@@ -617,16 +631,39 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
     }
 
+
+    private void showFilterDialog() {
+        final Dialog dialogd = new Dialog(getActivity());
+        dialogd.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogd.setContentView(R.layout.dialog_for_food_fiter);
+
+        RadioGroup radioAction = dialogd.findViewById(R.id.choose_food_type_layout);
+
+        radioAction.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId)
+            {
+                int value =  getRadioSelected(checkedId);
+
+                dialogd.dismiss();
+                globalUrl = RetrofitApiService.BASEURL+"explorechef"+"?is_vegitarian="+value;
+                networkCallForData(globalUrl);
+            }
+        });
+
+
+        dialogd.show();
+
+    }
+
     @Override
     public void clickOnFilter(int position)
     {
 
     }
 
-    private int getRadioSelected() {
+    private int getRadioSelected(int selectedId) {
 
-
-        int selectedId = radioAction.getCheckedRadioButtonId();
         int value = 0;
 
 
