@@ -3,6 +3,9 @@ package in.ckd.calenderkhanado.activities;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.view.View;
+
+import com.airbnb.lottie.LottieAnimationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +34,9 @@ public class CongratualtionsActivtiy extends BaseActivity {
     @BindView(R.id.circleIndicator)
     CirclePageIndicator  circleIndicator;
 
+    @BindView(R.id.lottieAnimationViewDone)
+    LottieAnimationView lottieAnimationViewDone;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +52,9 @@ public class CongratualtionsActivtiy extends BaseActivity {
         FullScreenViewPgaer.setAdapter(gallaryAdapter);
 
         circleIndicator.setViewPager(FullScreenViewPgaer);
+
+        lottieAnimationViewDone.setVisibility(View.VISIBLE);
+        lottieAnimationViewDone.playAnimation();
     }
 
 

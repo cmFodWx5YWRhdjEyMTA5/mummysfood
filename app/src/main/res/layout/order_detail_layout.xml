@@ -65,7 +65,7 @@
                 <ImageView
                     android:id="@+id/order_image"
                     android:layout_width="match_parent"
-                    android:layout_height="260dp"
+                    android:layout_height="270dp"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
                     />
@@ -83,9 +83,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginEnd="@dimen/dp24"
-                    android:layout_marginBottom="@dimen/dp16"
-                    android:paddingBottom="@dimen/dp24">
+                    android:paddingBottom="@dimen/dp8"
+                    android:layout_marginEnd="@dimen/dp12">
                     <RelativeLayout
                         android:id="@+id/order_star"
                         android:layout_width="@dimen/dp56"

@@ -6,7 +6,7 @@
     <in.ckd.calenderkhanado.widgets.CkdTextview
         android:id="@+id/quoteTag"
         android:text="I can't sleep good when I know the food is feeling cold in the fridge"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:layout_margin="@dimen/dp2"
         android:padding="@dimen/dp2"
         android:visibility="visible"
