@@ -10,10 +10,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
+import com.airbnb.lottie.LottieAnimationView;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +44,12 @@ public class PastOrderFragment extends BaseFragment   implements OrderStatusAdap
 
     @BindView(R.id.orderStausLayout)
     RecyclerView recyclerView;
+
+    @BindView(R.id.lottieAnimationView)
+    LottieAnimationView lottieAnimationView;
+
+    @BindView(R.id.lottiLayout)
+    LinearLayout lottiLayout;
 
     private Context context;
     private PreferenceManager pf;
@@ -118,21 +129,30 @@ public class PastOrderFragment extends BaseFragment   implements OrderStatusAdap
                                     UserProfileModel.Subscribes subList = subscribesList.get(i);
 
                                     if (subList != null) {
+
                                         int totalPlates = subList.number_of_days;
                                         int orderPlates = subList.ordered_plates;
 
                                         int remmainPlates = totalPlates - orderPlates;
 
 
-                                        if (remmainPlates == 0) {
-                                            if (subList.orders != null)
-                                            {
-                                                if ( subList.orders.size() != 0)
+                                        if (subList.number_of_days == 1)
+                                        {
+                                            PastsubscribesList.add(subList);
+                                        }else
+                                        {
+                                            if (remmainPlates == 0) {
+                                                if (subList.orders != null)
                                                 {
-                                                    PastsubscribesList.add(subList);
+                                                    if ( subList.orders.size() != 0)
+                                                    {
+                                                        PastsubscribesList.add(subList);
+                                                    }
                                                 }
                                             }
                                         }
+
+
                                     }
 
                                 }
@@ -140,7 +160,9 @@ public class PastOrderFragment extends BaseFragment   implements OrderStatusAdap
                                 setAdapterForOrder(ordersList, PastsubscribesList);
 
                             }else {
-                                //  showToast(String.valueOf(subscribesList.size()));
+                                lottiLayout.setVisibility(View.VISIBLE);
+                                lottieAnimationView.playAnimation();
+                              //  loadItemsWithDelay();
                             }
                         }catch (IndexOutOfBoundsException e){
 
@@ -397,5 +419,18 @@ public class PastOrderFragment extends BaseFragment   implements OrderStatusAdap
     }
 
 
+/*
+    private void loadItemsWithDelay() {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                lottieAnimationView.setVisibility(View.GONE);
+            }
+        }, 3000);
+
+    }
+*/
 
 }

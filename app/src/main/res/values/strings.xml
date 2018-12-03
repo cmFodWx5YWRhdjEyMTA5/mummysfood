@@ -150,6 +150,6 @@
     <string name="zara_hatke">Zara Hatke</string>
     <string name="try_something_new">Try Something New</string>
     <string name="my_favourite">My Favourite</string>
-    <string name="rs_symbol">Rs.</string>
+    <string name="rs_symbol">Rs.\u0020</string>
 
 </resources>

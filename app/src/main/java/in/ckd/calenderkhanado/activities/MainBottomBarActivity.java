@@ -1,5 +1,6 @@
 package in.ckd.calenderkhanado.activities;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -41,13 +42,13 @@ public class MainBottomBarActivity extends BaseActivity implements HomeFragment.
         pf.getIntForKey(PreferenceManager.USER_ID,0);
 
         pf.saveIntForKey(PreferenceManager.USER_ID,1);
-        //if (pf.getIntForKey(PreferenceManager.USER_ID,0) != 0){
-        setBottomBar(savedInstanceState);
-        /*}else {
+        if (pf.getIntForKey(PreferenceManager.USER_ID,0) != 0){
+            setBottomBar(savedInstanceState);
+        }else {
             Intent intent = new Intent(MainBottomBarActivity.this, LoginAndSignupActivity.class);
             startActivity(intent);
             finish();
-        }*/
+        }
 
     }
 
@@ -55,7 +56,7 @@ public class MainBottomBarActivity extends BaseActivity implements HomeFragment.
         mBottomNav.setVisibility(View.VISIBLE);
 
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) mBottomNav.getChildAt(0);
-        for (int i = 0; i < menuView.getChildCount(); i++) {
+        /*for (int i = 0; i < menuView.getChildCount(); i++) {
             final View iconView = menuView.getChildAt(i).findViewById(android.support.design.R.id.icon);
 
             final ViewGroup.LayoutParams layoutParams = iconView.getLayoutParams();
@@ -65,7 +66,7 @@ public class MainBottomBarActivity extends BaseActivity implements HomeFragment.
             }
 
             iconView.setLayoutParams(layoutParams);
-        }
+        }*/
 
 
         mBottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -114,7 +115,7 @@ public class MainBottomBarActivity extends BaseActivity implements HomeFragment.
                 break;
             case R.id.navigation_order:
                 item.setChecked(true);
-                item.getIcon().setColorFilter(getResources().getColor(R.color.red), PorterDuff.Mode.SRC_ATOP);
+                //item.getIcon().setColorFilter(getResources().getColor(R.color.red), PorterDuff.Mode.SRC_ATOP);
                 //Toast.makeText(MainBottombarActivity.this, "Add", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.navigation_profile:
@@ -143,7 +144,7 @@ public class MainBottomBarActivity extends BaseActivity implements HomeFragment.
                 replaceFragment(frag);
                 break;
             case R.id.navigation_order:
-                item.getIcon().setColorFilter(getResources().getColor(R.color.red), PorterDuff.Mode.SRC_ATOP);
+                //item.getIcon().setColorFilter(getResources().getColor(R.color.red), PorterDuff.Mode.SRC_ATOP);
                 frag = new OrderStatusFragment();
                 replaceFragment(frag);
                 break;

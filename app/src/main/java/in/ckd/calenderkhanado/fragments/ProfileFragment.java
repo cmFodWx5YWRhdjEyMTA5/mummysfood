@@ -25,6 +25,7 @@ import in.ckd.calenderkhanado.base.BaseFragment;
 import in.ckd.calenderkhanado.data.pref.PreferenceManager;
 import in.ckd.calenderkhanado.models.ProfileModel;
 import in.ckd.calenderkhanado.utils.AppConstants;
+import in.ckd.calenderkhanado.utils.CapsName;
 import in.ckd.calenderkhanado.widgets.CkdTextview;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -102,7 +103,7 @@ public class ProfileFragment extends BaseFragment {
                                     userData = res.data.get(0);
                                     addressesList = userData.addresses;
 
-                                    Log.d("ListSize",String.valueOf(userData.addresses.size()));
+                                    //Log.d("ListSize",String.valueOf(userData.addresses.size()));
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
@@ -128,7 +129,8 @@ public class ProfileFragment extends BaseFragment {
         }
 
         if (userData.f_name != null && !"".equalsIgnoreCase(userData.f_name)){
-            profileUsername.setText(userData.f_name.trim());
+            String name = CapsName.CapitalizeFullName(userData.f_name.trim());
+            profileUsername.setText(name);
         }
     }
 

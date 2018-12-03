@@ -7,6 +7,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/white_smoke">
     <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scrollNes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
@@ -145,4 +146,15 @@
             </LinearLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationViewLoading"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginEnd="16dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:lottie_loop="true"
+        app:lottie_fileName="cooking.json"/>
 </LinearLayout>

@@ -11,20 +11,42 @@
         android:orientation="vertical"
         android:background="@color/white"
         android:padding="@dimen/dp24">
-        <com.mikhaellopez.circularimageview.CircularImageView
-            android:id="@+id/profile_image"
-            android:layout_width="@dimen/dp100"
-            android:layout_height="@dimen/dp100"
-            android:src="@mipmap/default_usr_img"
-            app:civ_border_color="@color/white_smoke"
-            app:civ_border_width="@dimen/dp2"
-            app:civ_shadow="false"
-            android:layout_gravity="center_horizontal"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/profile_image"
+                android:layout_width="@dimen/dp150"
+                android:layout_height="@dimen/dp150"
+                android:src="@mipmap/default_usr_img"
+                app:civ_border_color="@color/white_smoke"
+                app:civ_border_width="@dimen/dp2"
+                app:civ_shadow="false"
+                android:layout_gravity="center_horizontal"/>
+            <RelativeLayout
+                android:id="@+id/user_profile_update"
+                android:layout_width="@dimen/dp40"
+                android:layout_height="@dimen/dp40"
+                android:layout_alignBottom="@+id/profile_image"
+                android:layout_alignEnd="@+id/profile_image"
+                android:background="@drawable/circle"
+                android:layout_marginBottom="@dimen/dp16">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/ic_camera_black_18dp"
+                    android:tint="@color/white" />
+
+            </RelativeLayout>
+        </RelativeLayout>
         <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/profile_username"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
+            android:text="kittu"
             style="@style/textviewbold"
             android:textColor="@color/black"
             android:textSize="@dimen/sp16"
@@ -93,7 +115,8 @@
             android:id="@+id/notification_settings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp16">
+            android:layout_marginTop="@dimen/dp16"
+            android:visibility="gone">
             <in.ckd.calenderkhanado.widgets.CkdTextview
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -17,12 +17,12 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
-        android:name="in.ckd.calenderkhanado.AppController"
+        android:name=".AppController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:largeHeap="true">
+        android:largeHeap="true"
+        android:theme="@style/AppTheme">
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -34,7 +34,7 @@
         </provider>
 
         <activity
-            android:name="in.ckd.calenderkhanado.activities.SpashAcctivity"
+            android:name=".activities.SpashAcctivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,17 +43,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="in.ckd.calenderkhanado.activities.LoginAndSignupActivity" />
-        <activity android:name="in.ckd.calenderkhanado.activities.InterestActivity" />
-        <activity android:name="in.ckd.calenderkhanado.activities.RateYourselfActivity" />
-        <activity android:name="in.ckd.calenderkhanado.location.UserLocationActivtiy" />
-        <activity android:name="in.ckd.calenderkhanado.activities.ChooseFoodTypeActivity" />
-        <activity android:name="in.ckd.calenderkhanado.activities.MainBottomBarActivity" />
-        <activity android:name="in.ckd.calenderkhanado.fragments.OrderDetailsActivity" />
-        <activity android:name="in.ckd.calenderkhanado.activities.ActiveOrderActivtiy" />
-        <activity android:name="in.ckd.calenderkhanado.fragments.ProfileFragmentChef" />
-        <activity android:name="in.ckd.calenderkhanado.activities.MobileOtpVerificationActivity" />
-        <activity android:name="in.ckd.calenderkhanado.location.EnterFullAdressActivity" />
+        <activity android:name=".activities.LoginAndSignupActivity" />
+        <activity android:name=".activities.InterestActivity" />
+        <activity android:name=".activities.RateYourselfActivity" />
+        <activity android:name=".location.UserLocationActivtiy" />
+        <activity android:name=".activities.ChooseFoodTypeActivity" />
+        <activity android:name=".activities.MainBottomBarActivity" />
+        <activity android:name=".fragments.OrderDetailsActivity" />
+        <activity android:name=".activities.ActiveOrderActivtiy" />
+        <activity android:name=".fragments.ProfileFragmentChef" />
+        <activity android:name=".activities.MobileOtpVerificationActivity" />
+        <activity android:name=".location.EnterFullAdressActivity" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -72,23 +72,22 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name="in.ckd.calenderkhanado.activities.ProfileUpdateActivity"
+            android:name=".activities.ProfileUpdateActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- start firebase push notification -->
 
-        <service android:name="in.ckd.calenderkhanado.service.MyFirebaseMessagingService">
+        <service android:name=".service.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name="in.ckd.calenderkhanado.service.MyFirebaseInstanceIDService">
+        <service android:name=".service.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-
-        <service android:name="in.ckd.calenderkhanado.location.GpsTracker"/>
+        <service android:name=".location.GpsTracker" />
 
         <!-- Set custom default icon. This is used when no icon is set for incoming notification messages -->
         <meta-data
@@ -103,18 +102,18 @@
             android:resource="@color/colorAccent" />
         <!-- end firebase push notification -->
 
-        <activity android:name="in.ckd.calenderkhanado.activities.YourCartActivity" />
-        <activity android:name="in.ckd.calenderkhanado.activities.CongratualtionsActivtiy" />
+        <activity android:name=".activities.YourCartActivity" />
+        <activity android:name=".activities.CongratualtionsActivtiy" />
         <activity
-            android:name="in.ckd.calenderkhanado.activities.ManageAddressesActivity"
+            android:name=".activities.ManageAddressesActivity"
             android:label="@string/title_activity_manage_addresses"
             android:theme="@style/AppTheme" />
-        <activity android:name="in.ckd.calenderkhanado.activities.ManagePaymentActivity" />
-        <activity android:name="in.ckd.calenderkhanado.activities.HelpSupportActivity"/>
+        <activity android:name=".activities.ManagePaymentActivity" />
+        <activity android:name=".activities.HelpSupportActivity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
-
+        <activity android:name=".activities.FilterActivtiy"></activity>
     </application>
 
 </manifest>
