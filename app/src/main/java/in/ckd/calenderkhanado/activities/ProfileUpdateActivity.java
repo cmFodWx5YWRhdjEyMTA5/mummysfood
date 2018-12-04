@@ -22,6 +22,7 @@ import android.text.Html;
 import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -84,6 +85,9 @@ public class ProfileUpdateActivity extends BaseActivity {
     ImageView femaleIcon;
     @BindView(R.id.male_icon)
     ImageView maleIcon;
+    @BindView(R.id.choose_food_type_layout)
+    RadioGroup radioAction;
+
 
     public final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
     final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
@@ -169,6 +173,38 @@ public class ProfileUpdateActivity extends BaseActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
         }
 
+        if (loginType.equalsIgnoreCase("Profile"))
+        {
+
+            fullName.setEnabled(true);
+
+            try {
+                if (!userName.isEmpty()) {
+                    fullName.setText(userName);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            try {
+                if (!userEmail.isEmpty()) {
+                    emailId.setText(userEmail);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            try {
+                if (!userProfileImage.isEmpty()) {
+                    Glide.with(ProfileUpdateActivity.this).load(userProfileImage)
+                            .placeholder(R.mipmap.default_usr_img)
+                            .into(profileImage);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
@@ -264,11 +300,18 @@ public class ProfileUpdateActivity extends BaseActivity {
             }
         } else {
 
-            if (!fullName.getText().toString().trim().isEmpty() &&!emailId.getText().toString().trim().isEmpty() ){
+            if (!loginType.equalsIgnoreCase("Profile"))
+            {
+                if (!fullName.getText().toString().trim().isEmpty() &&!emailId.getText().toString().trim().isEmpty() ){
+                    nexttoupload();
+                }else {
+                    showToast("All information should be valid");
+                }
+            }else
+            {
                 nexttoupload();
-            }else {
-                showToast("All information should be valid");
             }
+
 
         }
     }
@@ -285,7 +328,7 @@ public class ProfileUpdateActivity extends BaseActivity {
         request.type = "Seeker";
         request.is_email_verified = 1;
         request.is_mobile_verified = 1;
-        request.is_vagitarian = 0;
+        request.is_vagitarian = getRadioSelected();
         request.id = user_id;
         request.os = "";
         request.l_name = "";
@@ -369,6 +412,12 @@ public class ProfileUpdateActivity extends BaseActivity {
             pf.saveStringForKey(PreferenceManager.USER_EMAIl_Id, data.email);
         if (data.mobile != null && data.mobile.isEmpty())
             pf.saveStringForKey(PreferenceManager.USER_MOBILE, data.mobile);
+
+        if (loginType.equalsIgnoreCase("Profile"))
+        {
+            finish();
+        }
+
         String savedLocation = pf.getStringForKey("CurrentAddress","");
         if (savedLocation != null &&savedLocation.equalsIgnoreCase("gotitlocation")){
         startActivity(new Intent(ProfileUpdateActivity.this,MainBottomBarActivity.class));
@@ -514,5 +563,35 @@ public class ProfileUpdateActivity extends BaseActivity {
                 Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+
+    private int getRadioSelected() {
+
+
+        int selectedId = radioAction.getCheckedRadioButtonId();
+        int value = 0;
+
+
+
+        if (selectedId== R.id.veg)
+        {
+            pf.saveIntForKey("UserFoodType",0);
+            value = 0;
+           return   value;
+
+        }else
+        {
+            pf.saveIntForKey("UserFoodType",1);
+            value = 1;
+            return value;
+        }
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

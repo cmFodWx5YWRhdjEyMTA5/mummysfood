@@ -33,6 +33,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static in.ckd.calenderkhanado.data.db.DataBaseHelperNew.TABLE_ADD_TO_CART;
+
 public class OrderDetailsActivity extends BaseActivity implements EnterFullAdressActivity.updateAdd {
 
     @BindView(R.id.order_image)
@@ -139,6 +141,9 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
     private int item_quantity;
 
     private String typeOfPackage = "";
+
+    private List<DashBoardModel.Data>dModel;
+
 
     private int numberOfDays;
     private int isLunch;
@@ -508,6 +513,21 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
             List<DashBoardModel.Data>modelData  = new ArrayList<>();
 
             modelData.add(data);
+
+            try {
+                db = new DataBaseHelperNew(this);
+                dModel = db.getAddToCartItem();
+
+                if (dModel != null)
+                {
+                    if (dModel.size() != 0)
+                    {
+                       db.deleteTable(TABLE_ADD_TO_CART);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             db.insertAddToCart(modelData);
         }

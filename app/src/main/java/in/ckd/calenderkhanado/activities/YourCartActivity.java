@@ -1,16 +1,21 @@
 package in.ckd.calenderkhanado.activities;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+
+import com.airbnb.lottie.LottieAnimationView;
+
 import java.io.IOException;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -126,9 +131,13 @@ public class YourCartActivity extends BaseActivity {
     UserProfileModel.Subscribes ordersSub = new UserProfileModel.Subscribes();
 
     private String userAdd;
+    private String landmarkEdit ="";
+    private String hounseNoEdit= "";
     private String typeOfPackage;
     private String location = "";
     private String foodImage = "";
+    private String paymentType = "";
+    private String mobileNumber = "";
     private DataBaseHelperNew db;
 
 
@@ -142,6 +151,7 @@ public class YourCartActivity extends BaseActivity {
 
         db = new DataBaseHelperNew(this);
 
+        pf = new PreferenceManager(this);
 
         if (getIntent() != null) {
 
@@ -172,6 +182,8 @@ public class YourCartActivity extends BaseActivity {
             }
         }
 
+        checkPaymentOption();
+
         if (typeOfPackage.equalsIgnoreCase("today")) {
             add_to_cart_item_layout.setVisibility(View.VISIBLE);
             order_price_basedQuantity.setVisibility(View.VISIBLE);
@@ -193,9 +205,8 @@ public class YourCartActivity extends BaseActivity {
             pfUMobile = new PreferenceManager(this, PreferenceManager.USER_MOBILE);
             pf = new PreferenceManager(this);
 
-
             try {
-                personInfo.setText(pf.getStringForKey("Username", "") + " , " + pf.getStringForKey("Mobile", ""));
+                personInfo.setText(pf.getStringForKey("Username", "") + "  " + pf.getStringForKey("Mobile", ""));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -232,7 +243,7 @@ public class YourCartActivity extends BaseActivity {
                 totalValue.setText(getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
                 order_taxes.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(50));
                 placeOrderprice.setText(getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
-                payatm.setText("Paytm " + getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
+                payatm.setText(paymentType +" " + getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
                 placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
                 payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
                 order_taxes.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(50));
@@ -257,7 +268,7 @@ public class YourCartActivity extends BaseActivity {
 
 
                 placeOrderprice.setText(String.valueOf(orderPriceInt + modelData.food_detail.get(0).taxes));
-                payatm.setText("Paytm " + getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + modelData.food_detail.get(0).taxes));
+                payatm.setText(paymentType +" " + getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + modelData.food_detail.get(0).taxes));
                 placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + modelData.food_detail.get(0).taxes));
                 payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + modelData.food_detail.get(0).taxes));
                 order_taxes.setText(getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).taxes);
@@ -283,6 +294,17 @@ public class YourCartActivity extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+
+    }
+
+    private void checkPaymentOption()
+    {
+
+        paymentType = pf.getStringForKey("paymentType","");
+
+     //   if (payatm == null ||payatm.)
 
     }
 
@@ -341,7 +363,7 @@ public class YourCartActivity extends BaseActivity {
 
             placeOrderprice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
             order_price_finalTotal.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + modelData.food_detail.get(0).taxes));
-            payatm.setText("Paytm " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + modelData.food_detail.get(0).taxes));
+            payatm.setText(paymentType +" " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + modelData.food_detail.get(0).taxes));
             placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + modelData.food_detail.get(0).taxes));
             payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + modelData.food_detail.get(0).taxes));
 
@@ -373,7 +395,7 @@ public class YourCartActivity extends BaseActivity {
         totalValue.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
 
         placeOrderprice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
-        payatm.setText("Paytm " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
+        payatm.setText(paymentType +" " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
         placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
         payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
         order_price_finalTotal.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
@@ -389,8 +411,20 @@ public class YourCartActivity extends BaseActivity {
         adresIntent.putExtra("From", "OrderDetails");
 
         try {
-            adresIntent.putExtra("landMark",  ordersSub.orders.get(0).landmark);
-            adresIntent.putExtra("flatNo",  ordersSub.orders.get(0).house_no);
+            if (landmarkEdit != null && !"".equalsIgnoreCase(landmarkEdit))
+            {
+                adresIntent.putExtra("landMark",  landmarkEdit);
+            }else {
+                adresIntent.putExtra("landMark",  ordersSub.orders.get(0).landmark);
+            }
+
+            if (hounseNoEdit != null && !"".equalsIgnoreCase(hounseNoEdit))
+            {
+                adresIntent.putExtra("flatNo",  hounseNoEdit);
+            }else {
+                adresIntent.putExtra("flatNo",  ordersSub.orders.get(0).house_no);            }
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -409,14 +443,19 @@ public class YourCartActivity extends BaseActivity {
 
     @OnClick(R.id.infoChange)
     public void infoChange() {
-        scrollChange.setVisibility(View.GONE);
-        changePersonInfo.setVisibility(View.VISIBLE);
+
+        Intent adresIntent = new Intent(YourCartActivity.this, MobileOtpVerificationActivity.class);
+        adresIntent.putExtra("PlaceOrder", "PlaceOrder");
+        startActivityForResult(adresIntent, 201);
+
+      //  scrollChange.setVisibility(View.GONE);
+       // changePersonInfo.setVisibility(View.VISIBLE);
     }
 
     @OnClick(R.id.nameSave)
     public void nameSave() {
         String username = userNameUpdated.getText().toString();
-        String mobileName = mobileNumberUpdation.getText().toString();
+        mobileNumber = mobileNumberUpdation.getText().toString();
 
         scrollChange.setVisibility(View.VISIBLE);
         changePersonInfo.setVisibility(View.GONE);
@@ -424,12 +463,12 @@ public class YourCartActivity extends BaseActivity {
         if (!"".equalsIgnoreCase(username)) {
             pf = new PreferenceManager(this);
             pf.saveStringForKey("Username", username);
-            pf.saveStringForKey("Mobile", mobileName);
-            personInfo.setText(username + " , " + mobileName);
+            pf.saveStringForKey("Mobile", mobileNumber);
+            personInfo.setText(username + "  " + mobileNumber);
         }
     }
 
-    @OnClick(R.id.COD)
+    @OnClick(R.id.cod_linear)
     public void COD() {
         checkedCod.setVisibility(View.VISIBLE);
         changePaymentOption.setVisibility(View.GONE);
@@ -439,12 +478,17 @@ public class YourCartActivity extends BaseActivity {
         paytmChecked.setVisibility(View.GONE);
         try {
             if (location.equalsIgnoreCase("RepeatOrder")) {
-                payatm.setText("COD " + getResources().getString(R.string.rs_symbol) + getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
                 pf.saveStringForKey("paymentType", "COD");
 
+                paymentType = pf.getStringForKey("paymentType","");
+                payatm.setText(paymentType +" " + getResources().getString(R.string.rs_symbol) + getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
+
+
             } else {
-                payatm.setText("COD " + getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
                 pf.saveStringForKey("paymentType", "COD");
+                paymentType = pf.getStringForKey("paymentType","");
+                payatm.setText(paymentType +" " + getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
+
             }
 
         } catch (Exception e) {
@@ -453,7 +497,7 @@ public class YourCartActivity extends BaseActivity {
 
     }
 
-    @OnClick(R.id.logoPyatm)
+    @OnClick(R.id.paytm_linear)
     public void setPayatm() {
         paytmChecked.setVisibility(View.VISIBLE);
         changePaymentOption.setVisibility(View.GONE);
@@ -463,11 +507,15 @@ public class YourCartActivity extends BaseActivity {
 
         try {
             if (location.equalsIgnoreCase("RepeatOrder")) {
-                payatm.setText("Paytm " + getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
                 pf.saveStringForKey("paymentType", "Paytm");
+                paymentType = pf.getStringForKey("paymentType","");
+                payatm.setText(paymentType +" "+ getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
+
             } else {
-                payatm.setText("Paytm " + getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
                 pf.saveStringForKey("paymentType", "Paytm");
+                paymentType = pf.getStringForKey("paymentType","");
+                payatm.setText(paymentType +" "+ getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
+
             }
 
         } catch (Exception e) {
@@ -483,9 +531,9 @@ public class YourCartActivity extends BaseActivity {
 
         try {
             if (location.equalsIgnoreCase("RepeatOrder")) {
-                payatm.setText("Paytm " + getResources().getString(R.string.rs_symbol) + getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
+                payatm.setText(paymentType +" " + getResources().getString(R.string.rs_symbol) + getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
             } else {
-                payatm.setText("Paytm " + getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
+                payatm.setText(paymentType +" "+ getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
             }
 
         } catch (Exception e) {
@@ -546,17 +594,37 @@ public class YourCartActivity extends BaseActivity {
         if (requestCode == 200) {
             if (resultCode == RESULT_OK) {
 
-                String dataValue = data.getStringExtra("Address");
 
-                addressMain.setText(dataValue);
+                String dataValue = null;
+                try {
+                    dataValue = data.getStringExtra("Address");
+                    addressMain.setText(dataValue);
+                    landmarkEdit = data.getStringExtra("landMark");
+                    hounseNoEdit = data.getStringExtra("flatNo");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-                showToast(dataValue);
+
+
+
+
+                //   showToast(dataValue);
+            }
+        } else if (requestCode == 201)
+        {
+
+            try {
+                String   MobileNumber = data.getStringExtra("MobileNumber");
+                personInfo.setText(MobileNumber);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
 
     public void placeOrderDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+       /* AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Place Order")
                 .setCancelable(false)
                 .setNegativeButton(R.string.no_txt, new DialogInterface.OnClickListener() {
@@ -573,114 +641,199 @@ public class YourCartActivity extends BaseActivity {
                 });
         // Create the AlertDialog object and return it
         AlertDialog alert = builder.create();
-        alert.show();
+        alert.show();*/
+
+        final Dialog dialogd = new Dialog(this);
+        dialogd.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogd.setContentView(R.layout.dialog_place_order);
+
+
+        CkdTextview placeOrderok = (CkdTextview) dialogd.findViewById(R.id.placeOrderok);
+        CkdTextview palceOrderViaMethod = (CkdTextview) dialogd.findViewById(R.id.palceOrderViaMethod);
+        CkdTextview notNow = (CkdTextview) dialogd.findViewById(R.id.notNow);
+        LottieAnimationView lottieAnimationViewPlace = (LottieAnimationView) dialogd.findViewById(R.id.lottieAnimationViewPlace);
+        lottieAnimationViewPlace.playAnimation();
+
+        palceOrderViaMethod.setText("Your order will be placing via "+paymentType +" payment method"+'\n'+"Place Order ?");
+
+        placeOrderok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialogd.dismiss();
+                placeOrderData();
+            }
+        });
+
+        notNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialogd.dismiss();
+
+            }
+        });
+
+        dialogd.show();
+
+
     }
 
     private void placeOrderData() {
-        OrderModel.Data orderModel = new OrderModel.Data();
-        int itemCountText = Integer.parseInt(item_count.getText().toString());
-        orderModel.landmark = addressMain.getText().toString();
 
-        if (location.equalsIgnoreCase("RepeatOrder")) {
-
-            String paymetTYpe =  ordersSub.orders.get(0).payment_type;
-            orderModel.house_no =  ordersSub.orders.get(0).house_no;
-            orderModel.pincode =  ordersSub.orders.get(0).pincode;
-            orderModel.address_type =  ordersSub.orders.get(0).address_type;
-            orderModel.payment_type = paymetTYpe;
-
-            orderModel.food_user_id =  ordersSub.orders.get(0).order_for;
-            orderModel.order_by =  ordersSub.orders.get(0).order_by;
-            orderModel.order_for =  ordersSub.orders.get(0).order_for;
-            orderModel.food_detail =  ordersSub.orders.get(0).food_detail;
-            orderModel.food_name =  ordersSub.orders.get(0).food_name;
-
-            orderModel.street = "";
-            orderModel.city = "indore";
-            orderModel.state = "MP";
-
-            orderModel.price =  ordersSub.orders.get(0).price;
-            orderModel.quantity = 1;
-            orderModel.payment_status = "confirm";
-            orderModel.is_order_confirmed = 1;
-            orderModel.user_id =  ordersSub.orders.get(0).user_id;
-            orderModel.subscribe_to =  ordersSub.orders.get(0).order_for;
-            orderModel.number_of_days =  ordersSub.number_of_days;
-            orderModel.status = "active";
-            orderModel.is_dinner =  ordersSub.orders.get(0).is_dinner;
-            orderModel.is_lunch =  ordersSub.orders.get(0).is_dinner;
-            ;
-            orderModel.ordered_plates = itemCountText;
-            orderModel.chef_name = "privacy concern so name is not here";
-            orderModel.food_image = foodImage;
-
-            if (orderModel.landmark != null && !"".equalsIgnoreCase(orderModel.landmark))
-            {
-                newtowrkCallToplaceOrder(orderModel,itemCountText);
-            } else {
-
-                showToast("add your address");
-                Intent userLoc = new Intent(YourCartActivity.this,EnterFullAdressActivity.class);
-                userLoc.putExtra("AddNew","Yes");
-                startActivityForResult(userLoc,200);
-
-            }
+        mobileNumber = pf.getStringForKey("Mobile","");
 
 
-        } else {
+        String  CurrentAddress = pf.getStringForKey("CurrentAddress","");
 
-            String house_no = pfUAddress.getStringForKey("house_no", "");
-            String type = pfUAddress.getStringForKey("type", "");
-            String pincode = pfUAddress.getStringForKey("pincode", "");
-            String paymetTYpe = pf.getStringForKey("paymentType", "");
-            orderModel.house_no = house_no;
-
-            try {
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            orderModel.pincode = pincode;
-            orderModel.address_type = type;
-            orderModel.payment_type = paymetTYpe;
-
-            orderModel.food_user_id = modelData.chef_detail.user_id;
-            orderModel.order_by = pf.getIntForKey("user_id", 0);
-            orderModel.order_for = modelData.chef_detail.user_id;
-            orderModel.food_detail = modelData.food_detail.get(0).details;
-            orderModel.food_name = modelData.food_detail.get(0).name;
-
-            orderModel.street = "";
-            orderModel.city = "indore";
-            orderModel.state = "MP";
-
-            orderModel.price = modelData.food_detail.get(0).price;
-            orderModel.quantity = itemCountText;
-            orderModel.payment_status = "confirm";
-            orderModel.is_order_confirmed = 1;
-            orderModel.user_id = pf.getIntForKey("user_id", 0);
-            orderModel.subscribe_to = modelData.chef_detail.user_id;
-            orderModel.number_of_days = numberOfDays;
-            orderModel.status = "active";
-            orderModel.is_dinner = isDinner;
-            orderModel.is_lunch = isLunch;
-            orderModel.ordered_plates = itemCountText;
-            orderModel.chef_name = "privacy concern so name is not here";
-            orderModel.food_image = foodImage;
-
+        if (mobileNumber != null&& !"".equalsIgnoreCase(mobileNumber))
+        {
+            OrderModel.Data orderModel = new OrderModel.Data();
+            int itemCountText = Integer.parseInt(item_count.getText().toString());
             orderModel.landmark = addressMain.getText().toString();
 
-            if (orderModel.landmark != null && !"".equalsIgnoreCase(orderModel.landmark)) {
-                newtowrkCallToplaceOrder(orderModel,itemCountText);
+            if (location.equalsIgnoreCase("RepeatOrder")) {
+
+                String paymetTYpe =  ordersSub.orders.get(0).payment_type;
+                orderModel.house_no =  ordersSub.orders.get(0).house_no;
+                orderModel.pincode =  ordersSub.orders.get(0).pincode;
+                orderModel.address_type =  ordersSub.orders.get(0).address_type;
+                orderModel.payment_type = paymetTYpe;
+
+                orderModel.food_user_id =  ordersSub.orders.get(0).order_for;
+                orderModel.order_by =  ordersSub.orders.get(0).order_by;
+                orderModel.order_for =  ordersSub.orders.get(0).order_for;
+                orderModel.food_detail =  ordersSub.orders.get(0).food_detail;
+                orderModel.food_name =  ordersSub.orders.get(0).food_name;
+
+                orderModel.street = CurrentAddress;
+                orderModel.city = "indore";
+                orderModel.state = "MP";
+
+                orderModel.price =  ordersSub.orders.get(0).price;
+                orderModel.quantity = 1;
+                orderModel.payment_status = "confirm";
+                orderModel.is_order_confirmed = 1;
+                orderModel.user_id =  ordersSub.orders.get(0).user_id;
+                orderModel.subscribe_to =  ordersSub.orders.get(0).order_for;
+                orderModel.number_of_days =  ordersSub.number_of_days;
+                orderModel.status = "active";
+                orderModel.is_dinner =  ordersSub.orders.get(0).is_dinner;
+                orderModel.is_lunch =  ordersSub.orders.get(0).is_dinner;
+                ;
+                orderModel.ordered_plates = itemCountText;
+                orderModel.chef_name = "privacy concern so name is not here";
+                orderModel.food_image = foodImage;
+
+                if (CurrentAddress != null && !"".equalsIgnoreCase(CurrentAddress))
+                {
+                    if (paymentType != null && !"".equalsIgnoreCase(paymentType))
+                    {
+                        if (paymentType.equalsIgnoreCase("Paytm"))
+                        {
+                            showToast("Paytm Integration is in process you can place order using COD");
+                        }else
+                        {
+                            newtowrkCallToplaceOrder(orderModel,itemCountText);
+                        }
+                    }else
+                    {
+                        showToast("This order has placed via COD payment method");
+                        newtowrkCallToplaceOrder(orderModel,itemCountText);
+                    }
+
+                } else {
+
+                    showToast("add your address");
+                    Intent userLoc = new Intent(YourCartActivity.this,EnterFullAdressActivity.class);
+                    userLoc.putExtra("AddNew","Yes");
+                    startActivityForResult(userLoc,200);
+
+                }
+
+
             } else {
 
-                showToast("add your address");
-                Intent userLoc = new Intent(YourCartActivity.this,EnterFullAdressActivity.class);
-                userLoc.putExtra("AddNew","Yes");
-                startActivityForResult(userLoc,200);
+                String house_no = pfUAddress.getStringForKey("house_no", "");
+                String type = pfUAddress.getStringForKey("type", "");
+                String pincode = pfUAddress.getStringForKey("pincode", "");
+                String paymetTYpe = pf.getStringForKey("paymentType", "");
+                orderModel.house_no = hounseNoEdit;
+
+                try {
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                orderModel.pincode = pincode;
+                orderModel.address_type = type;
+                orderModel.payment_type = paymetTYpe;
+
+                orderModel.food_user_id = modelData.chef_detail.user_id;
+                orderModel.order_by = pf.getIntForKey("user_id", 0);
+                orderModel.order_for = modelData.chef_detail.user_id;
+                orderModel.food_detail = modelData.food_detail.get(0).details;
+                orderModel.food_name = modelData.food_detail.get(0).name;
+
+                orderModel.street = CurrentAddress;
+                orderModel.city = "indore";
+                orderModel.state = "MP";
+
+                orderModel.price = modelData.food_detail.get(0).price;
+                orderModel.quantity = itemCountText;
+                orderModel.payment_status = "confirm";
+                orderModel.is_order_confirmed = 1;
+                orderModel.user_id = pf.getIntForKey("user_id", 0);
+                orderModel.subscribe_to = modelData.chef_detail.user_id;
+                orderModel.number_of_days = numberOfDays;
+                orderModel.status = "active";
+                orderModel.is_dinner = isDinner;
+                orderModel.is_lunch = isLunch;
+                orderModel.ordered_plates = itemCountText;
+                orderModel.chef_name = "privacy concern so name is not here";
+                orderModel.food_image = foodImage;
+
+
+                orderModel.landmark = landmarkEdit;
+
+
+
+                if (CurrentAddress != null && !"".equalsIgnoreCase(CurrentAddress)) {
+
+
+                    if (paymentType != null && !"".equalsIgnoreCase(paymentType))
+                    {
+                        if (paymentType.equalsIgnoreCase("Paytm"))
+                        {
+                            showToast("Paytm Integration is in process you can place order using COD");
+                        }else
+                        {
+                            newtowrkCallToplaceOrder(orderModel,itemCountText);
+                        }
+                    }else
+                    {
+                        showToast("This order has placed via COD payment method");
+                        newtowrkCallToplaceOrder(orderModel,itemCountText);
+                    }
+
+                } else {
+
+                    showToast("add your address");
+                    Intent userLoc = new Intent(YourCartActivity.this,EnterFullAdressActivity.class);
+                    userLoc.putExtra("AddNew","Yes");
+                    startActivityForResult(userLoc,200);
+
+                }
+
+
 
             }
 
+        }else {
+            Intent adresIntent = new Intent(YourCartActivity.this, MobileOtpVerificationActivity.class);
+            adresIntent.putExtra("PlaceOrder", "PlaceOrder");
+            startActivityForResult(adresIntent, 201);
+            showToast("Please insert Mobile Number");
         }
 
     }

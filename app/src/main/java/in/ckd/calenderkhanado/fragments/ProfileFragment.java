@@ -21,6 +21,7 @@ import in.ckd.calenderkhanado.activities.ManageAddressesActivity;
 import in.ckd.calenderkhanado.activities.ManagePaymentActivity;
 import in.ckd.calenderkhanado.R;
 import in.ckd.calenderkhanado.activities.LoginAndSignupActivity;
+import in.ckd.calenderkhanado.activities.ProfileUpdateActivity;
 import in.ckd.calenderkhanado.base.BaseFragment;
 import in.ckd.calenderkhanado.data.pref.PreferenceManager;
 import in.ckd.calenderkhanado.models.ProfileModel;
@@ -139,6 +140,45 @@ public class ProfileFragment extends BaseFragment {
         Intent intent=new Intent(context,ManageAddressesActivity.class);
         context.startActivity(intent);
     }
+
+    @OnClick(R.id.manageProfile)
+    public void mana(){
+        Intent intent=new Intent(context,ProfileUpdateActivity.class);
+
+
+        try {
+            intent.putExtra("logintype","Profile");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            intent.putExtra("fullname",userData.f_name);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            intent.putExtra("email",userData.email);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            intent.putExtra("profile_image",userData.profile_image);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            intent.putExtra("mobile",userData.mobile);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+      startActivity(intent);
+    }
+
 
     @OnClick(R.id.your_orders)
     public void RedirectToOrders(){

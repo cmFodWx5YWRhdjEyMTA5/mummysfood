@@ -40,7 +40,9 @@
     <!--food type-->
     <string name="food_type_title">YOU WOULD LIKE TO COOK</string>
     <string name="veg">PURE VEG</string>
+    <string name="capsoffveg">Veg</string>
     <string name="veg_nonveg">VEG + NONVEG</string>
+    <string name="capsoffveg_nonveg">Veg+Nonveg</string>
 
     <!--rate yourself-->
     <string name="submit_txt">SUBMIT</string>
@@ -129,6 +131,7 @@
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
     <string name="manage_address">Manage Addresses</string>
+    <string name="manage_profile">Manage Profile</string>
     <string name="your_order">Your Orders</string>
     <string name="manage_payment_option">Manage Payment Options</string>
     <string name="notification_setting">Notification Settings</string>

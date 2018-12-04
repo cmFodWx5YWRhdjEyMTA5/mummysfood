@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 
 import java.io.IOException;
@@ -26,6 +27,9 @@ public class FilterActivtiy extends BaseActivity {
     @BindView(R.id.filter_recyclerview_act)
     RecyclerView recyclerview;
 
+    @BindView(R.id.searchValue)
+    SearchView searchValue;
+
     private LinearLayoutManager linearLayoutManager;
 
     private String url = "";
@@ -46,6 +50,29 @@ public class FilterActivtiy extends BaseActivity {
             url = getIntent().getStringExtra("url");
 
         }
+
+        searchValue.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if (query != null && !"".equalsIgnoreCase(query))
+                {
+                    showToast(query);
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+
+                if (query != null && !"".equalsIgnoreCase(query))
+                {
+                //    showToast(query);
+                }
+
+                return false;
+            }
+        });
+
         networkCallForData(url) ;
     }
 

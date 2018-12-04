@@ -6,6 +6,7 @@ import android.content.Context;
 import com.facebook.stetho.Stetho;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.onesignal.OneSignal;
 
 
 /**
@@ -21,6 +22,12 @@ public class AppController extends Application {
     FirebaseInstanceId.getInstance().getToken();
 
     Stetho.initializeWithDefaults(this);
+
+    // OneSignal Initialization
+    OneSignal.startInit(this)
+            .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+            .unsubscribeWhenNotificationsAreDisabled(true)
+            .init();
 
     //AppController.context = getApplicationContext();
     //Firebase.setAndroidContext(this);

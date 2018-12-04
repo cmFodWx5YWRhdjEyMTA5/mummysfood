@@ -483,6 +483,7 @@
         android:visibility="gone"
         android:orientation="vertical">
         <LinearLayout
+            android:id="@+id/cod_linear"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:padding="@dimen/dp8"
@@ -514,6 +515,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/paytm_linear"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:padding="@dimen/dp8"

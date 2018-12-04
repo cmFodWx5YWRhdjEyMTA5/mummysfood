@@ -2,22 +2,22 @@
 
 buildscript {
     repositories {
+        jcenter()
+
         google()
 
         maven {                                  // <-- Add this
             url 'https://maven.google.com/'
             name 'Google'
         }
-        jcenter()
+
 
     }
     dependencies {
-        classpath 'com.jakewharton:butterknife-gradle-plugin:8.7.0'
-        classpath 'com.google.gms:google-services:4.0.2'
-        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.google.gms:google-services:4.0.0'
+
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
-
-
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -35,6 +35,10 @@ allprojects {
             url 'https://maven.google.com/'
             name 'Google'
         }
+        maven {
+            //this
+            url "https://oss.sonatype.org/content/repositories/snapshots"
+        }
     }
 }
 
@@ -47,8 +51,8 @@ task clean(type: Delete) {
 ext {
     configuration = [
             package             : "in.ckd.calenderkhanado",
-            buildToolsVersion   : "26.0.3",
-            compileVersion      : 26,
+            buildToolsVersion   : "27.0.3",
+            compileVersion      : 27,
             minSdk              : 19,
             minSdk21            : 21,
             targetSdk           : 26,
@@ -57,7 +61,7 @@ ext {
     ]
 
     libraries = [
-            supportVersion      : "26.1.0",
+            supportVersion      : "27.1.1",
             retrofit            : "2.1.0",
             butterknife         : "8.7.0",
             glide               : "3.7.0",

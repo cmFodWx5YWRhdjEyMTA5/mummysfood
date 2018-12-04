@@ -532,4 +532,10 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
             }
         }, 500);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

@@ -62,6 +62,24 @@
         android:background="@color/white"
         android:padding="@dimen/dp24">
         <RelativeLayout
+            android:id="@+id/manageProfile"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="wrap_content">
+            <in.ckd.calenderkhanado.widgets.CkdTextview
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/manage_profile"
+                android:textSize="@dimen/sp16"
+                android:textColor="@color/black"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_icon_right_arrow"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
             android:id="@+id/manage_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

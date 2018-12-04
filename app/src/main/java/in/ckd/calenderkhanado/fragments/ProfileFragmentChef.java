@@ -345,7 +345,7 @@ public class ProfileFragmentChef extends BaseActivity {
 
     @OnClick({R.id.profile_image})
     public void uploadProfileImage(){
-        final CharSequence[] items = {"Take Photo", "Choose from Library", "Cancel"};
+      /*  final CharSequence[] items = {"Take Photo", "Choose from Library", "Cancel"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Add Photo!");
@@ -369,7 +369,7 @@ public class ProfileFragmentChef extends BaseActivity {
                 }
             }
         });
-        builder.show();
+        builder.show();*/
     }
 
     private void cameraIntent() {
