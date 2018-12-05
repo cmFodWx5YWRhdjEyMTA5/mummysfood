@@ -63,7 +63,7 @@
                         android:layout_gravity="center"
                         style="@style/textviewbold"
                         android:textColor="@color/white"
-                        android:background="@drawable/circle"
+                        android:background="@drawable/full_circle"
                         android:gravity="center|center_horizontal"/>
                     <ImageView
                         android:layout_width="wrap_content"

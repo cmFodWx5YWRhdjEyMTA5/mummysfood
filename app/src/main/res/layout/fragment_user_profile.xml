@@ -17,10 +17,10 @@
             android:layout_gravity="center">
             <com.mikhaellopez.circularimageview.CircularImageView
                 android:id="@+id/profile_image"
-                android:layout_width="@dimen/dp150"
-                android:layout_height="@dimen/dp150"
+                android:layout_width="@dimen/dp120"
+                android:layout_height="@dimen/dp120"
                 android:src="@mipmap/default_usr_img"
-                app:civ_border_color="@color/white_smoke"
+                app:civ_border_color="@color/colorPrimary"
                 app:civ_border_width="@dimen/dp2"
                 app:civ_shadow="false"
                 android:layout_gravity="center_horizontal"/>
@@ -30,15 +30,15 @@
                 android:layout_height="@dimen/dp40"
                 android:layout_alignBottom="@+id/profile_image"
                 android:layout_alignEnd="@+id/profile_image"
-                android:background="@drawable/circle"
-                android:layout_marginBottom="@dimen/dp16">
+                android:background="@drawable/border_circle"
+                android:layout_marginBottom="@dimen/dp8">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:src="@mipmap/ic_camera_black_18dp"
-                    android:tint="@color/white" />
+                    android:tint="@color/colorPrimary" />
 
             </RelativeLayout>
         </RelativeLayout>

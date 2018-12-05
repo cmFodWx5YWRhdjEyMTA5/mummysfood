@@ -24,9 +24,12 @@ public class LoginRequest {
     public String profile_image;
     public int is_vagitarian;
     public String os;
+    public String device_id;
+    public String gender;
     public String login_type;
     public String created_at;
     public String updated_at;
+    public String name;
 
   /*  public static class Data {
         public int id;

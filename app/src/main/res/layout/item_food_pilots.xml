@@ -80,11 +80,30 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_marginRight="@dimen/dp8"
-                        android:ellipsize="end"
-                        android:maxLength="8"
                         android:text="@string/pilot_name"
-                        android:visibility="gone" />
+                        android:visibility="visible" />
                 </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/distance"
+                        android:textColor="@color/black"
+                        style="@style/textviewbold"
+                        android:textSize="@dimen/sp14"/>
+                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                        android:id="@+id/order_distance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2.5km"
+                        android:textSize="@dimen/sp16"
+                        android:textColor="@color/colorPrimary"
+                        style="@style/textviewbold"
+                        android:layout_marginStart="@dimen/dp4"/>
+                </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
 
