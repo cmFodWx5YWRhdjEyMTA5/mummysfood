@@ -7,12 +7,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.widget.ImageView;
 
 import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import in.ckd.calenderkhanado.R;
 import in.ckd.calenderkhanado.adapters.HomeSpecialCardAdapter;
 import in.ckd.calenderkhanado.base.BaseActivity;
@@ -29,6 +31,9 @@ public class FilterActivtiy extends BaseActivity {
 
     @BindView(R.id.searchValue)
     SearchView searchValue;
+
+    @BindView(R.id.backButton)
+    ImageView backButton;
 
     private LinearLayoutManager linearLayoutManager;
 
@@ -51,13 +56,16 @@ public class FilterActivtiy extends BaseActivity {
 
         }
 
+
         searchValue.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 if (query != null && !"".equalsIgnoreCase(query))
                 {
-                    showToast(query);
+                    String urlFilter = url+"&search="+query;
+                    networkCallForData(urlFilter);
                 }
+
                 return false;
             }
 
@@ -69,6 +77,16 @@ public class FilterActivtiy extends BaseActivity {
                 //    showToast(query);
                 }
 
+                return false;
+            }
+        });
+
+
+
+        searchValue.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                networkCallForData(url);
                 return false;
             }
         });
@@ -133,9 +151,18 @@ public class FilterActivtiy extends BaseActivity {
 
     }
 
+    @OnClick(R.id.backButton)
+    public void backButton()
+    {
+        onBackPressed();
+
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         finish();
     }
+
+
 }

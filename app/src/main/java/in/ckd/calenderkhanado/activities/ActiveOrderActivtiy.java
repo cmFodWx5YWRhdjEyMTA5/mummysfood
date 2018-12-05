@@ -2,12 +2,19 @@ package in.ckd.calenderkhanado.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.ParseException;
+import java.util.Scanner;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -15,8 +22,13 @@ import butterknife.OnClick;
 import in.ckd.calenderkhanado.R;
 import in.ckd.calenderkhanado.base.BaseActivity;
 import in.ckd.calenderkhanado.data.pref.PreferenceManager;
+import in.ckd.calenderkhanado.models.SubscribtionModel;
 import in.ckd.calenderkhanado.models.UserProfileModel;
+import in.ckd.calenderkhanado.utils.AppConstants;
 import in.ckd.calenderkhanado.widgets.CkdTextview;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by acer on 10/4/2018.
@@ -24,8 +36,6 @@ import in.ckd.calenderkhanado.widgets.CkdTextview;
 
 public class ActiveOrderActivtiy extends BaseActivity
 {
-
-
     @BindView(R.id.delivery_Add_value)
     CkdTextview delivery_Add_value;
     @BindView(R.id.order_id_value)
@@ -133,6 +143,11 @@ public class ActiveOrderActivtiy extends BaseActivity
             SkipOrderForTodayLayout.setVisibility(View.GONE);
             remainingLayout.setVisibility(View.GONE);
         }
+
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        StrictMode.setThreadPolicy(policy);
     }
 
     @OnClick(R.id.OrderActive)
@@ -193,7 +208,57 @@ public class ActiveOrderActivtiy extends BaseActivity
     public void setskipDinner()
     {
         showToast("Dinner Skipped");
+        sendNotificationForSkippedDinner("Dinner");
 
+    }
+
+    private void sendNotificationForSkippedDinner(String dinner) {
+        try {
+            String jsonResponse;
+
+            URL url = new URL("https://onesignal.com/api/v1/notifications");
+            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+            con.setUseCaches(false);
+            con.setDoOutput(true);
+            con.setDoInput(true);
+
+            con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            con.setRequestProperty("Authorization", "Basic NGEwMGZmMjItY2NkNy0xMWUzLTk5ZDUtMDAwYzI5NDBlNjJj");
+            con.setRequestMethod("POST");
+
+            String strJsonBody = "{"
+                    +   "\"app_id\": "+AppConstants.ONESINGAL +","
+                    +   "\"included_segments\": [\"All\"],"
+                    +   "\"data\": {\"foo\": \"bar\"},"
+                    +   "\"contents\": {\"en\": \"English Message\"}"
+                    + "}";
+            System.out.println("strJsonBody:\n" + strJsonBody);
+
+            byte[] sendBytes = strJsonBody.getBytes("UTF-8");
+            con.setFixedLengthStreamingMode(sendBytes.length);
+
+            OutputStream outputStream = con.getOutputStream();
+            outputStream.write(sendBytes);
+
+            int httpResponse = con.getResponseCode();
+            System.out.println("httpResponse: " + httpResponse);
+
+            if (  httpResponse >= HttpURLConnection.HTTP_OK
+                    && httpResponse < HttpURLConnection.HTTP_BAD_REQUEST) {
+                Scanner scanner = new Scanner(con.getInputStream(), "UTF-8");
+                jsonResponse = scanner.useDelimiter("\\A").hasNext() ? scanner.next() : "";
+                scanner.close();
+            }
+            else {
+                Scanner scanner = new Scanner(con.getErrorStream(), "UTF-8");
+                jsonResponse = scanner.useDelimiter("\\A").hasNext() ? scanner.next() : "";
+                scanner.close();
+            }
+            System.out.println("jsonResponse:\n" + jsonResponse);
+
+        } catch(Throwable t) {
+            t.printStackTrace();
+        }
     }
 
     @OnClick(R.id.skipBoth)
@@ -214,7 +279,10 @@ public class ActiveOrderActivtiy extends BaseActivity
         finish();
     }
 
-    /*private void updateOrder(int remainingPlates) {
+
+
+/*
+    private void updateOrder(int remainingPlates) {
 
         if (remainingPlates != 0)
         {
@@ -259,6 +327,7 @@ public class ActiveOrderActivtiy extends BaseActivity
             showToast("This order has completed");
         }
 
-    }*/
+    }
+*/
 
 }

@@ -6,12 +6,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
 import in.ckd.calenderkhanado.R;
 import in.ckd.calenderkhanado.fragments.HomeFragment;
 import in.ckd.calenderkhanado.models.FilterModel;
+import in.ckd.calenderkhanado.utils.AppConstants;
 import in.ckd.calenderkhanado.widgets.CkdTextview;
 
 public class HomeFilterAdapter extends RecyclerView.Adapter<HomeFilterAdapter.ViewHolder> implements View.OnClickListener {
@@ -46,12 +50,14 @@ public class HomeFilterAdapter extends RecyclerView.Adapter<HomeFilterAdapter.Vi
 
         CardView filterLayout;
         CkdTextview filterName;
+        ImageView filterImage;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             filterLayout = itemView.findViewById(R.id.filter_layout);
             filterName = itemView.findViewById(R.id.filter_name);
+            filterImage = itemView.findViewById(R.id.filterImage);
         }
     }
 
@@ -67,6 +73,28 @@ public class HomeFilterAdapter extends RecyclerView.Adapter<HomeFilterAdapter.Vi
         FilterModel model = data.get(i);
 
         viewHolder.filterName.setText(model.filter_name);
+
+
+        if (i == 0)
+        {
+            Glide.with(context).load(R.drawable.nearme).into(viewHolder.filterImage);
+        }else if (i ==1)
+        {
+            Glide.with(context).load(R.drawable.trynew).into(viewHolder.filterImage);
+        }else if (i==2)
+        {
+            Glide.with(context).load(R.drawable.myfev).into(viewHolder.filterImage);
+        }else if (i==3)
+        {
+            Glide.with(context).load(R.drawable.zarahtke).into(viewHolder.filterImage);
+        }else if (i==4)
+        {
+            Glide.with(context).load(R.drawable.topfood).into(viewHolder.filterImage);
+        }
+        else
+        {
+            Glide.with(context).load(R.drawable.explore).into(viewHolder.filterImage);
+        }
 
         viewHolder.filterLayout.setTag(i);
         viewHolder.filterLayout.setOnClickListener(this);
