@@ -24,6 +24,7 @@ import in.ckd.calenderkhanado.data.network.RetrofitApiService;
 public final class AppConstants {
 
     public static final String BASE_URL = "mummysfood.in/";
+    public static final String ONESINGAL = "f313ca24-ca6e-45c0-b7ec-e668861b51c7";
 
     public static final String STATUS_CODE_SUCCESS = "success";
     public static final String STATUS_CODE_FAILED = "failed";

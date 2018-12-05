@@ -7,7 +7,7 @@ def test = rootProject.ext.testingLibraries;
 
 android {
     compileSdkVersion cfg.compileVersion
-    buildToolsVersion cfg.buildToolsVersion
+    buildToolsVersion '28.0.3'
 
     defaultConfig {
         applicationId cfg.package
