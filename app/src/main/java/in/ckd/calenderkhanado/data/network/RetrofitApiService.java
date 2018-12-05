@@ -95,6 +95,9 @@ public interface RetrofitApiService {
     @DELETE("address/{id}")
     Call<ResponseBody>postAddressDelete(@Path("id") int id);
 
+    @GET
+    Call<SubscribtionModel>getSubscrbtionOrder(@Url String url);
+
     @POST("order")
     Call<OrderModel.Data> orderPlace(@Body OrderModel.Data orderModel);
 
