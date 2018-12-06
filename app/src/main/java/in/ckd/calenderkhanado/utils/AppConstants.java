@@ -70,6 +70,7 @@ public final class AppConstants {
     public static final String MOBILE = "mobile";
 
     public static final String IMAGEURL = "http://cdn.mummysfood.in/";
+    public static final int PERMISSION_READ_EXTERNAL_STORAGE = 247;
 
     private AppConstants() {
         // This utility class is not publicly instantiable

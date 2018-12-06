@@ -2,6 +2,7 @@ package in.ckd.calenderkhanado.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,8 +15,10 @@ import com.bumptech.glide.Glide;
 import in.ckd.calenderkhanado.R;
 import in.ckd.calenderkhanado.fragments.OrderDetailsActivity;
 import in.ckd.calenderkhanado.models.DashBoardModel;
+import in.ckd.calenderkhanado.utils.CapsName;
 import in.ckd.calenderkhanado.widgets.CkdTextview;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCardAdapter.ViewHolder> implements View.OnClickListener {
@@ -35,9 +38,9 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
 
                 try {
 
-                    Intent i = new Intent(context,OrderDetailsActivity.class);
-                    i.putExtra("order_id",data.get(position).id);
-                    i.putExtra("data",data.get(position));
+                    Intent i = new Intent(context, OrderDetailsActivity.class);
+                    i.putExtra("order_id", data.get(position).id);
+                    i.putExtra("data", data.get(position));
                     context.startActivity(i);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -58,7 +61,7 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
                 break;
         }
 
-        }
+    }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -66,6 +69,7 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
         CkdTextview orderPrice;
         CkdTextview ChefName;
         ImageView foodImage;
+        CkdTextview order_distance;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -74,6 +78,7 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
             orderPrice = itemView.findViewById(R.id.order_price);
             ChefName = itemView.findViewById(R.id.chef_name);
             foodImage = itemView.findViewById(R.id.food_image_bg);
+            order_distance = itemView.findViewById(R.id.order_distance);
         }
     }
 
@@ -88,34 +93,30 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
 
         DashBoardModel.Data model = data.get(i);
 
-
         try {
             viewHolder.orderTitle.setText(model.food_detail.get(0).name);
-            viewHolder.orderPrice.setText(context.getResources().getString(R.string.rs_symbol)+model.food_detail.get(0).price);
-            viewHolder.ChefName.setText(model.name);
+            viewHolder.orderPrice.setText(context.getResources().getString(R.string.rs_symbol) + model.food_detail.get(0).price);
+            String name = CapsName.CapitalizeFullName(model.name.trim());
+            viewHolder.ChefName.setText(name);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-   /*     RoundRectShape roundRectShape = new RoundRectShape(new float[]{
-                100, 100, 100, 100,
-                100, 100, 100, 100}, null, null);
-        ShapeDrawable shapeDrawable = new ShapeDrawable(roundRectShape);
-    //    shapeDrawable.getPaint().setColor(Color.parseColor("#FFFFFF"));
-        viewHolder.foodImage.setBackground(shapeDrawable);*/
+        float[] results = new float[1];
+        Location.distanceBetween(12.9732098, 79.1590077, 22.7602485, 75.8880693, results);
+        float distance = results[0] / 100000;
+        DecimalFormat value = new DecimalFormat("#.#");
+
+        viewHolder.order_distance.setText(value.format(distance) + "km");
 
         try {
 
-            if (model.food_detail != null)
-            {
-                if(model.food_detail.get(0).food_media != null){
+            if (model.food_detail != null) {
+                if (model.food_detail.get(0).food_media != null) {
 
-                    if (model.food_detail.get(0).food_media.size() != 0)
-                    {
-                        String imageUrl = "http://cdn.mummysfood.in/"+model.food_detail.get(0).food_media.get(0).media.name;
-
-                        Log.d("ImageUrl",imageUrl);
+                    if (model.food_detail.get(0).food_media.size() != 0) {
+                        String imageUrl = "http://cdn.mummysfood.in/" + model.food_detail.get(0).food_media.get(0).media.name;
 
                         Glide.with(context).load(imageUrl).placeholder(R.mipmap.foodimage).into(viewHolder.foodImage);
                     }
@@ -123,7 +124,7 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
                 }
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -135,6 +136,6 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
 
     @Override
     public int getItemCount() {
-        return data.size()==0 ? 0:data.size();
+        return data.size() == 0 ? 0 : data.size();
     }
 }

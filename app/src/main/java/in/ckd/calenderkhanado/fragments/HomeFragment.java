@@ -13,6 +13,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,7 +21,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -75,8 +78,11 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     @BindView(R.id.home_add_to_cart_icon)
     ImageView home_add_to_cart_icon;
 
-   /* @BindView(R.id.choose_food_type_layout)
-    RadioGroup radioAction;*/
+    @BindView(R.id.filterFood)
+    ImageView filterFood;
+
+    @BindView(R.id.filterFoodApplied)
+    View filterFoodApplied;
 
 
   /*  @BindView(R.id.swiperefresh)
@@ -87,21 +93,21 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     private List<DashBoardModel.Data> fetchData = new ArrayList<>();
     private HomePilotCardAdapter pilotCardAdapter;
     private HomeSpecialCardAdapter specialCardAdapter;
-    private PreferenceManager pf;
+    private PreferenceManager pf,filterPref;
     private PreferenceManager addPref;
     private int item_quantity = 0;
     private Dialog dialog;
     private orderActionListner orderActionListner;
-    private List<DashBoardModel.Data>dModel;
+    private List<DashBoardModel.Data> dModel;
     private List<FilterModel> filterList;
     private String globalUrl = "";
-    private int UserFoodType ;
+    private int UserFoodType;
     private PreferenceManager pref;
 
     private DataBaseHelperNew db = null;
+    int filter_value;
 
-    public interface orderActionListner
-    {
+    public interface orderActionListner {
         void activeOrder();
     }
 
@@ -113,12 +119,19 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home_new, container, false);
         context = getContext();
-        ButterKnife.bind(this,rootView);
+        ButterKnife.bind(this, rootView);
 
         pf = new PreferenceManager(context, PreferenceManager.ORDER_PREFERENCES_FILE);
         pref = new PreferenceManager(getActivity());
+        filterPref = new PreferenceManager(context, PreferenceManager.FILTER_PREFERENCES_FILE);
 
-        UserFoodType = pref.getIntForKey("UserFoodType",0);
+        UserFoodType = pref.getIntForKey("UserFoodType", 0);
+
+        if (filterPref.getBooleanForKey(PreferenceManager.FILTER_APPLY,false)){
+            filterFoodApplied.setVisibility(View.VISIBLE);
+        }else{
+            filterFoodApplied.setVisibility(View.GONE);
+        }
 
         //homeToolbar.setVisibility(View.GONE);
 
@@ -127,17 +140,14 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
             db = new DataBaseHelperNew(getActivity());
             dModel = db.getAddToCartItem();
 
-            if (dModel != null)
-            {
-                if (dModel.size() != 0)
-                {
-                      home_add_to_cart_icon.setImageResource(R.drawable.itemsincart);
+            if (dModel != null) {
+                if (dModel.size() != 0) {
+                    home_add_to_cart_icon.setImageResource(R.drawable.itemsincart);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
 
         DashBoardModel json = new DashBoardModel();
@@ -146,24 +156,23 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
         addPref = new PreferenceManager(getActivity());
 
-        Double lat = addPref.getDoubleForKey("latitude",0);
-        Double longArea = addPref.getDoubleForKey("lognitude",0);
+        Double lat = addPref.getDoubleForKey("latitude", 0);
+        Double longArea = addPref.getDoubleForKey("lognitude", 0);
 
 
         //lottieAnimationViewLoading.setVisibility(View.VISIBLE);
 
         scrollNes.setVisibility(View.VISIBLE);
 
-     //   lottieAnimationViewLoading.playAnimation();
+        //   lottieAnimationViewLoading.playAnimation();
 
-        globalUrl= RetrofitApiService.BASEURL+"geoUser?lat="+String.valueOf(lat)+"&lng="+String.valueOf(longArea)+"&is_vegitarian="+UserFoodType;
+        globalUrl = RetrofitApiService.BASEURL + "geoUser?lat=" + String.valueOf(lat) + "&lng=" + String.valueOf(longArea) + "&is_vegitarian=" + UserFoodType;
 
         networkCallForData(globalUrl);
 
         near_you_recyclerview.setNestedScrollingEnabled(false);
 
         showProgress("Loading...");
-
 
 
         setHasOptionsMenu(true);
@@ -174,8 +183,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
 
-                if (newState == RecyclerView.SCROLL_STATE_IDLE)
-                {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     //mBottomNav.setVisibility(View.VISIBLE);
                 }
 
@@ -185,8 +193,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                if (dy > 0 ||dy<0 && recyclerView.isShown())
-                {
+                if (dy > 0 || dy < 0 && recyclerView.isShown()) {
                     //  mBottomNav.setVisibility(View.GONE);
                 }
             }
@@ -200,64 +207,54 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
         filter_recyclerview.addOnItemTouchListener(new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position)
-            {
+            public void onItemClick(View view, int position) {
 
-                if (position == 0)
-                {
+                if (position == 0) {
 
 
-                    Intent i = new Intent(getActivity(),FilterActivtiy.class);
+                    Intent i = new Intent(getActivity(), FilterActivtiy.class);
 
-                    i.putExtra("url",globalUrl);
+                    i.putExtra("url", globalUrl);
 
                     getActivity().startActivity(i);
 
-                }else if (position ==1)
-                {
-                    globalUrl = RetrofitApiService.BASEURL+"explorechef"+"?is_vegitarian="+UserFoodType;
+                } else if (position == 1) {
+                    globalUrl = RetrofitApiService.BASEURL + "explorechef" + "?is_vegitarian=" + UserFoodType;
 
-                    Intent i = new Intent(getActivity(),FilterActivtiy.class);
+                    Intent i = new Intent(getActivity(), FilterActivtiy.class);
 
-                    i.putExtra("url",globalUrl);
-
-                    getActivity().startActivity(i);
-                }else if (position ==2)
-                {
-                   globalUrl = RetrofitApiService.BASEURL+"topfoodoption?filter=top"+"&is_vegitarian="+UserFoodType;
-
-                    Intent i = new Intent(getActivity(),FilterActivtiy.class);
-
-                    i.putExtra("url",globalUrl);
+                    i.putExtra("url", globalUrl);
 
                     getActivity().startActivity(i);
-                }
-                else if (position ==3)
-                {
+                } else if (position == 2) {
+                    globalUrl = RetrofitApiService.BASEURL + "topfoodoption?filter=top" + "&is_vegitarian=" + UserFoodType;
 
-                    globalUrl = RetrofitApiService.BASEURL+"zarahatke?filter=zarahatke"+"&is_vegitarian="+UserFoodType;
-                    Intent i = new Intent(getActivity(),FilterActivtiy.class);
+                    Intent i = new Intent(getActivity(), FilterActivtiy.class);
 
-                    i.putExtra("url",globalUrl);
+                    i.putExtra("url", globalUrl);
+
+                    getActivity().startActivity(i);
+                } else if (position == 3) {
+
+                    globalUrl = RetrofitApiService.BASEURL + "zarahatke?filter=zarahatke" + "&is_vegitarian=" + UserFoodType;
+                    Intent i = new Intent(getActivity(), FilterActivtiy.class);
+
+                    i.putExtra("url", globalUrl);
 
                     getActivity().startActivity(i);
 
-                }
-                else if (position ==4)
-                {
-                    globalUrl = RetrofitApiService.BASEURL+"trysomethingnew?filter=trysomethingnew"+"&is_vegitarian="+UserFoodType;
+                } else if (position == 4) {
+                    globalUrl = RetrofitApiService.BASEURL + "trysomethingnew?filter=trysomethingnew" + "&is_vegitarian=" + UserFoodType;
 
-                    Intent i = new Intent(getActivity(),FilterActivtiy.class);
+                    Intent i = new Intent(getActivity(), FilterActivtiy.class);
 
-                    i.putExtra("url",globalUrl);
+                    i.putExtra("url", globalUrl);
 
                     getActivity().startActivity(i);
-                }
-                else if (position ==5)
-                {
-                    Intent i = new Intent(getActivity(),FilterActivtiy.class);
+                } else if (position == 5) {
+                    Intent i = new Intent(getActivity(), FilterActivtiy.class);
 
-                    i.putExtra("url",globalUrl);
+                    i.putExtra("url", globalUrl);
 
                     getActivity().startActivity(i);
 
@@ -300,16 +297,14 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
             @Override
             public void onResponse(Call<DashBoardModel> call, Response<DashBoardModel> response) {
                 dismissProgress();
-           //     lottieAnimationViewLoading.cancelAnimation();
-             //   lottieAnimationViewLoading.setVisibility(View.GONE);
+                //     lottieAnimationViewLoading.cancelAnimation();
+                //   lottieAnimationViewLoading.setVisibility(View.GONE);
                 scrollNes.setVisibility(View.VISIBLE);
-                if (response.isSuccessful())
-                {
-                    if (response != null){
+                if (response.isSuccessful()) {
+                    if (response != null) {
                         DashBoardModel res = response.body();
-                         if (res.status != null) {
-                            if ( res.status.equals(AppConstants.SUCCESS))
-                            {
+                        if (res.status != null) {
+                            if (res.status.equals(AppConstants.SUCCESS)) {
                                 fetchData = res.data;
 
                                 setAdapterData(recommended_recyclerview, 0);
@@ -317,9 +312,9 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
                             }
                         }
                     }
-                }else {
+                } else {
                     try {
-                        Log.d("Msgggg",response.errorBody().string());
+                        Log.d("Msgggg", response.errorBody().string());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -331,11 +326,10 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
             @Override
             public void onFailure(Call<DashBoardModel> call, Throwable t) {
 
-                Log.d("Msgggg",t.getMessage());
+                Log.d("Msgggg", t.getMessage());
                 dismissProgress();
             }
         });
-
 
 
     }
@@ -344,19 +338,19 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
         try {
             filterList = new ArrayList<>();
-            filterList.add(new FilterModel(0,getString(R.string.option_near_me),false));
-            filterList.add(new FilterModel(1,getString(R.string.explore),false));
-            filterList.add(new FilterModel(2,getString(R.string.top_food_options),false));
-            filterList.add(new FilterModel(3,getString(R.string.zara_hatke),false));
-            filterList.add(new FilterModel(4,getString(R.string.try_something_new),false));
-            filterList.add(new FilterModel(5,getString(R.string.my_favourite),false));
+            filterList.add(new FilterModel(0, getString(R.string.option_near_me), false));
+            filterList.add(new FilterModel(1, getString(R.string.explore), false));
+            filterList.add(new FilterModel(2, getString(R.string.top_food_options), false));
+            filterList.add(new FilterModel(3, getString(R.string.zara_hatke), false));
+            filterList.add(new FilterModel(4, getString(R.string.try_something_new), false));
+            filterList.add(new FilterModel(5, getString(R.string.my_favourite), false));
 
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(context,3,LinearLayoutManager.VERTICAL,false);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false);
             filter_recyclerview.setHasFixedSize(true);
             filter_recyclerview.setLayoutManager(gridLayoutManager);
             filter_recyclerview.setItemAnimator(new DefaultItemAnimator());
             filter_recyclerview.setNestedScrollingEnabled(false);
-            HomeFilterAdapter pilotCardAdapter = new HomeFilterAdapter(getActivity(),filterList, this);
+            HomeFilterAdapter pilotCardAdapter = new HomeFilterAdapter(getActivity(), filterList, this);
             filter_recyclerview.setAdapter(pilotCardAdapter);
         } catch (Exception e) {
             e.printStackTrace();
@@ -367,25 +361,24 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     private void setAdapterData(RecyclerView recyclerview, int type) {
 
         if (type == 0) {
-            linearLayoutManager = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false);
+            linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
             recyclerview.setHasFixedSize(true);
             recyclerview.setLayoutManager(linearLayoutManager);
             recyclerview.setItemAnimator(new DefaultItemAnimator());
-            pilotCardAdapter = new HomePilotCardAdapter(getActivity(),fetchData, this);
+            pilotCardAdapter = new HomePilotCardAdapter(getActivity(), fetchData, this);
             recyclerview.setAdapter(pilotCardAdapter);
-        }else{
-            linearLayoutManager = new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false);
+        } else {
+            linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             recyclerview.setHasFixedSize(true);
             recyclerview.setLayoutManager(linearLayoutManager);
             recyclerview.setItemAnimator(new DefaultItemAnimator());
-            specialCardAdapter = new HomeSpecialCardAdapter(getActivity(),fetchData);
+            specialCardAdapter = new HomeSpecialCardAdapter(getActivity(), fetchData);
             recyclerview.setAdapter(specialCardAdapter);
         }
     }
 
     @OnClick(R.id.activeOrder)
-    public void activeOrder()
-    {
+    public void activeOrder() {
         orderActionListner.activeOrder();
     }
 
@@ -411,14 +404,13 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     }*/
 
 
-  @OnClick(R.id.filterFood)
-  public void filterFood()
-  {
-      showFilterDialog();
-  }
+    @OnClick(R.id.filterFood)
+    public void filterFood() {
+        showFilterDialog();
+    }
 
     @OnClick(R.id.home_add_to_cart_icon)
-    public void AddToCart(){
+    public void AddToCart() {
         try {
 
             try {
@@ -427,21 +419,17 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
                 e.printStackTrace();
             }
 
-            if (dModel != null)
-            {
-                if (dModel.size() != 0)
-                {
-                    Intent i = new Intent(context,OrderDetailsActivity.class);
-                    i.putExtra("order_id",dModel.get(0).id);
-                    i.putExtra("location","Cart");
-                    i.putExtra("data",dModel.get(0));
+            if (dModel != null) {
+                if (dModel.size() != 0) {
+                    Intent i = new Intent(context, OrderDetailsActivity.class);
+                    i.putExtra("order_id", dModel.get(0).id);
+                    i.putExtra("location", "Cart");
+                    i.putExtra("data", dModel.get(0));
                     context.startActivity(i);
-                }else
-                {
+                } else {
                     showItemsIntoCart();
                 }
-            }else
-            {
+            } else {
                 showItemsIntoCart();
             }
 
@@ -471,16 +459,16 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     }*/
 
     @Override
-    public void AddToCart(final int i){
+    public void AddToCart(final int i) {
 
-        if (pf.getIntForKey(PreferenceManager.ORDER_ID,0) == 0){
+        if (pf.getIntForKey(PreferenceManager.ORDER_ID, 0) == 0) {
             // setOrderItemData(i);
-        }else{
-            String msg = "Your cart contains dishes from "+ pf.getStringForKey(PreferenceManager.ORDER_NAME,null)+". Do you want to discard the selection and add dishes from "+fetchData.get(i).food_detail.get(0).name+" ?";
+        } else {
+            String msg = "Your cart contains dishes from " + pf.getStringForKey(PreferenceManager.ORDER_NAME, null) + ". Do you want to discard the selection and add dishes from " + fetchData.get(i).food_detail.get(0).name + " ?";
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setMessage(msg)
                     .setCancelable(false)
-                    .setNegativeButton(R.string.no_txt,new DialogInterface.OnClickListener() {
+                    .setNegativeButton(R.string.no_txt, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             if (dialog != null) {
                                 dialog.dismiss();
@@ -489,7 +477,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
                     })
                     .setPositiveButton(R.string.yes_txt, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            pf.clearPref(context,PreferenceManager.ORDER_PREFERENCES_FILE);
+                            pf.clearPref(context, PreferenceManager.ORDER_PREFERENCES_FILE);
                             //setOrderItemData(i);
                         }
                     });
@@ -524,7 +512,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         LayoutInflater factory = LayoutInflater.from(context);
         final View content = factory.inflate(R.layout.dialog_for_subscription, null);
         CkdButton dialogButton = content.findViewById(R.id.submitThali);
-        final RadioGroup  radioGroup = content. findViewById(R.id.radioGroup);
+        final RadioGroup radioGroup = content.findViewById(R.id.radioGroup);
 
         item_quantity = 0;
 
@@ -533,7 +521,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
             public void onClick(View v) {
 
                 //showToast(String.valueOf(radioGroup.getCheckedRadioButtonId()));
-                switch (radioGroup.getCheckedRadioButtonId()){
+                switch (radioGroup.getCheckedRadioButtonId()) {
                     case R.id.radioButton1:
                         item_quantity = 60;
                         break;
@@ -549,7 +537,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
                 }
 
                 //fetchData.get(i).quantity = item_quantity;
-                sharePref(i,item_quantity);
+                sharePref(i, item_quantity);
                 pilotCardAdapter.notifyDataSetChanged();
                 dialog.dismiss();
             }
@@ -562,24 +550,24 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
     private void sharePref(int i, int quantity) {
         //   pf.saveIntForKey(PreferenceManager.USER_ID,fetchData.get(i).id);
-        pf.saveIntForKey(PreferenceManager.ORDER_ID,fetchData.get(i).food_detail.get(0).id);
-        pf.saveIntForKey(PreferenceManager.ODRDER_USER_ID,fetchData.get(i).food_detail.get(0).user_id);
-        pf.saveIntForKey(PreferenceManager.ORDER_CATEGORY_ID,fetchData.get(i).food_detail.get(0).category_id);
-        pf.saveStringForKey(PreferenceManager.ORDER_NAME,fetchData.get(i).food_detail.get(0).name);
-        pf.saveStringForKey(PreferenceManager.ORDER_DETAILS,fetchData.get(i).food_detail.get(0).details);
-        pf.saveStringForKey(PreferenceManager.ORDER_PRICE,fetchData.get(i).food_detail.get(0).price);
-        pf.saveIntForKey(PreferenceManager.ORDER_quantity,quantity);
+        pf.saveIntForKey(PreferenceManager.ORDER_ID, fetchData.get(i).food_detail.get(0).id);
+        pf.saveIntForKey(PreferenceManager.ODRDER_USER_ID, fetchData.get(i).food_detail.get(0).user_id);
+        pf.saveIntForKey(PreferenceManager.ORDER_CATEGORY_ID, fetchData.get(i).food_detail.get(0).category_id);
+        pf.saveStringForKey(PreferenceManager.ORDER_NAME, fetchData.get(i).food_detail.get(0).name);
+        pf.saveStringForKey(PreferenceManager.ORDER_DETAILS, fetchData.get(i).food_detail.get(0).details);
+        pf.saveStringForKey(PreferenceManager.ORDER_PRICE, fetchData.get(i).food_detail.get(0).price);
+        pf.saveIntForKey(PreferenceManager.ORDER_quantity, quantity);
     }
 
 
     @Override
     public void AddFoodQuantity(int position) {
         int count = 0;
-        if (pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0 && pf.getIntForKey(PreferenceManager.USER_ID, 0) == fetchData.get(position).id){
+        if (pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0 && pf.getIntForKey(PreferenceManager.USER_ID, 0) == fetchData.get(position).id) {
             count = pf.getIntForKey(PreferenceManager.ORDER_quantity, 0);
         }
         count++;
-        pf.saveIntForKey(PreferenceManager.ORDER_quantity,count);
+        pf.saveIntForKey(PreferenceManager.ORDER_quantity, count);
 
         pilotCardAdapter.notifyDataSetChanged();
     }
@@ -587,14 +575,14 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     @Override
     public void SubFoodQuantity(int position) {
         int count = 0;
-        if (pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0 && pf.getIntForKey(PreferenceManager.USER_ID, 0) == fetchData.get(position).id){
+        if (pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0 && pf.getIntForKey(PreferenceManager.USER_ID, 0) == fetchData.get(position).id) {
             count = pf.getIntForKey(PreferenceManager.ORDER_quantity, 0);
         }
 
         if (count > 0) {
             count--;
-            pf.saveIntForKey(PreferenceManager.ORDER_quantity,count);
-        }else{
+            pf.saveIntForKey(PreferenceManager.ORDER_quantity, count);
+        } else {
             //  fetchData.get(position).add_food = false;
             pf.clearPref(context, PreferenceManager.ORDER_PREFERENCES_FILE);
             //homeToolbar.setVisibility(View.GONE);
@@ -633,32 +621,96 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
 
     private void showFilterDialog() {
-        final Dialog dialogd = new Dialog(getActivity());
+        final Dialog dialogd = new Dialog(getActivity(),android.R.style.Theme_Translucent_NoTitleBar);
         dialogd.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogd.setContentView(R.layout.dialog_for_food_fiter);
+        Window window = dialogd.getWindow();
+        window.setGravity(Gravity.TOP);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
-        RadioGroup radioAction = dialogd.findViewById(R.id.choose_food_type_layout);
+        window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-        radioAction.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        ImageView cross_popup = dialogd.findViewById(R.id.cross_popup);
+        CkdTextview reset_filter = dialogd.findViewById(R.id.reset_filter);
+        LinearLayout filter_veg_layout = dialogd.findViewById(R.id.filter_veg_layout);
+        LinearLayout filter_non_veg_layout = dialogd.findViewById(R.id.filter_non_veg_layout);
+        CkdTextview apply_filter = dialogd.findViewById(R.id.apply_filter);
+        final ImageView vegSysmbol = dialogd.findViewById(R.id.vegSysmbol);
+        final ImageView non_VegSysmbol = dialogd.findViewById(R.id.non_VegSysmbol);
+
+        if (filterPref.getBooleanForKey(PreferenceManager.FILTER_APPLY,false)){
+            filterFoodApplied.setVisibility(View.VISIBLE);
+            if (filterPref.getIntForKey(PreferenceManager.FILTER_FOOD_TYPE,0) == 1){
+                vegSysmbol.setColorFilter(context.getResources().getColor(R.color.gray));
+                non_VegSysmbol.setColorFilter(context.getResources().getColor(R.color.red));
+            }else {
+                vegSysmbol.setColorFilter(context.getResources().getColor(R.color.green));
+                non_VegSysmbol.setColorFilter(context.getResources().getColor(R.color.gray));
+            }
+        }else{
+            vegSysmbol.setColorFilter(context.getResources().getColor(R.color.gray));
+            non_VegSysmbol.setColorFilter(context.getResources().getColor(R.color.gray));
+        }
+
+        cross_popup.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId)
-            {
-                int value =  getRadioSelected(checkedId);
-
-                dialogd.dismiss();
-                globalUrl = RetrofitApiService.BASEURL+"explorechef"+"?is_vegitarian="+value;
-                networkCallForData(globalUrl);
+            public void onClick(View v) {
+                if (dialogd.isShowing())
+                    dialogd.dismiss();
+            }
+        });
+        reset_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialogd.isShowing())
+                    dialogd.dismiss();
+                filterFoodApplied.setVisibility(View.GONE);
+                filterPref.clearPref(context,PreferenceManager.FILTER_PREFERENCES_FILE);
             }
         });
 
+        filter_veg_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filter_value = 0;
+                vegSysmbol.setColorFilter(context.getResources().getColor(R.color.green));
+                non_VegSysmbol.setColorFilter(context.getResources().getColor(R.color.gray));
+            }
+        });
+        filter_non_veg_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filter_value = 1;
+                vegSysmbol.setColorFilter(context.getResources().getColor(R.color.gray));
+                non_VegSysmbol.setColorFilter(context.getResources().getColor(R.color.red));
+            }
+        });
+
+        apply_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialogd.isShowing())
+                    dialogd.dismiss();
+
+                if (filter_value == 0 || filter_value == 1) {
+                    filterFoodApplied.setVisibility(View.VISIBLE);
+                    filterPref.saveBooleanForKey(PreferenceManager.FILTER_APPLY, true);
+                    filterPref.saveIntForKey(PreferenceManager.FILTER_FOOD_TYPE, filter_value);
+                    pf.saveIntForKey("UserFoodType", filter_value);
+                }else{
+                    filterFoodApplied.setVisibility(View.GONE);
+                }
+                globalUrl = RetrofitApiService.BASEURL + "explorechef" + "?is_vegitarian=" + filter_value;
+                networkCallForData(globalUrl);
+            }
+        });
 
         dialogd.show();
 
     }
 
     @Override
-    public void clickOnFilter(int position)
-    {
+    public void clickOnFilter(int position) {
 
     }
 
@@ -667,21 +719,16 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         int value = 0;
 
 
-
-        if (selectedId== R.id.veg)
-        {
-            pf.saveIntForKey("UserFoodType",0);
+        if (selectedId == R.id.veg) {
+            pf.saveIntForKey("UserFoodType", 0);
             value = 0;
-            return   value;
+            return value;
 
-        }else
-        {
-            pf.saveIntForKey("UserFoodType",1);
+        } else {
+            pf.saveIntForKey("UserFoodType", 1);
             value = 1;
             return value;
         }
-
-
 
 
     }

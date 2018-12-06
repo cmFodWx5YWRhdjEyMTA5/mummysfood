@@ -17,6 +17,7 @@ import android.widget.ScrollView;
 import com.airbnb.lottie.LottieAnimationView;
 
 import java.io.IOException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -131,8 +132,8 @@ public class YourCartActivity extends BaseActivity {
     UserProfileModel.Subscribes ordersSub = new UserProfileModel.Subscribes();
 
     private String userAdd;
-    private String landmarkEdit ="";
-    private String hounseNoEdit= "";
+    private String landmarkEdit = "";
+    private String hounseNoEdit = "";
     private String typeOfPackage;
     private String location = "";
     private String foodImage = "";
@@ -216,7 +217,7 @@ public class YourCartActivity extends BaseActivity {
             if (location.equalsIgnoreCase("RepeatOrder")) {
 
                 try {
-                    addressMain.setText( ordersSub.orders.get(0).landmark);
+                    addressMain.setText(ordersSub.orders.get(0).landmark);
                 } catch (Exception e) {
                     e.printStackTrace();
                     addressMain.setText(userAdd);
@@ -235,17 +236,17 @@ public class YourCartActivity extends BaseActivity {
             if (location.equalsIgnoreCase("RepeatOrder")) {
 
 
-                order_titile.setText( ordersSub.orders.get(0).food_name);
-                order_price.setText(getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
+                order_titile.setText(ordersSub.orders.get(0).food_name);
+                order_price.setText(getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
 
 
-                order_price_basedQuantity.setText(getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
-                totalValue.setText(getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
+                order_price_basedQuantity.setText(getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
+                totalValue.setText(getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
                 order_taxes.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(50));
-                placeOrderprice.setText(getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
-                payatm.setText(paymentType +" " + getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
-                placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
-                payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
+                placeOrderprice.setText(getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
+                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
+                placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
+                payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
                 order_taxes.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(50));
 
             } else {
@@ -268,7 +269,7 @@ public class YourCartActivity extends BaseActivity {
 
 
                 placeOrderprice.setText(String.valueOf(orderPriceInt + modelData.food_detail.get(0).taxes));
-                payatm.setText(paymentType +" " + getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + modelData.food_detail.get(0).taxes));
+                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + modelData.food_detail.get(0).taxes));
                 placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + modelData.food_detail.get(0).taxes));
                 payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + modelData.food_detail.get(0).taxes));
                 order_taxes.setText(getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).taxes);
@@ -296,15 +297,13 @@ public class YourCartActivity extends BaseActivity {
         }
 
 
-
     }
 
-    private void checkPaymentOption()
-    {
+    private void checkPaymentOption() {
 
-        paymentType = pf.getStringForKey("paymentType","");
+        paymentType = pf.getStringForKey("paymentType", "");
 
-     //   if (payatm == null ||payatm.)
+        //   if (payatm == null ||payatm.)
 
     }
 
@@ -312,15 +311,15 @@ public class YourCartActivity extends BaseActivity {
     public void placceOrder() {
         if (addressMain == null && "".equalsIgnoreCase(userAdd)) {
 
-       //     placeOrderButton.setBackground(getResources().getDrawable(R.drawable.fill_rounded_white_smoke));
-       //     placeOrderprice.setTextColor(getResources().getColor(R.color.black));
-         //   placeOrderButtonCheckout.setTextColor(getResources().getColor(R.color.black));
+            //     placeOrderButton.setBackground(getResources().getDrawable(R.drawable.fill_rounded_white_smoke));
+            //     placeOrderprice.setTextColor(getResources().getColor(R.color.black));
+            //   placeOrderButtonCheckout.setTextColor(getResources().getColor(R.color.black));
             addressMain.setError("Insert Valid Address");
 
         } else {
-         //   placeOrderButton.setBackground(getResources().getDrawable(R.drawable.fill_rounded_full_primary));
-        //    placeOrderprice.setTextColor(getResources().getColor(R.color.black));
-           // placeOrderButtonCheckout.setTextColor(getResources().getColor(R.color.black));
+            //   placeOrderButton.setBackground(getResources().getDrawable(R.drawable.fill_rounded_full_primary));
+            //    placeOrderprice.setTextColor(getResources().getColor(R.color.black));
+            // placeOrderButtonCheckout.setTextColor(getResources().getColor(R.color.black));
         }
 
         placeOrderDialog();
@@ -347,7 +346,7 @@ public class YourCartActivity extends BaseActivity {
             int totalCount = itemCountText - 1;
             item_count.setText(String.valueOf(totalCount));
             if (location.equalsIgnoreCase("RepeatOrder")) {
-                valuep = Float.parseFloat( ordersSub.orders.get(0).price);
+                valuep = Float.parseFloat(ordersSub.orders.get(0).price);
             } else {
                 valuep = Float.parseFloat(modelData.food_detail.get(0).price);
             }
@@ -363,7 +362,7 @@ public class YourCartActivity extends BaseActivity {
 
             placeOrderprice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
             order_price_finalTotal.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + modelData.food_detail.get(0).taxes));
-            payatm.setText(paymentType +" " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + modelData.food_detail.get(0).taxes));
+            payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + modelData.food_detail.get(0).taxes));
             placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + modelData.food_detail.get(0).taxes));
             payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + modelData.food_detail.get(0).taxes));
 
@@ -379,7 +378,7 @@ public class YourCartActivity extends BaseActivity {
         item_count.setText(String.valueOf(totalCount));
 
         if (location.equalsIgnoreCase("RepeatOrder")) {
-            valuep = Float.parseFloat( ordersSub.orders.get(0).price);
+            valuep = Float.parseFloat(ordersSub.orders.get(0).price);
         } else {
             valuep = Float.parseFloat(modelData.food_detail.get(0).price);
         }
@@ -395,7 +394,7 @@ public class YourCartActivity extends BaseActivity {
         totalValue.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
 
         placeOrderprice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
-        payatm.setText(paymentType +" " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
+        payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
         placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
         payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
         order_price_finalTotal.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
@@ -411,25 +410,24 @@ public class YourCartActivity extends BaseActivity {
         adresIntent.putExtra("From", "OrderDetails");
 
         try {
-            if (landmarkEdit != null && !"".equalsIgnoreCase(landmarkEdit))
-            {
-                adresIntent.putExtra("landMark",  landmarkEdit);
-            }else {
-                adresIntent.putExtra("landMark",  ordersSub.orders.get(0).landmark);
+            if (landmarkEdit != null && !"".equalsIgnoreCase(landmarkEdit)) {
+                adresIntent.putExtra("landMark", landmarkEdit);
+            } else {
+                adresIntent.putExtra("landMark", ordersSub.orders.get(0).landmark);
             }
 
-            if (hounseNoEdit != null && !"".equalsIgnoreCase(hounseNoEdit))
-            {
-                adresIntent.putExtra("flatNo",  hounseNoEdit);
-            }else {
-                adresIntent.putExtra("flatNo",  ordersSub.orders.get(0).house_no);            }
+            if (hounseNoEdit != null && !"".equalsIgnoreCase(hounseNoEdit)) {
+                adresIntent.putExtra("flatNo", hounseNoEdit);
+            } else {
+                adresIntent.putExtra("flatNo", ordersSub.orders.get(0).house_no);
+            }
 
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        adresIntent.putExtra("AddNew","Yes");
+        adresIntent.putExtra("AddNew", "Yes");
         startActivityForResult(adresIntent, 200);
     }
 
@@ -448,8 +446,8 @@ public class YourCartActivity extends BaseActivity {
         adresIntent.putExtra("PlaceOrder", "PlaceOrder");
         startActivityForResult(adresIntent, 201);
 
-      //  scrollChange.setVisibility(View.GONE);
-       // changePersonInfo.setVisibility(View.VISIBLE);
+        //  scrollChange.setVisibility(View.GONE);
+        // changePersonInfo.setVisibility(View.VISIBLE);
     }
 
     @OnClick(R.id.nameSave)
@@ -480,14 +478,14 @@ public class YourCartActivity extends BaseActivity {
             if (location.equalsIgnoreCase("RepeatOrder")) {
                 pf.saveStringForKey("paymentType", "COD");
 
-                paymentType = pf.getStringForKey("paymentType","");
-                payatm.setText(paymentType +" " + getResources().getString(R.string.rs_symbol) + getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
+                paymentType = pf.getStringForKey("paymentType", "");
+                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
 
 
             } else {
                 pf.saveStringForKey("paymentType", "COD");
-                paymentType = pf.getStringForKey("paymentType","");
-                payatm.setText(paymentType +" " + getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
+                paymentType = pf.getStringForKey("paymentType", "");
+                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
 
             }
 
@@ -508,13 +506,13 @@ public class YourCartActivity extends BaseActivity {
         try {
             if (location.equalsIgnoreCase("RepeatOrder")) {
                 pf.saveStringForKey("paymentType", "Paytm");
-                paymentType = pf.getStringForKey("paymentType","");
-                payatm.setText(paymentType +" "+ getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
+                paymentType = pf.getStringForKey("paymentType", "");
+                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
 
             } else {
                 pf.saveStringForKey("paymentType", "Paytm");
-                paymentType = pf.getStringForKey("paymentType","");
-                payatm.setText(paymentType +" "+ getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
+                paymentType = pf.getStringForKey("paymentType", "");
+                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
 
             }
 
@@ -531,9 +529,9 @@ public class YourCartActivity extends BaseActivity {
 
         try {
             if (location.equalsIgnoreCase("RepeatOrder")) {
-                payatm.setText(paymentType +" " + getResources().getString(R.string.rs_symbol) + getResources().getString(R.string.rs_symbol) +  ordersSub.orders.get(0).price);
+                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
             } else {
-                payatm.setText(paymentType +" "+ getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
+                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
             }
 
         } catch (Exception e) {
@@ -558,7 +556,7 @@ public class YourCartActivity extends BaseActivity {
         } else if (changePaymentOption.getVisibility() == View.VISIBLE) {
             changePersonInfo.setVisibility(View.GONE);
             scrollChange.setVisibility(View.VISIBLE);
-        }else if (changePersonInfo.getVisibility() == View.VISIBLE){
+        } else if (changePersonInfo.getVisibility() == View.VISIBLE) {
             scrollChange.setVisibility(View.VISIBLE);
             changePersonInfo.setVisibility(View.GONE);
         } else {
@@ -576,11 +574,10 @@ public class YourCartActivity extends BaseActivity {
         } else if (changePaymentOption.getVisibility() == View.VISIBLE) {
             changePersonInfo.setVisibility(View.GONE);
             scrollChange.setVisibility(View.VISIBLE);
-        } else if (changePersonInfo.getVisibility() == View.VISIBLE){
+        } else if (changePersonInfo.getVisibility() == View.VISIBLE) {
             scrollChange.setVisibility(View.VISIBLE);
             changePersonInfo.setVisibility(View.GONE);
-        }else
-        {
+        } else {
             finish();
         }
 
@@ -606,16 +603,12 @@ public class YourCartActivity extends BaseActivity {
                 }
 
 
-
-
-
                 //   showToast(dataValue);
             }
-        } else if (requestCode == 201)
-        {
+        } else if (requestCode == 201) {
 
             try {
-                String   MobileNumber = data.getStringExtra("MobileNumber");
+                String MobileNumber = data.getStringExtra("MobileNumber");
                 personInfo.setText(MobileNumber);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -654,7 +647,7 @@ public class YourCartActivity extends BaseActivity {
         LottieAnimationView lottieAnimationViewPlace = (LottieAnimationView) dialogd.findViewById(R.id.lottieAnimationViewPlace);
         lottieAnimationViewPlace.playAnimation();
 
-        palceOrderViaMethod.setText("Your order will be placing via "+paymentType +" payment method"+'\n'+"Place Order ?");
+        palceOrderViaMethod.setText("Your order will be placing via " + paymentType + " payment method" + '\n' + "Place Order ?");
 
         placeOrderok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -681,73 +674,67 @@ public class YourCartActivity extends BaseActivity {
 
     private void placeOrderData() {
 
-        mobileNumber = pf.getStringForKey("Mobile","");
+        mobileNumber = pf.getStringForKey("Mobile", "");
 
 
-        String  CurrentAddress = pf.getStringForKey("CurrentAddress","");
+        String CurrentAddress = pf.getStringForKey("CurrentAddress", "");
 
-        if (mobileNumber != null&& !"".equalsIgnoreCase(mobileNumber))
-        {
+        if (mobileNumber != null && !"".equalsIgnoreCase(mobileNumber)) {
             OrderModel.Data orderModel = new OrderModel.Data();
             int itemCountText = Integer.parseInt(item_count.getText().toString());
             orderModel.landmark = addressMain.getText().toString();
 
             if (location.equalsIgnoreCase("RepeatOrder")) {
 
-                String paymetTYpe =  ordersSub.orders.get(0).payment_type;
-                orderModel.house_no =  ordersSub.orders.get(0).house_no;
-                orderModel.pincode =  ordersSub.orders.get(0).pincode;
-                orderModel.address_type =  ordersSub.orders.get(0).address_type;
+                String paymetTYpe = ordersSub.orders.get(0).payment_type;
+                orderModel.house_no = ordersSub.orders.get(0).house_no;
+                orderModel.pincode = ordersSub.orders.get(0).pincode;
+                orderModel.address_type = ordersSub.orders.get(0).address_type;
                 orderModel.payment_type = paymetTYpe;
 
-                orderModel.food_user_id =  ordersSub.orders.get(0).order_for;
-                orderModel.order_by =  ordersSub.orders.get(0).order_by;
-                orderModel.order_for =  ordersSub.orders.get(0).order_for;
-                orderModel.food_detail =  ordersSub.orders.get(0).food_detail;
-                orderModel.food_name =  ordersSub.orders.get(0).food_name;
+                orderModel.food_user_id = ordersSub.orders.get(0).order_for;
+                orderModel.order_by = ordersSub.orders.get(0).order_by;
+                orderModel.order_for = ordersSub.orders.get(0).order_for;
+                orderModel.food_detail = ordersSub.orders.get(0).food_detail;
+                orderModel.food_name = ordersSub.orders.get(0).food_name;
 
                 orderModel.street = CurrentAddress;
                 orderModel.city = "indore";
                 orderModel.state = "MP";
 
-                orderModel.price =  ordersSub.orders.get(0).price;
+                orderModel.price = ordersSub.orders.get(0).price;
                 orderModel.quantity = 1;
                 orderModel.payment_status = "confirm";
                 orderModel.is_order_confirmed = 1;
-                orderModel.user_id =  ordersSub.orders.get(0).user_id;
-                orderModel.subscribe_to =  ordersSub.orders.get(0).order_for;
-                orderModel.number_of_days =  ordersSub.number_of_days;
+                orderModel.user_id = ordersSub.orders.get(0).user_id;
+                orderModel.subscribe_to = ordersSub.orders.get(0).order_for;
+                orderModel.number_of_days = ordersSub.number_of_days;
                 orderModel.status = "active";
-                orderModel.is_dinner =  ordersSub.orders.get(0).is_dinner;
-                orderModel.is_lunch =  ordersSub.orders.get(0).is_dinner;
+                orderModel.is_dinner = ordersSub.orders.get(0).is_dinner;
+                orderModel.is_lunch = ordersSub.orders.get(0).is_dinner;
                 ;
                 orderModel.ordered_plates = itemCountText;
                 orderModel.chef_name = "privacy concern so name is not here";
                 orderModel.food_image = foodImage;
 
-                if (CurrentAddress != null && !"".equalsIgnoreCase(CurrentAddress))
-                {
-                    if (paymentType != null && !"".equalsIgnoreCase(paymentType))
-                    {
-                        if (paymentType.equalsIgnoreCase("Paytm"))
-                        {
+                if (CurrentAddress != null && !"".equalsIgnoreCase(CurrentAddress)) {
+                    if (paymentType != null && !"".equalsIgnoreCase(paymentType)) {
+                        if (paymentType.equalsIgnoreCase("Paytm")) {
                             showToast("Paytm Integration is in process you can place order using COD");
-                        }else
-                        {
-                            newtowrkCallToplaceOrder(orderModel,itemCountText);
+                        } else {
+                            newtowrkCallToplaceOrder(orderModel, itemCountText);
                         }
-                    }else
-                    {
+                    } else {
                         showToast("This order has placed via COD payment method");
-                        newtowrkCallToplaceOrder(orderModel,itemCountText);
+                        newtowrkCallToplaceOrder(orderModel, itemCountText);
                     }
 
                 } else {
 
                     showToast("add your address");
-                    Intent userLoc = new Intent(YourCartActivity.this,EnterFullAdressActivity.class);
-                    userLoc.putExtra("AddNew","Yes");
-                    startActivityForResult(userLoc,200);
+                    Intent userLoc = new Intent(YourCartActivity.this, EnterFullAdressActivity.class);
+                    userLoc.putExtra("AddNew", "Yes");
+                    startActivityForResult(userLoc, 200);
 
                 }
 
@@ -797,39 +784,33 @@ public class YourCartActivity extends BaseActivity {
                 orderModel.landmark = landmarkEdit;
 
 
-
                 if (CurrentAddress != null && !"".equalsIgnoreCase(CurrentAddress)) {
 
 
-                    if (paymentType != null && !"".equalsIgnoreCase(paymentType))
-                    {
-                        if (paymentType.equalsIgnoreCase("Paytm"))
-                        {
+                    if (paymentType != null && !"".equalsIgnoreCase(paymentType)) {
+                        if (paymentType.equalsIgnoreCase("Paytm")) {
                             showToast("Paytm Integration is in process you can place order using COD");
-                        }else
-                        {
-                            newtowrkCallToplaceOrder(orderModel,itemCountText);
+                        } else {
+                            newtowrkCallToplaceOrder(orderModel, itemCountText);
                         }
-                    }else
-                    {
+                    } else {
                         showToast("This order has placed via COD payment method");
-                        newtowrkCallToplaceOrder(orderModel,itemCountText);
+                        newtowrkCallToplaceOrder(orderModel, itemCountText);
                     }
 
                 } else {
 
                     showToast("add your address");
-                    Intent userLoc = new Intent(YourCartActivity.this,EnterFullAdressActivity.class);
-                    userLoc.putExtra("AddNew","Yes");
-                    startActivityForResult(userLoc,200);
+                    Intent userLoc = new Intent(YourCartActivity.this, EnterFullAdressActivity.class);
+                    userLoc.putExtra("AddNew", "Yes");
+                    startActivityForResult(userLoc, 200);
 
                 }
 
 
-
             }
 
-        }else {
+        } else {
             Intent adresIntent = new Intent(YourCartActivity.this, MobileOtpVerificationActivity.class);
             adresIntent.putExtra("PlaceOrder", "PlaceOrder");
             startActivityForResult(adresIntent, 201);
@@ -838,8 +819,7 @@ public class YourCartActivity extends BaseActivity {
 
     }
 
-    private void newtowrkCallToplaceOrder(OrderModel.Data orderModel,int itemCountText) {
-
+    private void newtowrkCallToplaceOrder(OrderModel.Data orderModel, int itemCountText) {
 
 
         Call<OrderModel.Data> loginRequestCall = AppConstants.restAPI.subscribeOrder(orderModel);

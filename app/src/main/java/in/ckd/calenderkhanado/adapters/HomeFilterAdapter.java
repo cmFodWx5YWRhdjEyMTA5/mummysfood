@@ -77,7 +77,7 @@ public class HomeFilterAdapter extends RecyclerView.Adapter<HomeFilterAdapter.Vi
 
         if (i == 0)
         {
-            Glide.with(context).load(R.drawable.nearme).into(viewHolder.filterImage);
+            Glide.with(context).load(R.mipmap.nearme).into(viewHolder.filterImage);
         }else if (i ==1)
         {
             Glide.with(context).load(R.drawable.trynew).into(viewHolder.filterImage);
