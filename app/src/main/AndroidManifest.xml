@@ -34,7 +34,7 @@
         </provider>
 
         <activity
-            android:name=".activities.SubscriptionUpdate_Activity"
+            android:name=".activities.SpashAcctivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -114,7 +114,8 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
         <activity android:name=".activities.FilterActivtiy" />
-        <activity android:name=".activities.SpashAcctivity"></activity>
+        <activity android:name=".activities.SubscriptionUpdate_Activity" />
+        <activity android:name=".activities.UpdateuserOrderSubActivity"></activity>
     </application>
 
 </manifest>

@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
@@ -93,11 +94,9 @@ public class ProfileUpdateActivity extends BaseActivity {
     final private int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 124;
 
     private int email_verification;
-    private String loginType, userGender, mobileNumber, userEmail, userName, userProfileImage;
+    private String loginType, userGender = "female", mobileNumber, userEmail, userName, userProfileImage;
 
     //for image upload
-    private String userChoosenTask;
-    private final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
     private final int SELECT_PHOTO = 1;
     private final int CAMERA_REQUEST = 1888;
     private Uri mImageUri;
@@ -107,8 +106,6 @@ public class ProfileUpdateActivity extends BaseActivity {
 
     private String imageName;
     private int user_id;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,8 +118,6 @@ public class ProfileUpdateActivity extends BaseActivity {
         pfd = new PreferenceManager(this);
 
         user_id = pfd.getIntForKey("user_id",0);
-
-
 
         Bundle intent = getIntent().getExtras();
         if(intent != null){
@@ -223,12 +218,10 @@ public class ProfileUpdateActivity extends BaseActivity {
                     requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_ID_MULTIPLE_PERMISSIONS);
                 }else {
                     if (items[item].equals("Take Photo")) {
-                        userChoosenTask = "Take Photo";
 
                         cameraIntent();
 
                     } else if (items[item].equals("Choose from Library")) {
-                        userChoosenTask = "Choose from Library";
 
                         galleryIntent();
 
@@ -300,8 +293,7 @@ public class ProfileUpdateActivity extends BaseActivity {
             }
         } else {
 
-            if (!loginType.equalsIgnoreCase("Profile"))
-            {
+            if (!loginType.equalsIgnoreCase("Profile")) {
                 if (!fullName.getText().toString().trim().isEmpty() &&!emailId.getText().toString().trim().isEmpty() ){
                     nexttoupload();
                 }else {
@@ -317,21 +309,29 @@ public class ProfileUpdateActivity extends BaseActivity {
     }
 
     private void nexttoupload() {
-
+        //getting unique id for device
+        String device_id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        String osVersion = android.os.Build.VERSION.RELEASE;
 
         LoginRequest request = new LoginRequest();
 
         request.f_name = fullName.getText().toString();
+        request.name = fullName.getText().toString();
         request.email = emailId.getText().toString();
         request.mobile = mobileNumber;
         request.profile_image = imageName;
-        request.type = "Seeker";
-        request.is_email_verified = 1;
-        request.is_mobile_verified = 1;
+        request.type = AppConstants.SEEKER;
+        if (loginType.equalsIgnoreCase("mobile")) {
+            request.is_mobile_verified = 1;
+            request.is_email_verified = 0;
+        }else {
+            request.is_mobile_verified = 0;
+            request.is_email_verified = 1;
+        }
+        request.gender = userGender;
         request.is_vagitarian = getRadioSelected();
-        request.id = user_id;
-        request.os = "";
-        request.l_name = "";
+        request.device_id = device_id;
+        request.os = osVersion;
 
         Call<ResponseBody> loginRequestCall = AppConstants.restAPI.updateUserInfo(user_id,request);
 
@@ -413,8 +413,7 @@ public class ProfileUpdateActivity extends BaseActivity {
         if (data.mobile != null && data.mobile.isEmpty())
             pf.saveStringForKey(PreferenceManager.USER_MOBILE, data.mobile);
 
-        if (loginType.equalsIgnoreCase("Profile"))
-        {
+        if (loginType.equalsIgnoreCase("Profile")) {
             finish();
         }
 
@@ -568,20 +567,15 @@ public class ProfileUpdateActivity extends BaseActivity {
 
     private int getRadioSelected() {
 
-
         int selectedId = radioAction.getCheckedRadioButtonId();
         int value = 0;
 
-
-
-        if (selectedId== R.id.veg)
-        {
+        if (selectedId== R.id.veg) {
             pf.saveIntForKey("UserFoodType",0);
             value = 0;
            return   value;
 
-        }else
-        {
+        }else {
             pf.saveIntForKey("UserFoodType",1);
             value = 1;
             return value;

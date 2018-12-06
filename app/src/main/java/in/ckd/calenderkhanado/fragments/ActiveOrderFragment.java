@@ -145,8 +145,7 @@ public class ActiveOrderFragment extends BaseFragment   implements OrderStatusAd
 
                                 int  remmainPlates = totalPlates - orderPlates;
 
-
-                                if (remmainPlates > 0)
+                                if (remmainPlates > 0 ||subList.deliverd_order==0)
                                 {
                                     if (subList.orders != null)
                                     {

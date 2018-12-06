@@ -3,6 +3,7 @@ package in.ckd.calenderkhanado.activities;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,11 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.onesignal.OSPermissionSubscriptionState;
+import com.onesignal.OneSignal;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import butterknife.BindView;
@@ -860,6 +866,17 @@ public class YourCartActivity extends BaseActivity {
                             ActIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(ActIntent);
                             finish();
+
+                            sendNotification();
+
+                            final Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                   sendNotification();
+                                }
+                            }, 5000);
+
                         } else {
                         }
 
@@ -888,4 +905,27 @@ public class YourCartActivity extends BaseActivity {
             }
         });
     }
-}
+
+    private void sendNotification() {
+
+
+        OSPermissionSubscriptionState status = OneSignal.getPermissionSubscriptionState();
+        String userId = status.getSubscriptionStatus().getUserId();
+        boolean isSubscribed = status.getSubscriptionStatus().getSubscribed();
+
+        if (!isSubscribed)
+            return;
+
+        try {
+            JSONObject notificationContent = new JSONObject("{'contents': {'en': 'Your Order has placed.we will reach soon till then listen some songs'}," +
+                    "'include_player_ids': ['" + userId + "'], " +
+                    "'headings': {'en': 'Calender Khana do'}, " +
+                    "'big_picture': 'https://www.shoutlo.com/uploads/articles/header-img-places-to-get-north-indian-food-in-hyderabad.jpg'}");
+            OneSignal.postNotification(notificationContent, null);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    }

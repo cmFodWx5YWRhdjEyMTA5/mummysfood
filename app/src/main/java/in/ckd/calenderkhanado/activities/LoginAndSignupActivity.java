@@ -304,18 +304,8 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
 
     private void networkcallForCheckUserInDb(final GoogleSignInAccount user) {
 
-
         LoginRequest request = new LoginRequest();
-
         request.email = user.getEmail();
-        request.f_name = user.getDisplayName();
-        request.mobile = "";
-        request.login_type = "gmail";
-        request.is_email_verified = 1;
-        request.is_mobile_verified = 1;
-        request.is_vagitarian = 1;
-        request.type = "seeker";
-
 
         Call<ResponseBody> loginRequestCall = AppConstants.restAPI.saveUserInfo(request);
 
@@ -340,8 +330,7 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
                                 intent.putExtra("email",user.getEmail());
                                 intent.putExtra("profile_image",user.getPhotoUrl().toString());
                                 intent.putExtra("logintype","google");
-                                sharePrefrenceIntentActivity(data);
-                                ppref.saveIntForKey("user_id",json.getJSONObject("data").getInt("id"));
+                                startActivity(intent);
 
                             }else if(json.getString("status").equalsIgnoreCase(AppConstants.ALREADY)){
                                 data.id = json.getJSONArray("data").getJSONObject(0).getInt("id");

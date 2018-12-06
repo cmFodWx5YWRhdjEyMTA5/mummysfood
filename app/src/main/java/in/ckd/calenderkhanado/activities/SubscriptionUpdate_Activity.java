@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,7 +27,9 @@ import in.ckd.calenderkhanado.data.pref.PreferenceManager;
 import in.ckd.calenderkhanado.location.EnterFullAdressActivity;
 import in.ckd.calenderkhanado.models.ProfileModel;
 import in.ckd.calenderkhanado.models.SubscribtionModel;
+import in.ckd.calenderkhanado.models.UserProfileModel;
 import in.ckd.calenderkhanado.utils.AppConstants;
+import in.ckd.calenderkhanado.widgets.CkdTextview;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,10 +42,16 @@ public class SubscriptionUpdate_Activity extends BaseActivity implements Subscri
     @BindView(R.id.addressRecyclerView)
     RecyclerView addressRecyclerView;
 
+    @BindView(R.id.addNewAdd)
+    CkdTextview addNewAdd;
+
+    @BindView(R.id.addCons)
+    CkdTextview addCons;
+
     private int listPos;
     SubscriptionUser foodDataAdapter;
 
-    List<SubscribtionModel>models;
+    List<SubscribtionModel.Data>models;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +61,10 @@ public class SubscriptionUpdate_Activity extends BaseActivity implements Subscri
         ButterKnife.bind(this);
 
         models = new ArrayList<>();
+
+        addNewAdd.setVisibility(View.GONE);
+
+        addCons.setText("All Active Order List");
 
        networkCallForgetSubUserList();
 
@@ -76,7 +89,50 @@ public class SubscriptionUpdate_Activity extends BaseActivity implements Subscri
     @Override
     public void editAddress(int position)
     {
-        NetworkCallForActionOnAdress(position,"Edit");
+        NetworkCallgetUserData(position);
+    }
+
+    private void NetworkCallgetUserData(final int position) {
+
+
+        Call<UserProfileModel>modelUser = AppConstants.restAPI.getProfileUserDataForOrder(models.get(position).user_id);
+        modelUser.enqueue(new Callback<UserProfileModel>() {
+            @Override
+            public void onResponse(Call<UserProfileModel> call, Response<UserProfileModel> response) {
+                if (response.isSuccessful())
+                {
+                    if (response != null)
+                    {
+                        UserProfileModel.Data model = response.body().data.get(0);
+
+                             setAction(model,position);
+                    }
+                }else
+                {
+                    try {
+                        Log.d("Error",response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UserProfileModel> call, Throwable t)
+            {
+                Log.d("Error",t.getMessage());
+            }
+        });
+
+
+    }
+
+    private void setAction(UserProfileModel.Data model, int position) {
+
+        Intent send = new Intent(this,UpdateuserOrderSubActivity.class);
+        send.putExtra("Model",model);
+        send.putExtra("SubModel",models.get(position));
+        startActivity(send);
     }
 
     private void NetworkCallForActionOnAdress(int position,String action)
@@ -228,9 +284,11 @@ public class SubscriptionUpdate_Activity extends BaseActivity implements Subscri
                 {
                     if (response.body() != null)
                     {
-                        showToast("Success");
+
+
 
                        setAddapter(response.body().data);
+                        models = response.body().data;
                     }
                 }else
                 {
@@ -260,9 +318,8 @@ public class SubscriptionUpdate_Activity extends BaseActivity implements Subscri
 
         LinearLayoutManager linearLayoutManager = null;
         try {
-            linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true);
+            linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             addressRecyclerView.setHasFixedSize(true);
-            addressRecyclerView.scrollToPosition(0);
             addressRecyclerView.setLayoutManager(linearLayoutManager);
             addressRecyclerView.setItemAnimator(new DefaultItemAnimator());
             foodDataAdapter = new SubscriptionUser(this,data ,this);

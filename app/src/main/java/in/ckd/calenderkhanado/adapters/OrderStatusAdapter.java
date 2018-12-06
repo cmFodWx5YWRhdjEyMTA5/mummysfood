@@ -65,8 +65,15 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
             int totalPlates = subList.number_of_days;
             int orderPlates = subList.ordered_plates;
 
-            holder.remainingPlates.setText("Remaining plates : "+String.valueOf(totalPlates - orderPlates));
-            remmainPlates = totalPlates - orderPlates;
+            if (subList.number_of_days == 1)
+            {
+                remmainPlates = 1;
+                holder.remainingPlates.setText("Your order is on the way");
+            }else
+            {
+                remmainPlates = totalPlates - orderPlates;
+                holder.remainingPlates.setText("Remaining plates : "+String.valueOf(totalPlates - orderPlates));
+            }
 
 
         holder.lineaarBg.setVisibility(View.VISIBLE);
@@ -85,7 +92,7 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
 
 
 
-        if (remmainPlates > 0)
+        if (remmainPlates > 0 ||subList.deliverd_order==0)
         {
             orderStatus = "Active";
             holder.CancelOrder.setText("Show Details");
@@ -143,7 +150,7 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
 
                         remmainPlates = totalPlates - orderPlates;
 
-                        if (remmainPlates>0)
+                        if (remmainPlates>0||subList.deliverd_order==0)
                         {
                             listener.actionOnOrder(postion,"Show",remmainPlates,SubscribesListglobal.get(postion).id);
                         }else

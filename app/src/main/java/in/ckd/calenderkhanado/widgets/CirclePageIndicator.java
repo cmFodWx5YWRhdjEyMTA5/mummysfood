@@ -247,7 +247,7 @@ public class CirclePageIndicator extends View implements PageIndicator {
             }
         }
 
-        //Draw the filled circle according to the current scroll
+        //Draw the filled full_circle according to the current scroll
         float cx = (mSnap ? mSnapPage : mCurrentPage) * threeRadius;
         if (!mSnap) {
             cx += mPageOffset * threeRadius;

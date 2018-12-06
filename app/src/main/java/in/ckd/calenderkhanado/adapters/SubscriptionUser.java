@@ -73,7 +73,7 @@ public class SubscriptionUser extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int i) {
-        View view = LayoutInflater.from(context).inflate(R.layout.saved_address_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.user_order_update_sub, parent, false);
         return new SubscriptionUser.ViewHolder(view);
     }
 
@@ -84,8 +84,8 @@ public class SubscriptionUser extends RecyclerView.Adapter<RecyclerView.ViewHold
         SubscribtionModel.Data model = foodMediaList.get(i);
         if (model != null)
         {
-            holder.addressTitle.setText(String.valueOf(model.user_id));
-            holder.addressType.setText(String.valueOf(model.number_of_days));
+            holder.addressTitle.setText("Order By : "+String.valueOf(model.user_id));
+            holder.addressType.setText("Ordered Plates : "+String.valueOf(model.ordered_plates));
 
             holder.editAddress.setTag(i);
             holder.deleteAddress.setTag(i);

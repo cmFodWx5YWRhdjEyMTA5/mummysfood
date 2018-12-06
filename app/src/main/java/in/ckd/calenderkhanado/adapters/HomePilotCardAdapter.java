@@ -2,6 +2,7 @@ package in.ckd.calenderkhanado.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,9 +17,12 @@ import in.ckd.calenderkhanado.data.pref.PreferenceManager;
 import in.ckd.calenderkhanado.fragments.OrderDetailsActivity;
 import in.ckd.calenderkhanado.fragments.ProfileFragmentChef;
 import in.ckd.calenderkhanado.models.DashBoardModel;
+import in.ckd.calenderkhanado.utils.CalculateDistance;
 import in.ckd.calenderkhanado.widgets.CkdTextview;
 
 import java.util.List;
+
+import static android.location.Location.distanceBetween;
 
 public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
 
@@ -48,6 +52,7 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
         CkdTextview chef_name;
         CkdTextview food_title;
         CkdTextview food_price;
+        CkdTextview order_distance;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -55,6 +60,7 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
             food_title = (CkdTextview)itemView.findViewById(R.id.food_title);
             chef_name = (CkdTextview)itemView.findViewById(R.id.chef_name);
             food_price = (CkdTextview)itemView.findViewById(R.id.food_price);
+            order_distance = (CkdTextview)itemView.findViewById(R.id.order_distance);
         }
     }
 
@@ -96,31 +102,12 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
             if (data.get(i).food_detail.get(0).name != null){
                 holder.food_title.setText(dataModel.food_detail.get(0).name);
             }
-        /*BitmapDrawable drawable = (BitmapDrawable) holder.food_image.getDrawable();
-        Bitmap mbitmap = drawable.getBitmap();
-        Bitmap imageRounded = Bitmap.createBitmap(mbitmap.getWidth(), mbitmap.getHeight(), mbitmap.getConfig());
-        Canvas canvas = new Canvas(imageRounded);
-        Paint mpaint = new Paint();
-        mpaint.setAntiAlias(true);
-        mpaint.setShader(new BitmapShader(mbitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP));
-        canvas.drawRoundRect((new RectF(0, 0, mbitmap.getWidth(), mbitmap.getHeight())), 100, 100, mpaint);// Round Image Corner 100 100 100 100
-        holder.food_image.setImageBitmap(imageRounded);*/
 
-            //check share prefrence
-        /*if (pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0 && pf.getIntForKey(PreferenceManager.USER_ID, 0) == data.get(i).id){
-            holder.add_to_cart.setVisibility(View.GONE);
-            holder.add_to_cart_item_layout.setVisibility(View.VISIBLE);
-            if (pf.getIntForKey(PreferenceManager.ORDER_quantity, 0) != 0) {
-                holder.item_count.setText("" + pf.getIntForKey(PreferenceManager.ORDER_quantity, 0));
-            } else {
-                holder.add_to_cart.setVisibility(View.VISIBLE);
-                holder.add_to_cart_item_layout.setVisibility(View.GONE);
-            }
-        }else {
-            holder.add_to_cart.setVisibility(View.VISIBLE);
-            holder.add_to_cart_item_layout.setVisibility(View.GONE);
-        }*/
+            float[] results = new float[1];
+            Location.distanceBetween(12.9732098, 79.1590077, 22.7602485, 75.8880693,results);
+            float distance = results[0]/1000;
 
+            holder.order_distance.setText(""+distance+"km");
             holder.food_image.setTag(i);
             holder.food_image.setOnClickListener(this);
             holder.chef_name.setTag(i);

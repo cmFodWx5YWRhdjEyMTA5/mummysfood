@@ -50,7 +50,7 @@
 
     <!--onboarding-->
     <declare-styleable name="ViewPagerIndicator">
-        <!-- Style of the circle indicator. -->
+        <!-- Style of the full_circle indicator. -->
         <attr name="vpiCirclePageIndicatorStyle" format="reference"/>
         <!-- Style of the icon indicator's views. -->
         <attr name="vpiIconPageIndicatorStyle" format="reference"/>
@@ -72,7 +72,7 @@
     <declare-styleable name="CirclePageIndicator">
         <!-- Whether or not the indicators should be centered. -->
         <attr name="centered" />
-        <!-- Color of the filled circle that represents the current page. -->
+        <!-- Color of the filled full_circle that represents the current page. -->
         <attr name="fillColor" format="color" />
         <!-- Color of the filled circles that represents pages. -->
         <attr name="pageColor" format="color" />

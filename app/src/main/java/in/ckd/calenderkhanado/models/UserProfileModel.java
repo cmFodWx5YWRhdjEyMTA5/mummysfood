@@ -58,6 +58,7 @@ public class UserProfileModel implements Serializable{
         public int subscribe_to;
         public int number_of_days;
         public int ordered_plates;
+        public int deliverd_order;
         public String status;
         public String created_at;
         public String updated_at;
