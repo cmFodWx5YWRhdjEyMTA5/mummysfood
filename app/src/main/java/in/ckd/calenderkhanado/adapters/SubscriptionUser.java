@@ -44,6 +44,7 @@ public class SubscriptionUser extends RecyclerView.Adapter<RecyclerView.ViewHold
         switch(v.getId())
         {
             case R.id.editAddress:
+
                 listnerAction.editAddress(postion);
                 break;
             case R.id.deleteAddress:

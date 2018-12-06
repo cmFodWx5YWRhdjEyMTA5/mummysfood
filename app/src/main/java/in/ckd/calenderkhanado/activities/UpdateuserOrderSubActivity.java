@@ -97,22 +97,33 @@ public class UpdateuserOrderSubActivity extends BaseActivity
         int orderPlates = subscribtionModel.ordered_plates;
 
         int remmainPlates = totalPlates - orderPlates;
-        if (remmainPlates != 0)
-        {
-            updateOrder(remmainPlates);
-        }else
-        {
-            showToast("This Order has completed");
-            finish();
+
+        if (orderPlates == 1){
+
+            if (subscribtionModel.deliverd_order == 0)
+            {
+                updateOrder();
+            }else {
+                showToast("This Order has completed");
+                finish();
+            }
+        }else {
+            if (remmainPlates > 0)
+            {
+                updateOrder();
+            }else
+            {
+                showToast("This Order has completed");
+                finish();
+            }
         }
+
 
     }
 
 
-    private void updateOrder(int remainingPlates) {
+    private void updateOrder() {
 
-        if (remainingPlates != 0)
-        {
             subscribtionModel.ordered_plates = subscribtionModel.ordered_plates+1;
             subscribtionModel.deliverd_order = 1;
 
@@ -152,9 +163,6 @@ public class UpdateuserOrderSubActivity extends BaseActivity
                 }
             });
 
-        }else {
-            showToast("This order has completed");
-        }
 
     }
 

@@ -47,8 +47,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/textviewregular"
-                android:textColor="@color/colorPrimary"
-                android:text="@string/edit"
+                android:textColor="@color/white"
+                android:text="Update"
+                android:background="@drawable/fill_rounded_primary_color"
+                android:paddingLeft="@dimen/dp16"
+                android:paddingRight="@dimen/dp16"
+                android:paddingTop="@dimen/dp4"
+                android:paddingBottom="@dimen/dp4"
                 android:textAllCaps="true"/>
             <in.ckd.calenderkhanado.widgets.CkdTextview
                 android:id="@+id/deleteAddress"

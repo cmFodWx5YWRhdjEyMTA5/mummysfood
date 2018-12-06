@@ -72,7 +72,14 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
             }else
             {
                 remmainPlates = totalPlates - orderPlates;
-                holder.remainingPlates.setText("Remaining plates : "+String.valueOf(totalPlates - orderPlates));
+                if (modelSubscribe.deliverd_order == 0)
+                {
+                    holder.remainingPlates.setText("Remaining plates : "+String.valueOf(totalPlates));
+                }else
+                {
+                    holder.remainingPlates.setText("Remaining plates : "+String.valueOf(totalPlates - orderPlates));
+                }
+
             }
 
 
@@ -86,7 +93,8 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
             holder.chefName_order.setText(modelSubscribe.orders.get(0).food_name);
             holder.foodLocation_order.setText(modelSubscribe.orders.get(0).city);
             Glide.with(ckdContext).load(modelSubscribe.orders.get(0).food_image).into(holder.food_imagehere);
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
 
