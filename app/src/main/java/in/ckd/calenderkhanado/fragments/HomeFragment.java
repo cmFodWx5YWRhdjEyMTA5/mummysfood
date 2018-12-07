@@ -626,9 +626,12 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         dialogd.setContentView(R.layout.dialog_for_food_fiter);
         Window window = dialogd.getWindow();
         window.setGravity(Gravity.TOP);
-        window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-
+        //window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        WindowManager.LayoutParams lp = dialogd.getWindow().getAttributes();
+        lp.dimAmount=0.4f;
+        dialogd.getWindow().setAttributes(lp);
+        dialogd.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
         ImageView cross_popup = dialogd.findViewById(R.id.cross_popup);
         CkdTextview reset_filter = dialogd.findViewById(R.id.reset_filter);
