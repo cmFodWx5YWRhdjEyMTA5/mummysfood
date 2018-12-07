@@ -1,10 +1,8 @@
 package in.ckd.calenderkhanado.activities;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -192,8 +190,17 @@ public class YourCartActivity extends BaseActivity {
         checkPaymentOption();
 
         if (typeOfPackage.equalsIgnoreCase("today")) {
-            add_to_cart_item_layout.setVisibility(View.VISIBLE);
-            order_price_basedQuantity.setVisibility(View.VISIBLE);
+
+            if (isLunch == 1 && isDinner == 1)
+            {
+                add_to_cart_item_layout.setVisibility(View.GONE);
+                order_price_basedQuantity.setVisibility(View.GONE);
+            }else
+            {
+                add_to_cart_item_layout.setVisibility(View.VISIBLE);
+                order_price_basedQuantity.setVisibility(View.VISIBLE);
+            }
+
 
         } else if (typeOfPackage.equalsIgnoreCase("monthly")) {
             add_to_cart_item_layout.setVisibility(View.GONE);
@@ -260,12 +267,20 @@ public class YourCartActivity extends BaseActivity {
                 int orderPriceInt = 0;
                 orderPriceInt = (int) orderPrice;
                 if (typeOfPackage.equalsIgnoreCase("monthly")) {
-                    orderPriceInt = orderPriceInt * 30;
+                    orderPriceInt = orderPriceInt * numberOfDays;
                 } else if (typeOfPackage.equalsIgnoreCase("weekly")) {
-                    orderPriceInt = orderPriceInt * 7;
+                    orderPriceInt = orderPriceInt * numberOfDays;
+                }else if (typeOfPackage.equalsIgnoreCase("today")) {
+                    if (isDinner ==1 &&isLunch ==1)
+                    {
+                        orderPriceInt = orderPriceInt * numberOfDays;
+                        orderPriceInt = orderPriceInt+orderPriceInt;
+                    }else
+                    {
+                        orderPriceInt = orderPriceInt * numberOfDays;
+                    }
 
                 }
-
 
                 order_titile.setText(modelData.food_detail.get(0).name);
                 order_price.setText(getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
@@ -359,6 +374,8 @@ public class YourCartActivity extends BaseActivity {
 
 
             int value = (int) valuep;
+
+
 
             int priceValue = value * totalCount;
             order_price_basedQuantity.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(priceValue));

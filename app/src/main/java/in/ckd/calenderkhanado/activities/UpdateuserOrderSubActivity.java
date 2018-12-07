@@ -49,15 +49,6 @@ public class UpdateuserOrderSubActivity extends BaseActivity
     private UserProfileModel.Data userData ;
     private SubscribtionModel.Data subscribtionModel;
 
-    private String[] title = {
-            "Abundance",
-            "Anxiety",
-            "Bruxism",
-            "Discipline",
-            "Drug Addiction"
-    };
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
