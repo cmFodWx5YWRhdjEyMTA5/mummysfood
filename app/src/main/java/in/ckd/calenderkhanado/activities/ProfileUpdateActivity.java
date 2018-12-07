@@ -8,14 +8,12 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
@@ -32,7 +30,6 @@ import in.ckd.calenderkhanado.location.UserLocationActivtiy;
 import in.ckd.calenderkhanado.R;
 import in.ckd.calenderkhanado.base.BaseActivity;
 import in.ckd.calenderkhanado.data.network.model.LoginRequest;
-import in.ckd.calenderkhanado.data.network.model.MediaRequest;
 import in.ckd.calenderkhanado.data.network.model.UploadMedia;
 import in.ckd.calenderkhanado.data.pref.PreferenceManager;
 import in.ckd.calenderkhanado.models.DashBoardModel;
@@ -51,7 +48,6 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -101,6 +97,8 @@ public class ProfileUpdateActivity extends BaseActivity {
     private final int CAMERA_REQUEST = 1888;
     private Uri mImageUri;
     private Bitmap bitmapImage = null;
+    private String userChoosenTask;
+
     private PreferenceManager pf;
     private PreferenceManager pfd;
 
@@ -113,14 +111,14 @@ public class ProfileUpdateActivity extends BaseActivity {
         setContentView(R.layout.activity_profile_update);
         ButterKnife.bind(this);
 
-        pf = new PreferenceManager(this,PreferenceManager.LOGIN_PREFERENCES_FILE);
+        pf = new PreferenceManager(this, PreferenceManager.LOGIN_PREFERENCES_FILE);
 
         pfd = new PreferenceManager(this);
 
-        user_id = pfd.getIntForKey("user_id",0);
+        user_id = pfd.getIntForKey("user_id", 0);
 
         Bundle intent = getIntent().getExtras();
-        if(intent != null){
+        if (intent != null) {
             loginType = intent.getString("logintype");
             userName = intent.getString("fullname");
             userEmail = intent.getString("email");
@@ -145,7 +143,7 @@ public class ProfileUpdateActivity extends BaseActivity {
             }
         });
 
-        if (loginType != null && loginType.equalsIgnoreCase(AppConstants.GOOGLE)){
+        if (loginType != null && loginType.equalsIgnoreCase(AppConstants.GOOGLE)) {
             fullName.setEnabled(true);
             emailId.setEnabled(false);
 
@@ -168,8 +166,7 @@ public class ProfileUpdateActivity extends BaseActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
         }
 
-        if (loginType.equalsIgnoreCase("Profile"))
-        {
+        if (loginType.equalsIgnoreCase("Profile")) {
 
             fullName.setEnabled(true);
 
@@ -204,7 +201,7 @@ public class ProfileUpdateActivity extends BaseActivity {
     }
 
     @OnClick({R.id.profile_image})
-    public void uploadProfileImage(){
+    public void uploadProfileImage() {
         final CharSequence[] items = {"Take Photo", "Choose from Library", "Cancel"};
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -213,37 +210,27 @@ public class ProfileUpdateActivity extends BaseActivity {
             @TargetApi(Build.VERSION_CODES.M)
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                if (ContextCompat.checkSelfPermission(ProfileUpdateActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-
-                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_ID_MULTIPLE_PERMISSIONS);
-                }else {
-                    if (items[item].equals("Take Photo")) {
-
+                boolean result = checkPermission(ProfileUpdateActivity.this);
+                if (items[item].equals("Take Photo")) {
+                    userChoosenTask = "Take Photo";
+                    if (result)
                         cameraIntent();
 
-                    } else if (items[item].equals("Choose from Library")) {
-
+                } else if (items[item].equals("Choose from Library")) {
+                    userChoosenTask = "Choose from Library";
+                    if (result)
                         galleryIntent();
 
-                    } else if (items[item].equals("Cancel")) {
-                        dialog.dismiss();
-                    }
+                } else if (items[item].equals("Cancel")) {
+                    dialog.dismiss();
                 }
-
             }
         });
         builder.show();
     }
 
     private void cameraIntent() {
-        final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File file = new File(Environment.getExternalStorageDirectory() + "/DCIM/", "image" + new Date().getTime() + ".png");
-        Uri imgUri = FileProvider.getUriForFile(ProfileUpdateActivity.this,
-                ProfileUpdateActivity.this.getApplicationContext()
-                        .getPackageName() + ".provider",
-                file);
-        mImageUri = imgUri;
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri);
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, CAMERA_REQUEST);
     }
 
@@ -254,7 +241,7 @@ public class ProfileUpdateActivity extends BaseActivity {
     }
 
     @OnClick(R.id.next_upload_profile)
-    public void UpdateUserData(){
+    public void UpdateUserData() {
         if (loginType != null && loginType.equals("mobile")) {
             if (!fullName.getText().toString().isEmpty()) {
                 if (!emailId.getText().toString().isEmpty() && emailId.getText().toString().trim().length() > 0 && email_verification != 1) {
@@ -294,13 +281,12 @@ public class ProfileUpdateActivity extends BaseActivity {
         } else {
 
             if (!loginType.equalsIgnoreCase("Profile")) {
-                if (!fullName.getText().toString().trim().isEmpty() &&!emailId.getText().toString().trim().isEmpty() ){
+                if (!fullName.getText().toString().trim().isEmpty() && !emailId.getText().toString().trim().isEmpty()) {
                     nexttoupload();
-                }else {
+                } else {
                     showToast("All information should be valid");
                 }
-            }else
-            {
+            } else {
                 nexttoupload();
             }
 
@@ -324,7 +310,7 @@ public class ProfileUpdateActivity extends BaseActivity {
         if (loginType.equalsIgnoreCase("mobile")) {
             request.is_mobile_verified = 1;
             request.is_email_verified = 0;
-        }else {
+        } else {
             request.is_mobile_verified = 0;
             request.is_email_verified = 1;
         }
@@ -333,21 +319,19 @@ public class ProfileUpdateActivity extends BaseActivity {
         request.device_id = device_id;
         request.os = osVersion;
 
-        Call<ResponseBody> loginRequestCall = AppConstants.restAPI.updateUserInfo(user_id,request);
+        Call<ResponseBody> loginRequestCall = AppConstants.restAPI.updateUserInfo(user_id, request);
 
         loginRequestCall.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
 
-
-                if (response != null){
-                    if (response.isSuccessful()){
+                if (response != null) {
+                    if (response.isSuccessful()) {
                         try {
                             String resp = response.body().string();
 
-                            JSONObject json = new JSONObject(resp)
-                                    ;
+                            JSONObject json = new JSONObject(resp);
                             UserInsert.Data data = new UserInsert.Data();
 
                             if (json.getString("status").equalsIgnoreCase(AppConstants.SUCCESS)) {
@@ -355,18 +339,18 @@ public class ProfileUpdateActivity extends BaseActivity {
                                 data.mobile = json.getJSONArray("data").getJSONObject(0).getString("mobile");
                                 data.f_name = json.getJSONArray("data").getJSONObject(0).getString("f_name");
                                 data.profile_image = json.getJSONArray("data").getJSONObject(0).getString("profile_image");
-                                data.email =json.getJSONArray("data").getJSONObject(0).getString("email");
+                                data.email = json.getJSONArray("data").getJSONObject(0).getString("email");
                                 sharePrefrenceIntentActivity(data);
 
-                            }else if(json.getString("status").equalsIgnoreCase(AppConstants.ALREADY)){
+                            } else if (json.getString("status").equalsIgnoreCase(AppConstants.ALREADY)) {
                                 data.id = json.getJSONArray("data").getJSONObject(0).getInt("id");
                                 data.mobile = json.getJSONArray("data").getJSONObject(0).getString("mobile");
                                 data.f_name = json.getJSONArray("data").getJSONObject(0).getString("f_name");
                                 data.profile_image = json.getJSONArray("data").getJSONObject(0).getString("profile_image");
-                                data.email =json.getJSONArray("data").getJSONObject(0).getString("email");
+                                data.email = json.getJSONArray("data").getJSONObject(0).getString("email");
                                 sharePrefrenceIntentActivity(data);
-                            }else {
-                                showDialogBox("Authentication Failed","OK");
+                            } else {
+                                showDialogBox("Authentication Failed", "OK");
                             }
 
                         } catch (IOException e) {
@@ -374,22 +358,22 @@ public class ProfileUpdateActivity extends BaseActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                    }else{
+                    } else {
                         try {
-                            Log.e("status",response.errorBody().string());
+                            Log.e("status", response.errorBody().string());
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
-                }else {
-                    Log.e("response","null ");
+                } else {
+                    Log.e("response", "null ");
 
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e("Response is failure",""+t);
+                Log.e("Response is failure", "" + t);
             }
         });
     }
@@ -417,12 +401,12 @@ public class ProfileUpdateActivity extends BaseActivity {
             finish();
         }
 
-        String savedLocation = pf.getStringForKey("CurrentAddress","");
-        if (savedLocation != null &&savedLocation.equalsIgnoreCase("gotitlocation")){
-        startActivity(new Intent(ProfileUpdateActivity.this,MainBottomBarActivity.class));
-        finish();
-       }else{
-            startActivity(new Intent(ProfileUpdateActivity.this,UserLocationActivtiy.class));
+        String savedLocation = pf.getStringForKey("CurrentAddress", "");
+        if (savedLocation != null && savedLocation.equalsIgnoreCase("gotitlocation")) {
+            startActivity(new Intent(ProfileUpdateActivity.this, MainBottomBarActivity.class));
+            finish();
+        } else {
+            startActivity(new Intent(ProfileUpdateActivity.this, UserLocationActivtiy.class));
             finish();
         }
     }
@@ -440,15 +424,19 @@ public class ProfileUpdateActivity extends BaseActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //image upload
-        if (resultCode != 0 && requestCode == SELECT_PHOTO ) {
+        if (resultCode != 0 && requestCode == SELECT_PHOTO) {
             mImageUri = data.getData();
             if (mImageUri == null) {
                 showToast("Error in uploading image.Please try again.");
             } else {
-                uploadFile(mImageUri);
+                String filename = FilePath.getPath(this, mImageUri);
                 performCrop();
+                uploadFile(filename);
             }
         } else if (resultCode != 0 && requestCode == CAMERA_REQUEST) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
+            mImageUri = getImageUri(ProfileUpdateActivity.this, photo);
             if (mImageUri == null) {
                 showToast("Error in uploading image.Please try again.");
             } else {
@@ -456,9 +444,9 @@ public class ProfileUpdateActivity extends BaseActivity {
                     bitmapImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mImageUri);
                     bitmapImage.createScaledBitmap(bitmapImage, 400, 400, true);
 
+                    String fileName = getRealPathFromURI(mImageUri);
                     performCrop();
-
-                    uploadFile(mImageUri);
+                    uploadFile(fileName);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -502,81 +490,69 @@ public class ProfileUpdateActivity extends BaseActivity {
                 .start(this);
     }
 
-    private void uploadFile(Uri mImageUri) {
+    private void uploadFile(String filename) {
 
-        //   showProgress(getLangMappingBasedOnKeyOnevalue("loading"));
-        String filename = "";
+        try {
 
-        try{
+            File file = new File(filename);
 
-            filename = FilePath.getPath(this, mImageUri);
+            RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
 
-            //  filename = compressImage(mImageUri.toString());
+            MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), reqFile);
 
-        }catch (NullPointerException e){
-            e.printStackTrace();
-        }
+            Call<UploadMedia> call = AppConstants.restAPI.uploadImage(body, user_id, user_id, "user");
 
-        File file = new File(filename);
+            call.enqueue(new Callback<UploadMedia>() {
+                @Override
+                public void onResponse(Call<UploadMedia> call, Response<UploadMedia> response) {
 
-        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
+                    if (response.isSuccessful()) {
+                        if (response != null) {
+                            try {
 
-        MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), reqFile);
+                                imageName = response.body().data.name;
+                                imageName = "http://cdn.mummysfood.in/" + imageName;
 
+                                Log.d("ImageName", imageName);
 
-        MediaRequest mediaRequest = new MediaRequest();
-        mediaRequest.user_id = user_id;
-        mediaRequest.entity_id = 0;
-        mediaRequest.entity_type = "user";
-        mediaRequest.image = body;
-        Call<UploadMedia> call = AppConstants.restAPI.uploadImage(body,0,user_id,"user");
-
-        call.enqueue(new Callback<UploadMedia>() {
-            @Override
-            public void onResponse(Call<UploadMedia> call, Response<UploadMedia> response) {
-
-                if (response.isSuccessful()) {
-                    if (response != null){
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    } else {
                         try {
-
-                            imageName = response.body().data.name;
-                            imageName = "http://cdn.mummysfood.in/"+imageName;
-
-                            Log.d("ImageName",imageName);
-
-                        } catch (Exception e) {
+                            Log.e("Error", response.errorBody().string());
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
-                }else{
-                    try {
-                        Log.e("Error", response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                 }
-            }
-            @Override
-            public void onFailure(Call<UploadMedia> call, Throwable t) {
-                dismissProgress();
-                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
-    }
 
+                @Override
+                public void onFailure(Call<UploadMedia> call, Throwable t) {
+                    dismissProgress();
+                    Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     private int getRadioSelected() {
 
         int selectedId = radioAction.getCheckedRadioButtonId();
         int value = 0;
 
-        if (selectedId== R.id.veg) {
-            pf.saveIntForKey("UserFoodType",0);
+        if (selectedId == R.id.veg) {
+            pf.saveIntForKey("UserFoodType", 0);
             value = 0;
-           return   value;
+            return value;
 
-        }else {
-            pf.saveIntForKey("UserFoodType",1);
+        } else {
+            pf.saveIntForKey("UserFoodType", 1);
             value = 1;
             return value;
         }

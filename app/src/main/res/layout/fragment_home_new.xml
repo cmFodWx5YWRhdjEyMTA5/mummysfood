@@ -51,10 +51,18 @@
                         android:layout_height="18dp"
                         android:id="@+id/filterFood"
                         android:layout_toStartOf="@+id/home_add_to_cart_icon"
-                        android:layout_marginRight="@dimen/dp12"
+                        android:layout_marginRight="@dimen/dp14"
                         android:src="@drawable/filter"
                         android:layout_marginTop="@dimen/dp2"
                         android:tint="@color/white"/>
+
+                    <View
+                        android:id="@+id/filterFoodApplied"
+                        android:layout_width="@dimen/dp6"
+                        android:layout_height="@dimen/dp6"
+                        android:background="@drawable/white_circle"
+                        android:layout_toStartOf="@+id/home_add_to_cart_icon"
+                        android:layout_marginRight="@dimen/dp8"/>
 
                     <ImageView
                         android:layout_width="22dp"

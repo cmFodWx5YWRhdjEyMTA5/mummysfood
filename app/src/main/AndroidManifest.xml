@@ -16,6 +16,10 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.hardware.screens.portrait" />
+
     <application
         android:name=".AppController"
         android:allowBackup="true"

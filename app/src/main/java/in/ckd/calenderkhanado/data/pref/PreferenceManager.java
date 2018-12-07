@@ -25,13 +25,15 @@ public class PreferenceManager {
     public static final String ORDER_quantity = "order_quantity";
 
     public static final String USER_ADDRESS = "user_address";
-
+    public static final String FILTER_APPLY = "filter_apply";
+    public static final String FILTER_FOOD_TYPE = "filter_food_type";
 
 
     private SharedPreferences.Editor editor;
     private SharedPreferences sharedPreferences;
     public static String LOGIN_PREFERENCES_FILE = "LoginAppPref";
     public static String ORDER_PREFERENCES_FILE = "OrderAppPref";
+    public static String FILTER_PREFERENCES_FILE = "FilterAppPref";
 
 
     private String SHARED_PREFERENCES_FILE = "msf_Pref";

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
@@ -42,6 +43,7 @@ import in.ckd.calenderkhanado.models.ProfileModel;
 import in.ckd.calenderkhanado.utils.AppConstants;
 import in.ckd.calenderkhanado.utils.CapsName;
 import in.ckd.calenderkhanado.utils.FilePath;
+import in.ckd.calenderkhanado.utils.Permission;
 import in.ckd.calenderkhanado.widgets.CkdTextview;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,7 +54,9 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -96,6 +100,7 @@ public class ProfileFragment extends BaseFragment {
     private Uri mImageUri;
     private Bitmap bitmapImage = null;
     private String imageName;
+    private String userChoosenTask;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -164,7 +169,8 @@ public class ProfileFragment extends BaseFragment {
 
     private void prepareUserData() {
         if (userData.profile_image != null && !userData.profile_image.isEmpty()){
-            Glide.with(context).load(userData.profile_image).into(profileImage);
+            String imageUrl = "http://cdn.mummysfood.in/"+userData.profile_image;
+            Glide.with(context).load(imageUrl).placeholder(R.mipmap.default_usr_img).into(profileImage);
         }
 
         if (userData.f_name != null && !"".equalsIgnoreCase(userData.f_name)){
@@ -183,23 +189,20 @@ public class ProfileFragment extends BaseFragment {
             @TargetApi(Build.VERSION_CODES.M)
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-
-                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_ID_MULTIPLE_PERMISSIONS);
-                }else {
-                    if (items[item].equals("Take Photo")) {
-
+                boolean result = checkPermission(context);
+                if (items[item].equals("Take Photo")) {
+                    userChoosenTask = "Take Photo";
+                    if (result)
                         cameraIntent();
 
-                    } else if (items[item].equals("Choose from Library")) {
-
+                } else if (items[item].equals("Choose from Library")) {
+                    userChoosenTask = "Choose from Library";
+                    if (result)
                         galleryIntent();
 
-                    } else if (items[item].equals("Cancel")) {
-                        dialog.dismiss();
-                    }
+                } else if (items[item].equals("Cancel")) {
+                    dialog.dismiss();
                 }
-
             }
         });
         builder.show();
@@ -246,7 +249,7 @@ public class ProfileFragment extends BaseFragment {
             e.printStackTrace();
         }
 
-      startActivity(intent);
+        startActivity(intent);
     }
 
 
@@ -286,6 +289,7 @@ public class ProfileFragment extends BaseFragment {
                         //--- clear user  preferences  ----//
                         pf.clearPref(context, pf.LOGIN_PREFERENCES_FILE);
                         pf.clearPref(context, pf.ORDER_PREFERENCES_FILE);
+                        pf.clearPref(context, pf.FILTER_PREFERENCES_FILE);
 
                         //-- start new with login --//
                         Intent intent=new Intent(context,LoginAndSignupActivity.class);
@@ -305,14 +309,7 @@ public class ProfileFragment extends BaseFragment {
     }
 
     private void cameraIntent() {
-        final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File file = new File(Environment.getExternalStorageDirectory() + "/DCIM/", "image" + new Date().getTime() + ".png");
-        Uri imgUri = FileProvider.getUriForFile(context,
-                context.getApplicationContext()
-                        .getPackageName() + ".provider",
-                file);
-        mImageUri = imgUri;
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, mImageUri);
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, CAMERA_REQUEST);
     }
 
@@ -332,19 +329,29 @@ public class ProfileFragment extends BaseFragment {
                 showToast("Error in uploading image.Please try again.");
             } else {
                 performCrop();
-                uploadFile(mImageUri);
+                String filename = FilePath.getPath(context, mImageUri);
+                uploadFile(filename);
             }
         } else if (resultCode != 0 && requestCode == CAMERA_REQUEST) {
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
+            mImageUri = getImageUri(getActivity(), photo);
+
             if (mImageUri == null) {
                 showToast("Error in uploading image.Please try again.");
             } else {
                 try {
                     bitmapImage = MediaStore.Images.Media.getBitmap(context.getContentResolver(), mImageUri);
                     bitmapImage.createScaledBitmap(bitmapImage, 400, 400, true);
-                    performCrop();
-                    uploadFile(mImageUri);
+                    profileImage.setImageBitmap(photo);
 
-                } catch (IOException e) {
+                    String fileName = getRealPathFromURI(mImageUri);
+                    performCrop();
+                    uploadFile(fileName);
+
+                }catch (IOException e) {
+                    e.printStackTrace();
+                } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
             }
@@ -386,59 +393,57 @@ public class ProfileFragment extends BaseFragment {
                 .start(getActivity());
     }
 
-    private void uploadFile(Uri mImageUri) {
+    private void uploadFile(String filename) {
 
-        String filename = "";
         try{
-            filename = FilePath.getPath(context, mImageUri);
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), mImageUri);
+            profileImage.setImageBitmap(bitmap);
+            File file = new File(filename);
+            RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
+            MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), reqFile);
 
-        }catch (NullPointerException e){
-            e.printStackTrace();
-        }
 
-        File file = new File(filename);
-        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
-        MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), reqFile);
+            Call<UploadMedia> call = AppConstants.restAPI.uploadImage(body,userId,userId,"user");
 
-        MediaRequest mediaRequest = new MediaRequest();
-        mediaRequest.user_id = userId;
-        mediaRequest.entity_id = 0;
-        mediaRequest.entity_type = "user";
-        mediaRequest.image = body;
-        Call<UploadMedia> call = AppConstants.restAPI.uploadImage(body,0,userId,"user");
+            call.enqueue(new Callback<UploadMedia>() {
+                @Override
+                public void onResponse(Call<UploadMedia> call, Response<UploadMedia> response) {
 
-        call.enqueue(new Callback<UploadMedia>() {
-            @Override
-            public void onResponse(Call<UploadMedia> call, Response<UploadMedia> response) {
+                    if (response.isSuccessful()) {
+                        if (response != null){
+                            try {
 
-                if (response.isSuccessful()) {
-                    if (response != null){
+                                imageName = response.body().data.name;
+                                imageName = "http://cdn.mummysfood.in/"+imageName;
+
+                                updateUserProfilePic(response.body().data.name);
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }else{
                         try {
-
-                            imageName = response.body().data.name;
-                            imageName = "http://cdn.mummysfood.in/"+imageName;
-                            Glide.with(context).load(imageName).into(profileImage);
-
-                            updateUserProfilePic(response.body().data.name);
-
-                        } catch (Exception e) {
+                            Log.e("Error", response.errorBody().string());
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
                     }
-                }else{
-                    try {
-                        Log.e("Error", response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                 }
-            }
-            @Override
-            public void onFailure(Call<UploadMedia> call, Throwable t) {
-                dismissProgress();
-                Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
+                @Override
+                public void onFailure(Call<UploadMedia> call, Throwable t) {
+                    dismissProgress();
+                    Toast.makeText(context, t.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateUserProfilePic(String image_name) {
@@ -476,5 +481,27 @@ public class ProfileFragment extends BaseFragment {
                 Log.e("Response is failure",""+t);
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Permission.onRequestPermissionsResult(
+                requestCode, permissions, grantResults, this);
+
+        switch (requestCode) {
+            case AppConstants.PERMISSION_READ_EXTERNAL_STORAGE : {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (userChoosenTask != null && userChoosenTask.equals("Choose from Library")) {
+                        galleryIntent();
+                    } else if (userChoosenTask != null && userChoosenTask.equals("Take Photo")) {
+                        cameraIntent();
+                    }
+                } else {
+                }
+                return;
+            }
+        }
+
     }
 }

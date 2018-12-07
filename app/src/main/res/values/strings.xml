@@ -39,9 +39,9 @@
 
     <!--food type-->
     <string name="food_type_title">YOU WOULD LIKE TO COOK</string>
-    <string name="veg">PURE VEG</string>
+    <string name="veg">Vegiterian</string>
     <string name="capsoffveg">Veg</string>
-    <string name="veg_nonveg">VEG + NONVEG</string>
+    <string name="veg_nonveg">Non-Vegiterian</string>
     <string name="capsoffveg_nonveg">Veg+Nonveg</string>
 
     <!--rate yourself-->
@@ -156,6 +156,7 @@
     <string name="rs_symbol">Rs.\u0020</string>
     <string name="notnow">Not Now</string>
 
-
+    <string name="reset">Reset</string>
+    <string name="apply">Apply</string>
 
 </resources>

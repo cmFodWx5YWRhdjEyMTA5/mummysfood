@@ -18,8 +18,10 @@ import in.ckd.calenderkhanado.fragments.OrderDetailsActivity;
 import in.ckd.calenderkhanado.fragments.ProfileFragmentChef;
 import in.ckd.calenderkhanado.models.DashBoardModel;
 import in.ckd.calenderkhanado.utils.CalculateDistance;
+import in.ckd.calenderkhanado.utils.CapsName;
 import in.ckd.calenderkhanado.widgets.CkdTextview;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import static android.location.Location.distanceBetween;
@@ -81,8 +83,8 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
         try {
             pf = new PreferenceManager(context,PreferenceManager.ORDER_PREFERENCES_FILE);
 
-
-            holder.chef_name.setText(dataModel.name);
+            String name = CapsName.CapitalizeFullName(dataModel.name.trim());
+            holder.chef_name.setText(name);
             if(data.get(i).food_detail.get(0).food_media.get(0) != null){
                 try {
                     String imageUrl = "http://cdn.mummysfood.in/"+dataModel.food_detail.get(0).food_media.get(0).media.name;
@@ -105,9 +107,10 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
 
             float[] results = new float[1];
             Location.distanceBetween(12.9732098, 79.1590077, 22.7602485, 75.8880693,results);
-            float distance = results[0]/1000;
+            float distance = results[0]/100000;
+            DecimalFormat value = new DecimalFormat("#.#");
 
-            holder.order_distance.setText(""+distance+"km");
+            holder.order_distance.setText(value.format(distance)+"km");
             holder.food_image.setTag(i);
             holder.food_image.setOnClickListener(this);
             holder.chef_name.setTag(i);
