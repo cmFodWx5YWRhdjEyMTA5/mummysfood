@@ -10,20 +10,32 @@
     <android.support.v7.widget.SearchView
         android:id="@+id/searchText"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_height="wrap_content" />
 
     <View
         android:id="@+id/mainSep"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp0.5"
+        android:visibility="gone"
         android:layout_below="@+id/searchText"
         android:background="@color/gray"/>
+
 
     <ProgressBar
         android:id="@+id/loading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toStartOf="@+id/gettingLOcationText"
         android:layout_centerInParent="true"/>
+
+    <in.ckd.calenderkhanado.widgets.CkdTextview
+        android:id="@+id/gettingLOcationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Getting location"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/dp4"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerviewSearch"
@@ -52,6 +64,7 @@
         android:layout_below="@+id/mainSep"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp48"
+        android:visibility="gone"
         android:layout_height="wrap_content">
 
         <in.ckd.calenderkhanado.widgets.CkdTextview

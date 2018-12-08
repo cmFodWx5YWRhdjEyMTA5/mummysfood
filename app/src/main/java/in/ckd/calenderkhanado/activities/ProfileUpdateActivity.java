@@ -124,7 +124,6 @@ public class ProfileUpdateActivity extends BaseActivity {
             userEmail = intent.getString("email");
             userProfileImage = intent.getString("profile_image");
             mobileNumber = intent.getString("mobile");
-
         }
 
         chooseGender.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -296,6 +295,10 @@ public class ProfileUpdateActivity extends BaseActivity {
 
     private void nexttoupload() {
         //getting unique id for device
+
+        pfd.saveStringForKey("FirstName","Full");
+
+
         String device_id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
         String osVersion = android.os.Build.VERSION.RELEASE;
 
