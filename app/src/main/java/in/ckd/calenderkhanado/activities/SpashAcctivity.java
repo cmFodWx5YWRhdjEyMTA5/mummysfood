@@ -16,19 +16,19 @@ import in.ckd.calenderkhanado.data.pref.PreferenceManager;
  * Created by acer on 4/15/2018.
  */
 
-public class SpashAcctivity extends BaseActivity{
+public class SpashAcctivity extends BaseActivity
+{
 
     @BindView(R.id.mainSpash)
     ProgressBar mainSpash;
 
-
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splashscreen);
 
         ButterKnife.bind(this);
-
 
         pf = new PreferenceManager(this,PreferenceManager.LOGIN_PREFERENCES_FILE);
 
@@ -40,12 +40,10 @@ public class SpashAcctivity extends BaseActivity{
 
         if (userId != 0)
         {
-
             showToast(String.valueOf(userId));
 
             if (!firstName.equalsIgnoreCase("Full"))
             {
-
                 Intent intent = new Intent(SpashAcctivity.this,ProfileUpdateActivity.class);
                 intent.putExtra("fullname","");
                 intent.putExtra("email",pff.getStringForKey("email",""));

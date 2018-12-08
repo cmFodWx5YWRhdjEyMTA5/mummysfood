@@ -763,11 +763,16 @@ public class YourCartActivity extends BaseActivity {
 
             } else {
 
-                String house_no = pfUAddress.getStringForKey("house_no", "");
-                String type = pfUAddress.getStringForKey("type", "");
-                String pincode = pfUAddress.getStringForKey("pincode", "");
+                String house_no = pf.getStringForKey("house_no", "");
+                String type = pf.getStringForKey("type", "");
+                String pincode = pf.getStringForKey("pincode", "");
                 String paymetTYpe = pf.getStringForKey("paymentType", "");
                 orderModel.house_no = hounseNoEdit;
+
+                if ("".equalsIgnoreCase(paymetTYpe))
+                {
+                    paymetTYpe = "Paytm";
+                }
 
                 try {
 
@@ -801,9 +806,17 @@ public class YourCartActivity extends BaseActivity {
                 orderModel.ordered_plates = itemCountText;
                 orderModel.chef_name = "privacy concern so name is not here";
                 orderModel.food_image = foodImage;
+                orderModel.house_no = "Call them";
 
 
-                orderModel.landmark = landmarkEdit;
+                if ("".equalsIgnoreCase(landmarkEdit))
+                {
+                    orderModel.landmark = CurrentAddress;
+                }else
+                {
+                    orderModel.landmark = landmarkEdit;
+                }
+
 
 
                 if (CurrentAddress != null && !"".equalsIgnoreCase(CurrentAddress)) {
