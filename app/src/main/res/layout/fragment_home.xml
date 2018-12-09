@@ -10,19 +10,20 @@
             android:id="@+id/homeToolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
+            android:background="@color/white"
             android:theme="@style/ThemeToolbar"
             android:elevation="@dimen/dp4"
-            android:titleTextColor="@color/white"
+            android:titleTextColor="@color/colorPrimary"
             style="@style/textviewregular"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
             <in.ckd.calenderkhanado.widgets.CkdTextview
                 android:id="@+id/order_checkout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/checkout"
                 style="@style/textviewregular"
-                android:textColor="@color/white"
+                android:textColor="@color/colorPrimary"
                 android:gravity="center"/>
             <!--<View
                 android:id="@+id/view1"

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -87,7 +88,7 @@ public class YourCartActivity extends BaseActivity {
     ImageView backArrowFinish;
 
     @BindView(R.id.scrollchange)
-    ScrollView scrollChange;
+    RelativeLayout scrollChange;
 
     @BindView(R.id.checkedCod)
     ImageView checkedCod;
@@ -122,6 +123,9 @@ public class YourCartActivity extends BaseActivity {
     @BindView(R.id.nameSave)
     CkdButton nameSave;
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
     private DashBoardModel.Data modelData;
     private DashBoardModel.Food_detail model;
     PreferenceManager pfUName;
@@ -152,6 +156,10 @@ public class YourCartActivity extends BaseActivity {
 
         ButterKnife.bind(this);
 
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         db = new DataBaseHelperNew(this);
 
@@ -315,7 +323,6 @@ public class YourCartActivity extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
     }
 

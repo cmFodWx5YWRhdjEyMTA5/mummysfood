@@ -1,81 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/dp4"
     android:background="@drawable/fill_rounded_white_color"
     android:layout_height="wrap_content">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottieAnimationViewPlace"
-        android:layout_width="82dp"
-        android:layout_height="82dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="16dp"
-        android:visibility="visible"
-        android:layout_marginTop="@dimen/dp8"
-        app:lottie_fileName="isometric_gift_box.json"
-        app:lottie_loop="true" />
-
-
-    <in.ckd.calenderkhanado.widgets.CkdTextview
-        android:id="@+id/palceOrderViaMethod"
-        android:text=""
-        android:textSize="16sp"
-        style="@style/textviewregular"
-        android:layout_below="@+id/lottieAnimationViewPlace"
-        android:layout_marginLeft="@dimen/dp16"
-        android:layout_marginRight="@dimen/dp16"
-        android:layout_marginBottom="@dimen/dp8"
-        android:textColor="@color/black_effective"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <LinearLayout
-        android:orientation="horizontal"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_gravity="center"
-        android:layout_below="@+id/palceOrderViaMethod"
-        android:layout_marginTop="@dimen/dp4"
-        android:gravity="center"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dp16"
+        android:paddingBottom="@dimen/dp24">
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieAnimationViewPlace"
+            android:layout_width="82dp"
+            android:layout_height="82dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="16dp"
+            android:visibility="visible"
+            android:layout_marginTop="@dimen/dp8"
+            app:lottie_fileName="isometric_gift_box.json"
+            app:lottie_loop="true" />
 
         <in.ckd.calenderkhanado.widgets.CkdTextview
-            android:id="@+id/placeOrderok"
-            style="@style/textviewbold"
-            android:layout_width="65dp"
-            android:layout_height="@dimen/dp32"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/dp16"
-            android:layout_marginTop="@dimen/dp8"
-            android:layout_marginRight="@dimen/dp24"
-            android:layout_marginBottom="@dimen/dp8"
-            android:background="@drawable/fill_rounded_primary_color"
-            android:gravity="center"
-            android:padding="6dp"
-            android:text="Okay"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
-
-        <in.ckd.calenderkhanado.widgets.CkdTextview
-            android:id="@+id/notNow"
-            android:text="@string/notnow"
-            android:textSize="14sp"
-            android:background="@drawable/fill_rounded_white_smoke_radius"
-            android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/dp16"
-            android:layout_marginRight="@dimen/dp8"
-            android:layout_marginTop="@dimen/dp8"
-            android:layout_marginBottom="@dimen/dp8"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
+            android:id="@+id/palceOrderViaMethod"
+            android:text=""
+            android:textSize="16sp"
             style="@style/textviewregular"
-            android:textColor="@color/gray"
-            android:layout_width="wrap_content"
+            android:layout_below="@+id/lottieAnimationViewPlace"
+            android:layout_marginLeft="@dimen/dp16"
+            android:layout_marginRight="@dimen/dp16"
+            android:layout_marginBottom="@dimen/dp8"
+            android:textColor="@color/black_effective"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_below="@+id/palceOrderViaMethod"
+            android:layout_marginTop="@dimen/dp4"
             android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp16"
+            android:layout_marginRight="@dimen/dp16"
+            android:weightSum="1">
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5">
+                <in.ckd.calenderkhanado.widgets.CkdTextview
+                    android:id="@+id/placeOrderok"
+                    style="@style/textviewbold"
+                    android:layout_width="@dimen/dp100"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/border_primary"
+                    android:gravity="center"
+                    android:padding="6dp"
+                    android:text="Okay"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="end">
+                <in.ckd.calenderkhanado.widgets.CkdTextview
+                    android:id="@+id/notNow"
+                    android:text="@string/notnow"
+                    android:textSize="14sp"
+                    android:background="@drawable/border_gray"
+                    android:layout_gravity="center"
+                    style="@style/textviewregular"
+                    android:textColor="@color/gray"
+                    android:layout_width="@dimen/dp100"
+                    android:padding="6dp"
+                    android:gravity="center"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
 
-            android:layout_height="@dimen/dp32" />
-    </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
 
-
-</RelativeLayout>
+</android.support.v7.widget.CardView>
