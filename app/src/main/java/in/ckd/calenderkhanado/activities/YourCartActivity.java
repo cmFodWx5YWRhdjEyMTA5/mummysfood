@@ -169,7 +169,8 @@ public class YourCartActivity extends BaseActivity {
 
             try {
                 location = getIntent().getStringExtra("From");
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 e.printStackTrace();
             }
 
@@ -253,7 +254,8 @@ public class YourCartActivity extends BaseActivity {
 
 
         try {
-            if (location.equalsIgnoreCase("RepeatOrder")) {
+            if (location.equalsIgnoreCase("RepeatOrder"))
+            {
 
 
                 order_titile.setText(ordersSub.orders.get(0).food_name);
@@ -269,7 +271,8 @@ public class YourCartActivity extends BaseActivity {
                 payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
                 order_taxes.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(50));
 
-            } else {
+            }
+            else{
                 float orderPrice = Float.parseFloat(modelData.food_detail.get(0).price);
                 int orderPriceInt = 0;
                 orderPriceInt = (int) orderPrice;
@@ -286,15 +289,14 @@ public class YourCartActivity extends BaseActivity {
                     {
                         orderPriceInt = orderPriceInt * numberOfDays;
                     }
-
                 }
+
 
                 order_titile.setText(modelData.food_detail.get(0).name);
                 order_price.setText(getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
                 order_price_basedQuantity.setText(getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
                 order_price_finalTotal.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + modelData.food_detail.get(0).taxes));
                 totalValue.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + modelData.food_detail.get(0).taxes));
-
 
                 placeOrderprice.setText(String.valueOf(orderPriceInt + modelData.food_detail.get(0).taxes));
                 payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + modelData.food_detail.get(0).taxes));

@@ -9,16 +9,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/dp16"
-        android:paddingBottom="@dimen/dp24">
+        android:paddingTop="@dimen/dp8"
+        android:paddingBottom="20dp">
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottieAnimationViewPlace"
             android:layout_width="82dp"
             android:layout_height="82dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="4dp"
             android:visibility="visible"
-            android:layout_marginTop="@dimen/dp8"
             app:lottie_fileName="isometric_gift_box.json"
             app:lottie_loop="true" />
 
@@ -52,7 +51,7 @@
                 android:layout_weight="0.5">
                 <in.ckd.calenderkhanado.widgets.CkdTextview
                     android:id="@+id/placeOrderok"
-                    style="@style/textviewbold"
+                    style="@style/textviewregular"
                     android:layout_width="@dimen/dp100"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

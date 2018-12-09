@@ -180,9 +180,14 @@ public class ProfileFragment extends BaseFragment {
     }
 
     private void prepareUserData() {
-        if (userData.profile_image != null && !userData.profile_image.isEmpty()){
-            String imageUrl = userData.profile_image;
-            Glide.with(getActivity()).load(imageUrl).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.default_usr_img).into(profileImage);
+
+        try {
+            if (userData.profile_image != null && !userData.profile_image.isEmpty()){
+                String imageUrl = userData.profile_image;
+                Glide.with(getActivity()).load(imageUrl).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.default_usr_img).into(profileImage);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         if (userData.f_name != null && !"".equalsIgnoreCase(userData.f_name)){
@@ -302,6 +307,7 @@ public class ProfileFragment extends BaseFragment {
                         pf.clearPref(context, pf.LOGIN_PREFERENCES_FILE);
                         pf.clearPref(context, pf.ORDER_PREFERENCES_FILE);
                         pf.clearPref(context, pf.FILTER_PREFERENCES_FILE);
+                        pf.clearPrefPf(context);
 
                         //-- start new with login --//
                         Intent intent=new Intent(context,LoginAndSignupActivity.class);

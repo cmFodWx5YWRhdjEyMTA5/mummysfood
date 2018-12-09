@@ -40,7 +40,6 @@ public class SpashAcctivity extends BaseActivity
 
         if (userId != 0)
         {
-            showToast(String.valueOf(userId));
 
             if (!firstName.equalsIgnoreCase("Full"))
             {

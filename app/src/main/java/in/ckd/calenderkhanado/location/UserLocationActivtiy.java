@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -118,7 +119,11 @@ public class UserLocationActivtiy extends BaseActivity
 
         ButterKnife.bind(this);
 
-        loading.setVisibility(View.VISIBLE);
+        loading.setVisibility(View.GONE);
+
+        LottieAnimationView lottieAnimationViewPlace = findViewById(R.id.lottieAnimationgetLoc);
+        lottieAnimationViewPlace.playAnimation();
+
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerviewSearch.setLayoutManager(mLayoutManager);

@@ -423,13 +423,11 @@
             android:layout_alignParentBottom="true">
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp48"
-                android:background="@drawable/border_primary"
+                android:layout_height="wrap_content"
+                android:background="@drawable/fill_rounded_sqare_primarycolor"
                 android:gravity="center_vertical"
-                android:layout_marginStart="@dimen/dp16"
-                android:layout_marginTop="@dimen/dp8"
-                android:layout_marginEnd="@dimen/dp16"
-                android:layout_marginBottom="@dimen/dp8">
+                android:padding="@dimen/dp8"
+                android:layout_marginTop="@dimen/dp8">
 
                 <in.ckd.calenderkhanado.widgets.CkdTextview
                     android:id="@+id/placeOrderButtonCheckout"
@@ -440,7 +438,7 @@
                     android:gravity="start"
                     android:text="Check Out"
                     android:textAllCaps="true"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/sp14" />
 
                 <in.ckd.calenderkhanado.widgets.CkdTextview
@@ -454,7 +452,7 @@
                     android:gravity="start"
                     android:text="pay Rs. 130/-"
                     android:textAllCaps="true"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/sp14" />
             </RelativeLayout>
         </RelativeLayout>

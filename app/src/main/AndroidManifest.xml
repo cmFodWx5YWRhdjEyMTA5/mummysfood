@@ -43,7 +43,7 @@
             android:name=".activities.SpashAcctivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan|adjustResize">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
@@ -81,7 +81,7 @@
 
         <activity
             android:name=".activities.ProfileUpdateActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
 
         <!-- start firebase push notification -->
 
