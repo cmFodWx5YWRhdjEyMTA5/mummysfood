@@ -3,8 +3,10 @@ package in.ckd.calenderkhanado.activities;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -15,6 +17,11 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.onesignal.OSPermissionSubscriptionState;
+import com.onesignal.OneSignal;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -84,7 +91,7 @@ public class YourCartActivity extends BaseActivity {
     ImageView backArrowFinish;
 
     @BindView(R.id.scrollchange)
-    ScrollView scrollChange;
+    RelativeLayout scrollChange;
 
     @BindView(R.id.checkedCod)
     ImageView checkedCod;
@@ -119,6 +126,9 @@ public class YourCartActivity extends BaseActivity {
     @BindView(R.id.nameSave)
     CkdButton nameSave;
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
     private DashBoardModel.Data modelData;
     private DashBoardModel.Food_detail model;
     PreferenceManager pfUName;
@@ -149,6 +159,10 @@ public class YourCartActivity extends BaseActivity {
 
         ButterKnife.bind(this);
 
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         db = new DataBaseHelperNew(this);
 
@@ -295,7 +309,6 @@ public class YourCartActivity extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
     }
 
@@ -840,6 +853,17 @@ public class YourCartActivity extends BaseActivity {
                             ActIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(ActIntent);
                             finish();
+
+                            sendNotification();
+
+                            final Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                   sendNotification();
+                                }
+                            }, 5000);
+
                         } else {
                         }
 
@@ -868,4 +892,27 @@ public class YourCartActivity extends BaseActivity {
             }
         });
     }
-}
+
+    private void sendNotification() {
+
+
+        OSPermissionSubscriptionState status = OneSignal.getPermissionSubscriptionState();
+        String userId = status.getSubscriptionStatus().getUserId();
+        boolean isSubscribed = status.getSubscriptionStatus().getSubscribed();
+
+        if (!isSubscribed)
+            return;
+
+        try {
+            JSONObject notificationContent = new JSONObject("{'contents': {'en': 'Your Order has placed.we will reach soon till then listen some songs'}," +
+                    "'include_player_ids': ['" + userId + "'], " +
+                    "'headings': {'en': 'Calender Khana do'}, " +
+                    "'big_picture': 'https://www.shoutlo.com/uploads/articles/header-img-places-to-get-north-indian-food-in-hyderabad.jpg'}");
+            OneSignal.postNotification(notificationContent, null);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    }

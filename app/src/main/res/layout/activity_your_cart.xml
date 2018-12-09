@@ -7,548 +7,535 @@
     android:background="@color/white"
     android:orientation="vertical"
     tools:context="in.ckd.calenderkhanado.activities.YourCartActivity">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp48"
-        android:background="@color/colorPrimary"
-        android:padding="@dimen/dp8"
-        android:orientation="vertical">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/backArrowFinish"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:padding="@dimen/dp4"
-                android:tint="#ffffff"
-                android:src="@drawable/ic_back_arrow"/>
-            <in.ckd.calenderkhanado.widgets.CkdTextview
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/textviewbold"
-                android:visibility="gone"
-                android:textColor="@color/white"
-                android:text="@string/app_name"
-                android:textAllCaps="true"
-                android:layout_centerHorizontal="true"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:visibility="gone"
-                android:src="@mipmap/profile_icon"/>
-        </RelativeLayout>
-    </LinearLayout>
-    <ScrollView
-        android:fillViewport="true"
-
+    <RelativeLayout
         android:id="@+id/scrollchange"
         android:layout_width="match_parent"
-        android:visibility="visible"
         android:layout_height="match_parent">
-        <LinearLayout
-            android:orientation="vertical"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:visibility="visible"
+            android:layout_above="@+id/placeOrderButton">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/white"
+                    android:elevation="@dimen/dp2"
+                    android:theme="@style/ThemeToolbar"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+                    <ImageView
+                        android:id="@+id/backArrowFinish"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:padding="@dimen/dp4"
+                        android:src="@drawable/ic_back_arrow"
+                        android:tint="@color/black" />
+
+                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                        android:id="@+id/order_checkout"
+                        style="@style/textviewbold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Your Cart"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black" />
+                </android.support.v7.widget.Toolbar>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/dp8">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp8"
+                        android:layout_marginRight="@dimen/dp8"
+                        android:background="@color/white"
+                        android:padding="@dimen/dp12">
+
+                        <ImageView
+                            android:id="@+id/vegSysmbol"
+                            android:layout_width="@dimen/dp24"
+                            android:layout_height="@dimen/dp24"
+                            android:src="@mipmap/food_symbol"
+                            android:tint="@color/green" />
+
+                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                            android:id="@+id/order_titile"
+                            style="@style/textviewbold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:layout_toEndOf="@+id/vegSysmbol"
+                            android:text="@string/jain_thali"
+                            android:textColor="@color/black" />
+
+                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                            style="@style/textviewbold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@+id/order_titile"
+                            android:layout_toEndOf="@+id/order_titile"
+                            android:text="(Today's Special)"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/sp10"
+                            android:visibility="gone" />
+
+                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                            android:id="@+id/order_price"
+                            style="@style/textviewbold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/order_titile"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:layout_marginTop="@dimen/dp16"
+                            android:layout_toEndOf="@+id/vegSysmbol"
+                            android:text="@string/price"
+                            android:textColor="@color/colorPrimary" />
 
 
+                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                            android:id="@+id/order_price_basedQuantity"
+                            style="@style/textviewbold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/order_titile"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:layout_marginTop="@dimen/dp16"
+                            android:layout_marginRight="@dimen/dp8"
+                            android:text="@string/price"
+                            android:textColor="@color/colorPrimary" />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:padding="@dimen/dp8"
+                        <include
+                            layout="@layout/add_item"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true" />
 
-        android:layout_height="wrap_content">
+                    </RelativeLayout>
 
-    <in.ckd.calenderkhanado.widgets.CkdTextview
-        android:id="@+id/yourCartCons"
-        android:layout_width="match_parent"
-        android:text="Your Cart"
-        android:textSize="@dimen/sp16"
-        android:textColor="@color/black_effective"
-        android:layout_margin="@dimen/dp8"
-        android:paddingTop="@dimen/dp8"
-        android:paddingLeft="@dimen/dp8"
-        android:paddingRight="@dimen/dp8"
-        style="@style/textviewregular"
+                    <View
+                        android:id="@+id/firstSep"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp0.5"
+                        android:layout_below="@+id/add_item"
+                        android:layout_marginLeft="@dimen/dp24"
+                        android:layout_marginRight="@dimen/dp24"
+                        android:background="@color/place_autocomplete_separator" />
 
-        android:layout_height="wrap_content" />
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dp12"
-        android:layout_marginRight="@dimen/dp8"
-        android:layout_marginLeft="@dimen/dp8"
-        android:background="@color/white">
+                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                        android:id="@+id/promoCode"
+                        style="@style/textviewregular"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp8"
+                        android:paddingTop="@dimen/dp8"
+                        android:text="Promo Code"
+                        android:textColor="@color/black_effective"
+                        android:textSize="@dimen/sp16"
+                        android:visibility="gone" />
 
-        <ImageView
-            android:id="@+id/vegSysmbol"
-            android:layout_width="@dimen/dp24"
-            android:layout_height="@dimen/dp24"
-            android:src="@mipmap/food_symbol"
-            android:tint="@color/green"/>
-        <in.ckd.calenderkhanado.widgets.CkdTextview
-            android:id="@+id/order_titile"
-            android:layout_width="wrap_content"
+                    <in.ckd.calenderkhanado.widgets.CkdEditText
+                        android:id="@+id/enterPromocode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp4"
+                        android:visibility="gone" />
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp8"
+                        android:layout_marginTop="@dimen/dp4"
+                        android:layout_marginEnd="@dimen/dp8"
+                        android:background="@color/white"
+                        android:padding="@dimen/dp12">
+
+                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                            android:id="@+id/order_subtotal"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:text="Subtotal"
+                            android:textColor="@color/black" />
+
+
+                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                            android:id="@+id/order_price_taxes"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/order_subtotal"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:layout_marginTop="@dimen/dp8"
+                            android:text="Taxes and charges"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/sp10" />
+
+                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                            android:id="@+id/totalValue"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:text="Rs.130/-"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/sp14" />
+
+                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                            android:id="@+id/order_taxes"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/order_subtotal"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:layout_marginTop="@dimen/dp8"
+                            android:textColor="@color/gray" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:id="@+id/secSep"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp0.5"
+                        android:layout_below="@+id/add_item"
+                        android:layout_marginLeft="@dimen/dp24"
+                        android:layout_marginRight="@dimen/dp24"
+                        android:background="@color/place_autocomplete_separator" />
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp8"
+                        android:layout_marginTop="@dimen/dp4"
+                        android:layout_marginEnd="@dimen/dp8"
+                        android:background="@color/white"
+                        android:padding="@dimen/dp12">
+
+                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                            android:id="@+id/order_grandtotal"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:text="GrandTotal"
+                            android:textColor="@color/black" />
+
+
+                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                            android:id="@+id/order_price_finalTotal"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:text="Rs.150/-"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/sp14" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:id="@+id/thirdSep"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp0.5"
+                        android:layout_marginLeft="@dimen/dp24"
+                        android:layout_marginRight="@dimen/dp24"
+                        android:background="@color/place_autocomplete_separator" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp8"
+                        android:layout_marginTop="@dimen/dp4"
+                        android:layout_marginEnd="@dimen/dp8"
+                        android:background="@color/white"
+                        android:padding="@dimen/dp12">
+
+                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                            android:id="@+id/deliverToAddress"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:text="Address"
+                            android:textColor="@color/black" />
+
+
+                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                            android:id="@+id/addressMain"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/deliverToAddress"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:layout_marginTop="@dimen/dp8"
+                            android:text="Taxes and charges"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/sp10" />
+
+                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                            android:id="@+id/addressChange"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/addressMain"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:layout_marginTop="@dimen/dp4"
+                            android:text="@string/change"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/sp10" />
+                    </RelativeLayout>
+
+                    <View
+                        android:id="@+id/fourSep"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp0.5"
+                        android:layout_marginLeft="@dimen/dp24"
+                        android:layout_marginRight="@dimen/dp24"
+                        android:background="@color/place_autocomplete_separator" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp8"
+                        android:layout_marginTop="@dimen/dp4"
+                        android:layout_marginEnd="@dimen/dp8"
+                        android:background="@color/white"
+                        android:padding="@dimen/dp12">
+
+                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                            android:id="@+id/deliverTo"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:text="Deliver To"
+                            android:textColor="@color/black" />
+
+
+                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                            android:id="@+id/personInfo"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/deliverTo"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:layout_marginTop="@dimen/dp8"
+
+                            android:text=""
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/sp10" />
+
+                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                            android:id="@+id/infoChange"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/deliverTo"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:layout_marginTop="@dimen/dp8"
+                            android:text="@string/change"
+
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/sp10" />
+                    </RelativeLayout>
+
+                    <View
+                        android:id="@+id/fifthSep"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp0.5"
+                        android:layout_marginLeft="@dimen/dp24"
+                        android:layout_marginRight="@dimen/dp24"
+                        android:background="@color/place_autocomplete_separator" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp8"
+                        android:layout_marginTop="@dimen/dp4"
+                        android:layout_marginEnd="@dimen/dp8"
+                        android:background="@color/white"
+                        android:padding="@dimen/dp12">
+
+                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                            android:id="@+id/paymentOption"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:text="Payment Options"
+                            android:textColor="@color/black" />
+
+
+                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                            android:id="@+id/payatm"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/paymentOption"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:layout_marginTop="@dimen/dp8"
+
+                            android:text="payatm(Rs. 130/-)"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/sp10" />
+
+                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                            android:id="@+id/patmentChange"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/paymentOption"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:layout_marginTop="@dimen/dp8"
+                            android:text="@string/change"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/sp10" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+        <RelativeLayout
+            android:id="@+id/placeOrderButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/jain_thali"
-            android:layout_marginLeft="@dimen/dp8"
-            android:layout_toEndOf="@+id/vegSysmbol"
-            android:textColor="@color/black"
-            style="@style/textviewbold"/>
+            android:layout_alignParentBottom="true">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp48"
+                android:background="@drawable/border_primary"
+                android:gravity="center_vertical"
+                android:layout_marginStart="@dimen/dp16"
+                android:layout_marginTop="@dimen/dp8"
+                android:layout_marginEnd="@dimen/dp16"
+                android:layout_marginBottom="@dimen/dp8">
 
-        <in.ckd.calenderkhanado.widgets.CkdTextview
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:text="(Today's Special)"
-            android:textColor="@color/gray"
-            style="@style/textviewbold"
-            android:layout_toEndOf="@+id/order_titile"
-            android:layout_alignTop="@+id/order_titile"
-            android:textSize="@dimen/sp10"/>
+                <in.ckd.calenderkhanado.widgets.CkdTextview
+                    android:id="@+id/placeOrderButtonCheckout"
+                    style="@style/textviewregular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp24"
+                    android:gravity="start"
+                    android:text="Check Out"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/sp14" />
 
-        <in.ckd.calenderkhanado.widgets.CkdTextview
-            android:id="@+id/order_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/vegSysmbol"
-            android:text="@string/price"
-            android:layout_marginLeft="@dimen/dp8"
-            android:textColor="@color/colorPrimary"
-            style="@style/textviewbold"
-            android:layout_marginTop="@dimen/dp16"
-            android:layout_below="@+id/order_titile"/>
-
-
-        <in.ckd.calenderkhanado.widgets.CkdTextview
-            android:id="@+id/order_price_basedQuantity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/price"
-            android:layout_alignParentEnd="true"
-            android:layout_marginLeft="@dimen/dp8"
-            android:layout_marginRight="@dimen/dp8"
-            android:textColor="@color/colorPrimary"
-            style="@style/textviewbold"
-            android:layout_marginTop="@dimen/dp16"
-            android:layout_below="@+id/order_titile"/>
-        <include
-            layout="@layout/add_item"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"/>
-
+                <in.ckd.calenderkhanado.widgets.CkdTextview
+                    android:id="@+id/placeOrderprice"
+                    style="@style/textviewregular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="@dimen/dp24"
+                    android:layout_marginRight="@dimen/dp24"
+                    android:gravity="start"
+                    android:text="pay Rs. 130/-"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/sp14" />
+            </RelativeLayout>
+        </RelativeLayout>
     </RelativeLayout>
 
-    <View
-        android:id="@+id/firstSep"
-        android:background="@color/place_autocomplete_separator"
-        android:layout_width="match_parent"
-        android:layout_below="@+id/add_item"
-        android:layout_marginLeft="@dimen/dp24"
-        android:layout_marginRight="@dimen/dp24"
-        android:layout_height="@dimen/dp0.5"/>
-    <in.ckd.calenderkhanado.widgets.CkdTextview
-        android:id="@+id/promoCode"
-        android:layout_width="match_parent"
-        android:text="Promo Code"
-        android:visibility="gone"
-        android:textSize="@dimen/sp16"
-        android:textColor="@color/black_effective"
-        android:layout_margin="@dimen/dp8"
-        android:paddingTop="@dimen/dp8"
-        style="@style/textviewregular"
-        android:layout_height="wrap_content" />
-
-    <in.ckd.calenderkhanado.widgets.CkdEditText
-        android:id="@+id/enterPromocode"
-        android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/dp4"
-        android:visibility="gone"
-        android:layout_height="wrap_content" />
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dp12"
-        android:layout_marginTop="@dimen/dp4"
-        android:layout_marginStart="@dimen/dp8"
-        android:layout_marginEnd="@dimen/dp8"
-        android:background="@color/white">
-
-        <in.ckd.calenderkhanado.widgets.CkdTextview
-            android:id="@+id/order_subtotal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Subtotal"
-            android:layout_marginLeft="@dimen/dp8"
-            android:textColor="@color/black"
-            style="@style/textviewregular"
-            />
-
-
-
-        <in.ckd.calenderkhanado.widgets.CkdTextview
-            android:id="@+id/order_price_taxes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Taxes and charges"
-            android:layout_marginLeft="@dimen/dp8"
-            android:textColor="@color/gray"
-            style="@style/textviewregular"
-            android:textSize="@dimen/sp10"
-            android:layout_marginTop="@dimen/dp8"
-            android:layout_below="@+id/order_subtotal"/>
-
-        <in.ckd.calenderkhanado.widgets.CkdTextview
-            android:id="@+id/totalValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rs.130/-"
-            android:layout_alignParentEnd="true"
-            android:layout_marginLeft="@dimen/dp8"
-            android:textColor="@color/gray"
-            style="@style/textviewregular"
-            android:textSize="@dimen/sp14"
-            />
-        <in.ckd.calenderkhanado.widgets.CkdTextview
-            android:id="@+id/order_taxes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginLeft="@dimen/dp8"
-            android:textColor="@color/gray"
-            style="@style/textviewregular"
-            android:layout_marginTop="@dimen/dp8"
-            android:layout_below="@+id/order_subtotal"/>
-
-    </RelativeLayout>
-
-    <View
-        android:id="@+id/secSep"
-        android:background="@color/place_autocomplete_separator"
-        android:layout_width="match_parent"
-        android:layout_below="@+id/add_item"
-        android:layout_marginLeft="@dimen/dp24"
-        android:layout_marginRight="@dimen/dp24"
-        android:layout_height="@dimen/dp0.5"/>
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dp12"
-        android:layout_marginTop="@dimen/dp4"
-        android:layout_marginStart="@dimen/dp8"
-        android:layout_marginEnd="@dimen/dp8"
-        android:background="@color/white">
-
-        <in.ckd.calenderkhanado.widgets.CkdTextview
-            android:id="@+id/order_grandtotal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="GrandTotal"
-            android:layout_marginLeft="@dimen/dp8"
-            android:textColor="@color/black"
-            style="@style/textviewregular"
-            />
-
-
-
-        <in.ckd.calenderkhanado.widgets.CkdTextview
-            android:id="@+id/order_price_finalTotal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rs.150/-"
-            android:layout_marginLeft="@dimen/dp8"
-            android:textColor="@color/gray"
-            style="@style/textviewregular"
-            android:textSize="@dimen/sp14"
-            android:layout_alignParentEnd="true" />
-
-    </RelativeLayout>
-
-    <View
-        android:id="@+id/thirdSep"
-        android:background="@color/place_autocomplete_separator"
-        android:layout_width="match_parent"
-        android:layout_marginLeft="@dimen/dp24"
-        android:layout_marginRight="@dimen/dp24"
-        android:layout_height="@dimen/dp0.5"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dp12"
-        android:layout_marginTop="@dimen/dp4"
-        android:layout_marginStart="@dimen/dp8"
-        android:layout_marginEnd="@dimen/dp8"
-        android:background="@color/white">
-
-        <in.ckd.calenderkhanado.widgets.CkdTextview
-            android:id="@+id/deliverToAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Address"
-            android:layout_marginLeft="@dimen/dp8"
-            android:textColor="@color/black"
-            style="@style/textviewregular"/>
-
-
-
-        <in.ckd.calenderkhanado.widgets.CkdTextview
-            android:id="@+id/addressMain"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Taxes and charges"
-            android:layout_marginLeft="@dimen/dp8"
-            android:textColor="@color/gray"
-            style="@style/textviewregular"
-            android:textSize="@dimen/sp10"
-            android:layout_marginTop="@dimen/dp8"
-            android:layout_below="@+id/deliverToAddress"/>
-
-        <in.ckd.calenderkhanado.widgets.CkdTextview
-            android:id="@+id/addressChange"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/change"
-            android:layout_alignParentEnd="true"
-            android:layout_marginLeft="@dimen/dp8"
-            android:textSize="@dimen/sp10"
-            android:textColor="@color/colorPrimaryDark"
-            style="@style/textviewregular"
-            android:layout_marginTop="@dimen/dp4"
-            android:layout_below="@+id/addressMain"/>
-    </RelativeLayout>
-
-    <View
-        android:id="@+id/fourSep"
-        android:background="@color/place_autocomplete_separator"
-        android:layout_width="match_parent"
-        android:layout_marginLeft="@dimen/dp24"
-        android:layout_marginRight="@dimen/dp24"
-        android:layout_height="@dimen/dp0.5"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dp12"
-        android:layout_marginTop="@dimen/dp4"
-        android:layout_marginStart="@dimen/dp8"
-        android:layout_marginEnd="@dimen/dp8"
-        android:background="@color/white">
-
-        <in.ckd.calenderkhanado.widgets.CkdTextview
-            android:id="@+id/deliverTo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Deliver To"
-            android:layout_marginLeft="@dimen/dp8"
-            android:textColor="@color/black"
-            style="@style/textviewregular"
-            />
-
-
-
-        <in.ckd.calenderkhanado.widgets.CkdTextview
-            android:id="@+id/personInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:layout_marginLeft="@dimen/dp8"
-            android:textColor="@color/gray"
-            style="@style/textviewregular"
-
-            android:textSize="@dimen/sp10"
-            android:layout_marginTop="@dimen/dp8"
-            android:layout_below="@+id/deliverTo"/>
-
-        <in.ckd.calenderkhanado.widgets.CkdTextview
-            android:id="@+id/infoChange"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/change"
-            android:layout_alignParentEnd="true"
-            android:layout_marginLeft="@dimen/dp8"
-            android:textSize="@dimen/sp10"
-            android:textColor="@color/colorPrimaryDark"
-            style="@style/textviewregular"
-
-            android:layout_marginTop="@dimen/dp8"
-            android:layout_below="@+id/deliverTo"/>
-    </RelativeLayout>
-    <View
-        android:id="@+id/fifthSep"
-        android:background="@color/place_autocomplete_separator"
-        android:layout_width="match_parent"
-        android:layout_marginLeft="@dimen/dp24"
-        android:layout_marginRight="@dimen/dp24"
-        android:layout_height="@dimen/dp0.5"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/dp12"
-        android:layout_marginTop="@dimen/dp4"
-        android:layout_marginStart="@dimen/dp8"
-        android:layout_marginEnd="@dimen/dp8"
-        android:background="@color/white">
-
-        <in.ckd.calenderkhanado.widgets.CkdTextview
-            android:id="@+id/paymentOption"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Payment Options"
-            android:layout_marginLeft="@dimen/dp8"
-            android:textColor="@color/black"
-            style="@style/textviewregular"
-            />
-
-
-
-        <in.ckd.calenderkhanado.widgets.CkdTextview
-            android:id="@+id/payatm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="payatm(Rs. 130/-)"
-            android:layout_marginLeft="@dimen/dp8"
-            android:textColor="@color/gray"
-            style="@style/textviewregular"
-
-            android:textSize="@dimen/sp10"
-            android:layout_marginTop="@dimen/dp8"
-            android:layout_below="@+id/paymentOption"/>
-
-        <in.ckd.calenderkhanado.widgets.CkdTextview
-            android:id="@+id/patmentChange"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/change"
-            android:layout_alignParentEnd="true"
-            android:layout_marginLeft="@dimen/dp8"
-            android:textSize="@dimen/sp10"
-            android:textColor="@color/colorPrimaryDark"
-            style="@style/textviewregular"
-            android:layout_marginTop="@dimen/dp8"
-            android:layout_below="@+id/paymentOption"/>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/placeOrderButton"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp48"
-        android:layout_marginStart="@dimen/dp8"
-        android:layout_marginEnd="@dimen/dp8"
-        android:gravity="center_vertical"
-        android:layout_marginTop="@dimen/dp8"
-        android:background="@drawable/fill_rounded_primary_color"
-        >
-    <in.ckd.calenderkhanado.widgets.CkdTextview
-        android:id="@+id/placeOrderButtonCheckout"
-        android:layout_width="wrap_content"
-        android:text="Check Out"
-        android:textColor="@color/white"
-        android:textSize="@dimen/sp14"
-        style="@style/textviewregular"
-        android:gravity="start"
-        android:textAllCaps="true"
-        android:layout_marginLeft="@dimen/dp24"
-        android:layout_height="wrap_content" />
-        <in.ckd.calenderkhanado.widgets.CkdTextview
-            android:id="@+id/placeOrderprice"
-            android:layout_width="wrap_content"
-            android:text="pay Rs. 130/-"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp14"
-            style="@style/textviewregular"
-            android:layout_marginRight="@dimen/dp24"
-            android:layout_alignParentEnd="true"
-            android:gravity="start"
-            android:textAllCaps="true"
-            android:layout_marginLeft="@dimen/dp24"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
-
-    </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
     <LinearLayout
         android:id="@+id/changePaymentOption"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
+
         <LinearLayout
             android:id="@+id/cod_linear"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:padding="@dimen/dp8"
-            android:weightSum="10"
-            android:layout_height="wrap_content">
+            android:weightSum="10">
 
             <in.ckd.calenderkhanado.widgets.CkdTextview
                 android:id="@+id/COD"
-                android:layout_width="wrap_content"
-                android:text="COD (Cash on delivery)"
-                android:textColor="@color/black_effective"
-                android:layout_margin="@dimen/dp8"
-                android:paddingTop="@dimen/dp8"
-                android:layout_weight="7"
-                android:paddingRight="@dimen/dp8"
                 style="@style/textviewregular"
-                android:layout_height="wrap_content" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp8"
+                android:layout_weight="7"
+                android:paddingTop="@dimen/dp8"
+                android:paddingRight="@dimen/dp8"
+                android:text="COD (Cash on delivery)"
+                android:textColor="@color/black_effective" />
 
             <ImageView
                 android:id="@+id/checkedCod"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:tint="@color/black_effective"
-                android:src="@drawable/ic_check"
-                android:layout_weight="2"
-                android:visibility="gone"
                 android:layout_gravity="center"
-                />
+                android:layout_weight="2"
+                android:src="@drawable/ic_check"
+                android:tint="@color/black_effective"
+                android:visibility="gone" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/paytm_linear"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:padding="@dimen/dp8"
-            android:weightSum="10"
-            android:layout_height="wrap_content">
+            android:weightSum="10">
+
             <ImageView
                 android:id="@+id/logoPyatm"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/dp32"
-                android:layout_marginLeft="@dimen/dp8"
-                android:src="@drawable/paytm"
-                android:layout_weight="3"
                 android:layout_gravity="center"
-                />
+                android:layout_marginLeft="@dimen/dp8"
+                android:layout_weight="3"
+                android:src="@drawable/paytm" />
+
             <in.ckd.calenderkhanado.widgets.CkdTextview
                 android:id="@+id/payatmOption"
-                android:layout_width="wrap_content"
-                android:text=""
-                android:textColor="@color/black_effective"
-                android:layout_margin="@dimen/dp8"
-                android:paddingLeft="@dimen/dp8"
-                android:layout_weight="5"
-                android:paddingRight="@dimen/dp8"
                 style="@style/textviewregular"
-                android:layout_height="wrap_content" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp8"
+                android:layout_weight="5"
+                android:paddingLeft="@dimen/dp8"
+                android:paddingRight="@dimen/dp8"
+                android:text=""
+                android:textColor="@color/black_effective" />
 
             <ImageView
                 android:id="@+id/paytmChecked"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:tint="@color/black_effective"
-                android:src="@drawable/ic_check"
-                android:visibility="gone"
-                android:layout_weight="2"
                 android:layout_gravity="center"
-                />
+                android:layout_weight="2"
+                android:src="@drawable/ic_check"
+                android:tint="@color/black_effective"
+                android:visibility="gone" />
         </LinearLayout>
 
     </LinearLayout>
@@ -557,82 +544,83 @@
         android:id="@+id/changePersonInfo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:padding="@dimen/dp12"
         android:layout_margin="@dimen/dp12"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="@dimen/dp12"
+        android:visibility="gone">
+
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:padding="5dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/fill_rounded_white_smoke_radius"
-            android:weightSum="10"
             android:gravity="center_vertical"
-            android:layout_height="wrap_content">
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:weightSum="10">
+
             <ImageView
                 android:id="@+id/userImage"
                 android:layout_width="@dimen/dp24"
                 android:layout_height="@dimen/dp24"
-                android:padding="@dimen/dp2"
-                android:tint="@color/gray"
-                android:src="@mipmap/profile_icon"
-                android:visibility="visible"
                 android:layout_gravity="center"
-                />
+                android:padding="@dimen/dp2"
+                android:src="@mipmap/profile_icon"
+                android:tint="@color/gray"
+                android:visibility="visible" />
 
             <in.ckd.calenderkhanado.widgets.CkdEditText
                 android:id="@+id/userNameUpdated"
+                style="@style/textviewregular"
                 android:layout_width="match_parent"
-                android:hint="Enter name"
-                android:padding="@dimen/dp8"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp4"
                 android:background="@drawable/fill_rounded_white_color"
-                style="@style/textviewregular"
-                android:layout_height="wrap_content" />
+                android:hint="Enter name"
+                android:padding="@dimen/dp8" />
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:weightSum="10"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp16"
             android:background="@drawable/fill_rounded_white_smoke_radius"
-            android:layout_height="wrap_content">
+            android:orientation="horizontal"
+            android:weightSum="10">
+
             <ImageView
                 android:id="@+id/mobileIcon"
                 android:layout_width="@dimen/dp24"
                 android:layout_height="@dimen/dp24"
+                android:layout_gravity="center"
                 android:layout_marginLeft="@dimen/dp8"
                 android:src="@drawable/mobileicon"
-                android:tint="@color/black_effective"
-                android:layout_gravity="center"
-                />
-           <in.ckd.calenderkhanado.widgets.CkdEditText
+                android:tint="@color/black_effective" />
+
+            <in.ckd.calenderkhanado.widgets.CkdEditText
                 android:id="@+id/mobileNumberUpdation"
-                android:layout_width="match_parent"
-                android:text=""
-               android:hint="mobile number"
-                android:textColor="@color/black_effective"
-               android:background="@drawable/fill_rounded_white_color"
-                android:padding="@dimen/dp8"
-               android:inputType="phone"
-               android:layout_margin="@dimen/dp4"
                 style="@style/textviewregular"
-                android:layout_height="wrap_content" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp4"
+                android:background="@drawable/fill_rounded_white_color"
+                android:hint="mobile number"
+                android:inputType="phone"
+                android:padding="@dimen/dp8"
+                android:text=""
+                android:textColor="@color/black_effective" />
 
         </LinearLayout>
 
         <in.ckd.calenderkhanado.widgets.CkdButton
             android:id="@+id/nameSave"
+            style="@style/textviewbold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/fill_rounded_primary_color"
             android:layout_gravity="center_horizontal"
-            style="@style/textviewbold"
-            android:textColor="@color/white"
             android:layout_marginTop="@dimen/dp24"
+            android:background="@drawable/fill_rounded_primary_color"
             android:text="Save"
-            />
+            android:textColor="@color/white" />
 
     </LinearLayout>
 
