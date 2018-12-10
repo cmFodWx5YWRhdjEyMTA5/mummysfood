@@ -55,21 +55,18 @@
 
         <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/gotItAction"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp32"
+            android:layout_width="@dimen/dp100"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/orderplacedText"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/dp16"
             android:background="@drawable/fill_rounded_full_primary"
             android:gravity="center"
-            android:paddingLeft="@dimen/dp24"
-            android:paddingTop="@dimen/dp8"
-            android:paddingRight="@dimen/dp24"
-            android:paddingBottom="@dimen/dp8"
+           android:padding="@dimen/dp6"
             android:text="Got it"
             android:textColor="@color/black_effective"
-            android:textSize="12sp" />
+            android:textSize="@dimen/sp14" />
 
         <LinearLayout
             android:layout_width="match_parent"

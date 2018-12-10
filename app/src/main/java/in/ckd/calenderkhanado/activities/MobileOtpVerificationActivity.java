@@ -108,7 +108,7 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
 
         ButterKnife.bind(this);
         pf = new PreferenceManager(this,PreferenceManager.LOGIN_PREFERENCES_FILE);
-        pf = new PreferenceManager(this);
+        ppref = new PreferenceManager(this);
 
 
         if (getIntent() != null)
@@ -385,6 +385,10 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
                                 finish();
 
                             }else if (json.getString("status").equalsIgnoreCase(AppConstants.SUCCESS)) {
+
+                                saveValue(json.getJSONObject("data").getInt("id")
+                                        ,json.getJSONObject("data").getString("email"),json.getJSONObject("data").getString("profileImage"),"mobile",json.getJSONObject("data").getString("mobile"));
+
                                 pf.saveIntForKey("user_id",json.getJSONObject("data").getInt("id"));
                                 Intent i = new Intent(MobileOtpVerificationActivity.this,ProfileUpdateActivity.class);
                                 i.putExtra("mobile", mobile.getText().toString());
@@ -398,6 +402,8 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
                                 data.f_name = json.getJSONArray("data").getJSONObject(0).getString("f_name");
                                 data.profile_image = json.getJSONArray("data").getJSONObject(0).getString("profile_image");
                                 data.email =json.getJSONArray("data").getJSONObject(0).getString("email");
+                                saveValue(data.id,data.email,data.profile_image,"mobile",data.mobile);
+
                                 sharePrefrenceIntentActivity(data);
 
                             }else {
@@ -441,14 +447,30 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
 
     private void sharePrefrenceIntentActivity(UserInsert.Data data) {
         pf.saveIntForKey(PreferenceManager.USER_ID, data.id);
-        if (data.f_name != null && data.f_name.isEmpty())
-            pf.saveStringForKey(PreferenceManager.FIRST_NM, data.f_name);
+
         if (data.profile_image != null && data.profile_image.isEmpty())
             pf.saveStringForKey(PreferenceManager.USER_PROFILE_PIC, data.profile_image);
         if (data.email != null && data.email.isEmpty())
             pf.saveStringForKey(PreferenceManager.USER_EMAIl_Id, data.email);
         if (data.mobile != null && data.mobile.isEmpty())
             pf.saveStringForKey(PreferenceManager.USER_MOBILE, data.mobile);
+
+        if (data.f_name != null && !data.f_name.equalsIgnoreCase("null")&&!"".equalsIgnoreCase(data.f_name))
+        {
+            pf.saveStringForKey(PreferenceManager.FIRST_NM, data.f_name);
+            pf.saveStringForKey("FirstName","Full");
+        }else
+        {
+            pf.saveStringForKey("FirstName","Empty");
+            Intent i = new Intent(MobileOtpVerificationActivity.this,ProfileUpdateActivity.class);
+            i.putExtra("mobile", mobile.getText().toString());
+            i.putExtra("logintype","mobile");
+            startActivity(i);
+            finish();
+            return;
+        }
+
+
         String savedLocation = pf.getStringForKey("CurrentAddress","");
         if (savedLocation != null &&savedLocation.equalsIgnoreCase("gotitlocation")){
             startActivity(new Intent(MobileOtpVerificationActivity.this,MainBottomBarActivity.class));
@@ -539,6 +561,44 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
                 resendVerificationCode(mobile.getText().toString(), mResendToken);
                 break;
         }
+    }
+
+
+    private void saveValue(int anInt, String jsonObject, String string, String google,String mobileV)
+    {
+
+        if (string != null)
+        {
+            ppref.saveStringForKey("profileImage",string);
+        }else
+        {
+            ppref.saveStringForKey("profileImage","");
+        }
+
+        ppref.saveStringForKey("loginType",google);
+
+        if (jsonObject != null)
+        {
+            ppref.saveStringForKey("email",jsonObject);
+        }else
+        {
+            ppref.saveStringForKey("email","");
+        }
+
+        if (mobileV != null)
+        {
+            ppref.saveStringForKey("mobile",mobileV);
+        }else
+        {
+            ppref.saveStringForKey("mobile","");
+        }
+
+        if (anInt != 0)
+        {
+            ppref.saveIntForKey("user_id",anInt);
+        }
+
+
     }
 
     @Override

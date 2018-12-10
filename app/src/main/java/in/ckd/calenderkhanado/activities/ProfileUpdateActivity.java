@@ -124,7 +124,6 @@ public class ProfileUpdateActivity extends BaseActivity {
             userEmail = intent.getString("email");
             userProfileImage = intent.getString("profile_image");
             mobileNumber = intent.getString("mobile");
-
         }
 
         chooseGender.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -296,6 +295,13 @@ public class ProfileUpdateActivity extends BaseActivity {
 
     private void nexttoupload() {
         //getting unique id for device
+
+        // save image into shareprefresnce
+        pfd.saveStringForKey("FirstName","Full");
+        pfd.saveStringForKey("ImageUrl",imageName);
+
+
+
         String device_id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
         String osVersion = android.os.Build.VERSION.RELEASE;
 
@@ -307,6 +313,11 @@ public class ProfileUpdateActivity extends BaseActivity {
         request.mobile = mobileNumber;
         request.profile_image = imageName;
         request.type = AppConstants.SEEKER;
+
+        //saving name into sharedprefrence
+
+        pfd.saveStringForKey("Name",request.f_name);
+
         if (loginType.equalsIgnoreCase("mobile")) {
             request.is_mobile_verified = 1;
             request.is_email_verified = 0;
@@ -424,7 +435,8 @@ public class ProfileUpdateActivity extends BaseActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //image upload
-        if (resultCode != 0 && requestCode == SELECT_PHOTO) {
+        if (resultCode != 0 && requestCode == SELECT_PHOTO)
+        {
             mImageUri = data.getData();
             if (mImageUri == null) {
                 showToast("Error in uploading image.Please try again.");

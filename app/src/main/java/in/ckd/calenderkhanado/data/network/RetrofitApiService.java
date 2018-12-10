@@ -26,6 +26,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -66,6 +67,12 @@ public interface RetrofitApiService {
 
     @PUT("user/{id}")
     Call<ResponseBody>updateUserInfo(@Path("id") int id,@Body LoginRequest request);
+
+
+    @PUT("user/{id}")
+    Call<ResponseBody>updateUserImage(@Path("id") int id, @Field("profile_image")String profile_image);
+
+
 
     @GET("user")
     Call<LogoutResponse> getUserInfo();

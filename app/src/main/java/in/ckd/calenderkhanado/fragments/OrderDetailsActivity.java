@@ -189,8 +189,69 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
         radioAction.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
+            public void onCheckedChanged(RadioGroup group, int selectedId) {
+                if (selectedId== R.id.radioDinner)
+                {
+                    if (typeOfPackage.equalsIgnoreCase("weekly"))
+                    {
+                        isDinner = 1;
+                        isLunch =0;
+                        numberOfDays = 6;
+                    }else if (typeOfPackage.equalsIgnoreCase("monthly"))
+                    {
+                        isDinner = 1;
+                        isLunch = 0;
+                        numberOfDays = 30;
+                    }else if (typeOfPackage.equalsIgnoreCase("today"))
+                    {
+                        isDinner = 1;
+                        isLunch = 0;
+                        numberOfDays = 1;
+                    }
 
+                }
+                if (selectedId == R.id.radioLunch)
+                {
+
+                    if (typeOfPackage.equalsIgnoreCase("weekly"))
+                    {
+                        isLunch = 1;
+                        isDinner =0;
+                        numberOfDays = 6;
+                    }else if (typeOfPackage.equalsIgnoreCase("monthly"))
+                    {
+                        isLunch = 1;
+                        isDinner =0;
+                        numberOfDays = 30;
+                    }else if (typeOfPackage.equalsIgnoreCase("today"))
+                    {
+                        isDinner = 1;
+                        isLunch = 0;
+                        numberOfDays = 1;
+                    }
+
+                }
+
+                if (selectedId == R.id.radioBoth)
+                {
+                    if (typeOfPackage.equalsIgnoreCase("weekly"))
+                    {
+                        isDinner = 1;
+                        isLunch = 1;
+                        numberOfDays = 12;
+                    }else if (typeOfPackage.equalsIgnoreCase("monthly"))
+                    {
+                        isDinner = 1;
+                        isLunch = 1;
+                        numberOfDays = 60;
+                    }else if (typeOfPackage.equalsIgnoreCase("today"))
+                    {
+                        isDinner = 1;
+                        isLunch = 1;
+                        numberOfDays = 2;
+                    }
+
+                }
             }
         });
        /* LunchSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

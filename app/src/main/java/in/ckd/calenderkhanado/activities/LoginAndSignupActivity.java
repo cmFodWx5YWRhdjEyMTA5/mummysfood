@@ -279,8 +279,6 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
                     showToast("Authentication failed");
                 } else {
                     networkcallForCheckUserInDb(acct);
-
-
                 }
             }
         });
@@ -330,6 +328,8 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
                                 intent.putExtra("email",user.getEmail());
                                 intent.putExtra("profile_image",user.getPhotoUrl().toString());
                                 intent.putExtra("logintype","google");
+                               saveValue(json.getJSONObject("data").getInt("id")
+                               ,json.getJSONObject("data").getString("email"),json.getJSONObject("data").getString("profileImage"),"google",json.getJSONObject("data").getString("mobile"));
                                 startActivity(intent);
 
                             }else if(json.getString("status").equalsIgnoreCase(AppConstants.ALREADY)){
@@ -338,9 +338,11 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
                                 data.f_name = json.getJSONArray("data").getJSONObject(0).getString("f_name");
                                 data.profile_image = json.getJSONArray("data").getJSONObject(0).getString("profile_image");
                                 data.email =json.getJSONArray("data").getJSONObject(0).getString("email");
+                                ppref.saveIntForKey("user_id",data.id);
+                                saveValue(data.id,data.email,data.profile_image,"google",data.mobile);
                                 sharePrefrenceIntentActivity(data);
 
-                                ppref.saveIntForKey("user_id",data.id);
+
                             }else {
                                 showToast("Please try again");
                                 finish();
@@ -380,10 +382,63 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
 
     }
 
+
+    private void saveValue(int anInt, String jsonObject, String string, String google,String mobileV)
+    {
+
+        if (string != null)
+        {
+            ppref.saveStringForKey("profileImage",string);
+        }else
+        {
+            ppref.saveStringForKey("profileImage","");
+        }
+
+        ppref.saveStringForKey("loginType",google);
+
+        if (jsonObject != null)
+        {
+            ppref.saveStringForKey("email",jsonObject);
+        }else
+        {
+            ppref.saveStringForKey("email","");
+        }
+
+        if (mobileV != null)
+        {
+            ppref.saveStringForKey("mobile",mobileV);
+        }else
+        {
+            ppref.saveStringForKey("mobile","");
+        }
+
+        if (anInt != 0)
+        {
+            ppref.saveIntForKey("user_id",anInt);
+        }
+
+
+    }
     private void sharePrefrenceIntentActivity(UserInsert.Data data) {
         pf.saveIntForKey(PreferenceManager.USER_ID, data.id);
-        if (data.f_name != null && data.f_name.isEmpty())
+
+        if (data.f_name != null && !data.f_name.equalsIgnoreCase("null")&&!"".equalsIgnoreCase(data.f_name))
+        {
             pf.saveStringForKey(PreferenceManager.FIRST_NM, data.f_name);
+            pf.saveStringForKey("FirstName","Full");
+        }else
+        {
+            pf.saveStringForKey("FirstName","Empty");
+            Intent intent = new Intent(LoginAndSignupActivity.this,ProfileUpdateActivity.class);
+            intent.putExtra("fullname","");
+            intent.putExtra("email",data.email);
+            intent.putExtra("profile_image",data.profile_image);
+            intent.putExtra("logintype","google");
+            startActivity(intent);
+            finish();
+        }
+
+
         if (data.profile_image != null && data.profile_image.isEmpty())
             pf.saveStringForKey(PreferenceManager.USER_PROFILE_PIC, data.profile_image);
         if (data.email != null && data.email.isEmpty())

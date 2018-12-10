@@ -1,10 +1,8 @@
 package in.ckd.calenderkhanado.activities;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -29,7 +27,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.ckd.calenderkhanado.location.EnterFullAdressActivity;
-import in.ckd.calenderkhanado.location.UserLocationActivtiy;
 import in.ckd.calenderkhanado.R;
 import in.ckd.calenderkhanado.base.BaseActivity;
 import in.ckd.calenderkhanado.data.db.DataBaseHelperNew;
@@ -200,8 +197,17 @@ public class YourCartActivity extends BaseActivity {
         checkPaymentOption();
 
         if (typeOfPackage.equalsIgnoreCase("today")) {
-            add_to_cart_item_layout.setVisibility(View.VISIBLE);
-            order_price_basedQuantity.setVisibility(View.VISIBLE);
+
+            if (isLunch == 1 && isDinner == 1)
+            {
+                add_to_cart_item_layout.setVisibility(View.GONE);
+                order_price_basedQuantity.setVisibility(View.GONE);
+            }else
+            {
+                add_to_cart_item_layout.setVisibility(View.VISIBLE);
+                order_price_basedQuantity.setVisibility(View.VISIBLE);
+            }
+
 
         } else if (typeOfPackage.equalsIgnoreCase("monthly")) {
             add_to_cart_item_layout.setVisibility(View.GONE);
@@ -268,12 +274,20 @@ public class YourCartActivity extends BaseActivity {
                 int orderPriceInt = 0;
                 orderPriceInt = (int) orderPrice;
                 if (typeOfPackage.equalsIgnoreCase("monthly")) {
-                    orderPriceInt = orderPriceInt * 30;
+                    orderPriceInt = orderPriceInt * numberOfDays;
                 } else if (typeOfPackage.equalsIgnoreCase("weekly")) {
-                    orderPriceInt = orderPriceInt * 7;
+                    orderPriceInt = orderPriceInt * numberOfDays;
+                }else if (typeOfPackage.equalsIgnoreCase("today")) {
+                    if (isDinner ==1 &&isLunch ==1)
+                    {
+                        orderPriceInt = orderPriceInt * numberOfDays;
+                        orderPriceInt = orderPriceInt+orderPriceInt;
+                    }else
+                    {
+                        orderPriceInt = orderPriceInt * numberOfDays;
+                    }
 
                 }
-
 
                 order_titile.setText(modelData.food_detail.get(0).name);
                 order_price.setText(getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
@@ -366,6 +380,8 @@ public class YourCartActivity extends BaseActivity {
 
 
             int value = (int) valuep;
+
+
 
             int priceValue = value * totalCount;
             order_price_basedQuantity.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(priceValue));
@@ -754,11 +770,16 @@ public class YourCartActivity extends BaseActivity {
 
             } else {
 
-                String house_no = pfUAddress.getStringForKey("house_no", "");
-                String type = pfUAddress.getStringForKey("type", "");
-                String pincode = pfUAddress.getStringForKey("pincode", "");
+                String house_no = pf.getStringForKey("house_no", "");
+                String type = pf.getStringForKey("type", "");
+                String pincode = pf.getStringForKey("pincode", "");
                 String paymetTYpe = pf.getStringForKey("paymentType", "");
                 orderModel.house_no = hounseNoEdit;
+
+                if ("".equalsIgnoreCase(paymetTYpe))
+                {
+                    paymetTYpe = "Paytm";
+                }
 
                 try {
 
@@ -792,9 +813,17 @@ public class YourCartActivity extends BaseActivity {
                 orderModel.ordered_plates = itemCountText;
                 orderModel.chef_name = "privacy concern so name is not here";
                 orderModel.food_image = foodImage;
+                orderModel.house_no = "Call them";
 
 
-                orderModel.landmark = landmarkEdit;
+                if ("".equalsIgnoreCase(landmarkEdit))
+                {
+                    orderModel.landmark = CurrentAddress;
+                }else
+                {
+                    orderModel.landmark = landmarkEdit;
+                }
+
 
 
                 if (CurrentAddress != null && !"".equalsIgnoreCase(CurrentAddress)) {

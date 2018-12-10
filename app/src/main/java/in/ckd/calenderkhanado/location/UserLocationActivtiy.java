@@ -1,15 +1,15 @@
 package in.ckd.calenderkhanado.location;
 
 import android.Manifest;
-import android.app.AlertDialog;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Address;
-import android.location.Criteria;
 import android.location.Geocoder;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,11 +19,23 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 
 import in.ckd.calenderkhanado.R;
 import in.ckd.calenderkhanado.base.BaseActivity;
@@ -44,8 +56,14 @@ import retrofit2.Response;
 
 
 public class UserLocationActivtiy extends BaseActivity
-{
 
+        implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,
+        LocationListener {
+    private Location mylocation;
+    private GoogleApiClient googleApiClient;
+    private final static int REQUEST_CHECK_SETTINGS_GPS=0x1;
+    private final static int REQUEST_ID_MULTIPLE_PERMISSIONS=0x2;
     @BindView(R.id.searchText)
     SearchView searchText;
 
@@ -92,6 +110,7 @@ public class UserLocationActivtiy extends BaseActivity
 
     BroadcastReceiver gpsReceiver;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,33 +118,7 @@ public class UserLocationActivtiy extends BaseActivity
 
         ButterKnife.bind(this);
 
-        loading.setVisibility(View.GONE);
-
-
-        //-------Status trigger when user on gps----------
-
-/*
-         gpsReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                if (intent.getAction().matches(LocationManager.PROVIDERS_CHANGED_ACTION)) {
-                  finish();
-                  showToast("yesINdu");
-                  startActivity(new Intent(UserLocationActivtiy.this,UserLocationActivtiy.class));
-                }
-            }
-        };
-
-        registerReceiver(gpsReceiver, new IntentFilter(LocationManager.PROVIDERS_CHANGED_ACTION));
-*/
-
-        //----------------------------------
-
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        provider = locationManager.getBestProvider(new Criteria(), false);
-
-
+        loading.setVisibility(View.VISIBLE);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerviewSearch.setLayoutManager(mLayoutManager);
@@ -159,18 +152,13 @@ public class UserLocationActivtiy extends BaseActivity
             }
         });
 
-
-
+        setUpGClient();
     }
 
 
     @OnClick(R.id.detectAutomatically)
     public void detectAutomatically()
     {
-
-        checkLocationPermission();
-
-        //timerForsettingOn();
     }
 
 
@@ -209,28 +197,7 @@ public class UserLocationActivtiy extends BaseActivity
 
     }
 
-  /*  private void setAdapter(List<LocationModel.Predictions> predictions) {
-
-        ContactsAdapter mAdapter = new ContactsAdapter(this, predictions, this);
-        recyclerviewSearch.setAdapter(mAdapter);
-    }
-
-    @Override
-    public void onContactSelected(LocationModel.Predictions contact)
-    {
-        Toast.makeText(getApplicationContext(), "Selected: " + contact.description , Toast.LENGTH_LONG).show();
-
-        pf.saveStringForKey("CurrentAddress",contact.description);
-        Intent enterOtherAct = new Intent(UserLocationActivtiy.this,EnterFullAdressActivity.class);
-        enterOtherAct.putExtra("lat",latitudeS);
-        enterOtherAct.putExtra("long",lognitudeS);
-        enterOtherAct.putExtra("Address",contact.description);
-        startActivity(enterOtherAct);
-        finish();
-
-    }*/
-
-    public  void locationBased()
+    public  void locationBased(Double latitude, Double longitude)
     {
 
         Context contex = this;
@@ -240,13 +207,8 @@ public class UserLocationActivtiy extends BaseActivity
 
                 checkLocationPermission();
             }else {*/
-                gps = new GpsTracker(UserLocationActivtiy.this);
 
-                // check if GPS enabled
-                if(gps.canGetLocation()){
 
-                    double latitude = gps.getLatitude();
-                    double longitude = gps.getLongitude();
 
                     Geocoder geocoder;
                     List<Address> addresses;
@@ -282,6 +244,12 @@ public class UserLocationActivtiy extends BaseActivity
                             enterOtherAct.putExtra("pincode",postalCode);
                             enterOtherAct.putExtra("state",state);
                             startActivity(enterOtherAct);
+
+                            Log.d("Address",address);
+                            Log.d("Address",city);
+                            Log.d("Address",postalCode);
+                            Log.d("Address",state);
+                            Log.d("Address",String.valueOf(latitude));
                             finish();
 
 
@@ -290,9 +258,7 @@ public class UserLocationActivtiy extends BaseActivity
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                }else{
-                    gps.showSettingsAlert();
-                }
+
            // }
         } catch (Exception e) {
             e.printStackTrace();
@@ -300,60 +266,6 @@ public class UserLocationActivtiy extends BaseActivity
 
 
 
-    }
-
-    public void checkGpsStatus(String yes)
-    {
-
-        /*final LocationManager manager = (LocationManager) UserLocationActivtiy.this.getSystemService(Context.LOCATION_SERVICE);
-        if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER) && hasGPSDevice(UserLocationActivtiy.this)) {
-
-            Toast.makeText(UserLocationActivtiy.this,"Gps already enabled", Toast.LENGTH_SHORT).show();
-
-            locationBased();
-
-        }*/
-
-        if (yes.equalsIgnoreCase("Done"))
-        {
-            locationBased();
-        }
-
-
-        if(!hasGPSDevice(UserLocationActivtiy.this)){
-            Toast.makeText(UserLocationActivtiy.this,"Gps not Supported", Toast.LENGTH_SHORT).show();
-        }
-
-       /* if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER) && hasGPSDevice(UserLocationActivtiy.this)) {
-
-            showSettingsAlert();
-
-        }else {
-
-            locationBased();
-        }*/
-    }
-
-    private boolean hasGPSDevice(Context context) {
-        final LocationManager mgr = (LocationManager) context
-                .getSystemService(Context.LOCATION_SERVICE);
-        if (mgr == null)
-            return false;
-        final List<String> providers = mgr.getAllProviders();
-        if (providers == null)
-            return false;
-        return providers.contains(LocationManager.GPS_PROVIDER);
-    }
-
-
-    public void timerForsettingOn() {
-        handler.postDelayed(new Runnable() {
-            public void run() {
-
-                checkGpsStatus("Done");
-            }
-
-        }, 1 * 3000);
     }
 
 
@@ -371,78 +283,147 @@ public class UserLocationActivtiy extends BaseActivity
         }
     }
 
+    private synchronized void setUpGClient() {
+        googleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, 0, this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+        googleApiClient.connect();
+    }
 
+    @Override
+    public void onLocationChanged(Location location) {
+        mylocation = location;
+        if (mylocation != null) {
+            Double latitude=mylocation.getLatitude();
+            Double longitude=mylocation.getLongitude();
 
-    public boolean checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
+            locationBased(latitude,longitude);
 
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.ACCESS_FINE_LOCATION)) {
-
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-                new AlertDialog.Builder(this)
-                        .setTitle("location needed")
-                        .setMessage("Access this need location permission")
-                        .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //Prompt the user once explanation has been shown
-                                ActivityCompat.requestPermissions(UserLocationActivtiy.this,
-                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                                        MY_PERMISSIONS_REQUEST_LOCATION);
-                            }
-                        })
-                        .create()
-                        .show();
-
-
-            } else {
-                // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_LOCATION);
-            }
-            return false;
-        } else {
-            locationBased();
-            return true;
+            //Or Do whatever you want with your location
         }
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+    public void onConnected(Bundle bundle) {
+        checkPermissions();
+    }
 
-                    // permission was granted, yay! Do the
-                    // location-related task you need to do.
-                    if (ContextCompat.checkSelfPermission(this,
-                            Manifest.permission.ACCESS_FINE_LOCATION)
-                            == PackageManager.PERMISSION_GRANTED) {
+    @Override
+    public void onConnectionSuspended(int i) {
+        //Do whatever you need
+        //You can display a message here
+    }
 
-                      locationBased();
-                        //Request location updates:
-                    //    locationManager.requestLocationUpdates(provider, 400, 1, UserLocationActivtiy.this);
-                    }
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        //You can display a message here
+    }
 
-                } else {
+    private void getMyLocation(){
+        if(googleApiClient!=null) {
+            if (googleApiClient.isConnected()) {
+                int permissionLocation = ContextCompat.checkSelfPermission(UserLocationActivtiy.this,
+                        Manifest.permission.ACCESS_FINE_LOCATION);
+                if (permissionLocation == PackageManager.PERMISSION_GRANTED) {
+                    mylocation =                     LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+                    LocationRequest locationRequest = new LocationRequest();
+                    locationRequest.setInterval(3000);
+                    locationRequest.setFastestInterval(3000);
+                    locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                    LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                            .addLocationRequest(locationRequest);
+                    builder.setAlwaysShow(true);
+                    LocationServices.FusedLocationApi
+                            .requestLocationUpdates(googleApiClient, locationRequest, this);
+                    PendingResult<LocationSettingsResult> result =
+                            LocationServices.SettingsApi
+                                    .checkLocationSettings(googleApiClient, builder.build());
+                    result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
 
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-
+                        @Override
+                        public void onResult(LocationSettingsResult result) {
+                            final Status status = result.getStatus();
+                            switch (status.getStatusCode()) {
+                                case LocationSettingsStatusCodes.SUCCESS:
+                                    // All location settings are satisfied.
+                                    // You can initialize location requests here.
+                                    int permissionLocation = ContextCompat
+                                            .checkSelfPermission(UserLocationActivtiy.this,
+                                                    Manifest.permission.ACCESS_FINE_LOCATION);
+                                    if (permissionLocation == PackageManager.PERMISSION_GRANTED) {
+                                        mylocation = LocationServices.FusedLocationApi
+                                                .getLastLocation(googleApiClient);
+                                    }
+                                    break;
+                                case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                                    // Location settings are not satisfied.
+                                    // But could be fixed by showing the user a dialog.
+                                    try {
+                                        // Show the dialog by calling startResolutionForResult(),
+                                        // and check the result in onActivityResult().
+                                        // Ask to turn on GPS automatically
+                                        status.startResolutionForResult(UserLocationActivtiy.this,
+                                                REQUEST_CHECK_SETTINGS_GPS);
+                                    } catch (IntentSender.SendIntentException e) {
+                                        // Ignore the error.
+                                    }
+                                    break;
+                                case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                                    // Location settings are not satisfied.
+                                    // However, we have no way
+                                    // to fix the
+                                    // settings so we won't show the dialog.
+                                    // finish();
+                                    break;
+                            }
+                        }
+                    });
                 }
-                return;
             }
+        }
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case REQUEST_CHECK_SETTINGS_GPS:
+                switch (resultCode) {
+                    case Activity.RESULT_OK:
+                        getMyLocation();
+                        break;
+                    case Activity.RESULT_CANCELED:
+                        finish();
+                        break;
+                }
+                break;
+        }
+    }
+
+    private void checkPermissions(){
+        int permissionLocation = ContextCompat.checkSelfPermission(UserLocationActivtiy.this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (permissionLocation != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(android.Manifest.permission.ACCESS_FINE_LOCATION);
+            if (!listPermissionsNeeded.isEmpty()) {
+                ActivityCompat.requestPermissions(this,
+                        listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), REQUEST_ID_MULTIPLE_PERMISSIONS);
+            }
+        }else{
+            getMyLocation();
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        int permissionLocation = ContextCompat.checkSelfPermission(UserLocationActivtiy.this,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        if (permissionLocation == PackageManager.PERMISSION_GRANTED) {
+            getMyLocation();
         }
     }
 
@@ -450,12 +431,11 @@ public class UserLocationActivtiy extends BaseActivity
     @Override
     public void onResume() {
         super.onResume();
-      checkLocationPermission();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-      //  LocalBroadcastManager.getInstance(this).unregisterReceiver(gpsReceiver);
     }
+
 }

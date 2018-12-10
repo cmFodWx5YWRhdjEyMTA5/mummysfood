@@ -46,6 +46,7 @@ import in.ckd.calenderkhanado.utils.FilePath;
 import in.ckd.calenderkhanado.utils.Permission;
 import in.ckd.calenderkhanado.widgets.CkdTextview;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.auth.FirebaseAuth;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -132,6 +133,17 @@ public class ProfileFragment extends BaseFragment {
             }
         }*/
 
+      // display data from sharedPrefrence
+
+        String profile = pfpp.getStringForKey("ImageUrl","");
+        String fname = pfpp.getStringForKey("Name","");
+
+        Glide.with(getActivity()).load(profile).diskCacheStrategy(DiskCacheStrategy.SOURCE).placeholder(R.mipmap.default_usr_img).into(profileImage);
+
+        String name = CapsName.CapitalizeFullName(fname);
+        profileUsername.setText(name);
+
+
         if (loggedInUserId != 0){
             Call<ProfileModel> profileData = AppConstants.restAPI.getProfileUserData(userId);
             profileData.enqueue(new Callback<ProfileModel>() {
@@ -151,7 +163,7 @@ public class ProfileFragment extends BaseFragment {
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
-                                prepareUserData();
+                             prepareUserData();
 
                             }
                         }
@@ -169,8 +181,8 @@ public class ProfileFragment extends BaseFragment {
 
     private void prepareUserData() {
         if (userData.profile_image != null && !userData.profile_image.isEmpty()){
-            String imageUrl = "http://cdn.mummysfood.in/"+userData.profile_image;
-            Glide.with(context).load(imageUrl).placeholder(R.mipmap.default_usr_img).into(profileImage);
+            String imageUrl = userData.profile_image;
+            Glide.with(getActivity()).load(imageUrl).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.default_usr_img).into(profileImage);
         }
 
         if (userData.f_name != null && !"".equalsIgnoreCase(userData.f_name)){
@@ -416,7 +428,7 @@ public class ProfileFragment extends BaseFragment {
                                 imageName = response.body().data.name;
                                 imageName = "http://cdn.mummysfood.in/"+imageName;
 
-                                updateUserProfilePic(response.body().data.name);
+                                updateUserProfilePic(imageName);
 
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -447,7 +459,7 @@ public class ProfileFragment extends BaseFragment {
     }
 
     private void updateUserProfilePic(String image_name) {
-        LoginRequest request = new LoginRequest();
+        final LoginRequest request = new LoginRequest();
 
         request.profile_image = image_name;
 
@@ -462,7 +474,7 @@ public class ProfileFragment extends BaseFragment {
                     try {
                         String resp = response.body().string();
                         JSONObject json = new JSONObject(resp);
-                        Log.e("status", json.getString("status"));
+                        pfpp.saveStringForKey("ImageUrl",request.profile_image);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
