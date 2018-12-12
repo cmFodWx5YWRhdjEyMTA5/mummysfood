@@ -12,7 +12,7 @@ public class AddressModel {
     @SerializedName("status")
     public String status;
     @SerializedName("data")
-    public List<Data> data;
+    public Data data;
 
     public static class Data {
         @SerializedName("id")

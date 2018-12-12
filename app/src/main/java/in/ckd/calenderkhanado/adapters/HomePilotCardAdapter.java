@@ -3,6 +3,8 @@ package in.ckd.calenderkhanado.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.net.Uri;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,15 +13,23 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
 import in.ckd.calenderkhanado.R;
 import in.ckd.calenderkhanado.data.pref.PreferenceManager;
+import in.ckd.calenderkhanado.fragments.HomeFragment;
 import in.ckd.calenderkhanado.fragments.OrderDetailsActivity;
 import in.ckd.calenderkhanado.fragments.ProfileFragmentChef;
 import in.ckd.calenderkhanado.models.DashBoardModel;
+import in.ckd.calenderkhanado.models.HomeFeed;
 import in.ckd.calenderkhanado.utils.CalculateDistance;
 import in.ckd.calenderkhanado.utils.CapsName;
 import in.ckd.calenderkhanado.widgets.CkdTextview;
+import in.ckd.calenderkhanado.widgets.ImageLoadProgressBar;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -30,12 +40,13 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private Context context;
     private List<DashBoardModel.Data> data;
+    private List<HomeFeed.Data> dataList;
     private OrderListner listner;
-    PreferenceManager pf;
 
-    public HomePilotCardAdapter(Context context, List<DashBoardModel.Data> data, OrderListner listner) {
-        this.context = context;
-        this.data = data;
+
+    public HomePilotCardAdapter(Context activity, List<HomeFeed.Data> fetchDataHome, HomeFragment listner) {
+        this.context = activity;
+        this.dataList = fetchDataHome;
         this.listner = listner;
     }
 
@@ -55,6 +66,7 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
         CkdTextview food_title;
         CkdTextview food_price;
         CkdTextview order_distance;
+        SimpleDraweeView myImageView;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -63,6 +75,7 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
             chef_name = (CkdTextview)itemView.findViewById(R.id.chef_name);
             food_price = (CkdTextview)itemView.findViewById(R.id.food_price);
             order_distance = (CkdTextview)itemView.findViewById(R.id.order_distance);
+            myImageView = itemView.findViewById(R.id.my_image_view);
         }
     }
 
@@ -77,19 +90,46 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         final ViewHolder holder = (ViewHolder) viewHolder;
 
-        DashBoardModel.Data dataModel = data.get(i);
+        HomeFeed.Data data = dataList.get(i);
 
 
         try {
-            pf = new PreferenceManager(context,PreferenceManager.ORDER_PREFERENCES_FILE);
+//            pf = new PreferenceManager(context,PreferenceManager.ORDER_PREFERENCES_FILE);
 
-            String name = CapsName.CapitalizeFullName(dataModel.name.trim());
+            String name = CapsName.CapitalizeFullName(data.name.trim());
             holder.chef_name.setText(name);
-            if(data.get(i).food_detail.get(0).food_media.get(0) != null){
+            if(data.food_media.get(0) != null){
                 try {
-                    String imageUrl = "http://cdn.mummysfood.in/"+dataModel.food_detail.get(0).food_media.get(0).media.name;
+                    String imageUrl = "http://cdn.mummysfood.in/"+data.food_media.get(0).media.name;
                     Log.d("ImageUrl",imageUrl);
-                    Glide.with(context).load(imageUrl).into(holder.food_image);
+                  //  Glide.with(context).load(imageUrl).into(holder.food_image);
+
+
+                    try {
+
+                        ImageRequest request = ImageRequestBuilder
+                                .newBuilderWithSource(Uri.parse(imageUrl))
+                                .setLocalThumbnailPreviewsEnabled(true)
+                                .setLowestPermittedRequestLevel(ImageRequest.RequestLevel.FULL_FETCH)
+                                .setProgressiveRenderingEnabled(true)
+                                .setCacheChoice(ImageRequest.CacheChoice.SMALL)
+                                .build();
+
+                        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                                .setImageRequest(request)
+                                .setOldController( holder.myImageView.getController())
+                                .build();
+
+                        holder.myImageView.getHierarchy().setProgressBarImage(new ImageLoadProgressBar());
+                        //Assigning the controller to DraweeView
+                        holder.myImageView.setController(controller);
+
+                    } catch (Exception e) {
+
+                        e.printStackTrace();
+
+                    }
+
                 }catch (IllegalArgumentException e){
                     e.printStackTrace();
                 }
@@ -97,12 +137,12 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
                 holder.food_image.setImageResource(R.mipmap.foodimage);
             }
 
-            if (data.get(i).food_detail.get(0).price != null){
-                holder.food_price.setText(context.getResources().getString(R.string.Rs)+dataModel.food_detail.get(0).price);
+            if (data.price != null){
+                holder.food_price.setText(context.getResources().getString(R.string.Rs)+data.price);
             }
 
-            if (data.get(i).food_detail.get(0).name != null){
-                holder.food_title.setText(dataModel.food_detail.get(0).name);
+            if (data.name != null){
+                holder.food_title.setText(data.name);
             }
 
             float[] results = new float[1];
@@ -111,8 +151,8 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
             DecimalFormat value = new DecimalFormat("#.#");
 
             holder.order_distance.setText(value.format(distance)+"km");
-            holder.food_image.setTag(i);
-            holder.food_image.setOnClickListener(this);
+            holder.myImageView.setTag(i);
+            holder.myImageView.setOnClickListener(this);
             holder.chef_name.setTag(i);
             holder.chef_name.setOnClickListener(this);
         } catch (Exception e) {
@@ -133,11 +173,11 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
     public void onClick(View v) {
         int position = (Integer) v.getTag();
         switch (v.getId()){
-            case R.id.food_image:
+            case R.id.my_image_view:
                 try {
                     Intent i = new Intent(context,OrderDetailsActivity.class);
-                    i.putExtra("order_id",data.get(position).id);
-                    i.putExtra("data",data.get(position));
+                    i.putExtra("order_id",dataList.get(position).id);
+                    i.putExtra("data",dataList.get(position));
                     context.startActivity(i);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -179,7 +219,7 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public int getItemCount() {
-        return data.size()!=0 ? data.size():0;
+        return dataList.size()!=0 ? dataList.size():0;
     }
 
 }

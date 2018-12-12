@@ -39,6 +39,7 @@ import in.ckd.calenderkhanado.data.network.RetrofitApiService;
 import in.ckd.calenderkhanado.data.pref.PreferenceManager;
 import in.ckd.calenderkhanado.models.DashBoardModel;
 import in.ckd.calenderkhanado.models.FilterModel;
+import in.ckd.calenderkhanado.models.HomeFeed;
 import in.ckd.calenderkhanado.utils.AppConstants;
 import in.ckd.calenderkhanado.widgets.CkdButton;
 
@@ -90,7 +91,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
     Context context;
     private LinearLayoutManager linearLayoutManager;
-    private List<DashBoardModel.Data> fetchData = new ArrayList<>();
+    private List<HomeFeed.Data> fetchDataHome = new ArrayList<>();
     private HomePilotCardAdapter pilotCardAdapter;
     private HomeSpecialCardAdapter specialCardAdapter;
     private PreferenceManager pf,filterPref;
@@ -98,7 +99,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     private int item_quantity = 0;
     private Dialog dialog;
     private orderActionListner orderActionListner;
-    private List<DashBoardModel.Data> dModel;
+    private List<HomeFeed.Data> dModel;
     private List<FilterModel> filterList;
     private String globalUrl = "";
     private int UserFoodType;
@@ -118,7 +119,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home_new, container, false);
-        context = getContext();
+        context = getActivity();
         ButterKnife.bind(this, rootView);
 
         pf = new PreferenceManager(context, PreferenceManager.ORDER_PREFERENCES_FILE);
@@ -152,7 +153,6 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         }
 
 
-        DashBoardModel json = new DashBoardModel();
      /*   json.lat = 22.7368;
         json.lng = 75.9086;*/
 
@@ -307,14 +307,54 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     private void networkCallForData(String url) {
 
 
-        Call<DashBoardModel> chefData = AppConstants.restAPI.getChefData(url);
+        Call<HomeFeed> chefData = AppConstants.restAPI.getChefDataP(url);
 
-        chefData.enqueue(new Callback<DashBoardModel>() {
+
+
+
+        chefData.enqueue(new Callback<HomeFeed>() {
+            @Override
+            public void onResponse(Call<HomeFeed> call, Response<HomeFeed> response) {
+                dismissProgress();
+                scrollNes.setVisibility(View.VISIBLE);
+                if (response.isSuccessful()) {
+                    if (response != null) {
+                        HomeFeed res = response.body();
+                        if (res.status != null) {
+                            if (res.status.equals(AppConstants.SUCCESS)) {
+
+                                Log.d("SuccessValue","I am");
+                                fetchDataHome = res.data;
+
+
+                               setAdapterData(recommended_recyclerview, 0);
+                                setAdapterData(near_you_recyclerview, 1);
+                            }
+                        }
+                    }
+                } else {
+                    try {
+                        Log.d("Msgggg", response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<HomeFeed> call, Throwable t) {
+
+                Log.d("Msgggg", t.getMessage());
+                dismissProgress();
+            }
+        });
+
+     /*   chefData.enqueue(new Callback<DashBoardModel>() {
             @Override
             public void onResponse(Call<DashBoardModel> call, Response<DashBoardModel> response) {
                 dismissProgress();
-                //     lottieAnimationViewLoading.cancelAnimation();
-                //   lottieAnimationViewLoading.setVisibility(View.GONE);
                 scrollNes.setVisibility(View.VISIBLE);
                 if (response.isSuccessful()) {
                     if (response != null) {
@@ -345,7 +385,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
                 Log.d("Msgggg", t.getMessage());
                 dismissProgress();
             }
-        });
+        });*/
 
 
     }
@@ -381,14 +421,14 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
             recyclerview.setHasFixedSize(true);
             recyclerview.setLayoutManager(linearLayoutManager);
             recyclerview.setItemAnimator(new DefaultItemAnimator());
-            pilotCardAdapter = new HomePilotCardAdapter(getActivity(), fetchData, this);
+            pilotCardAdapter = new HomePilotCardAdapter(getActivity(), fetchDataHome, this);
             recyclerview.setAdapter(pilotCardAdapter);
         } else {
             linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             recyclerview.setHasFixedSize(true);
             recyclerview.setLayoutManager(linearLayoutManager);
             recyclerview.setItemAnimator(new DefaultItemAnimator());
-            specialCardAdapter = new HomeSpecialCardAdapter(getActivity(), fetchData);
+            specialCardAdapter = new HomeSpecialCardAdapter(getActivity(), fetchDataHome);
             recyclerview.setAdapter(specialCardAdapter);
         }
     }
@@ -480,7 +520,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         if (pf.getIntForKey(PreferenceManager.ORDER_ID, 0) == 0) {
             // setOrderItemData(i);
         } else {
-            String msg = "Your cart contains dishes from " + pf.getStringForKey(PreferenceManager.ORDER_NAME, null) + ". Do you want to discard the selection and add dishes from " + fetchData.get(i).food_detail.get(0).name + " ?";
+            String msg = "Your cart contains dishes from " + pf.getStringForKey(PreferenceManager.ORDER_NAME, null) + ". Do you want to discard the selection and add dishes from " + fetchDataHome.get(0).name + " ?";
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setMessage(msg)
                     .setCancelable(false)
@@ -519,67 +559,12 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         }
     }*/
 
-    private void showDialogBasedOnAddToCart(final int i) {
-        dialog = new Dialog(context);
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        dialog = builder.create();
-        dialog.setTitle("Select your plan");
-
-        LayoutInflater factory = LayoutInflater.from(context);
-        final View content = factory.inflate(R.layout.dialog_for_subscription, null);
-        CkdButton dialogButton = content.findViewById(R.id.submitThali);
-        final RadioGroup radioGroup = content.findViewById(R.id.radioGroup);
-
-        item_quantity = 0;
-
-        dialogButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //showToast(String.valueOf(radioGroup.getCheckedRadioButtonId()));
-                switch (radioGroup.getCheckedRadioButtonId()) {
-                    case R.id.radioButton1:
-                        item_quantity = 60;
-                        break;
-                    case R.id.radioButton2:
-                        item_quantity = 15;
-                        break;
-                    case R.id.radioButton3:
-                        item_quantity = 1;
-                        break;
-                    case R.id.radioButton4:
-                        item_quantity = 1;
-                        break;
-                }
-
-                //fetchData.get(i).quantity = item_quantity;
-                sharePref(i, item_quantity);
-                pilotCardAdapter.notifyDataSetChanged();
-                dialog.dismiss();
-            }
-        });
-
-        builder.setView(content);
-        dialog = builder.show();
-
-    }
-
-    private void sharePref(int i, int quantity) {
-        //   pf.saveIntForKey(PreferenceManager.USER_ID,fetchData.get(i).id);
-        pf.saveIntForKey(PreferenceManager.ORDER_ID, fetchData.get(i).food_detail.get(0).id);
-        pf.saveIntForKey(PreferenceManager.ODRDER_USER_ID, fetchData.get(i).food_detail.get(0).user_id);
-        pf.saveIntForKey(PreferenceManager.ORDER_CATEGORY_ID, fetchData.get(i).food_detail.get(0).category_id);
-        pf.saveStringForKey(PreferenceManager.ORDER_NAME, fetchData.get(i).food_detail.get(0).name);
-        pf.saveStringForKey(PreferenceManager.ORDER_DETAILS, fetchData.get(i).food_detail.get(0).details);
-        pf.saveStringForKey(PreferenceManager.ORDER_PRICE, fetchData.get(i).food_detail.get(0).price);
-        pf.saveIntForKey(PreferenceManager.ORDER_quantity, quantity);
-    }
 
 
     @Override
     public void AddFoodQuantity(int position) {
         int count = 0;
-        if (pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0 && pf.getIntForKey(PreferenceManager.USER_ID, 0) == fetchData.get(position).id) {
+        if (pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0 && pf.getIntForKey(PreferenceManager.USER_ID, 0) == fetchDataHome.get(position).id) {
             count = pf.getIntForKey(PreferenceManager.ORDER_quantity, 0);
         }
         count++;
@@ -591,7 +576,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     @Override
     public void SubFoodQuantity(int position) {
         int count = 0;
-        if (pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0 && pf.getIntForKey(PreferenceManager.USER_ID, 0) == fetchData.get(position).id) {
+        if (pf.getIntForKey(PreferenceManager.USER_ID, 0) != 0 && pf.getIntForKey(PreferenceManager.USER_ID, 0) == fetchDataHome.get(position).id) {
             count = pf.getIntForKey(PreferenceManager.ORDER_quantity, 0);
         }
 

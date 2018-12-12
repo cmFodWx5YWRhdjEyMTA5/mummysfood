@@ -62,13 +62,22 @@ public class UpdateuserOrderSubActivity extends BaseActivity
             userData = (UserProfileModel.Data) getIntent().getSerializableExtra("Model");
             subscribtionModel = (SubscribtionModel.Data) getIntent().getSerializableExtra("SubModel");
 
-            if (userData.profile_image != null && !userData.profile_image.isEmpty()){
-                Glide.with(this).load(userData.profile_image).into(profileImage);
+
+            try {
+                if (userData.profile_image != null && !userData.profile_image.isEmpty()){
+                    Glide.with(this).load(userData.profile_image).into(profileImage);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
-            if (userData.f_name != null && !"".equalsIgnoreCase(userData.f_name)){
-                String name = CapsName.CapitalizeFullName(userData.f_name.trim());
-                userName.setText(name);
+            try {
+                if (userData.f_name != null && !"".equalsIgnoreCase(userData.f_name)){
+                    String name = CapsName.CapitalizeFullName(userData.f_name.trim());
+                    userName.setText(name);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
         }
@@ -89,7 +98,7 @@ public class UpdateuserOrderSubActivity extends BaseActivity
 
         int remmainPlates = totalPlates - orderPlates;
 
-        if (orderPlates == 1){
+        if (totalPlates == 1){
 
             if (subscribtionModel.deliverd_order == 0)
             {

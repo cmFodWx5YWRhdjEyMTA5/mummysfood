@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import in.ckd.calenderkhanado.models.DashBoardModel;
+import in.ckd.calenderkhanado.models.HomeFeed;
 
 /**
  * Created by Nilesh Deokar on 7/9/2015.
@@ -131,7 +132,7 @@ public class DataBaseHelperNew extends SQLiteOpenHelper {
         return array_list;
     }
 
-    public void insertAddToCart(List<DashBoardModel.Data> tagsModelList)
+    public void insertAddToCart(List<HomeFeed.Data> tagsModelList)
 
     {
         try {
@@ -161,7 +162,7 @@ public class DataBaseHelperNew extends SQLiteOpenHelper {
 
 
 
-    public List<DashBoardModel.Data> getAddToCartItem() {
+    public List<HomeFeed.Data> getAddToCartItem() {
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -199,9 +200,9 @@ public class DataBaseHelperNew extends SQLiteOpenHelper {
 
         Gson gson = new Gson();
 
-        Type type = new TypeToken<List<DashBoardModel.Data>>() {}.getType();
+        Type type = new TypeToken<List<HomeFeed.Data>>() {}.getType();
 
-        List<DashBoardModel.Data> finalOutputString = gson.fromJson(value, type);
+        List<HomeFeed.Data> finalOutputString = gson.fromJson(value, type);
 
 
         return finalOutputString;

@@ -32,6 +32,7 @@ import in.ckd.calenderkhanado.base.BaseActivity;
 import in.ckd.calenderkhanado.data.db.DataBaseHelperNew;
 import in.ckd.calenderkhanado.data.pref.PreferenceManager;
 import in.ckd.calenderkhanado.models.DashBoardModel;
+import in.ckd.calenderkhanado.models.HomeFeed;
 import in.ckd.calenderkhanado.models.OrderModel;
 import in.ckd.calenderkhanado.models.UserProfileModel;
 import in.ckd.calenderkhanado.utils.AppConstants;
@@ -126,8 +127,7 @@ public class YourCartActivity extends BaseActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    private DashBoardModel.Data modelData;
-    private DashBoardModel.Food_detail model;
+    private HomeFeed.Data modelData;
     PreferenceManager pfUName;
     PreferenceManager pfUMobile;
     PreferenceManager pfUAddress;
@@ -185,7 +185,7 @@ public class YourCartActivity extends BaseActivity {
                 isLunch = getIntent().getIntExtra("isLunch", 0);
                 foodImage = ordersSub.orders.get(0).food_image;
             } else {
-                modelData = (DashBoardModel.Data) getIntent().getSerializableExtra("data");
+                modelData = (HomeFeed.Data) getIntent().getSerializableExtra("data");
                 typeOfPackage = getIntent().getStringExtra("typeOfPackage");
                 numberOfDays = getIntent().getIntExtra("numberOfDays", 0);
                 isDinner = getIntent().getIntExtra("isDinner", 0);
@@ -273,7 +273,7 @@ public class YourCartActivity extends BaseActivity {
 
             }
             else{
-                float orderPrice = Float.parseFloat(modelData.food_detail.get(0).price);
+                float orderPrice = Float.parseFloat(modelData.price);
                 int orderPriceInt = 0;
                 orderPriceInt = (int) orderPrice;
                 if (typeOfPackage.equalsIgnoreCase("monthly")) {
@@ -292,17 +292,17 @@ public class YourCartActivity extends BaseActivity {
                 }
 
 
-                order_titile.setText(modelData.food_detail.get(0).name);
-                order_price.setText(getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
-                order_price_basedQuantity.setText(getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
-                order_price_finalTotal.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + modelData.food_detail.get(0).taxes));
-                totalValue.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + modelData.food_detail.get(0).taxes));
+                order_titile.setText(modelData.name);
+                order_price.setText(getResources().getString(R.string.rs_symbol) + modelData.price);
+                order_price_basedQuantity.setText(getResources().getString(R.string.rs_symbol) + modelData.price);
+                order_price_finalTotal.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + 0));
+                totalValue.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + 0));
 
-                placeOrderprice.setText(String.valueOf(orderPriceInt + modelData.food_detail.get(0).taxes));
-                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + modelData.food_detail.get(0).taxes));
-                placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + modelData.food_detail.get(0).taxes));
-                payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + modelData.food_detail.get(0).taxes));
-                order_taxes.setText(getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).taxes);
+                placeOrderprice.setText(String.valueOf(orderPriceInt + 0));
+                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + 0));
+                placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + 0));
+                payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + 0));
+                order_taxes.setText(getResources().getString(R.string.rs_symbol) + 0);
 
             }
 
@@ -368,7 +368,7 @@ public class YourCartActivity extends BaseActivity {
     public void sub_item() {
         float valuep;
         int itemCountText = Integer.parseInt(item_count.getText().toString());
-        int itemTaxesText = Integer.parseInt(String.valueOf(modelData.food_detail.get(0).taxes));
+        int itemTaxesText = Integer.parseInt(String.valueOf(0));
 
 
         if (itemCountText > 1) {
@@ -377,7 +377,7 @@ public class YourCartActivity extends BaseActivity {
             if (location.equalsIgnoreCase("RepeatOrder")) {
                 valuep = Float.parseFloat(ordersSub.orders.get(0).price);
             } else {
-                valuep = Float.parseFloat(modelData.food_detail.get(0).price);
+                valuep = Float.parseFloat(modelData.price);
             }
 
 
@@ -392,10 +392,10 @@ public class YourCartActivity extends BaseActivity {
             totalValue.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
 
             placeOrderprice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
-            order_price_finalTotal.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + modelData.food_detail.get(0).taxes));
-            payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + modelData.food_detail.get(0).taxes));
-            placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + modelData.food_detail.get(0).taxes));
-            payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + modelData.food_detail.get(0).taxes));
+            order_price_finalTotal.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + 0));
+            payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + 0));
+            placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + 0));
+            payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + 0));
 
         }
     }
@@ -404,14 +404,14 @@ public class YourCartActivity extends BaseActivity {
     public void add_item() {
         float valuep;
         int itemCountText = Integer.parseInt(item_count.getText().toString());
-//        int itemTaxesText = Integer.parseInt(String.valueOf(modelData.food_detail.get(0).taxes));
+//        int itemTaxesText = Integer.parseInt(String.valueOf(0));
         int totalCount = itemCountText + 1;
         item_count.setText(String.valueOf(totalCount));
 
         if (location.equalsIgnoreCase("RepeatOrder")) {
             valuep = Float.parseFloat(ordersSub.orders.get(0).price);
         } else {
-            valuep = Float.parseFloat(modelData.food_detail.get(0).price);
+            valuep = Float.parseFloat(modelData.price);
         }
 
         int value = (int) valuep;
@@ -516,7 +516,7 @@ public class YourCartActivity extends BaseActivity {
             } else {
                 pf.saveStringForKey("paymentType", "COD");
                 paymentType = pf.getStringForKey("paymentType", "");
-                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
+                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + modelData.price);
 
             }
 
@@ -543,7 +543,7 @@ public class YourCartActivity extends BaseActivity {
             } else {
                 pf.saveStringForKey("paymentType", "Paytm");
                 paymentType = pf.getStringForKey("paymentType", "");
-                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
+                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + modelData.price);
 
             }
 
@@ -562,7 +562,7 @@ public class YourCartActivity extends BaseActivity {
             if (location.equalsIgnoreCase("RepeatOrder")) {
                 payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
             } else {
-                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + modelData.food_detail.get(0).price);
+                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + modelData.price);
             }
 
         } catch (Exception e) {
@@ -795,14 +795,14 @@ public class YourCartActivity extends BaseActivity {
                 orderModel.food_user_id = modelData.chef_detail.user_id;
                 orderModel.order_by = pf.getIntForKey("user_id", 0);
                 orderModel.order_for = modelData.chef_detail.user_id;
-                orderModel.food_detail = modelData.food_detail.get(0).details;
-                orderModel.food_name = modelData.food_detail.get(0).name;
+                orderModel.food_detail = modelData.details;
+                orderModel.food_name = modelData.name;
 
                 orderModel.street = CurrentAddress;
                 orderModel.city = "indore";
                 orderModel.state = "MP";
 
-                orderModel.price = modelData.food_detail.get(0).price;
+                orderModel.price = modelData.price;
                 orderModel.quantity = itemCountText;
                 orderModel.payment_status = "confirm";
                 orderModel.is_order_confirmed = 1;

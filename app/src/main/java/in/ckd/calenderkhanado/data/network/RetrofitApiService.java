@@ -9,6 +9,7 @@ import in.ckd.calenderkhanado.data.network.model.UploadMedia;
 import in.ckd.calenderkhanado.location.LocationModel;
 import in.ckd.calenderkhanado.models.AddressModel;
 import in.ckd.calenderkhanado.models.DashBoardModel;
+import in.ckd.calenderkhanado.models.HomeFeed;
 import in.ckd.calenderkhanado.models.OrderModel;
 import in.ckd.calenderkhanado.models.ProfileModel;
 import in.ckd.calenderkhanado.models.SubscribtionModel;
@@ -79,6 +80,9 @@ public interface RetrofitApiService {
 
     @GET()
     Call<DashBoardModel>getChefData( @Url String url);
+
+    @GET()
+    Call<HomeFeed>getChefDataP(@Url String url);
 
     @GET("user/{user_id}")
     Call<ProfileModel>getProfileUserData(@Path("user_id") int id);

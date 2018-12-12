@@ -3,6 +3,8 @@ package in.ckd.calenderkhanado.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.net.Uri;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,36 +13,49 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
 import in.ckd.calenderkhanado.R;
 import in.ckd.calenderkhanado.fragments.OrderDetailsActivity;
 import in.ckd.calenderkhanado.models.DashBoardModel;
+import in.ckd.calenderkhanado.models.HomeFeed;
 import in.ckd.calenderkhanado.utils.CapsName;
 import in.ckd.calenderkhanado.widgets.CkdTextview;
+import in.ckd.calenderkhanado.widgets.ImageLoadProgressBar;
 
 import java.text.DecimalFormat;
 import java.util.List;
 
 public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCardAdapter.ViewHolder> implements View.OnClickListener {
     Context context;
-    List<DashBoardModel.Data> data;
+    List<HomeFeed.Data> dataList;
 
-    public HomeSpecialCardAdapter(Context context, List<DashBoardModel.Data> data) {
+  /*  public HomeSpecialCardAdapter(Context context, List<DashBoardModel.Data> data) {
         this.context = context;
         this.data = data;
+    }*/
+
+    public HomeSpecialCardAdapter(Context activity, List<HomeFeed.Data> fetchDataHome) {
+        this.context = activity;
+        this.dataList = fetchDataHome;
+
     }
 
     @Override
     public void onClick(View v) {
         int position = (Integer) v.getTag();
         switch (v.getId()) {
-            case R.id.food_image_bg:
+            case R.id.my_image_view_special:
 
                 try {
 
                     Intent i = new Intent(context, OrderDetailsActivity.class);
-                    i.putExtra("order_id", data.get(position).id);
-                    i.putExtra("data", data.get(position));
+                    i.putExtra("order_id", dataList.get(position).id);
+                    i.putExtra("data", dataList.get(position));
                     context.startActivity(i);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -70,6 +85,7 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
         CkdTextview ChefName;
         ImageView foodImage;
         CkdTextview order_distance;
+        SimpleDraweeView my_image_view;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -79,6 +95,7 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
             ChefName = itemView.findViewById(R.id.chef_name);
             foodImage = itemView.findViewById(R.id.food_image_bg);
             order_distance = itemView.findViewById(R.id.order_distance);
+            my_image_view = itemView.findViewById(R.id.my_image_view_special);
         }
     }
 
@@ -91,11 +108,11 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
     @Override
     public void onBindViewHolder(HomeSpecialCardAdapter.ViewHolder viewHolder, int i) {
 
-        DashBoardModel.Data model = data.get(i);
+        HomeFeed.Data model = dataList.get(i);
 
         try {
-            viewHolder.orderTitle.setText(model.food_detail.get(0).name);
-            viewHolder.orderPrice.setText(context.getResources().getString(R.string.rs_symbol) + model.food_detail.get(0).price);
+            viewHolder.orderTitle.setText(model.name);
+            viewHolder.orderPrice.setText(context.getResources().getString(R.string.rs_symbol) + model.price);
             String name = CapsName.CapitalizeFullName(model.name.trim());
             viewHolder.ChefName.setText(name);
 
@@ -112,13 +129,38 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
 
         try {
 
-            if (model.food_detail != null) {
-                if (model.food_detail.get(0).food_media != null) {
+            if (model != null) {
+                if (model.food_media != null) {
 
-                    if (model.food_detail.get(0).food_media.size() != 0) {
-                        String imageUrl = "http://cdn.mummysfood.in/" + model.food_detail.get(0).food_media.get(0).media.name;
+                    if (model.food_media.size() != 0) {
+                        String imageUrl = "http://cdn.mummysfood.in/" + model.food_media.get(0).media.name;
 
-                        Glide.with(context).load(imageUrl).placeholder(R.mipmap.foodimage).into(viewHolder.foodImage);
+                       // Glide.with(context).load(imageUrl).placeholder(R.mipmap.foodimage).into(viewHolder.foodImage);
+
+                        try {
+
+                            ImageRequest request = ImageRequestBuilder
+                                    .newBuilderWithSource(Uri.parse(imageUrl))
+                                    .setLocalThumbnailPreviewsEnabled(true)
+                                    .setLowestPermittedRequestLevel(ImageRequest.RequestLevel.FULL_FETCH)
+                                    .setProgressiveRenderingEnabled(true)
+                                    .setCacheChoice(ImageRequest.CacheChoice.SMALL)
+                                    .build();
+
+                            DraweeController controller = Fresco.newDraweeControllerBuilder()
+                                    .setImageRequest(request)
+                                    .setOldController(viewHolder.my_image_view.getController())
+                                    .build();
+
+                            viewHolder.my_image_view.getHierarchy().setProgressBarImage(new ImageLoadProgressBar());
+                            //Assigning the controller to DraweeView
+                            viewHolder.my_image_view.setController(controller);
+
+                        } catch (IllegalArgumentException e) {
+
+                            e.printStackTrace();
+
+                        }
                     }
 
                 }
@@ -128,14 +170,14 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
             e.printStackTrace();
         }
 
-        viewHolder.foodImage.setTag(i);
-        viewHolder.foodImage.setOnClickListener(this);
+        viewHolder.my_image_view.setTag(i);
+        viewHolder.my_image_view.setOnClickListener(this);
 
 
     }
 
     @Override
     public int getItemCount() {
-        return data.size() == 0 ? 0 : data.size();
+        return dataList.size() == 0 ? 0 : dataList.size();
     }
 }
