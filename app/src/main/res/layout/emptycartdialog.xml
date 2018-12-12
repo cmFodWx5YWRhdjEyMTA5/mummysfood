@@ -42,15 +42,15 @@
             android:id="@+id/permissionPos"
             android:text="Okay"
             android:textSize="14sp"
-            android:background="@drawable/fill_rounded_primary_color"
+            android:background="@drawable/border_primary"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/dp8"
+            android:layout_marginTop="@dimen/dp8"
             android:padding="6dp"
             style="@style/textviewbold"
-            android:textColor="@color/white"
-            android:layout_width="65dp"
+            android:textColor="@color/colorPrimary"
+            android:layout_width="@dimen/dp100"
             android:gravity="center"
-            android:layout_height="@dimen/dp32" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 
