@@ -19,6 +19,7 @@ import in.ckd.calenderkhanado.R;
 import in.ckd.calenderkhanado.adapters.HomeSpecialCardAdapter;
 import in.ckd.calenderkhanado.base.BaseActivity;
 import in.ckd.calenderkhanado.models.DashBoardModel;
+import in.ckd.calenderkhanado.models.HomeFeed;
 import in.ckd.calenderkhanado.utils.AppConstants;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -97,16 +98,16 @@ public class FilterActivtiy extends BaseActivity {
     private void networkCallForData(String url) {
 
 
-        Call<DashBoardModel> chefData = AppConstants.restAPI.getChefData(url);
+        Call<HomeFeed> chefData = AppConstants.restAPI.getChefDataP(url);
 
-        chefData.enqueue(new Callback<DashBoardModel>() {
+        chefData.enqueue(new Callback<HomeFeed>() {
             @Override
-            public void onResponse(Call<DashBoardModel> call, Response<DashBoardModel> response) {
+            public void onResponse(Call<HomeFeed> call, Response<HomeFeed> response) {
                 dismissProgress();
                 if (response.isSuccessful())
                 {
                     if (response != null){
-                        DashBoardModel res = response.body();
+                        HomeFeed res = response.body();
                         if (res.status != null) {
                             if ( res.status.equals(AppConstants.SUCCESS))
                             {
@@ -127,7 +128,7 @@ public class FilterActivtiy extends BaseActivity {
             }
 
             @Override
-            public void onFailure(Call<DashBoardModel> call, Throwable t) {
+            public void onFailure(Call<HomeFeed> call, Throwable t) {
 
                 Log.d("Msgggg",t.getMessage());
                 dismissProgress();
@@ -138,16 +139,16 @@ public class FilterActivtiy extends BaseActivity {
 
     }
 
-    private void setAdapterData(RecyclerView recyclerview, List<DashBoardModel.Data> data) {
+    private void setAdapterData(RecyclerView recyclerview, List<HomeFeed.Data> data) {
 
-       /* if (data.size() != 0)
+       if (data.size() != 0)
         {
             HomeSpecialCardAdapter specialCardAdapter = new HomeSpecialCardAdapter(this,data);
             recyclerview.setAdapter(specialCardAdapter);
         }else
         {
             showToast("No data found");
-        }*/
+        }
 
     }
 
