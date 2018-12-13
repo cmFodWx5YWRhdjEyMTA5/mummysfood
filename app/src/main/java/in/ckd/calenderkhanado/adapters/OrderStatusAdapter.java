@@ -174,7 +174,7 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
 
                         if (subList.number_of_days == 1 && subList.deliverd_order == 1)
                         {
-                            remmainPlates = orderPlates;
+                            remmainPlates = 0;
                         }else
                         {
                             if (subList.deliverd_order== 1)

@@ -304,6 +304,11 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
 
         LoginRequest request = new LoginRequest();
         request.email = user.getEmail();
+        request.f_name = user.getDisplayName();
+        request.profile_image = String.valueOf(user.getPhotoUrl());
+        request.is_email_verified= "1";
+        request.is_mobile_verified= "0";
+        request.is_vagitarian = "0";
 
         Call<ResponseBody> loginRequestCall = AppConstants.restAPI.saveUserInfo(request);
 
@@ -328,8 +333,12 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
                                 intent.putExtra("email",user.getEmail());
                                 intent.putExtra("profile_image",user.getPhotoUrl().toString());
                                 intent.putExtra("logintype","google");
-                               saveValue(json.getJSONObject("data").getInt("id")
-                               ,json.getJSONObject("data").getString("email"),json.getJSONObject("data").getString("profileImage"),"google",json.getJSONObject("data").getString("mobile"));
+
+                                try {
+                                    saveValue(json,"google");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                                 startActivity(intent);
 
                             }else if(json.getString("status").equalsIgnoreCase(AppConstants.ALREADY)){
@@ -339,7 +348,12 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
                                 data.profile_image = json.getJSONArray("data").getJSONObject(0).getString("profile_image");
                                 data.email =json.getJSONArray("data").getJSONObject(0).getString("email");
                                 ppref.saveIntForKey("user_id",data.id);
-                                saveValue(data.id,data.email,data.profile_image,"google",data.mobile);
+
+                                try {
+                                    saveValue(json,"");
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                                 sharePrefrenceIntentActivity(data);
 
 
@@ -382,43 +396,76 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
 
     }
 
+    private void saveValue(JSONObject json,String type) throws JSONException {
 
-    private void saveValue(int anInt, String jsonObject, String string, String google,String mobileV)
-    {
 
-        if (string != null)
+        int Id = 0;
+        try {
+            Id = json.getJSONObject("data").getInt("id");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        String email = null;
+        try {
+            email = json.getJSONObject("data").getString("email");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String profile = null;
+        try {
+            profile = json.getJSONObject("data").getString("profile_image");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String mobile = null;
+        try {
+            mobile = json.getJSONObject("data").getString("mobile");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String loginType = null;
+        try {
+            loginType = type;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        if (profile != null)
         {
-            ppref.saveStringForKey("profileImage",string);
+            ppref.saveStringForKey("profileImage",profile);
         }else
         {
             ppref.saveStringForKey("profileImage","");
         }
 
-        ppref.saveStringForKey("loginType",google);
+        ppref.saveStringForKey("loginType",loginType);
 
-        if (jsonObject != null)
+        if (email != null)
         {
-            ppref.saveStringForKey("email",jsonObject);
+            ppref.saveStringForKey("email",email);
         }else
         {
             ppref.saveStringForKey("email","");
         }
 
-        if (mobileV != null)
+        if (mobile != null)
         {
-            ppref.saveStringForKey("mobile",mobileV);
+            ppref.saveStringForKey("mobile",mobile);
         }else
         {
             ppref.saveStringForKey("mobile","");
         }
 
-        if (anInt != 0)
+        if (Id != 0)
         {
-            ppref.saveIntForKey("user_id",anInt);
+            ppref.saveIntForKey("user_id",Id);
         }
 
 
     }
+
     private void sharePrefrenceIntentActivity(UserInsert.Data data) {
         pf.saveIntForKey(PreferenceManager.USER_ID, data.id);
 

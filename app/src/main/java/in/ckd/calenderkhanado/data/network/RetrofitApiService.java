@@ -6,7 +6,6 @@ import in.ckd.calenderkhanado.location.LocationModel;
 import in.ckd.calenderkhanado.data.network.model.LoginRequest;
 import in.ckd.calenderkhanado.data.network.model.LogoutResponse;
 import in.ckd.calenderkhanado.data.network.model.UploadMedia;
-import in.ckd.calenderkhanado.location.LocationModel;
 import in.ckd.calenderkhanado.models.AddressModel;
 import in.ckd.calenderkhanado.models.DashBoardModel;
 import in.ckd.calenderkhanado.models.HomeFeed;
@@ -21,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -126,7 +126,7 @@ public interface RetrofitApiService {
 
     @Multipart
     @POST("upload")
-    Call<UploadMedia> uploadImage(@Part MultipartBody.Part image, @Part("user_id") Integer desc, @Part("entity_id") Integer entityId, @Part("entity_type") String type);
+    Call<UploadMedia> uploadImage(@Part MultipartBody.Part image, @Part("user_id") Integer desc, @Part("entity_id") Integer entityId, @Part("entity_type") RequestBody type);
 
 
 
