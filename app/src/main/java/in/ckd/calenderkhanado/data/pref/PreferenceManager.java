@@ -156,6 +156,13 @@ public class PreferenceManager {
         editor.commit();
     }
 
+    public void clearPrefPf(Context context) {
+        sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.clear();
+        editor.commit();
+    }
+
     /*@Override public int getCurrentUserLoggedInMode() {
         return 0;
     }

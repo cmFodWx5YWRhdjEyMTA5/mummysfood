@@ -74,11 +74,11 @@
                     android:id="@+id/backArrow"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:layout_marginStart="@dimen/dp16"
+                    android:layout_marginStart="@dimen/dp4"
                     android:layout_marginTop="@dimen/dp16"
                     android:padding="@dimen/dp4"
-                    android:src="@drawable/ic_back_arrow"
-                    android:tint="@color/black" />
+                    android:src="@drawable/back_without_line"
+                    android:tint="@color/white" />
 
                 <RelativeLayout
                     android:layout_width="@dimen/dp64"
@@ -712,20 +712,17 @@
 
     <in.ckd.calenderkhanado.widgets.CkdTextview
         android:id="@+id/processedButton"
-        style="@style/textviewbold"
+        style="@style/textviewregular"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_gravity="center"
-        android:background="@drawable/border_primary"
+        android:background="@drawable/fill_rounded_sqare_primarycolor"
         android:gravity="center"
         android:text="Checkout"
-        android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/sp18"
-        android:padding="@dimen/dp8"
-        android:layout_marginStart="@dimen/dp16"
-        android:layout_marginEnd="@dimen/dp16"
-        android:layout_marginTop="@dimen/dp8"
-        android:layout_marginBottom="@dimen/dp8"/>
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp14"
+        android:padding="@dimen/dp8"/>
 
 </RelativeLayout>

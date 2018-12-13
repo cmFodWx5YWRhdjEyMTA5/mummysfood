@@ -94,6 +94,8 @@
                     android:textColor="@color/black"
                     style="@style/textviewbold"
                     android:textSize="@dimen/sp14"
+                    android:gravity="center_vertical"
+                    android:maxLines="1"
                     android:layout_toEndOf="@+id/vegSysmbol"
                     android:layout_marginStart="@dimen/dp2"/>
                 <in.ckd.calenderkhanado.widgets.CkdTextview
@@ -123,13 +125,13 @@
                     android:text="@string/distance"
                     android:textColor="@color/black"
                     style="@style/textviewbold"
-                    android:textSize="@dimen/sp14"/>
+                    android:textSize="@dimen/sp10"/>
                 <in.ckd.calenderkhanado.widgets.CkdTextview
                     android:id="@+id/order_distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2.5km"
-                    android:textSize="@dimen/sp14"
+                    android:textSize="@dimen/sp10"
                     android:textColor="@color/colorPrimary"
                     style="@style/textviewbold"
                     android:layout_marginStart="@dimen/dp4"/>

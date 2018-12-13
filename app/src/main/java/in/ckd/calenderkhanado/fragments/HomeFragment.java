@@ -129,6 +129,8 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
         if (filterPref.getBooleanForKey(PreferenceManager.FILTER_APPLY,false)){
             filterFoodApplied.setVisibility(View.VISIBLE);
+
+            setFilterBg(UserFoodType);
         }else{
             filterFoodApplied.setVisibility(View.GONE);
         }
@@ -286,6 +288,20 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         });
 */
         return rootView;
+    }
+
+    private void setFilterBg(int userFoodType) {
+
+        if (userFoodType ==1)
+        {
+            filterFoodApplied.setBackgroundColor(getResources().getColor(R.color.red));
+        }else if (userFoodType == 0)
+        {
+            filterFoodApplied.setBackgroundColor(getResources().getColor(R.color.green));
+        }else
+        {
+            filterFoodApplied.setVisibility(View.GONE);
+        }
     }
 
     private void networkCallForData(String url) {
@@ -703,6 +719,8 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
                 }else{
                     filterFoodApplied.setVisibility(View.GONE);
                 }
+
+                setFilterBg(filter_value);
                 globalUrl = RetrofitApiService.BASEURL + "explorechef" + "?is_vegitarian=" + filter_value;
                 networkCallForData(globalUrl);
             }

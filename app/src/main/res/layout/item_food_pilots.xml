@@ -38,14 +38,34 @@
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/dp8"
                 android:layout_marginBottom="@dimen/dp8">
-                <in.ckd.calenderkhanado.widgets.CkdTextview
-                    android:id="@+id/populor"
+
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/popular"
-                    android:textSize="@dimen/sp12"
-                    android:textColor="@color/colorPrimary"
-                    style="@style/textviewbold"/>
+                    android:weightSum="5">
+
+                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                        android:id="@+id/populor"
+                        android:layout_width="0dp"
+                        android:layout_weight="3.5"
+                        android:layout_height="wrap_content"
+                        android:text="@string/popular"
+                        android:textSize="@dimen/sp12"
+                        android:textColor="@color/colorPrimary"
+                        style="@style/textviewbold"/>
+
+                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                        android:id="@+id/food_price"
+                        style="@style/textviewbold"
+                        android:layout_width="0dp"
+                        android:layout_weight="1.5"
+                        android:layout_height="wrap_content"
+                        android:text="@string/price"
+                        android:textColor="@color/colorPrimary" />
+                </LinearLayout>
+
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -64,7 +84,7 @@
                         style="@style/textviewbold"
                         android:ellipsize="end"
                         android:textSize="@dimen/sp14"
-                        android:maxLines="2"
+                        android:maxLines="1"
                         android:layout_marginStart="@dimen/dp2"/>
                 </LinearLayout>
 
@@ -74,22 +94,17 @@
                     android:orientation="horizontal">
 
                     <in.ckd.calenderkhanado.widgets.CkdTextview
-                        android:id="@+id/food_price"
-                        style="@style/textviewbold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:text="@string/price"
-                        android:textColor="@color/colorPrimary" />
-
-                    <in.ckd.calenderkhanado.widgets.CkdTextview
                         android:id="@+id/chef_name"
                         style="@style/textviewregular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
+                        android:layout_toEndOf="@+id/food_price"
+                        android:textSize="@dimen/sp12"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:layout_marginLeft="@dimen/dp2"
                         android:text="@string/pilot_name"
-                        android:visibility="visible" />
+                        android:visibility="gone" />
                 </RelativeLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -101,21 +116,19 @@
                         android:text="@string/distance"
                         android:textColor="@color/black"
                         style="@style/textviewbold"
-                        android:textSize="@dimen/sp14"/>
+                        android:textSize="@dimen/sp10"/>
                     <in.ckd.calenderkhanado.widgets.CkdTextview
                         android:id="@+id/order_distance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2.5km"
-                        android:textSize="@dimen/sp14"
+                        android:textSize="@dimen/sp10"
                         android:textColor="@color/colorPrimary"
                         style="@style/textviewbold"
                         android:layout_marginStart="@dimen/dp4"/>
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
-
-
     </LinearLayout>
 
 </LinearLayout>
