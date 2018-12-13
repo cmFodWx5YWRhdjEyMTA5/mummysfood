@@ -215,12 +215,12 @@ public class ProfileUpdateActivity extends BaseActivity {
                 boolean result = checkPermission(ProfileUpdateActivity.this);
                 if (items[item].equals("Take Photo")) {
                     userChoosenTask = "Take Photo";
-                    if (result)
+
                         cameraIntent();
 
                 } else if (items[item].equals("Choose from Library")) {
                     userChoosenTask = "Choose from Library";
-                    if (result)
+
                         galleryIntent();
 
                 } else if (items[item].equals("Cancel")) {
@@ -312,14 +312,14 @@ public class ProfileUpdateActivity extends BaseActivity {
         pfd.saveStringForKey("Name",request.f_name);
 
         if (loginType.equalsIgnoreCase("mobile")) {
-            request.is_mobile_verified = 1;
-            request.is_email_verified = 0;
+            request.is_mobile_verified = "1";
+            request.is_email_verified = "0";
         } else {
-            request.is_mobile_verified = 0;
-            request.is_email_verified = 1;
+            request.is_mobile_verified = "0";
+            request.is_email_verified = "1";
         }
         request.gender = userGender;
-        request.is_vagitarian = getRadioSelected();
+        request.is_vagitarian = String.valueOf(getRadioSelected());
         request.device_id = device_id;
         request.os = osVersion;
 
@@ -544,7 +544,9 @@ public class ProfileUpdateActivity extends BaseActivity {
 
             MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), reqFile);
 
-            Call<UploadMedia> call = AppConstants.restAPI.uploadImage(body, entity_id, entity_id, "user");
+            RequestBody name = RequestBody.create(MediaType.parse("text/plain"),"user");
+
+            Call<UploadMedia> call = AppConstants.restAPI.uploadImage(body, entity_id, entity_id, name);
 
             call.enqueue(new Callback<UploadMedia>() {
                 @Override

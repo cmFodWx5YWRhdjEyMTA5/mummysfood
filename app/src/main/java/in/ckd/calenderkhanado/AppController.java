@@ -3,6 +3,7 @@ package in.ckd.calenderkhanado;
 import android.app.Application;
 import android.content.Context;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.stetho.Stetho;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -28,6 +29,8 @@ public class AppController extends Application {
             .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
             .unsubscribeWhenNotificationsAreDisabled(true)
             .init();
+
+    Fresco.initialize(this);
 
     //AppController.context = getApplicationContext();
     //Firebase.setAndroidContext(this);

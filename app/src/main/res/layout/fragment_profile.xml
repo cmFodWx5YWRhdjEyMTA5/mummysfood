@@ -44,33 +44,45 @@
                 android:orientation="vertical"
                 android:paddingStart="@dimen/dp16"
                 android:paddingEnd="@dimen/dp16">
-                <LinearLayout
-                    android:id="@+id/user_rating_layout"
-                    android:layout_width="wrap_content"
+
+                <RelativeLayout
+                    android:layout_width="@dimen/dp64"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_gravity="right"
                     android:layout_marginTop="@dimen/dp8"
-                    android:gravity="center"
-                    android:visibility="visible"
-                    >
+                    android:gravity="center">
+
+                    <RelativeLayout
+                        android:id="@+id/order_star"
+                        android:layout_width="@dimen/dp56"
+                        android:layout_height="@dimen/dp32"
+                        android:layout_alignParentEnd="true"
+                        android:background="@drawable/white_vector">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp32"
+                            android:layout_height="@dimen/dp32"
+                            android:layout_alignParentEnd="true"
+                            android:padding="@dimen/dp4"
+                            android:paddingEnd="@dimen/dp8"
+                            android:src="@mipmap/star_filled" />
+
+                    </RelativeLayout>
+
                     <in.ckd.calenderkhanado.widgets.CkdTextview
                         android:id="@+id/user_rating_txt"
                         android:layout_width="@dimen/dp32"
                         android:layout_height="@dimen/dp32"
+                        android:layout_alignEnd="@+id/order_star"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginBottom="@dimen/dp2"
+                        android:background="@drawable/balloon_bg_down"
+                        android:gravity="center"
                         android:text="4.5"
-                        android:textSize="@dimen/sp12"
-                        android:layout_gravity="center"
-                        style="@style/textviewbold"
-                        android:textColor="@color/white"
-                        android:background="@drawable/full_circle"
-                        android:gravity="center|center_horizontal"/>
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/star_filled"
-                        android:layout_gravity="center_vertical"/>
-                </LinearLayout>
+                        android:textColor="@color/white" />
+                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -100,8 +112,8 @@
                 android:id="@+id/profile_image"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
-                android:src="@mipmap/pilot1"
-                app:civ_border_color="@color/white"
+                android:src="@mipmap/default_usr_img"
+                app:civ_border_color="@color/colorPrimary"
                 app:civ_border_width="@dimen/dp2"
                 app:civ_shadow="false"
                 android:layout_centerHorizontal="true"

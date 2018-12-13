@@ -136,7 +136,7 @@ public class PastOrderFragment extends BaseFragment   implements OrderStatusAdap
                                         int remmainPlates = totalPlates - orderPlates;
 
 
-                                        if (subList.number_of_days == 1)
+                                        if (subList.number_of_days == 1 &&subList.deliverd_order==1)
                                         {
                                             PastsubscribesList.add(subList);
                                         }else
@@ -233,7 +233,7 @@ public class PastOrderFragment extends BaseFragment   implements OrderStatusAdap
                         }
                     }
                     Intent i = new Intent(getActivity(), ActiveOrderActivtiy.class);
-                    i.putExtra("order",subscribesList.get(position).orders.get(0));
+                    i.putExtra("order",subscribesList.get(position));
                     i.putExtra("remainingPlates",remainingPlates);
                     startActivity(i);
                 }

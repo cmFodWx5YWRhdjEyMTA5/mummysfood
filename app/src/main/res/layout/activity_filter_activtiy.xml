@@ -12,7 +12,7 @@
        android:id="@+id/searchFood"
        android:layout_width="match_parent"
        android:layout_height="58dp"
-       android:background="@color/colorPrimary"
+       android:background="@color/white"
        android:padding="@dimen/dp8"
        android:orientation="horizontal">
        <ImageView
@@ -21,13 +21,13 @@
            android:layout_height="40dp"
            android:layout_gravity="center"
            android:visibility="visible"
-           android:tint="@color/white"
+           android:tint="@color/black"
            android:src="@drawable/back_without_line"/>
     <android.support.v7.widget.SearchView
         android:id="@+id/searchValue"
         android:layout_width="match_parent"
-        android:background="@drawable/fill_rounded_white_color"
-        android:layout_marginLeft="@dimen/dp16"
+        android:background="@drawable/fill_rounded_white_smoke_radius"
+        android:layout_marginLeft="@dimen/dp8"
         android:layout_marginRight="@dimen/dp8"
         android:queryHint="Search Here"
         android:iconifiedByDefault="false"

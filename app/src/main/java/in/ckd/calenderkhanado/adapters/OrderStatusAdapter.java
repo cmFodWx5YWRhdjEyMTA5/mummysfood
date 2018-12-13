@@ -65,20 +65,36 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
             int totalPlates = subList.number_of_days;
             int orderPlates = subList.ordered_plates;
 
-            if (subList.number_of_days == 1)
+            if (subList.number_of_days == 1 &&subList.deliverd_order == 0)
             {
                 remmainPlates = 1;
                 holder.remainingPlates.setText("Your order is on the way");
             }else
             {
-                remmainPlates = totalPlates - orderPlates;
-                if (modelSubscribe.deliverd_order == 0)
+                if (subList.number_of_days == 1 && subList.deliverd_order == 1)
                 {
-                    holder.remainingPlates.setText("Remaining plates : "+String.valueOf(totalPlates));
+                    holder.remainingPlates.setText("Order Done");
+
                 }else
                 {
-                    holder.remainingPlates.setText("Remaining plates : "+String.valueOf(totalPlates - orderPlates));
+                    remmainPlates = totalPlates - orderPlates;
+                    if (remmainPlates == 0)
+                    {
+                        holder.remainingPlates.setText("Order Done");
+                    }else
+                    {
+                        if (subList.deliverd_order == 0)
+                        {
+                            holder.remainingPlates.setText("Remaining plates : "+String.valueOf(totalPlates));
+
+                        }else
+                        {
+                            holder.remainingPlates.setText("Remaining plates : "+String.valueOf(totalPlates - orderPlates));
+                        }
+
+                    }
                 }
+
 
             }
 
@@ -156,9 +172,23 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
                         int totalPlates = subList.number_of_days;
                         int orderPlates = subList.ordered_plates;
 
-                        remmainPlates = totalPlates - orderPlates;
+                        if (subList.number_of_days == 1 && subList.deliverd_order == 1)
+                        {
+                            remmainPlates = 0;
+                        }else
+                        {
+                            if (subList.deliverd_order== 1)
+                            {
+                                remmainPlates = totalPlates - orderPlates;
+                            }else
+                            {
+                                remmainPlates = totalPlates;
+                            }
 
-                        if (remmainPlates>0||subList.deliverd_order==0)
+                        }
+
+
+                        if (remmainPlates >0||subList.deliverd_order==0)
                         {
                             listener.actionOnOrder(postion,"Show",remmainPlates,SubscribesListglobal.get(postion).id);
                         }else

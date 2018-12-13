@@ -420,8 +420,9 @@ public class ProfileFragment extends BaseFragment {
             RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
             MultipartBody.Part body = MultipartBody.Part.createFormData("image", file.getName(), reqFile);
 
+            RequestBody name = RequestBody.create(MediaType.parse("text/plain"),"user");
 
-            Call<UploadMedia> call = AppConstants.restAPI.uploadImage(body,userId,userId,"user");
+            Call<UploadMedia> call = AppConstants.restAPI.uploadImage(body,userId,userId,name);
 
             call.enqueue(new Callback<UploadMedia>() {
                 @Override

@@ -51,8 +51,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/processedButton"
         android:fillViewport="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -677,7 +677,7 @@
                         android:id="@+id/order_chef_profile_img"
                         android:layout_width="@dimen/dp40"
                         android:layout_height="@dimen/dp40"
-                        android:src="@mipmap/pilot1"
+                        android:src="@mipmap/default_usr_img"
                         app:civ_border_color="@color/colorPrimary"
                         app:civ_border_width="@dimen/dp2"
                         app:civ_shadow="false" />
@@ -719,10 +719,10 @@
         android:layout_gravity="center"
         android:background="@drawable/fill_rounded_sqare_primarycolor"
         android:gravity="center"
+        android:padding="@dimen/dp8"
         android:text="Checkout"
         android:textAllCaps="true"
         android:textColor="@color/white"
-        android:textSize="@dimen/sp14"
-        android:padding="@dimen/dp8"/>
+        android:textSize="@dimen/sp14" />
 
 </RelativeLayout>

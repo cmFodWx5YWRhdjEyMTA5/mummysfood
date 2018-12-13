@@ -235,12 +235,7 @@ public class EnterFullAdressActivity extends BaseActivity {
             {
                 addressModelCall   = AppConstants.restAPI.postAddress(data);
             }
-
-
         }
-
-
-
         if (data.complete_address!= null && !"".equalsIgnoreCase(data.complete_address))
         {
             addressModelCall.enqueue(new Callback<AddressModel>() {

@@ -20,7 +20,7 @@ import in.ckd.calenderkhanado.activities.YourCartActivity;
 import in.ckd.calenderkhanado.base.BaseActivity;
 import in.ckd.calenderkhanado.data.db.DataBaseHelperNew;
 import in.ckd.calenderkhanado.data.pref.PreferenceManager;
-import in.ckd.calenderkhanado.models.DashBoardModel;
+import in.ckd.calenderkhanado.models.HomeFeed;
 import in.ckd.calenderkhanado.widgets.CkdTextview;
 
 import com.bumptech.glide.Glide;
@@ -130,7 +130,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
 
     private int orderId;
-    private DashBoardModel.Data data;
+    private HomeFeed.Data data;
     private PreferenceManager pf;
     private PreferenceManager userPf;
     private int monthlyValue;
@@ -142,7 +142,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
     private String typeOfPackage = "";
 
-    private List<DashBoardModel.Data>dModel;
+    private List<HomeFeed.Data>dModel;
 
 
     private int numberOfDays;
@@ -174,7 +174,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
             try {
                 orderId = getIntent().getIntExtra("order_id", 0);
-                data = (DashBoardModel.Data) getIntent().getSerializableExtra("data");
+                data = (HomeFeed.Data) getIntent().getSerializableExtra("data");
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -303,12 +303,12 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         monthly.setBackground(getResources().getDrawable(R.drawable.border_gray));
 
 
-        dinnerPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.food_detail.get(0).price));
-        lunchPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.food_detail.get(0).price));
+        dinnerPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.price));
+        lunchPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.price));
 
 
 
-        float valuep = Float.parseFloat(data.food_detail.get(0).price);
+        float valuep = Float.parseFloat(data.price);
 
         int value  = (int) valuep;
 
@@ -324,14 +324,14 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
         try {
            //  Glide.with(this).load(data.profile_image).into(order_chef_profile_img);
-            order_chef_name.setText(data.f_name);
-            order_titile.setText(data.food_detail.get(0).name);
-            order_detail.setText(data.food_detail.get(0).details);
-            order_price.setText(getResources().getString(R.string.rs_symbol)+ data.food_detail.get(0).price);
+            order_chef_name.setText(data.user.name);
+            order_titile.setText(data.name);
+            order_detail.setText(data.details);
+            order_price.setText(getResources().getString(R.string.rs_symbol)+ data.price);
             userDelAddress.setText(UserCUrrentAdd);
 
 
-            double price = Double.parseDouble(data.food_detail.get(0).price);
+            double price = Double.parseDouble(data.price);
 
             priceOrgValue= (int) price;
 
@@ -339,13 +339,13 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
             monthlyValue = priceOrgValue * 31;
             weeklyValue = priceOrgValue * 7;
 
-            dinnerPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.food_detail.get(0).week_dinner_price));
-            lunchPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.food_detail.get(0).week_lunch_price));
-            bothPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.food_detail.get(0).week_dinner_price+data.food_detail.get(0).week_lunch_price));
+            dinnerPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.week_dinner_price));
+            lunchPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.week_lunch_price));
+            bothPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.week_dinner_price+data.week_lunch_price));
 
-            if(data.food_detail.get(0).food_media.get(0) != null){
+            if(data.food_media.get(0) != null){
                 try {
-                    String imageUrl = "http://cdn.mummysfood.in/"+data.food_detail.get(0).food_media.get(0).media.name;
+                    String imageUrl = "http://cdn.mummysfood.in/"+data.food_media.get(0).media.name;
                     Log.d("ImageUrl",imageUrl);
                     Glide.with(this).load(imageUrl).into(order_image);
 
@@ -465,12 +465,12 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         monthly.setBackground(getResources().getDrawable(R.drawable.border_gray));
 
 
-        dinnerPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.food_detail.get(0).price));
-        lunchPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.food_detail.get(0).price));
+        dinnerPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.price));
+        lunchPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.price));
 
 
 
-        float valuep = Float.parseFloat(data.food_detail.get(0).price);
+        float valuep = Float.parseFloat(data.price);
 
         int value  = (int) valuep;
 
@@ -492,9 +492,9 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
 
 
-        dinnerPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.food_detail.get(0).month_dinner_price));
-        lunchPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.food_detail.get(0).month_lunch_price));
-        bothPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.food_detail.get(0).month_dinner_price+data.food_detail.get(0).month_lunch_price));
+        dinnerPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.month_dinner_price));
+        lunchPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.month_lunch_price));
+        bothPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.month_dinner_price+data.month_lunch_price));
 
 
     }
@@ -509,9 +509,9 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         weekly.setBackground(getResources().getDrawable(R.drawable.border_primary));
         onlyForToday.setBackground(getResources().getDrawable(R.drawable.border_gray));
 
-        dinnerPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.food_detail.get(0).week_dinner_price));
-        lunchPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.food_detail.get(0).week_lunch_price));
-        bothPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.food_detail.get(0).week_dinner_price+data.food_detail.get(0).week_lunch_price));
+        dinnerPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.week_dinner_price));
+        lunchPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.week_lunch_price));
+        bothPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.week_dinner_price+data.week_lunch_price));
 
     }
 
@@ -571,7 +571,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
         if (location == null ||"".equalsIgnoreCase(location))
         {
-            List<DashBoardModel.Data>modelData  = new ArrayList<>();
+            List<HomeFeed.Data>modelData  = new ArrayList<>();
 
             modelData.add(data);
 

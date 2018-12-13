@@ -18,11 +18,11 @@ public class LoginRequest {
     public String l_name;
     public String mobile;
     public String email;
-    public int is_mobile_verified;
-    public int is_email_verified;
+    public String is_mobile_verified;
+    public String is_email_verified;
     public String type;
     public String profile_image;
-    public int is_vagitarian;
+    public String is_vagitarian;
     public String os;
     public String device_id;
     public String gender;

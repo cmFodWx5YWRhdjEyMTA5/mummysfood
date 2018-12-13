@@ -140,14 +140,14 @@ public class FilterActivtiy extends BaseActivity {
 
     private void setAdapterData(RecyclerView recyclerview, List<DashBoardModel.Data> data) {
 
-        if (data.size() != 0)
+       /* if (data.size() != 0)
         {
             HomeSpecialCardAdapter specialCardAdapter = new HomeSpecialCardAdapter(this,data);
             recyclerview.setAdapter(specialCardAdapter);
         }else
         {
             showToast("No data found");
-        }
+        }*/
 
     }
 
