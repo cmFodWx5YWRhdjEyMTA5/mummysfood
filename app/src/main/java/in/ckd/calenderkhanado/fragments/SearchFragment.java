@@ -15,6 +15,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -60,14 +61,21 @@ import static android.content.Context.SEARCH_SERVICE;
 
 public class SearchFragment extends BaseFragment {
 
-    @BindView(R.id.search_recyclerview)
-    RecyclerView search_recyclerview;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @BindView(R.id.searchView)
     SearchView searchView;
 
+    @BindView(R.id.search_recyclerview)
+    RecyclerView search_recyclerview;
+
     Context context;
     private AppCompatActivity actionBar;
+    private String globalUrl;
+    private LinearLayoutManager linearLayoutManager;
+    private List<HomeFeed.Data> fetchDataHome = new ArrayList<>();
+    private HomeSpecialCardAdapter specialCardAdapter;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -81,7 +89,11 @@ public class SearchFragment extends BaseFragment {
 
         actionBar = (AppCompatActivity) getActivity();
 
-        searchView.setBackgroundColor(Color.WHITE);
+        actionBar.setSupportActionBar(toolbar);
+        actionBar.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        actionBar.getSupportActionBar().setDisplayShowHomeEnabled(true);
+        actionBar.getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         searchView.setQueryHint("Search for food captain and dish");
         SearchManager searchManager = (SearchManager) context.getSystemService(SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(actionBar.getComponentName()));
@@ -89,7 +101,61 @@ public class SearchFragment extends BaseFragment {
         searchView.setFocusable(false);
         searchView.clearFocus();
 
+        globalUrl = RetrofitApiService.BASEURL + "trysomethingnew";
+        networkCallForData(globalUrl);
+
         return rootView;
+    }
+
+    private void networkCallForData(String url) {
+
+        Call<HomeFeed> chefData = AppConstants.restAPI.getChefDataP(url);
+
+        chefData.enqueue(new Callback<HomeFeed>() {
+            @Override
+            public void onResponse(Call<HomeFeed> call, Response<HomeFeed> response) {
+                dismissProgress();
+                if (response.isSuccessful()) {
+                    if (response != null) {
+                        HomeFeed res = response.body();
+                        if (res.status != null) {
+                            if (res.status.equals(AppConstants.SUCCESS)) {
+
+                                fetchDataHome = res.data;
+
+                                //showToast(String.valueOf(fetchDataHome.size()));
+                                setAdapterData();
+                            }
+                        }
+                    }
+                } else {
+                    try {
+                        Log.d("Msgggg", response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<HomeFeed> call, Throwable t) {
+
+                dismissProgress();
+            }
+        });
+
+    }
+
+    private void setAdapterData() {
+
+        linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+        search_recyclerview.setHasFixedSize(true);
+        search_recyclerview.setLayoutManager(linearLayoutManager);
+        search_recyclerview.setItemAnimator(new DefaultItemAnimator());
+        specialCardAdapter = new HomeSpecialCardAdapter(getActivity(), fetchDataHome);
+        search_recyclerview.setAdapter(specialCardAdapter);
     }
 
     @Override
@@ -97,5 +163,10 @@ public class SearchFragment extends BaseFragment {
         inflater.inflate(R.menu.home_menu, menu);
     }
 
+    @OnClick(R.id.backArrowFinish)
+    public void backArrowFinish() {
 
+        actionBar.finish();
+
+    }
 }

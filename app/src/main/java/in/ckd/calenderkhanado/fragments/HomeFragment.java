@@ -213,6 +213,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
                 if (position == 0) {
 
+                    globalUrl = RetrofitApiService.BASEURL + "trysomethingnew" + "?is_vegitarian=" + UserFoodType;
 
                     Intent i = new Intent(getActivity(), FilterActivtiy.class);
 
@@ -221,7 +222,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
                     getActivity().startActivity(i);
 
                 } else if (position == 1) {
-                    globalUrl = RetrofitApiService.BASEURL + "explorechef" + "?is_vegitarian=" + UserFoodType;
+                    globalUrl = RetrofitApiService.BASEURL + "trysomethingnew?filter=trysomethingnew" + "&is_vegitarian=" + UserFoodType;
 
                     Intent i = new Intent(getActivity(), FilterActivtiy.class);
 
@@ -229,7 +230,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
                     getActivity().startActivity(i);
                 } else if (position == 2) {
-                    globalUrl = RetrofitApiService.BASEURL + "topfoodoption?filter=top" + "&is_vegitarian=" + UserFoodType;
+                    globalUrl = RetrofitApiService.BASEURL + "trysomethingnew?filter=myfav" + "&is_vegitarian=" + UserFoodType;
 
                     Intent i = new Intent(getActivity(), FilterActivtiy.class);
 
@@ -238,7 +239,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
                     getActivity().startActivity(i);
                 } else if (position == 3) {
 
-                    globalUrl = RetrofitApiService.BASEURL + "zarahatke?filter=zarahatke" + "&is_vegitarian=" + UserFoodType;
+                    globalUrl = RetrofitApiService.BASEURL + "trysomethingnew?filter=zarahatke" + "&is_vegitarian=" + UserFoodType;
                     Intent i = new Intent(getActivity(), FilterActivtiy.class);
 
                     i.putExtra("url", globalUrl);
@@ -246,7 +247,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
                     getActivity().startActivity(i);
 
                 } else if (position == 4) {
-                    globalUrl = RetrofitApiService.BASEURL + "trysomethingnew?filter=trysomethingnew" + "&is_vegitarian=" + UserFoodType;
+                    globalUrl = RetrofitApiService.BASEURL + "trysomethingnew?filter=top" + "&is_vegitarian=" + UserFoodType;
 
                     Intent i = new Intent(getActivity(), FilterActivtiy.class);
 
@@ -255,6 +256,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
                     getActivity().startActivity(i);
                 } else if (position == 5) {
                     Intent i = new Intent(getActivity(), FilterActivtiy.class);
+                    globalUrl = RetrofitApiService.BASEURL + "trysomethingnew" + "?is_vegitarian=" + UserFoodType;
 
                     i.putExtra("url", globalUrl);
 
@@ -309,9 +311,6 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
         Call<HomeFeed> chefData = AppConstants.restAPI.getChefDataP(url);
 
-
-
-
         chefData.enqueue(new Callback<HomeFeed>() {
             @Override
             public void onResponse(Call<HomeFeed> call, Response<HomeFeed> response) {
@@ -326,8 +325,8 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
                                 Log.d("SuccessValue","I am");
                                 fetchDataHome = res.data;
 
-
-                               setAdapterData(recommended_recyclerview, 0);
+                                //showToast(String.valueOf(fetchDataHome.size()));
+                                setAdapterData(recommended_recyclerview, 0);
                                 setAdapterData(near_you_recyclerview, 1);
                             }
                         }
@@ -706,7 +705,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
                 }
 
                 setFilterBg(filter_value);
-                globalUrl = RetrofitApiService.BASEURL + "explorechef" + "?is_vegitarian=" + filter_value;
+                globalUrl = RetrofitApiService.BASEURL + "trysomethingnew" + "?is_vegitarian=" + UserFoodType;
                 networkCallForData(globalUrl);
             }
         });

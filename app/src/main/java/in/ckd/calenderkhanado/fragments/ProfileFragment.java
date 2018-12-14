@@ -184,7 +184,7 @@ public class ProfileFragment extends BaseFragment {
         try {
             if (userData.profile_image != null && !userData.profile_image.isEmpty()){
                 String imageUrl = userData.profile_image;
-                Glide.with(getActivity()).load(imageUrl).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.mipmap.default_usr_img).into(profileImage);
+                Glide.with(getActivity()).load(imageUrl).diskCacheStrategy(DiskCacheStrategy.ALL).error(R.mipmap.default_usr_img).into(profileImage);
             }
         } catch (Exception e) {
             e.printStackTrace();
