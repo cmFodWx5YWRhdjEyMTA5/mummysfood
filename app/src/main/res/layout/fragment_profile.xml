@@ -46,6 +46,7 @@
                 android:paddingEnd="@dimen/dp16">
 
                 <RelativeLayout
+                    android:id="@+id/user_rating_layout"
                     android:layout_width="@dimen/dp64"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"

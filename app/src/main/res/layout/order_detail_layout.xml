@@ -61,7 +61,22 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp150"
+                    android:background="@drawable/gradiant_bg">
+                    <ImageView
+                        android:id="@+id/backArrow"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="@dimen/dp4"
+                        android:layout_marginTop="@dimen/dp16"
+                        android:padding="@dimen/dp4"
+                        android:src="@drawable/ic_back_arrow"
+                        android:tint="@color/white" />
+                </RelativeLayout>
 
                 <ImageView
                     android:id="@+id/order_image"
@@ -69,16 +84,6 @@
                     android:layout_height="270dp"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY" />
-
-                <ImageView
-                    android:id="@+id/backArrow"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_marginStart="@dimen/dp4"
-                    android:layout_marginTop="@dimen/dp16"
-                    android:padding="@dimen/dp4"
-                    android:src="@drawable/back_without_line"
-                    android:tint="@color/white" />
 
                 <RelativeLayout
                     android:layout_width="@dimen/dp64"
@@ -719,7 +724,7 @@
         android:layout_gravity="center"
         android:background="@drawable/fill_rounded_sqare_primarycolor"
         android:gravity="center"
-        android:padding="@dimen/dp8"
+        android:padding="@dimen/dp12"
         android:text="Checkout"
         android:textAllCaps="true"
         android:textColor="@color/white"
