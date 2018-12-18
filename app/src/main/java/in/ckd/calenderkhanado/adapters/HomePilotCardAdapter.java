@@ -67,6 +67,7 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
         CkdTextview food_price;
         CkdTextview order_distance;
         SimpleDraweeView myImageView;
+        ImageView vegSysmbol;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -76,6 +77,8 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
             food_price = (CkdTextview)itemView.findViewById(R.id.food_price);
             order_distance = (CkdTextview)itemView.findViewById(R.id.order_distance);
             myImageView = itemView.findViewById(R.id.my_image_view);
+            vegSysmbol = itemView.findViewById(R.id.vegSysmbol);
+
         }
     }
 
@@ -98,6 +101,12 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
 
             String name = CapsName.CapitalizeFullName(data.name.trim());
             holder.chef_name.setText(name);
+            if (data.food_type == null || data.food_type.equalsIgnoreCase("0")) {
+                holder.vegSysmbol.setColorFilter(context.getResources().getColor(R.color.green));
+            }else {
+                holder.vegSysmbol.setColorFilter(context.getResources().getColor(R.color.red));
+            }
+
             if(data.food_media.get(0) != null){
                 try {
                     String imageUrl = "http://cdn.mummysfood.in/"+data.food_media.get(0).media.name;

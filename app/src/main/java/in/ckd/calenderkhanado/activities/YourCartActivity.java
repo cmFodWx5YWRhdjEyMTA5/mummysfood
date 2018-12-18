@@ -1,10 +1,15 @@
 package in.ckd.calenderkhanado.activities;
 
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -12,16 +17,22 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.onesignal.OSPermissionSubscriptionState;
 import com.onesignal.OneSignal;
+import com.paytm.pgsdk.PaytmOrder;
+import com.paytm.pgsdk.PaytmPGService;
+import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,16 +42,18 @@ import in.ckd.calenderkhanado.R;
 import in.ckd.calenderkhanado.base.BaseActivity;
 import in.ckd.calenderkhanado.data.db.DataBaseHelperNew;
 import in.ckd.calenderkhanado.data.pref.PreferenceManager;
-import in.ckd.calenderkhanado.models.DashBoardModel;
 import in.ckd.calenderkhanado.models.HomeFeed;
 import in.ckd.calenderkhanado.models.OrderModel;
 import in.ckd.calenderkhanado.models.UserProfileModel;
 import in.ckd.calenderkhanado.utils.AppConstants;
+import in.ckd.calenderkhanado.utils.SendMail;
 import in.ckd.calenderkhanado.widgets.CkdButton;
 import in.ckd.calenderkhanado.widgets.CkdTextview;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.Manifest.permission.SEND_SMS;
 
 public class YourCartActivity extends BaseActivity {
 
@@ -147,6 +160,7 @@ public class YourCartActivity extends BaseActivity {
     private String paymentType = "";
     private String mobileNumber = "";
     private DataBaseHelperNew db;
+    final int SMS_PERMISSION = 200;
 
 
     @Override
@@ -160,6 +174,7 @@ public class YourCartActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        requestPermission();
 
         db = new DataBaseHelperNew(this);
 
@@ -169,8 +184,7 @@ public class YourCartActivity extends BaseActivity {
 
             try {
                 location = getIntent().getStringExtra("From");
-            } catch (Exception e)
-            {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -199,12 +213,10 @@ public class YourCartActivity extends BaseActivity {
 
         if (typeOfPackage.equalsIgnoreCase("today")) {
 
-            if (isLunch == 1 && isDinner == 1)
-            {
+            if (isLunch == 1 && isDinner == 1) {
                 add_to_cart_item_layout.setVisibility(View.GONE);
                 order_price_basedQuantity.setVisibility(View.GONE);
-            }else
-            {
+            } else {
                 add_to_cart_item_layout.setVisibility(View.VISIBLE);
                 order_price_basedQuantity.setVisibility(View.VISIBLE);
             }
@@ -254,8 +266,7 @@ public class YourCartActivity extends BaseActivity {
 
 
         try {
-            if (location.equalsIgnoreCase("RepeatOrder"))
-            {
+            if (location.equalsIgnoreCase("RepeatOrder")) {
 
 
                 order_titile.setText(ordersSub.orders.get(0).food_name);
@@ -271,8 +282,7 @@ public class YourCartActivity extends BaseActivity {
                 payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
                 order_taxes.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(50));
 
-            }
-            else{
+            } else {
                 float orderPrice = Float.parseFloat(modelData.price);
                 int orderPriceInt = 0;
                 orderPriceInt = (int) orderPrice;
@@ -280,13 +290,11 @@ public class YourCartActivity extends BaseActivity {
                     orderPriceInt = orderPriceInt * numberOfDays;
                 } else if (typeOfPackage.equalsIgnoreCase("weekly")) {
                     orderPriceInt = orderPriceInt * numberOfDays;
-                }else if (typeOfPackage.equalsIgnoreCase("today")) {
-                    if (isDinner ==1 &&isLunch ==1)
-                    {
+                } else if (typeOfPackage.equalsIgnoreCase("today")) {
+                    if (isDinner == 1 && isLunch == 1) {
                         orderPriceInt = orderPriceInt * numberOfDays;
-                        orderPriceInt = orderPriceInt+orderPriceInt;
-                    }else
-                    {
+                        orderPriceInt = orderPriceInt + orderPriceInt;
+                    } else {
                         orderPriceInt = orderPriceInt * numberOfDays;
                     }
                 }
@@ -382,7 +390,6 @@ public class YourCartActivity extends BaseActivity {
 
 
             int value = (int) valuep;
-
 
 
             int priceValue = value * totalCount;
@@ -752,6 +759,7 @@ public class YourCartActivity extends BaseActivity {
                     if (paymentType != null && !"".equalsIgnoreCase(paymentType)) {
                         if (paymentType.equalsIgnoreCase("Paytm")) {
                             showToast("Paytm Integration is in process you can place order using COD");
+                            //paytmPlaceOrder();
                         } else {
                             newtowrkCallToplaceOrder(orderModel, itemCountText);
                         }
@@ -778,8 +786,7 @@ public class YourCartActivity extends BaseActivity {
                 String paymetTYpe = pf.getStringForKey("paymentType", "");
                 orderModel.house_no = hounseNoEdit;
 
-                if ("".equalsIgnoreCase(paymetTYpe))
-                {
+                if ("".equalsIgnoreCase(paymetTYpe)) {
                     paymetTYpe = "Paytm";
                 }
 
@@ -818,14 +825,11 @@ public class YourCartActivity extends BaseActivity {
                 orderModel.house_no = "Call them";
 
 
-                if ("".equalsIgnoreCase(landmarkEdit))
-                {
+                if ("".equalsIgnoreCase(landmarkEdit)) {
                     orderModel.landmark = CurrentAddress;
-                }else
-                {
+                } else {
                     orderModel.landmark = landmarkEdit;
                 }
-
 
 
                 if (CurrentAddress != null && !"".equalsIgnoreCase(CurrentAddress)) {
@@ -834,6 +838,7 @@ public class YourCartActivity extends BaseActivity {
                     if (paymentType != null && !"".equalsIgnoreCase(paymentType)) {
                         if (paymentType.equalsIgnoreCase("Paytm")) {
                             showToast("Paytm Integration is in process you can place order using COD");
+                            //paytmPlaceOrder();
                         } else {
                             newtowrkCallToplaceOrder(orderModel, itemCountText);
                         }
@@ -863,6 +868,65 @@ public class YourCartActivity extends BaseActivity {
 
     }
 
+    private void paytmPlaceOrder() {
+        PaytmPGService Service = PaytmPGService.getStagingService();
+
+
+        HashMap<String, String> paramMap = new HashMap<String, String>();
+        paramMap.put("MID", "XfLrgI86715347032972");
+        // Key in your staging and production MID available in your dashboard
+        paramMap.put("ORDER_ID", "order1");
+        paramMap.put("CUST_ID", "cust123");
+        paramMap.put("MOBILE_NO", "8602639858 ");
+        paramMap.put("EMAIL", "seemanagar86@gmail.com");
+        paramMap.put("CHANNEL_ID", "WAP");
+        paramMap.put("TXN_AMOUNT", "1");
+        paramMap.put("WEBSITE", "WEBSTAGING");
+        // This is the staging value. Production value is available in your dashboard
+        paramMap.put("INDUSTRY_TYPE_ID", "Retail");
+        // This is the staging value. Production value is available in your dashboard
+        paramMap.put("CALLBACK_URL", "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID=order1");
+        //String paytmChecksum = CheckSumServiceHelper.getCheckSumServiceHelper().genrateCheckSum("XfLrgI86715347032972", paytmParams);
+        paramMap.put("CHECKSUMHASH", "w2QDRMgp1234567JEAPCIOmNgQvsi+BhpqijfM9KvFfRiPmGSt3Ddzw+oTaGCLneJwxFFq5mqTMwJXdQE2EzK4px2xruDqKZjHupz9yXev4=");
+        PaytmOrder Order = new PaytmOrder(paramMap);
+        Service.initialize(Order, null);
+
+        Service.startPaymentTransaction(this, true, true, new PaytmPaymentTransactionCallback() {
+            /*Call Backs*/
+            public void someUIErrorOccurred(String inErrorMessage) {
+                Log.e("someUIErrorOccurred",inErrorMessage);
+                Toast.makeText(getApplicationContext(), "UI Error " + inErrorMessage , Toast.LENGTH_LONG).show();
+            }
+            public void onTransactionResponse(Bundle inResponse) {
+                Log.e("inResponse",inResponse.toString());
+                Toast.makeText(getApplicationContext(), "Payment Transaction response " + inResponse.toString(), Toast.LENGTH_LONG).show();
+
+            }
+            public void networkNotAvailable() {
+                Log.e("networkNotAvailable","");
+                Toast.makeText(getApplicationContext(), "Network connection error: Check your internet connectivity", Toast.LENGTH_LONG).show();
+            }
+            public void clientAuthenticationFailed(String inErrorMessage) {
+                Log.e("AuthenticationFailed","inErrorMessage");
+                Toast.makeText(getApplicationContext(), "Authentication failed: Server error" + inErrorMessage.toString(), Toast.LENGTH_LONG).show();
+            }
+            public void onErrorLoadingWebPage(int iniErrorCode, String inErrorMessage, String inFailingUrl) {
+                Log.e("onErrorLoadingWebPage",iniErrorCode+" "+inErrorMessage+" "+inFailingUrl);
+                Toast.makeText(getApplicationContext(), "Unable to load webpage " + inErrorMessage.toString(), Toast.LENGTH_LONG).show();
+            }
+            public void onBackPressedCancelTransaction() {
+                Log.e("CancelTransaction","onBackPressedCancelTransaction");
+                Toast.makeText(getApplicationContext(), "Transaction cancelled" , Toast.LENGTH_LONG).show();
+            }
+            public void onTransactionCancel(String inErrorMessage, Bundle inResponse) {
+                Log.e("onTransactionCancel",inErrorMessage+" "+inResponse);
+                Toast.makeText(getApplicationContext(), "Transaction Cancelled" + inResponse.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+    }
+
     private void newtowrkCallToplaceOrder(OrderModel.Data orderModel, int itemCountText) {
 
 
@@ -885,13 +949,16 @@ public class YourCartActivity extends BaseActivity {
                             startActivity(ActIntent);
                             finish();
 
-                            sendNotification();
+                            sendSms();
+                            sendEmail();
+
+                            //sendNotification();
 
                             final Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                   sendNotification();
+                                    sendNotification();
                                 }
                             }, 5000);
 
@@ -924,6 +991,73 @@ public class YourCartActivity extends BaseActivity {
         });
     }
 
+    private void sendEmail() {
+
+
+        //Getting content for email
+        String email = "ckd.khana@gmail.com";
+        String subject = "Testing";
+        String message = "your mail body";
+
+        //Creating SendMail object
+        SendMail sm = new SendMail(this, email, subject, message);
+
+        //Executing sendmail to send email
+        sm.execute();
+
+
+    }
+
+    private void sendSms() {
+        String phone = "8602639858";
+        String message = "your sms body";
+
+        //Check if the phoneNumber is empty
+        if (phone.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Please Enter a Valid Phone Number", Toast.LENGTH_SHORT).show();
+        } else {
+
+            SmsManager sms = SmsManager.getDefault();
+            // if message length is too long messages are divided
+            List<String> messages = sms.divideMessage(message);
+            for (String msg : messages) {
+
+                PendingIntent sentIntent = PendingIntent.getBroadcast(this, 0, new Intent("SMS_SENT"), 0);
+                PendingIntent deliveredIntent = PendingIntent.getBroadcast(this, 0, new Intent("SMS_DELIVERED"), 0);
+                sms.sendTextMessage(phone, null, msg, sentIntent, deliveredIntent);
+
+            }
+        }
+    }
+
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this, new String[]{SEND_SMS}, SMS_PERMISSION);
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case SMS_PERMISSION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //sendSms();
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "Permission Denied, You cannot access and sms", Toast.LENGTH_SHORT).show();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        if (shouldShowRequestPermissionRationale(SEND_SMS)) {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                requestPermissions(new String[]{SEND_SMS},
+                                        SMS_PERMISSION);
+                            }
+                            return;
+                        }
+                    }
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
     private void sendNotification() {
 
 
@@ -946,4 +1080,4 @@ public class YourCartActivity extends BaseActivity {
 
     }
 
-    }
+}

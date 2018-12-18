@@ -22,7 +22,7 @@
     <!--Toolbar Icon color change-->
     <style name="ThemeToolbar">
         <!-- navigation icon color -->
-        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlNormal">@color/black</item>
     </style>
 
     <style name="RatingBar" parent="@android:style/Widget.RatingBar">

@@ -25,6 +25,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -67,7 +68,7 @@ public class ProfileFragmentChef extends BaseActivity {
     CkdTextview profileAbout;
 
     @BindView(R.id.user_rating_layout)
-    LinearLayout user_rating_layout;
+    RelativeLayout user_rating_layout;
 
     @BindView(R.id.expert_layout)
     LinearLayout expert_layout;
