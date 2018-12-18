@@ -71,6 +71,9 @@ android {
 
 
 dependencies {
+    implementation('com.paytm:pgplussdk:1.2.3') {
+        transitive = true;
+    }
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation files('libs/activation.jar')
     implementation files('libs/additionnal.jar')

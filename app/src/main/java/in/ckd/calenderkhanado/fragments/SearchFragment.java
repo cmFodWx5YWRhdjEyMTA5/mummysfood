@@ -70,6 +70,9 @@ public class SearchFragment extends BaseFragment {
     @BindView(R.id.search_recyclerview)
     RecyclerView search_recyclerview;
 
+    @BindView(R.id.no_data)
+    CkdTextview no_data;
+
     Context context;
     private AppCompatActivity actionBar;
     private String globalUrl;
@@ -98,17 +101,34 @@ public class SearchFragment extends BaseFragment {
         SearchManager searchManager = (SearchManager) context.getSystemService(SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(actionBar.getComponentName()));
         searchView.onActionViewExpanded();
-        searchView.setFocusable(false);
-        searchView.clearFocus();
+        searchView.setFocusable(true);
 
-        globalUrl = RetrofitApiService.BASEURL + "trysomethingnew";
-        networkCallForData(globalUrl);
+        search_recyclerview.setVisibility(View.GONE);
+        no_data.setVisibility(View.GONE);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if (query.length() > 1) {
+                    globalUrl = RetrofitApiService.BASEURL + "searchhomefeed?search="+query;
+                    networkCallForData(globalUrl);
+                }else {
+
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
 
         return rootView;
     }
 
     private void networkCallForData(String url) {
-
+        showProgress("Loading...");
         Call<HomeFeed> chefData = AppConstants.restAPI.getChefDataP(url);
 
         chefData.enqueue(new Callback<HomeFeed>() {
@@ -122,9 +142,13 @@ public class SearchFragment extends BaseFragment {
                             if (res.status.equals(AppConstants.SUCCESS)) {
 
                                 fetchDataHome = res.data;
-
-                                //showToast(String.valueOf(fetchDataHome.size()));
-                                setAdapterData();
+                                if (res.data != null && res.data.size()>0) {
+                                    search_recyclerview.setVisibility(View.VISIBLE);
+                                    setAdapterData();
+                                }else {
+                                    search_recyclerview.setVisibility(View.GONE);
+                                    no_data.setVisibility(View.VISIBLE);
+                                }
                             }
                         }
                     }
@@ -141,7 +165,8 @@ public class SearchFragment extends BaseFragment {
 
             @Override
             public void onFailure(Call<HomeFeed> call, Throwable t) {
-
+                search_recyclerview.setVisibility(View.GONE);
+                no_data.setVisibility(View.VISIBLE);
                 dismissProgress();
             }
         });

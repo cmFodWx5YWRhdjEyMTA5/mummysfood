@@ -22,12 +22,17 @@ import android.widget.Toast;
 import com.airbnb.lottie.LottieAnimationView;
 import com.onesignal.OSPermissionSubscriptionState;
 import com.onesignal.OneSignal;
+import com.paytm.pgsdk.PaytmOrder;
+import com.paytm.pgsdk.PaytmPGService;
+import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -754,6 +759,7 @@ public class YourCartActivity extends BaseActivity {
                     if (paymentType != null && !"".equalsIgnoreCase(paymentType)) {
                         if (paymentType.equalsIgnoreCase("Paytm")) {
                             showToast("Paytm Integration is in process you can place order using COD");
+                            //paytmPlaceOrder();
                         } else {
                             newtowrkCallToplaceOrder(orderModel, itemCountText);
                         }
@@ -832,6 +838,7 @@ public class YourCartActivity extends BaseActivity {
                     if (paymentType != null && !"".equalsIgnoreCase(paymentType)) {
                         if (paymentType.equalsIgnoreCase("Paytm")) {
                             showToast("Paytm Integration is in process you can place order using COD");
+                            //paytmPlaceOrder();
                         } else {
                             newtowrkCallToplaceOrder(orderModel, itemCountText);
                         }
@@ -858,6 +865,65 @@ public class YourCartActivity extends BaseActivity {
             startActivityForResult(adresIntent, 201);
             showToast("Please insert Mobile Number");
         }
+
+    }
+
+    private void paytmPlaceOrder() {
+        PaytmPGService Service = PaytmPGService.getStagingService();
+
+
+        HashMap<String, String> paramMap = new HashMap<String, String>();
+        paramMap.put("MID", "XfLrgI86715347032972");
+        // Key in your staging and production MID available in your dashboard
+        paramMap.put("ORDER_ID", "order1");
+        paramMap.put("CUST_ID", "cust123");
+        paramMap.put("MOBILE_NO", "8602639858 ");
+        paramMap.put("EMAIL", "seemanagar86@gmail.com");
+        paramMap.put("CHANNEL_ID", "WAP");
+        paramMap.put("TXN_AMOUNT", "1");
+        paramMap.put("WEBSITE", "WEBSTAGING");
+        // This is the staging value. Production value is available in your dashboard
+        paramMap.put("INDUSTRY_TYPE_ID", "Retail");
+        // This is the staging value. Production value is available in your dashboard
+        paramMap.put("CALLBACK_URL", "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID=order1");
+        //String paytmChecksum = CheckSumServiceHelper.getCheckSumServiceHelper().genrateCheckSum("XfLrgI86715347032972", paytmParams);
+        paramMap.put("CHECKSUMHASH", "w2QDRMgp1234567JEAPCIOmNgQvsi+BhpqijfM9KvFfRiPmGSt3Ddzw+oTaGCLneJwxFFq5mqTMwJXdQE2EzK4px2xruDqKZjHupz9yXev4=");
+        PaytmOrder Order = new PaytmOrder(paramMap);
+        Service.initialize(Order, null);
+
+        Service.startPaymentTransaction(this, true, true, new PaytmPaymentTransactionCallback() {
+            /*Call Backs*/
+            public void someUIErrorOccurred(String inErrorMessage) {
+                Log.e("someUIErrorOccurred",inErrorMessage);
+                Toast.makeText(getApplicationContext(), "UI Error " + inErrorMessage , Toast.LENGTH_LONG).show();
+            }
+            public void onTransactionResponse(Bundle inResponse) {
+                Log.e("inResponse",inResponse.toString());
+                Toast.makeText(getApplicationContext(), "Payment Transaction response " + inResponse.toString(), Toast.LENGTH_LONG).show();
+
+            }
+            public void networkNotAvailable() {
+                Log.e("networkNotAvailable","");
+                Toast.makeText(getApplicationContext(), "Network connection error: Check your internet connectivity", Toast.LENGTH_LONG).show();
+            }
+            public void clientAuthenticationFailed(String inErrorMessage) {
+                Log.e("AuthenticationFailed","inErrorMessage");
+                Toast.makeText(getApplicationContext(), "Authentication failed: Server error" + inErrorMessage.toString(), Toast.LENGTH_LONG).show();
+            }
+            public void onErrorLoadingWebPage(int iniErrorCode, String inErrorMessage, String inFailingUrl) {
+                Log.e("onErrorLoadingWebPage",iniErrorCode+" "+inErrorMessage+" "+inFailingUrl);
+                Toast.makeText(getApplicationContext(), "Unable to load webpage " + inErrorMessage.toString(), Toast.LENGTH_LONG).show();
+            }
+            public void onBackPressedCancelTransaction() {
+                Log.e("CancelTransaction","onBackPressedCancelTransaction");
+                Toast.makeText(getApplicationContext(), "Transaction cancelled" , Toast.LENGTH_LONG).show();
+            }
+            public void onTransactionCancel(String inErrorMessage, Bundle inResponse) {
+                Log.e("onTransactionCancel",inErrorMessage+" "+inResponse);
+                Toast.makeText(getApplicationContext(), "Transaction Cancelled" + inResponse.toString(), Toast.LENGTH_LONG).show();
+            }
+        });
+
 
     }
 

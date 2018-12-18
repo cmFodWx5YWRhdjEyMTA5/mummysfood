@@ -79,11 +79,11 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     @BindView(R.id.home_add_to_cart_icon)
     ImageView home_add_to_cart_icon;
 
-    @BindView(R.id.filterFood)
-    ImageView filterFood;
+    /*@BindView(R.id.filterFood)
+    ImageView filterFood;*/
 
-    @BindView(R.id.filterFoodApplied)
-    View filterFoodApplied;
+    /*@BindView(R.id.filterFoodApplied)
+    View filterFoodApplied;*/
 
 
   /*  @BindView(R.id.swiperefresh)
@@ -128,13 +128,13 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
         UserFoodType = pref.getIntForKey("UserFoodType", 0);
 
-        if (filterPref.getBooleanForKey(PreferenceManager.FILTER_APPLY,false)){
+        /*if (filterPref.getBooleanForKey(PreferenceManager.FILTER_APPLY,false)){
             filterFoodApplied.setVisibility(View.VISIBLE);
 
             setFilterBg(UserFoodType);
         }else{
             filterFoodApplied.setVisibility(View.GONE);
-        }
+        }*/
 
         //homeToolbar.setVisibility(View.GONE);
 
@@ -292,7 +292,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         return rootView;
     }
 
-    private void setFilterBg(int userFoodType) {
+    /*private void setFilterBg(int userFoodType) {
 
         if (userFoodType ==1)
         {
@@ -304,7 +304,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         {
             filterFoodApplied.setVisibility(View.GONE);
         }
-    }
+    }*/
 
     private void networkCallForData(String url) {
 
@@ -459,10 +459,10 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     }*/
 
 
-    @OnClick(R.id.filterFood)
+    /*@OnClick(R.id.filterFood)
     public void filterFood() {
         showFilterDialog();
-    }
+    }*/
 
     @OnClick(R.id.home_add_to_cart_icon)
     public void AddToCart() {
@@ -620,7 +620,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     }
 
 
-    private void showFilterDialog() {
+    /*private void showFilterDialog() {
         final Dialog dialogd = new Dialog(getActivity(),android.R.style.Theme_Translucent_NoTitleBar);
         dialogd.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogd.setContentView(R.layout.dialog_for_food_fiter);
@@ -712,7 +712,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
         dialogd.show();
 
-    }
+    }*/
 
     @Override
     public void clickOnFilter(int position) {

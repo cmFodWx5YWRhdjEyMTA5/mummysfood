@@ -40,5 +40,15 @@
         android:paddingBottom="@dimen/dp8"
         android:paddingStart="@dimen/dp8"
         android:paddingEnd="@dimen/dp8"/>
+    <in.ckd.calenderkhanado.widgets.CkdTextview
+        android:id="@+id/no_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/textviewbold"
+        android:text="No result found"
+        android:textColor="@color/black"
+        android:layout_marginTop="@dimen/dp16"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
 
 </LinearLayout>
