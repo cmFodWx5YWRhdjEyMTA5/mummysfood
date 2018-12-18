@@ -446,14 +446,12 @@
                         <TextView
                             android:layout_width="@dimen/dp100"
                             android:layout_height="@dimen/dp100"
-                            android:src="@mipmap/pilot2"
                             android:background="@drawable/fill_rounded_white_smoke"
                             android:text="@string/monthly_txt"
                             android:gravity="center"/>
                         <TextView
                             android:layout_width="@dimen/dp100"
                             android:layout_height="@dimen/dp100"
-                            android:src="@mipmap/pilot2"
                             android:layout_marginStart="@dimen/dp6"
                             android:background="@drawable/fill_rounded_white_smoke"
                             android:text="@string/weekly_txt"

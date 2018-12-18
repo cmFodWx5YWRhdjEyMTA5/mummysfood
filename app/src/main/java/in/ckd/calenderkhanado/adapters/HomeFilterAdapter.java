@@ -28,7 +28,7 @@ public class HomeFilterAdapter extends RecyclerView.Adapter<HomeFilterAdapter.Vi
         void clickOnFilter(int position);
     }
 
-    public HomeFilterAdapter(Context context, List<FilterModel> data , HomeFragment listner) {
+    public HomeFilterAdapter(Context context, List<FilterModel> data, HomeFragment listner) {
         this.context = context;
         this.data = data;
         this.listner = listner;
@@ -75,24 +75,17 @@ public class HomeFilterAdapter extends RecyclerView.Adapter<HomeFilterAdapter.Vi
         viewHolder.filterName.setText(model.filter_name);
 
 
-        if (i == 0)
-        {
+        if (i == 0) {
             Glide.with(context).load(R.mipmap.nearme).into(viewHolder.filterImage);
-        }else if (i ==1)
-        {
+        } else if (i == 1) {
             Glide.with(context).load(R.drawable.trynew).into(viewHolder.filterImage);
-        }else if (i==2)
-        {
+        } else if (i == 2) {
             Glide.with(context).load(R.drawable.myfev).into(viewHolder.filterImage);
-        }else if (i==3)
-        {
+        } else if (i == 3) {
             Glide.with(context).load(R.drawable.zarahtke).into(viewHolder.filterImage);
-        }else if (i==4)
-        {
+        } else if (i == 4) {
             Glide.with(context).load(R.drawable.topfood).into(viewHolder.filterImage);
-        }
-        else
-        {
+        } else {
             Glide.with(context).load(R.drawable.explore).into(viewHolder.filterImage);
         }
 
@@ -103,6 +96,6 @@ public class HomeFilterAdapter extends RecyclerView.Adapter<HomeFilterAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return data.size()==0 ? 0:data.size();
+        return data.size() == 0 ? 0 : data.size();
     }
 }

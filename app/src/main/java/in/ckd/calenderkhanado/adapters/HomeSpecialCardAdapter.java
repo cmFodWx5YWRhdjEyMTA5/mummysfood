@@ -86,6 +86,7 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
         ImageView foodImage;
         CkdTextview order_distance;
         SimpleDraweeView my_image_view;
+        ImageView vegSysmbol;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -96,6 +97,7 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
             foodImage = itemView.findViewById(R.id.food_image_bg);
             order_distance = itemView.findViewById(R.id.order_distance);
             my_image_view = itemView.findViewById(R.id.my_image_view_special);
+            vegSysmbol = itemView.findViewById(R.id.vegSysmbol);
         }
     }
 
@@ -121,11 +123,16 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
         }
 
         float[] results = new float[1];
-        Location.distanceBetween(12.9732098, 79.1590077, 22.7602485, 75.8880693, results);
+        Location.distanceBetween(12.9732098, 79.1590077, model.addresses.get(0).latitude, model.addresses.get(0).longitude, results);
         float distance = results[0] / 100000;
         DecimalFormat value = new DecimalFormat("#.#");
 
         viewHolder.order_distance.setText(value.format(distance) + "km");
+
+        if (model.food_type == null || model.food_type.equalsIgnoreCase("0"))
+            viewHolder.vegSysmbol.setColorFilter(context.getResources().getColor(R.color.green));
+        else
+            viewHolder.vegSysmbol.setColorFilter(context.getResources().getColor(R.color.red));
 
         try {
 

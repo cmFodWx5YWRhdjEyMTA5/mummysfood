@@ -13,7 +13,7 @@
         android:id="@+id/review_user_image"
         android:layout_width="@dimen/dp50"
         android:layout_height="@dimen/dp50"
-        android:src="@mipmap/pilot1"
+        android:src="@mipmap/default_usr_img"
         app:civ_border_color="@color/white"
         app:civ_border_width="@dimen/dp2"
         app:civ_shadow="false"

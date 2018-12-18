@@ -63,8 +63,8 @@ public class UserLocationActivtiy extends BaseActivity
         LocationListener {
     private Location mylocation;
     private GoogleApiClient googleApiClient;
-    private final static int REQUEST_CHECK_SETTINGS_GPS=0x1;
-    private final static int REQUEST_ID_MULTIPLE_PERMISSIONS=0x2;
+    private final static int REQUEST_CHECK_SETTINGS_GPS = 0x1;
+    private final static int REQUEST_ID_MULTIPLE_PERMISSIONS = 0x2;
     @BindView(R.id.searchText)
     SearchView searchText;
 
@@ -82,8 +82,6 @@ public class UserLocationActivtiy extends BaseActivity
 
     @BindView(R.id.automaticLocation)
     LinearLayout automaticLocation;
-
-
 
 
     private String mPermission = Manifest.permission.ACCESS_FINE_LOCATION;
@@ -139,8 +137,7 @@ public class UserLocationActivtiy extends BaseActivity
         searchText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                if (!query.isEmpty())
-                {
+                if (!query.isEmpty()) {
                     loading.setVisibility(View.VISIBLE);
 
                     autocomplete(query);
@@ -162,32 +159,26 @@ public class UserLocationActivtiy extends BaseActivity
 
 
     @OnClick(R.id.detectAutomatically)
-    public void detectAutomatically()
-    {
+    public void detectAutomatically() {
     }
 
 
-    public void  autocomplete(String input)
-    {
+    public void autocomplete(String input) {
 
-        Call<LocationModel> call = AppConstants.restAPI.getTopRatedMovies(PLACES_API_BASE+TYPE_AUTOCOMPLETE+OUT_JSON+"?key="+API_KEY+"&components=country:in&input="+input);
+        Call<LocationModel> call = AppConstants.restAPI.getTopRatedMovies(PLACES_API_BASE + TYPE_AUTOCOMPLETE + OUT_JSON + "?key=" + API_KEY + "&components=country:in&input=" + input);
 
 
         call.enqueue(new Callback<LocationModel>() {
             @Override
             public void onResponse(Call<LocationModel> call, Response<LocationModel> response) {
-                if (response.isSuccessful())
-                {
+                if (response.isSuccessful()) {
                     recyclerviewSearch.setVisibility(View.VISIBLE);
                     loading.setVisibility(View.GONE);
-                    if (response != null)
-                    {
-                        if (response.body().predictions.size() != 0)
-                        {
+                    if (response != null) {
+                        if (response.body().predictions.size() != 0) {
                             noDataFound.setVisibility(View.GONE);
                             //setAdapter(response.body().predictions);
-                        }else
-                        {
+                        } else {
                             noDataFound.setVisibility(View.VISIBLE);
                         }
                     }
@@ -202,8 +193,7 @@ public class UserLocationActivtiy extends BaseActivity
 
     }
 
-    public  void locationBased(Double latitude, Double longitude)
-    {
+    public void locationBased(Double latitude, Double longitude) {
 
         Context contex = this;
         try {
@@ -214,76 +204,70 @@ public class UserLocationActivtiy extends BaseActivity
             }else {*/
 
 
+            Geocoder geocoder;
+            List<Address> addresses;
 
-                    Geocoder geocoder;
-                    List<Address> addresses;
+            geocoder = new Geocoder(this, Locale.getDefault());
 
-                    geocoder = new Geocoder(this, Locale.getDefault());
+            try {
+                addresses = geocoder.getFromLocation(latitude, longitude, 1);
 
-                    try {
-                        addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                if (addresses.size() != 0) {
 
-                        if (addresses.size() != 0){
+                    String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
 
-                            String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                    showToast(address);
+                    String city = addresses.get(0).getLocality();
+                    String state = addresses.get(0).getAdminArea();
+                    String country = addresses.get(0).getCountryName();
+                    String postalCode = addresses.get(0).getPostalCode();
+                    String knownName = addresses.get(0).getFeatureName();
+                    latitudeS = latitude;
+                    lognitudeS = longitude;
+                    pin_code = postalCode;
 
-                            showToast(address);
-                            String city = addresses.get(0).getLocality();
-                            String state = addresses.get(0).getAdminArea();
-                            String country = addresses.get(0).getCountryName();
-                            String postalCode = addresses.get(0).getPostalCode();
-                            String knownName = addresses.get(0).getFeatureName();
-                            latitudeS = latitude;
-                            lognitudeS = longitude;
-                            pin_code =postalCode;
+                    pf.saveStringForKey("CurrentAddress", address);
+                    pf.saveDoubleForKey("latitude", latitude);
+                    pf.saveDoubleForKey("lognitude", longitude);
 
-                            pf.saveStringForKey("CurrentAddress",address);
-                            pf.saveDoubleForKey("latitude",latitude);
-                            pf.saveDoubleForKey("lognitude",longitude);
+                    Intent enterOtherAct = new Intent(UserLocationActivtiy.this, EnterFullAdressActivity.class);
+                    enterOtherAct.putExtra("Address", address);
+                    enterOtherAct.putExtra("city", city);
+                    enterOtherAct.putExtra("lat", String.valueOf(latitude));
+                    enterOtherAct.putExtra("long", String.valueOf(longitude));
+                    enterOtherAct.putExtra("pincode", postalCode);
+                    enterOtherAct.putExtra("state", state);
+                    startActivity(enterOtherAct);
 
-                            Intent enterOtherAct = new Intent(UserLocationActivtiy.this,EnterFullAdressActivity.class);
-                            enterOtherAct.putExtra("Address",address);
-                            enterOtherAct.putExtra("city",city);
-                            enterOtherAct.putExtra("lat",String.valueOf(latitude));
-                            enterOtherAct.putExtra("long",String.valueOf(longitude));
-                            enterOtherAct.putExtra("pincode",postalCode);
-                            enterOtherAct.putExtra("state",state);
-                            startActivity(enterOtherAct);
-
-                            Log.d("Address",address);
-                            Log.d("Address",city);
-                            Log.d("Address",postalCode);
-                            Log.d("Address",state);
-                            Log.d("Address",String.valueOf(latitude));
-                            finish();
-
+                    Log.d("Address", address);
+                    Log.d("Address", city);
+                    Log.d("Address", postalCode);
+                    Log.d("Address", state);
+                    Log.d("Address", String.valueOf(latitude));
+                    finish();
 
 
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-           // }
+            // }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
 
-
     }
-
-
 
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (noDataFound.getVisibility() == View.VISIBLE)
-        {
+        if (noDataFound.getVisibility() == View.VISIBLE) {
             noDataFound.setVisibility(View.GONE);
             automaticLocation.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             finish();
         }
     }
@@ -302,10 +286,10 @@ public class UserLocationActivtiy extends BaseActivity
     public void onLocationChanged(Location location) {
         mylocation = location;
         if (mylocation != null) {
-            Double latitude=mylocation.getLatitude();
-            Double longitude=mylocation.getLongitude();
+            Double latitude = mylocation.getLatitude();
+            Double longitude = mylocation.getLongitude();
 
-            locationBased(latitude,longitude);
+            locationBased(latitude, longitude);
 
             //Or Do whatever you want with your location
         }
@@ -327,13 +311,13 @@ public class UserLocationActivtiy extends BaseActivity
         //You can display a message here
     }
 
-    private void getMyLocation(){
-        if(googleApiClient!=null) {
+    private void getMyLocation() {
+        if (googleApiClient != null) {
             if (googleApiClient.isConnected()) {
                 int permissionLocation = ContextCompat.checkSelfPermission(UserLocationActivtiy.this,
                         Manifest.permission.ACCESS_FINE_LOCATION);
                 if (permissionLocation == PackageManager.PERMISSION_GRANTED) {
-                    mylocation =                     LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+                    mylocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
                     LocationRequest locationRequest = new LocationRequest();
                     locationRequest.setInterval(3000);
                     locationRequest.setFastestInterval(3000);
@@ -407,7 +391,7 @@ public class UserLocationActivtiy extends BaseActivity
         }
     }
 
-    private void checkPermissions(){
+    private void checkPermissions() {
         int permissionLocation = ContextCompat.checkSelfPermission(UserLocationActivtiy.this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION);
         List<String> listPermissionsNeeded = new ArrayList<>();
@@ -417,7 +401,7 @@ public class UserLocationActivtiy extends BaseActivity
                 ActivityCompat.requestPermissions(this,
                         listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), REQUEST_ID_MULTIPLE_PERMISSIONS);
             }
-        }else{
+        } else {
             getMyLocation();
         }
 

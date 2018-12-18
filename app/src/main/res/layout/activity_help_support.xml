@@ -1,21 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.HelpSupportActivity">
+    tools:context=".activities.HelpSupportActivity"
+    android:orientation="vertical"
+    android:background="@color/white">
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
-        app:theme="@style/ToolbarColoredBackArrow"/>
-    <WebView
-        android:id="@+id/webview"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
+        android:background="@color/white"
+        android:elevation="@dimen/dp2"
+        android:theme="@style/ThemeToolbar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        <!--<ImageView
+            android:id="@+id/backArrowFinish"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:padding="@dimen/dp4"
+            android:src="@drawable/ic_back_arrow"
+            android:tint="@color/black" />
+        <in.ckd.calenderkhanado.widgets.CkdTextview
+            android:id="@+id/order_checkout"
+            style="@style/textviewbold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Contact Us"
+            android:textAllCaps="true"
+            android:textColor="@color/black" />-->
+    </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:id="@+id/call_us_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-</RelativeLayout>
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/dp4"
+        android:orientation="horizontal"
+        android:layout_margin="@dimen/dp8"
+        android:padding="@dimen/dp8">
+
+        <ImageView
+            android:layout_width="@dimen/dp48"
+            android:layout_height="@dimen/dp48"
+            android:src="@mipmap/phone_icon"
+            android:padding="@dimen/dp8"
+            android:layout_alignLeft="@id/mobile_login"
+            android:layout_centerInParent="true"
+            android:elevation="@dimen/dp2"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/dp16">
+            <in.ckd.calenderkhanado.widgets.CkdTextview
+                style="@style/textviewregular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Call Us"
+                android:textColor="@color/black"
+                android:gravity="start"/>
+            <in.ckd.calenderkhanado.widgets.CkdTextview
+                style="@style/textviewbold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="8602639858"
+                android:textSize="@dimen/sp16"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/email_us_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/dp4"
+        android:orientation="horizontal"
+        android:layout_margin="@dimen/dp8"
+        android:padding="@dimen/dp8">
+
+        <ImageView
+            android:layout_width="@dimen/dp48"
+            android:layout_height="@dimen/dp48"
+            android:src="@mipmap/google_icon"
+            android:padding="@dimen/dp8"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/dp16">
+            <in.ckd.calenderkhanado.widgets.CkdTextview
+                style="@style/textviewregular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Email Us"
+                android:textColor="@color/black"
+                android:gravity="start"/>
+            <in.ckd.calenderkhanado.widgets.CkdTextview
+                style="@style/textviewbold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="ckd.khana@gmail.com"
+                android:textSize="@dimen/sp16"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

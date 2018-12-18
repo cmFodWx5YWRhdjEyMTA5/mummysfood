@@ -183,7 +183,7 @@ public class HomeFeed implements Serializable {
         @SerializedName("details")
         public String details;
         @SerializedName("food_type")
-        public int food_type;
+        public String food_type;
         @SerializedName("media_type")
         public String media_type;
         @SerializedName("price")

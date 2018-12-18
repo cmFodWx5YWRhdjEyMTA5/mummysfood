@@ -84,7 +84,7 @@
                 android:paddingEnd="@dimen/dp8"
                 android:layout_marginTop="@dimen/dp4"
                 android:layout_marginBottom="@dimen/dp8"
-                />
+                android:visibility="gone"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -103,7 +103,9 @@
                         style="@style/textviewbold"
                         android:layout_marginBottom="@dimen/dp4"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/dp16"/>
+                        android:textSize="@dimen/dp16"
+                        android:paddingStart="@dimen/dp8"
+                        android:paddingEnd="@dimen/dp8"/>
                     <in.ckd.calenderkhanado.widgets.CkdTextview
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
