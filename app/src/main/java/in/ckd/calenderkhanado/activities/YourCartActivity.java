@@ -270,7 +270,7 @@ public class YourCartActivity extends BaseActivity {
 
 
                 order_titile.setText(ordersSub.orders.get(0).food_name);
-                order_price.setText(getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
+                order_price.setText(getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price +" for one plate");
 
 
                 order_price_basedQuantity.setText(getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
@@ -301,7 +301,7 @@ public class YourCartActivity extends BaseActivity {
 
 
                 order_titile.setText(modelData.name);
-                order_price.setText(getResources().getString(R.string.rs_symbol) + modelData.price);
+                order_price.setText(getResources().getString(R.string.rs_symbol) + modelData.price +" for one plate");
                 order_price_basedQuantity.setText(getResources().getString(R.string.rs_symbol) + modelData.price);
                 order_price_finalTotal.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + 0));
                 totalValue.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + 0));
