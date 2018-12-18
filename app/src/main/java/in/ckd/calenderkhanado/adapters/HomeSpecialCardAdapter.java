@@ -113,7 +113,7 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
         try {
             viewHolder.orderTitle.setText(model.name);
             viewHolder.orderPrice.setText(context.getResources().getString(R.string.rs_symbol) + model.price);
-            String name = CapsName.CapitalizeFullName(model.name.trim());
+            String name = CapsName.CapitalizeFullName(model.user.name.trim());
             viewHolder.ChefName.setText(name);
 
         } catch (Exception e) {

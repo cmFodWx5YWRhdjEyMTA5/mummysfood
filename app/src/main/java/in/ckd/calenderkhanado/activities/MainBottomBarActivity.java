@@ -23,6 +23,7 @@ import in.ckd.calenderkhanado.fragments.ProfileFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import in.ckd.calenderkhanado.fragments.SearchFragment;
 
 public class MainBottomBarActivity extends BaseActivity implements HomeFragment.orderActionListner {
 
@@ -145,7 +146,7 @@ public class MainBottomBarActivity extends BaseActivity implements HomeFragment.
                 break;
             case R.id.navigation_order:
                 //item.getIcon().setColorFilter(getResources().getColor(R.color.red), PorterDuff.Mode.SRC_ATOP);
-                frag = new OrderStatusFragment();
+                frag = new SearchFragment();
                 replaceFragment(frag);
                 break;
             case R.id.navigation_profile:

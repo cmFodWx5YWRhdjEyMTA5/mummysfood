@@ -36,6 +36,7 @@ import in.ckd.calenderkhanado.models.DashBoardModel;
 import in.ckd.calenderkhanado.models.UserInsert;
 import in.ckd.calenderkhanado.utils.AppConstants;
 import in.ckd.calenderkhanado.utils.FilePath;
+import in.ckd.calenderkhanado.utils.Permission;
 import in.ckd.calenderkhanado.widgets.CkdEditText;
 import in.ckd.calenderkhanado.widgets.CkdTextview;
 
@@ -104,6 +105,8 @@ public class ProfileUpdateActivity extends BaseActivity {
 
     private String imageName;
     private int user_id;
+    public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
+    private String fileName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -228,16 +231,6 @@ public class ProfileUpdateActivity extends BaseActivity {
         builder.show();
     }
 
-    private void cameraIntent() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, CAMERA_REQUEST);
-    }
-
-    private void galleryIntent() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*");
-        startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_PHOTO);
-    }
 
     @OnClick(R.id.next_upload_profile)
     public void UpdateUserData() {
@@ -352,6 +345,7 @@ public class ProfileUpdateActivity extends BaseActivity {
                                 data.profile_image = json.getJSONArray("data").getJSONObject(0).getString("profile_image");
                                 data.email = json.getJSONArray("data").getJSONObject(0).getString("email");
                                 sharePrefrenceIntentActivity(data);
+                                uploadFile(fileName, data.id);
 
                             } else if (json.getString("status").equalsIgnoreCase(AppConstants.ALREADY)) {
                                 data.id = json.getJSONArray("data").getJSONObject(0).getInt("id");
@@ -431,19 +425,58 @@ public class ProfileUpdateActivity extends BaseActivity {
         }
     }
 
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Permission.onRequestPermissionsResult(
+                requestCode, permissions, grantResults, this);
+
+        switch (requestCode) {
+            case AppConstants.PERMISSION_READ_EXTERNAL_STORAGE : {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (userChoosenTask != null && userChoosenTask.equals("Choose from Library")) {
+                        galleryIntent();
+                    } else if (userChoosenTask != null && userChoosenTask.equals("Take Photo")) {
+                        cameraIntent();
+                    }
+                } else {
+                }
+                return;
+            }
+        }
+
+    }
+
+    private void cameraIntent() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, CAMERA_REQUEST);
+    }
+
+    private void galleryIntent() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_PHOTO);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //image upload
-        if (resultCode != 0 && requestCode == SELECT_PHOTO)
-        {
+        if (resultCode != 0 && requestCode == SELECT_PHOTO ) {
             mImageUri = data.getData();
             if (mImageUri == null) {
                 showToast("Error in uploading image.Please try again.");
             } else {
-                String filename = FilePath.getPath(this, mImageUri);
-                performCrop();
-                uploadFile(filename);
+                try {
+                    fileName = FilePath.getPath(ProfileUpdateActivity.this, mImageUri);
+                    bitmapImage = MediaStore.Images.Media.getBitmap(getContentResolver(), mImageUri);
+                    bitmapImage.createScaledBitmap(bitmapImage, 400, 400, true);
+                    profileImage.setImageBitmap(bitmapImage);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             }
         } else if (resultCode != 0 && requestCode == CAMERA_REQUEST) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
@@ -453,12 +486,10 @@ public class ProfileUpdateActivity extends BaseActivity {
                 showToast("Error in uploading image.Please try again.");
             } else {
                 try {
-                    bitmapImage = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mImageUri);
+                    fileName = getRealPathFromURI(mImageUri);
+                    bitmapImage = MediaStore.Images.Media.getBitmap(getContentResolver(), mImageUri);
                     bitmapImage.createScaledBitmap(bitmapImage, 400, 400, true);
-
-                    String fileName = getRealPathFromURI(mImageUri);
-                    performCrop();
-                    uploadFile(fileName);
+                    profileImage.setImageBitmap(bitmapImage);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -481,10 +512,11 @@ public class ProfileUpdateActivity extends BaseActivity {
                 } else {
                     try {
                         bitmapImage = MediaStore.Images.Media.getBitmap(getContentResolver(), resultUri);
+                        profileImage.setImageBitmap(bitmapImage);
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    profileImage.setImageBitmap(bitmapImage);
                 }
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
@@ -502,7 +534,7 @@ public class ProfileUpdateActivity extends BaseActivity {
                 .start(this);
     }
 
-    private void uploadFile(String filename) {
+    private void uploadFile(String filename, int entity_id) {
 
         try {
 
@@ -514,7 +546,7 @@ public class ProfileUpdateActivity extends BaseActivity {
 
             RequestBody name = RequestBody.create(MediaType.parse("text/plain"),"user");
 
-            Call<UploadMedia> call = AppConstants.restAPI.uploadImage(body, user_id, user_id, name);
+            Call<UploadMedia> call = AppConstants.restAPI.uploadImage(body, entity_id, entity_id, name);
 
             call.enqueue(new Callback<UploadMedia>() {
                 @Override

@@ -161,25 +161,11 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
     @OnClick(R.id.mobile_login)
     public void MobileLogin(){
 
-
-        /*Intent i = new Intent(LoginAndSignupActivity.this,ProfileUpdateActivity.class);
-        i.putExtra("mobile", "8828376477");
-        i.putExtra("logintype","mobile");
-        startActivity(i);*/
-
         Intent intent = new Intent(this,MobileOtpVerificationActivity.class);
-
         startActivity(intent);
         finish();
     }
 
-    /*@Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is sign    Ned in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser,true);
-    }*/
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -205,62 +191,6 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
         }
     }
 
-    // [START auth_with_google]
-    /*private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-
-        showProgress("loading");
-
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            final FirebaseUser user = mAuth.getCurrentUser();
-                            if (user != null) {
-                                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-
-                                rootRef.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-                                        for (DataSnapshot booksSnapshot : dataSnapshot.child("users").getChildren()) {
-                                            String bookskey = booksSnapshot.getKey();
-                                            UserModel value = booksSnapshot.getValue(UserModel.class);
-                                            showToast(value.email);
-                                            if (!value.email.equalsIgnoreCase(user.getEmail())){
-                                                networkcallForCheckUserInDb(user);
-                                            }else {
-                                             //   networkcallForSaveUserInDb(user);
-                                               // updateUI(user,true);
-                                            }
-                                        }
-
-                                        networkcallForCheckUserInDb(user);
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-
-
-                                });
-                            }
-                        } else {
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                           Snackbar.make(findViewById(R.id.mainRelative), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
-
-                        }
-
-                        dismissProgress();
-                    }
-                });
-    }*/
-
     private void firebaseAuthWithGoogle(final GoogleSignInAccount acct, final GoogleSignInResult result) {
 
         //get the shared instance of the FirebaseAuth object
@@ -284,21 +214,6 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
         });
     }
 
-    private void setValueinFirebaseDb(FirebaseUser user) {
-
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("users");
-
-        String userId = mDatabase.push().getKey();
-
-        UserModel userN = new UserModel(user.getDisplayName(), user.getEmail());
-
-        mDatabase.child(userId).setValue(userN);
-    }
-
-    private void checkUserAvailableOrNot()
-    {
-
-    }
 
     private void networkcallForCheckUserInDb(final GoogleSignInAccount user) {
 
@@ -323,8 +238,7 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
                         try {
                             String resp = response.body().string();
 
-                            JSONObject json = new JSONObject(resp)
-                                    ;
+                            JSONObject json = new JSONObject(resp);
                             UserInsert.Data data = new UserInsert.Data();
 
                             if (json.getString("status").equalsIgnoreCase(AppConstants.SUCCESS)) {
@@ -332,10 +246,10 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
                                 intent.putExtra("fullname",user.getDisplayName());
                                 intent.putExtra("email",user.getEmail());
                                 intent.putExtra("profile_image",user.getPhotoUrl().toString());
-                                intent.putExtra("logintype","google");
+                                intent.putExtra("logintype",AppConstants.GOOGLE);
 
                                 try {
-                                    saveValue(json,"google");
+                                    saveValue(json,AppConstants.GOOGLE);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -480,7 +394,7 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
             intent.putExtra("fullname","");
             intent.putExtra("email",data.email);
             intent.putExtra("profile_image",data.profile_image);
-            intent.putExtra("logintype","google");
+            intent.putExtra("logintype",AppConstants.GOOGLE);
             startActivity(intent);
             finish();
         }

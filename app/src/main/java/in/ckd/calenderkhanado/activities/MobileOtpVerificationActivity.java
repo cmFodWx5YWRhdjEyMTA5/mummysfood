@@ -353,7 +353,7 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
         request.is_email_verified = "0";
         request.is_mobile_verified = "1";
         request.is_vagitarian = "0";
-        request.type = "seeker";
+        request.type = AppConstants.SEEKER;
 
         Call<ResponseBody> loginRequestCall = AppConstants.restAPI.saveUserInfo(request);
 

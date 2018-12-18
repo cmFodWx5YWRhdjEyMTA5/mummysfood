@@ -39,9 +39,9 @@
 
     <!--food type-->
     <string name="food_type_title">YOU WOULD LIKE TO COOK</string>
-    <string name="veg">Vegiterian</string>
+    <string name="veg">Vegetarian</string>
     <string name="capsoffveg">Veg</string>
-    <string name="veg_nonveg">Non-Vegiterian</string>
+    <string name="veg_nonveg">Non-Vegetarian</string>
     <string name="capsoffveg_nonveg">Veg+Nonveg</string>
 
     <!--rate yourself-->
