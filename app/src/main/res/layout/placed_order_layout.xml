@@ -48,7 +48,7 @@
             android:layout_marginLeft="@dimen/dp8"
             android:layout_marginTop="@dimen/dp8"
             android:gravity="center"
-            android:text="Your order has placed you meal will be delivered with in 40 mins "
+            android:text="Your order has placed.your meal will be deliverd on time "
             android:textColor="@color/black_effective"
             android:textSize="@dimen/sp14" />
 

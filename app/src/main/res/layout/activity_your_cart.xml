@@ -426,7 +426,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/fill_rounded_sqare_primarycolor"
                 android:gravity="center_vertical"
-                android:padding="@dimen/dp8"
+                android:padding="@dimen/dp12"
                 android:layout_marginTop="@dimen/dp8">
 
                 <in.ckd.calenderkhanado.widgets.CkdTextview

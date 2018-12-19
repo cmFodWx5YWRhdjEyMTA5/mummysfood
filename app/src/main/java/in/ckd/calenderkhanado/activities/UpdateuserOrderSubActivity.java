@@ -124,7 +124,15 @@ public class UpdateuserOrderSubActivity extends BaseActivity
 
     private void updateOrder() {
 
-            subscribtionModel.ordered_plates = subscribtionModel.ordered_plates+1;
+             if (subscribtionModel.number_of_days == 1)
+             {
+                 int orderPlates = subscribtionModel.ordered_plates;
+                 subscribtionModel.ordered_plates = orderPlates ;
+             }else
+             {
+                 subscribtionModel.ordered_plates = subscribtionModel.ordered_plates+1;
+             }
+
             subscribtionModel.deliverd_order = 1;
 
 

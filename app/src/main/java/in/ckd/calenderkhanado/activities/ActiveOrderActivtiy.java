@@ -110,9 +110,14 @@ public class ActiveOrderActivtiy extends BaseActivity
            if (ordersSubs.orders.get(0).is_dinner == 1 && ordersSubs.orders.get(0).is_lunch==1)
                 {
                     payment_type_value.setText(String.valueOf(ordersSubs.number_of_days * Integer.parseInt(ordersSubs.orders.get(0).price)+
-                            ordersSubs.number_of_days * Integer.parseInt(ordersSubs.orders.get(0).price))+ "Lunch and dinner both for "+String.valueOf(ordersSubs.number_of_days));
+                            ordersSubs.number_of_days * Integer.parseInt(ordersSubs.orders.get(0).price))+ " Lunch and dinner both for "+String.valueOf(ordersSubs.number_of_days));
                 }else {
-                    payment_type_value.setText(ordersSubs.number_of_days * Integer.parseInt(ordersSubs.orders.get(0).price)+ " for  "+String.valueOf(ordersSubs.number_of_days)+ " days");
+
+                if (ordersSubs.number_of_days == 1)
+                {
+                    payment_type_value.setText(ordersSubs.ordered_plates * Integer.parseInt(ordersSubs.orders.get(0).price)+ " for  "+String.valueOf(ordersSubs.number_of_days)+ " days");
+
+                }
                 }
 
 
@@ -133,7 +138,7 @@ public class ActiveOrderActivtiy extends BaseActivity
         {
             yourorderDetails.setText("It's Active Order");
             OrderActive.setVisibility(View.GONE);
-            SkipOrderForTodayLayout.setVisibility(View.VISIBLE);
+            SkipOrderForTodayLayout.setVisibility(View.GONE);
             RemainingPlates_value.setText(String.valueOf(remainPlates));
         }else
         {
