@@ -950,8 +950,10 @@ public class YourCartActivity extends BaseActivity {
                             startActivity(ActIntent);
                             finish();
 
-                            sendSms();
-                            sendEmail();
+                            sendSms(res.order_by,res.chef_name,res.order_for,res.ordered_plates,res.price,res.landmark,res.food_detail,
+                                    res.is_dinner,res.is_lunch,res.payment_status);
+                            sendEmail(res.order_by,res.chef_name,res.order_for,res.ordered_plates,res.price,res.landmark,res.food_detail,
+                                    res.is_dinner,res.is_lunch,res.payment_status);
 
                             //sendNotification();
 
@@ -992,13 +994,15 @@ public class YourCartActivity extends BaseActivity {
         });
     }
 
-    private void sendEmail() {
+    private void sendEmail(int order_by, String chef_name, int order_for, int ordered_plates, String price, String landmark, String food_detail, int is_dinner, int is_lunch, String payment_status) {
 
 
         //Getting content for email
         String email = "ckd.khana@gmail.com";
-        String subject = "Testing";
-        String message = "your mail body";
+        String subject = "Wake Up New Order Arrived";
+        String message = "Order by this user Id - "+order_by+"\n"+"Chef Name - "+chef_name+"\n"+"Order for this chef UserId -"+order_for+"\n"
+                +"Number of plates Ordered - "+ordered_plates+"\n"+"Price for this Order - "+price+"\n"+"Land Mark = "+landmark+"\n"
+                +"Food Details - "+food_detail+"\n"+"Is Dinner -"+is_dinner+"\n"+"Is Lunch ="+is_lunch+"\n"+"Payment Method -"+payment_status;
 
         //Creating SendMail object
         SendMail sm = new SendMail(this, email, subject, message);
@@ -1009,9 +1013,12 @@ public class YourCartActivity extends BaseActivity {
 
     }
 
-    private void sendSms() {
-        String phone = "8602639858";
-        String message = "your sms body";
+    private void sendSms(int order_by, String chef_name, int order_for, int ordered_plates, String price, String landmark, String food_detail, int is_dinner, int is_lunch, String payment_status) {
+        String phone = "8828376477";
+        String message = "Order by this user Id - "+order_by+"\n"+"Chef Name - "+chef_name+"\n"+"Order for this chef UserId -"+order_for+"\n"
+                +"Number of plates Ordered - "+ordered_plates+"\n"+"Price for this Order - "+price+"\n"+"Land Mark = "+landmark+"\n"
+                +"Food Details - "+food_detail+"\n"+"Is Dinner -"+is_dinner+"\n"+"Is Lunch ="+is_lunch+"\n"+"Payment Method -"+payment_status;
+
 
         //Check if the phoneNumber is empty
         if (phone.isEmpty()) {
