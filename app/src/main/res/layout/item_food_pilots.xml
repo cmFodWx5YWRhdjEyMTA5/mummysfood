@@ -83,11 +83,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <ImageView
+                        android:id="@+id/vegSysmbol"
                         android:layout_width="@dimen/dp16"
                         android:layout_height="@dimen/dp16"
                         android:src="@mipmap/food_symbol"
-                        android:layout_gravity="center_vertical"
-                        android:tint="@color/green"/>
+                        android:layout_alignParentStart="true"
+                        android:tint="@color/green"
+                        android:layout_marginTop="@dimen/dp4"/>
                     <in.ckd.calenderkhanado.widgets.CkdTextview
                         android:id="@+id/food_title"
                         android:layout_width="match_parent"

@@ -132,7 +132,9 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
         if (model.food_type == null || model.food_type.equalsIgnoreCase("0"))
             viewHolder.vegSysmbol.setColorFilter(context.getResources().getColor(R.color.green));
         else
+        {
             viewHolder.vegSysmbol.setColorFilter(context.getResources().getColor(R.color.red));
+        }
 
         try {
 
