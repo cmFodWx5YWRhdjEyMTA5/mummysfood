@@ -67,7 +67,8 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
 
             if (subList.number_of_days == 1 &&subList.deliverd_order == 0)
             {
-                remmainPlates = 1;
+
+                remmainPlates = orderPlates;
                 holder.remainingPlates.setText("Your order is on the way");
             }else
             {
@@ -138,12 +139,8 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
         holder.CancelOrder.setTag(position);
         holder.CancelOrder.setOnClickListener(this);
 
-      //  holder.UpdateOrder.setTag(position);
+         //  holder.UpdateOrder.setTag(position);
         //holder.UpdateOrder.setOnClickListener(this);
-
-
-
-
 
     }
 
@@ -155,7 +152,6 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
     @Override
     public void onClick(View v)
     {
-
         int postion = (Integer) v.getTag();
 
         switch (v.getId())
@@ -172,9 +168,16 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
                         int totalPlates = subList.number_of_days;
                         int orderPlates = subList.ordered_plates;
 
-                        if (subList.number_of_days == 1 && subList.deliverd_order == 1)
+                        if (subList.number_of_days == 1 )
                         {
-                            remmainPlates = 0;
+                            if (subList.deliverd_order == 1)
+                            {
+                                remmainPlates = 0;
+
+                            }else
+                            {
+                                remmainPlates = subList.ordered_plates;
+                            }
                         }else
                         {
                             if (subList.deliverd_order== 1)
@@ -197,7 +200,6 @@ public class OrderStatusAdapter extends RecyclerView.Adapter<OrderStatusAdapter.
                         }
                     }
                 }
-
 
                 break;
            /* case R.id.UpdateOrder:

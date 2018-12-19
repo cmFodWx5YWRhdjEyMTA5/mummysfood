@@ -685,6 +685,7 @@ public class YourCartActivity extends BaseActivity {
         LottieAnimationView lottieAnimationViewPlace = (LottieAnimationView) dialogd.findViewById(R.id.lottieAnimationViewPlace);
         lottieAnimationViewPlace.playAnimation();
 
+
         palceOrderViaMethod.setText("Your order will be placing via " + paymentType + " payment method" + '\n' + "Place Order ?");
 
         placeOrderok.setOnClickListener(new View.OnClickListener() {

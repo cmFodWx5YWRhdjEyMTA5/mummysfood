@@ -132,6 +132,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
     private int orderId;
     private HomeFeed.Data data;
     private PreferenceManager pf;
+    private PreferenceManager mainpf;
     private PreferenceManager userPf;
     private int monthlyValue;
     private int weeklyValue;
@@ -164,6 +165,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         setContentView(R.layout.order_detail_layout);
         pf = new PreferenceManager(this, PreferenceManager.ORDER_PREFERENCES_FILE);
         userPf = new PreferenceManager(this, PreferenceManager.USER_ADDRESS);
+        mainpf = new PreferenceManager(this);
 
         UserCUrrentAdd = userPf.getStringForKey("CurrentAddress", "");
 
@@ -594,6 +596,19 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         }
 
 
+        String paymentType = null;
+        try {
+            paymentType = mainpf.getStringForKey("paymentType", "");
+            if ("".equalsIgnoreCase(paymentType))
+            {
+                mainpf.saveStringForKey("paymentType","Paytm");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
         Intent yourCart = new Intent(this, YourCartActivity.class);
         yourCart.putExtra("data",data);
         yourCart.putExtra("typeOfPackage",typeOfPackage);
@@ -631,7 +646,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
             {
                 isDinner = 1;
                 isLunch =0;
-                numberOfDays = 6;
+                numberOfDays = 7;
             }else if (typeOfPackage.equalsIgnoreCase("monthly"))
             {
                 isDinner = 1;
@@ -652,7 +667,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
             {
                  isLunch = 1;
                  isDinner =0;
-                numberOfDays = 6;
+                numberOfDays = 7;
             }else if (typeOfPackage.equalsIgnoreCase("monthly"))
             {
                 isLunch = 1;
@@ -673,7 +688,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
             {
                 isDinner = 1;
                 isLunch = 1;
-                numberOfDays = 12;
+                numberOfDays = 14;
             }else if (typeOfPackage.equalsIgnoreCase("monthly"))
             {
                 isDinner = 1;
