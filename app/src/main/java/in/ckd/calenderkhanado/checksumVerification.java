@@ -1,5 +1,6 @@
 package in.ckd.calenderkhanado;
 
+
 import in.ckd.calenderkhanado.*;
 
 import java.util.Map;
@@ -7,9 +8,9 @@ import java.util.TreeMap;
 
 public class checksumVerification {
 
-    private static String MercahntKey = "XXXXXXXXXXX";
+    private static String MercahntKey = "XfLrgI86715347032972";
 
-    public static void main(String[] a){
+    public static boolean main(String[] a){
 
         String paytmChecksum = "";
 
@@ -43,5 +44,6 @@ public class checksumVerification {
         }catch(Exception e){
             e.printStackTrace();
         }
+        return isValideChecksum;
     }
 }
