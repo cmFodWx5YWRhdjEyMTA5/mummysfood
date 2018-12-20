@@ -103,6 +103,10 @@ public class YourCartActivity extends BaseActivity {
 
     @BindView(R.id.scrollchange)
     RelativeLayout scrollChange;
+    @BindView(R.id.grandTotalvalue)
+    RelativeLayout grandTotalvalue;
+
+
 
     @BindView(R.id.checkedCod)
     ImageView checkedCod;
@@ -280,7 +284,10 @@ public class YourCartActivity extends BaseActivity {
                 payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
                 placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
                 payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
-                order_taxes.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(50));
+                order_taxes.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(0));
+
+                grandTotalvalue.setVisibility(View.GONE);
+               // order_price_finalTotal.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + 0));
 
             } else {
                 float orderPrice = Float.parseFloat(modelData.price);
@@ -292,14 +299,13 @@ public class YourCartActivity extends BaseActivity {
                     orderPriceInt = orderPriceInt * numberOfDays;
                 } else if (typeOfPackage.equalsIgnoreCase("today")) {
                     if (isDinner == 1 && isLunch == 1) {
-                        orderPriceInt = orderPriceInt * numberOfDays;
                         orderPriceInt = orderPriceInt + orderPriceInt;
                     } else {
                         orderPriceInt = orderPriceInt * numberOfDays;
                     }
                 }
 
-
+                grandTotalvalue.setVisibility(View.VISIBLE);
                 order_titile.setText(modelData.name);
                 order_price.setText(getResources().getString(R.string.rs_symbol) + modelData.price +" for one plate");
                 order_price_basedQuantity.setText(getResources().getString(R.string.rs_symbol) + modelData.price);
@@ -762,9 +768,13 @@ public class YourCartActivity extends BaseActivity {
                             showToast("Paytm Integration is in process you can place order using COD");
                             //paytmPlaceOrder();
                         } else {
+                            //paytmPlaceOrder();
+
                             newtowrkCallToplaceOrder(orderModel, itemCountText);
                         }
                     } else {
+                        //paytmPlaceOrder();
+
                         showToast("This order has placed via COD payment method");
                         newtowrkCallToplaceOrder(orderModel, itemCountText);
                     }
@@ -841,9 +851,12 @@ public class YourCartActivity extends BaseActivity {
                             showToast("Paytm Integration is in process you can place order using COD");
                             //paytmPlaceOrder();
                         } else {
+                            //paytmPlaceOrder();
+
                             newtowrkCallToplaceOrder(orderModel, itemCountText);
                         }
                     } else {
+                        //paytmPlaceOrder();
                         showToast("This order has placed via COD payment method");
                         newtowrkCallToplaceOrder(orderModel, itemCountText);
                     }
@@ -874,21 +887,20 @@ public class YourCartActivity extends BaseActivity {
 
 
         HashMap<String, String> paramMap = new HashMap<String, String>();
-        paramMap.put("MID", "XfLrgI86715347032972");
-        // Key in your staging and production MID available in your dashboard
-        paramMap.put("ORDER_ID", "order1");
-        paramMap.put("CUST_ID", "cust123");
-        paramMap.put("MOBILE_NO", "8602639858 ");
-        paramMap.put("EMAIL", "seemanagar86@gmail.com");
-        paramMap.put("CHANNEL_ID", "WAP");
-        paramMap.put("TXN_AMOUNT", "1");
-        paramMap.put("WEBSITE", "WEBSTAGING");
-        // This is the staging value. Production value is available in your dashboard
-        paramMap.put("INDUSTRY_TYPE_ID", "Retail");
-        // This is the staging value. Production value is available in your dashboard
-        paramMap.put("CALLBACK_URL", "https://securegw-stage.paytm.in/theia/paytmCallback?ORDER_ID=order1");
-        //String paytmChecksum = CheckSumServiceHelper.getCheckSumServiceHelper().genrateCheckSum("XfLrgI86715347032972", paytmParams);
-        paramMap.put("CHECKSUMHASH", "w2QDRMgp1234567JEAPCIOmNgQvsi+BhpqijfM9KvFfRiPmGSt3Ddzw+oTaGCLneJwxFFq5mqTMwJXdQE2EzK4px2xruDqKZjHupz9yXev4=");
+        paramMap.put( "MID" , "XfLrgI86715347032972");
+// Key in your staging and production MID available in your dashboard
+        paramMap.put( "ORDER_ID" , "ORDER45676");
+        paramMap.put( "CUST_ID" , "CUST0001453");
+        paramMap.put( "MOBILE_NO" , "8602639858");
+        //paramMap.put( "EMAIL" , "seemanagar86@gmail.com");
+        paramMap.put( "CHANNEL_ID" , "WAP");
+        paramMap.put( "TXN_AMOUNT" , "10.00");
+        paramMap.put( "WEBSITE" , "APPSTAGING");
+// This is the staging value. Production value is available in your dashboard
+        paramMap.put( "INDUSTRY_TYPE_ID" , "Retail");
+// This is the staging value. Production value is available in your dashboard
+        paramMap.put( "CALLBACK_URL", "https://securegw.paytm.in/theia/paytmCallback?ORDER_ID=ORDER45676");
+        paramMap.put( "CHECKSUMHASH" , "w2QDRMgp1234567JEAPCIOmNgQvsi+BhpqijfM9KvFfRiPmGSt3Ddzw+oTaGCLneJwxFFq5mqTMwJXdQE2EzK4px2xruDqKZjHupz9yXev4=");
         PaytmOrder Order = new PaytmOrder(paramMap);
         Service.initialize(Order, null);
 
