@@ -118,8 +118,12 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
 
         configureSignIn();
 
+        //sms permission
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.READ_SMS}, SMS_PERMISSION);
+        }
         //read mobile contact list
-        readContacts();
+        //readContacts();
 
 
     }
@@ -429,7 +433,7 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
     }
 
     /*read mobile contact no.*/
-    private void readContacts() {
+    /*private void readContacts() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_SMS}, 0);
         }
@@ -440,7 +444,7 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
             AsyncTaskRunner runner = new AsyncTaskRunner();
             runner.execute("import_contact");
         }
-    }
+    }*/
 
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == PERMISSIONS_REQUEST_READ_CONTACTS) {
@@ -452,6 +456,13 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
             } else {
                 //Log.e("Permission","Deny");
                 syncContact = true;
+            }
+        }else if (requestCode == SMS_PERMISSION) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission is granted
+
+            } else {
+                //Log.e("Permission","Deny");
             }
         }
     }

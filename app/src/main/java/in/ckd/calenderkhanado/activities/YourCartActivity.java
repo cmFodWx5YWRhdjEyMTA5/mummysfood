@@ -103,6 +103,10 @@ public class YourCartActivity extends BaseActivity {
 
     @BindView(R.id.scrollchange)
     RelativeLayout scrollChange;
+    @BindView(R.id.grandTotalvalue)
+    RelativeLayout grandTotalvalue;
+
+
 
     @BindView(R.id.checkedCod)
     ImageView checkedCod;
@@ -280,7 +284,10 @@ public class YourCartActivity extends BaseActivity {
                 payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
                 placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
                 payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
-                order_taxes.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(50));
+                order_taxes.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(0));
+
+                grandTotalvalue.setVisibility(View.GONE);
+               // order_price_finalTotal.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + 0));
 
             } else {
                 float orderPrice = Float.parseFloat(modelData.price);
@@ -292,14 +299,13 @@ public class YourCartActivity extends BaseActivity {
                     orderPriceInt = orderPriceInt * numberOfDays;
                 } else if (typeOfPackage.equalsIgnoreCase("today")) {
                     if (isDinner == 1 && isLunch == 1) {
-                        orderPriceInt = orderPriceInt * numberOfDays;
                         orderPriceInt = orderPriceInt + orderPriceInt;
                     } else {
                         orderPriceInt = orderPriceInt * numberOfDays;
                     }
                 }
 
-
+                grandTotalvalue.setVisibility(View.VISIBLE);
                 order_titile.setText(modelData.name);
                 order_price.setText(getResources().getString(R.string.rs_symbol) + modelData.price +" for one plate");
                 order_price_basedQuantity.setText(getResources().getString(R.string.rs_symbol) + modelData.price);
