@@ -323,7 +323,7 @@ public class ProfileUpdateActivity extends BaseActivity {
         request.device_id = device_id;
         request.os = osVersion;
 
-        Call<ResponseBody> loginRequestCall = AppConstants.restAPI.updateUserInfo(user_id, request);
+        Call<ResponseBody> loginRequestCall = AppConstants.restAPI.updateUserInfo( request,user_id);
 
         loginRequestCall.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -345,7 +345,7 @@ public class ProfileUpdateActivity extends BaseActivity {
                                 data.profile_image = json.getJSONArray("data").getJSONObject(0).getString("profile_image");
                                 data.email = json.getJSONArray("data").getJSONObject(0).getString("email");
                                 sharePrefrenceIntentActivity(data);
-                                uploadFile(fileName, data.id);
+
 
                             } else if (json.getString("status").equalsIgnoreCase(AppConstants.ALREADY)) {
                                 data.id = json.getJSONArray("data").getJSONObject(0).getInt("id");
@@ -475,6 +475,7 @@ public class ProfileUpdateActivity extends BaseActivity {
                     bitmapImage = MediaStore.Images.Media.getBitmap(getContentResolver(), mImageUri);
                     bitmapImage.createScaledBitmap(bitmapImage, 400, 400, true);
                     profileImage.setImageBitmap(bitmapImage);
+                    uploadFile(fileName, user_id);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -492,7 +493,7 @@ public class ProfileUpdateActivity extends BaseActivity {
                     bitmapImage = MediaStore.Images.Media.getBitmap(getContentResolver(), mImageUri);
                     bitmapImage.createScaledBitmap(bitmapImage, 400, 400, true);
                     profileImage.setImageBitmap(bitmapImage);
-
+                    uploadFile(fileName, user_id);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -515,7 +516,7 @@ public class ProfileUpdateActivity extends BaseActivity {
                     try {
                         bitmapImage = MediaStore.Images.Media.getBitmap(getContentResolver(), resultUri);
                         profileImage.setImageBitmap(bitmapImage);
-
+                        uploadFile(fileName, user_id);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

@@ -96,6 +96,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/order_titile"
+                            android:visibility="gone"
                             android:layout_marginLeft="@dimen/dp8"
                             android:layout_marginTop="@dimen/dp16"
                             android:layout_toEndOf="@+id/vegSysmbol"
@@ -427,7 +428,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/fill_rounded_sqare_primarycolor"
                 android:gravity="center_vertical"
-                android:padding="@dimen/dp8"
+                android:padding="@dimen/dp12"
                 android:layout_marginTop="@dimen/dp8">
 
                 <in.ckd.calenderkhanado.widgets.CkdTextview

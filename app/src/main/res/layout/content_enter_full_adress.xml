@@ -5,6 +5,16 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/backImages"
+        android:src="@drawable/ic_back_arrow"
+        android:layout_width="wrap_content"
+        android:tint="@color/black_effective"
+        android:layout_marginTop="@dimen/dp8"
+        android:layout_marginRight="@dimen/dp8"
+        android:layout_marginLeft="@dimen/dp8"
+        android:layout_height="@dimen/dp32" />
     <LinearLayout
         android:background="@color/white"
         android:orientation="vertical"

@@ -138,7 +138,6 @@ public class ManageAddressesActivity extends BaseActivity implements AddressRecy
     }
 
     private void networkCallForAsavingAddress(final int pos) {
-        pf = new PreferenceManager(this,PreferenceManager.LOGIN_PREFERENCES_FILE);
 
 
         Call<ResponseBody>  addressModelCall   = AppConstants.restAPI.postAddressDelete(addressesList.get(pos).id);

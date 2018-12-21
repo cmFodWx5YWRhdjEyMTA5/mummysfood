@@ -135,10 +135,7 @@ public class ProfileFragment extends BaseFragment {
 
       // display data from sharedPrefrence
 
-        String profile = pfpp.getStringForKey("ImageUrl","");
         String fname = pfpp.getStringForKey("Name","");
-
-        Glide.with(getActivity()).load(profile).diskCacheStrategy(DiskCacheStrategy.SOURCE).error(R.mipmap.default_usr_img).into(profileImage);
 
         String name = CapsName.CapitalizeFullName(fname);
         profileUsername.setText(name);
@@ -158,8 +155,6 @@ public class ProfileFragment extends BaseFragment {
                                 try {
                                     userData = res.data.get(0);
                                     addressesList = userData.addresses;
-
-                                    //Log.d("ListSize",String.valueOf(userData.addresses.size()));
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
@@ -470,7 +465,7 @@ public class ProfileFragment extends BaseFragment {
 
         request.profile_image = image_name;
 
-        Call<ResponseBody> loginRequestCall = AppConstants.restAPI.updateUserInfo(userId,request);
+        Call<ResponseBody> loginRequestCall = AppConstants.restAPI.updateUserInfo(request,userId);
 
         loginRequestCall.enqueue(new Callback<ResponseBody>() {
             @Override

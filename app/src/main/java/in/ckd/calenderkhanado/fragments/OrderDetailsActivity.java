@@ -28,6 +28,8 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -326,7 +328,16 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
         try {
            //  Glide.with(this).load(data.profile_image).into(order_chef_profile_img);
-            order_chef_name.setText(data.user.name);
+
+
+            try {
+                String chars = capitalize(data.user.name);
+                order_chef_name.setText(chars);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
             order_titile.setText(data.name);
             order_detail.setText(data.details);
             order_price.setText(getResources().getString(R.string.rs_symbol)+ data.price);
@@ -704,6 +715,16 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         }
 
           return numberOfDays;
+    }
+
+    private String capitalize(String capString){
+        StringBuffer capBuffer = new StringBuffer();
+        Matcher capMatcher = Pattern.compile("([a-z])([a-z]*)", Pattern.CASE_INSENSITIVE).matcher(capString);
+        while (capMatcher.find()){
+            capMatcher.appendReplacement(capBuffer, capMatcher.group(1).toUpperCase() + capMatcher.group(2).toLowerCase());
+        }
+
+        return capMatcher.appendTail(capBuffer).toString();
     }
 
     @Override

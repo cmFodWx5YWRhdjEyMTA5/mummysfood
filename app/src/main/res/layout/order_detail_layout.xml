@@ -469,7 +469,7 @@
                             android:paddingTop="@dimen/dp4"
                             android:paddingRight="@dimen/dp16"
                             android:paddingBottom="@dimen/dp4"
-                            android:text="weekly"
+                            android:text="Weekly"
                             android:textColor="@color/black"
                             android:textSize="@dimen/sp14" />
 
@@ -484,7 +484,7 @@
                             android:paddingTop="@dimen/dp4"
                             android:paddingRight="@dimen/dp16"
                             android:paddingBottom="@dimen/dp4"
-                            android:text="monthly"
+                            android:text="Monthly"
                             android:textColor="@color/black"
                             android:textSize="@dimen/sp14" />
 
@@ -523,7 +523,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="4"
                                 android:text="Lunch"
-                                android:textAllCaps="true"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/sp14" />
 
@@ -566,7 +565,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="4"
                                 android:text="Dinner"
-                                android:textAllCaps="true"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/sp14" />
 
@@ -607,7 +605,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="4"
                                 android:text="Both"
-                                android:textAllCaps="true"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/sp14" />
 

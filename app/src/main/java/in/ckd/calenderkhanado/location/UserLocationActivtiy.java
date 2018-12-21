@@ -39,8 +39,10 @@ import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 
 import in.ckd.calenderkhanado.R;
+import in.ckd.calenderkhanado.activities.MainBottomBarActivity;
 import in.ckd.calenderkhanado.base.BaseActivity;
 import in.ckd.calenderkhanado.data.pref.PreferenceManager;
+import in.ckd.calenderkhanado.models.AddressModel;
 import in.ckd.calenderkhanado.utils.AppConstants;
 
 import java.io.IOException;
@@ -54,6 +56,8 @@ import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static in.ckd.calenderkhanado.fragments.ProfileFragment.addressesList;
 
 
 public class UserLocationActivtiy extends BaseActivity
@@ -90,6 +94,7 @@ public class UserLocationActivtiy extends BaseActivity
     private double latitudeS;
     private double lognitudeS;
     private String pin_code;
+    private String AddNew = "";
 
     private final int REQUEST_CODE_PERMISSION = 2;
 
@@ -108,6 +113,8 @@ public class UserLocationActivtiy extends BaseActivity
     String provider;
 
     BroadcastReceiver gpsReceiver;
+
+    String OrderDetails = "";
 
 
     @Override
@@ -131,6 +138,17 @@ public class UserLocationActivtiy extends BaseActivity
         handler = new Handler();
 
         pf = new PreferenceManager(this);
+        try {
+            AddNew = getIntent().getStringExtra("AddNew");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            OrderDetails   = getIntent().getStringExtra("From");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         searchText.setQueryHint("search your location");
 
@@ -227,6 +245,7 @@ public class UserLocationActivtiy extends BaseActivity
                     pin_code = postalCode;
 
                     pf.saveStringForKey("CurrentAddress", address);
+                    pf.saveStringForKey("Address", address);
                     pf.saveDoubleForKey("latitude", latitude);
                     pf.saveDoubleForKey("lognitude", longitude);
 
@@ -239,11 +258,6 @@ public class UserLocationActivtiy extends BaseActivity
                     enterOtherAct.putExtra("state", state);
                     startActivity(enterOtherAct);
 
-                    Log.d("Address", address);
-                    Log.d("Address", city);
-                    Log.d("Address", postalCode);
-                    Log.d("Address", state);
-                    Log.d("Address", String.valueOf(latitude));
                     finish();
 
 
@@ -406,6 +420,8 @@ public class UserLocationActivtiy extends BaseActivity
         }
 
     }
+
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {

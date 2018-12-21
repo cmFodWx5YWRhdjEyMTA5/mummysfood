@@ -68,11 +68,6 @@ public interface RetrofitApiService {
     Call<ResponseBody>updateUserInfo(@Body LoginRequest request,@Path("id")int id);
 
 
-
-    @PUT("user/{id}")
-    Call<ResponseBody>updateUserInfo(@Path("id") int id,@Body LoginRequest request);
-
-
     @PUT("user/{id}")
     Call<ResponseBody>updateUserImage(@Path("id") int id, @Field("profile_image")String profile_image);
 
@@ -87,8 +82,8 @@ public interface RetrofitApiService {
     @GET()
     Call<HomeFeed>getChefDataP(@Url String url);
 
-    @GET("user/{user_id}")
-    Call<ProfileModel>getProfileUserData(@Path("user_id") int id);
+    @GET("user/{id}")
+    Call<ProfileModel>getProfileUserData(@Path("id") int id);
 
     @GET
     Call<UserProfileModel>getProfileUserDataForOrder(@Url String url);

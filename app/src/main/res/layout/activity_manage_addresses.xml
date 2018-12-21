@@ -45,6 +45,7 @@
         android:text="@string/add_new_address"
         android:layout_marginStart="@dimen/dp24"
         android:layout_marginEnd="@dimen/dp24"
+        android:visibility="gone"
         android:layout_marginTop="@dimen/dp24"
         android:gravity="center"
         android:background="@drawable/border_primary"

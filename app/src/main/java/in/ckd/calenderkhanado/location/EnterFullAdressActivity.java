@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 
 import java.io.IOException;
@@ -45,6 +46,10 @@ public class EnterFullAdressActivity extends BaseActivity {
     @BindView(R.id.flatNo)
     EditText flatNo;
 
+    @BindView(R.id.backImages)
+    ImageView backImages;
+
+
     private  String address;
     private  String city;
     private  String latitude;
@@ -54,7 +59,6 @@ public class EnterFullAdressActivity extends BaseActivity {
     private String OrderDetails = "";
     private String AddNew = "";
     private int Position;
-    private PreferenceManager pf;
     private String updatedText = "";
     private int user_id;
     private PreferenceManager ppref;
@@ -74,7 +78,6 @@ public class EnterFullAdressActivity extends BaseActivity {
         setContentView(R.layout.content_enter_full_adress);
         ButterKnife.bind(this);
 
-        pf = new PreferenceManager(this,PreferenceManager.USER_ADDRESS);
         ppref = new PreferenceManager(this);
 
 
@@ -122,6 +125,12 @@ public class EnterFullAdressActivity extends BaseActivity {
         }
     }
 
+    @OnClick(R.id.backImages)
+    public  void backImages()
+    {
+        finish();
+    }
+
     @OnClick(R.id.saveUs)
     public void setSaveUs()
     {
@@ -129,7 +138,7 @@ public class EnterFullAdressActivity extends BaseActivity {
         updatedText   = locationMain.getText().toString();
 
 
-        pf.saveStringForKey("CurrentAddress",updatedText);
+        ppref.saveStringForKey("CurrentAddress",updatedText);
 
 
         if (OrderDetails != null &&!"".equalsIgnoreCase(OrderDetails)&&OrderDetails.equalsIgnoreCase("OrderDetails"))
@@ -167,7 +176,6 @@ public class EnterFullAdressActivity extends BaseActivity {
     }
 
     private void networkCallForAsavingAddress(final String action) {
-        pf = new PreferenceManager(this,PreferenceManager.LOGIN_PREFERENCES_FILE);
 
          user_id = ppref.getIntForKey("user_id",0);
 
@@ -259,11 +267,11 @@ public class EnterFullAdressActivity extends BaseActivity {
                             }
                             else
                             {
-                                pf.saveStringForKey("CurrentAddress",updatedText);
-                                pf.saveStringForKey("type",updatedText);
-                                pf.saveStringForKey("landmark",updatedText);
-                                pf.saveStringForKey("house_no",updatedText);
-                                pf.saveStringForKey("pincode",postalCode);
+                                ppref.saveStringForKey("CurrentAddress",updatedText);
+                                ppref.saveStringForKey("type",updatedText);
+                                ppref.saveStringForKey("landmark",updatedText);
+                                ppref.saveStringForKey("house_no",updatedText);
+                                ppref.saveStringForKey("pincode",postalCode);
                                 Intent mainIntent = new Intent(EnterFullAdressActivity.this, MainBottomBarActivity.class);
                                 mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(mainIntent);

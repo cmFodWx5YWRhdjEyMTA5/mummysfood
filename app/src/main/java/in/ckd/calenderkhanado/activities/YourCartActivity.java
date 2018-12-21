@@ -42,6 +42,7 @@ import in.ckd.calenderkhanado.R;
 import in.ckd.calenderkhanado.base.BaseActivity;
 import in.ckd.calenderkhanado.data.db.DataBaseHelperNew;
 import in.ckd.calenderkhanado.data.pref.PreferenceManager;
+import in.ckd.calenderkhanado.location.UserLocationActivtiy;
 import in.ckd.calenderkhanado.models.HomeFeed;
 import in.ckd.calenderkhanado.models.OrderModel;
 import in.ckd.calenderkhanado.models.UserProfileModel;
@@ -147,7 +148,7 @@ public class YourCartActivity extends BaseActivity {
     private HomeFeed.Data modelData;
     PreferenceManager pfUName;
     PreferenceManager pfUMobile;
-    PreferenceManager pfUAddress;
+  //  PreferenceManager pfUAddress;
     PreferenceManager loginPref;
 
     private int radioValue;
@@ -239,7 +240,7 @@ public class YourCartActivity extends BaseActivity {
 
             pfUName = new PreferenceManager(this, PreferenceManager.FIRST_NM);
             loginPref = new PreferenceManager(this, PreferenceManager.LOGIN_PREFERENCES_FILE);
-            pfUAddress = new PreferenceManager(this);
+          //  pfUAddress = new PreferenceManager(this);
             pfUMobile = new PreferenceManager(this, PreferenceManager.USER_MOBILE);
             pf = new PreferenceManager(this);
 
@@ -249,7 +250,7 @@ public class YourCartActivity extends BaseActivity {
                 e.printStackTrace();
             }
 
-            userAdd = pfUAddress.getStringForKey("CurrentAddress", "");
+            userAdd = pf.getStringForKey("CurrentAddress", "");
 
             if (location.equalsIgnoreCase("RepeatOrder")) {
 
@@ -410,6 +411,9 @@ public class YourCartActivity extends BaseActivity {
             placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + 0));
             payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + 0));
 
+        }else if (itemCountText == 1)
+        {
+            removeOrderDialog();
         }
     }
 
@@ -419,29 +423,36 @@ public class YourCartActivity extends BaseActivity {
         int itemCountText = Integer.parseInt(item_count.getText().toString());
 //        int itemTaxesText = Integer.parseInt(String.valueOf(0));
         int totalCount = itemCountText + 1;
-        item_count.setText(String.valueOf(totalCount));
+        if (totalCount <= 5)
+        {
+            item_count.setText(String.valueOf(totalCount));
 
-        if (location.equalsIgnoreCase("RepeatOrder")) {
-            valuep = Float.parseFloat(ordersSub.orders.get(0).price);
-        } else {
-            valuep = Float.parseFloat(modelData.price);
+            if (location.equalsIgnoreCase("RepeatOrder")) {
+                valuep = Float.parseFloat(ordersSub.orders.get(0).price);
+            } else {
+                valuep = Float.parseFloat(modelData.price);
+            }
+
+            int value = (int) valuep;
+
+            int priceValue = value * totalCount;
+
+            order_price_basedQuantity.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(priceValue));
+
+            int totalValueRs = priceValue;
+
+            totalValue.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
+
+            placeOrderprice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
+            payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
+            placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
+            payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
+            order_price_finalTotal.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
+
+        }else
+        {
+            showToast("At a time maximum 5 order can be place");
         }
-
-        int value = (int) valuep;
-
-        int priceValue = value * totalCount;
-
-        order_price_basedQuantity.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(priceValue));
-
-        int totalValueRs = priceValue;
-
-        totalValue.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
-
-        placeOrderprice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
-        payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
-        placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
-        payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
-        order_price_finalTotal.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
 
 
     }
@@ -661,24 +672,6 @@ public class YourCartActivity extends BaseActivity {
     }
 
     public void placeOrderDialog() {
-       /* AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Place Order")
-                .setCancelable(false)
-                .setNegativeButton(R.string.no_txt, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        if (dialog != null) {
-                            dialog.dismiss();
-                        }
-                    }
-                })
-                .setPositiveButton(R.string.yes_txt, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        placeOrderData();
-                    }
-                });
-        // Create the AlertDialog object and return it
-        AlertDialog alert = builder.create();
-        alert.show();*/
 
         final Dialog dialogd = new Dialog(this);
         dialogd.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -716,6 +709,46 @@ public class YourCartActivity extends BaseActivity {
 
 
     }
+
+    public void removeOrderDialog() {
+
+        final Dialog dialogd = new Dialog(this);
+        dialogd.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogd.setContentView(R.layout.remove_items_from_cart);
+
+
+        CkdTextview placeOrderok = (CkdTextview) dialogd.findViewById(R.id.placeOrderok);
+        CkdTextview palceOrderViaMethod = (CkdTextview) dialogd.findViewById(R.id.palceOrderViaMethod);
+        CkdTextview notNow = (CkdTextview) dialogd.findViewById(R.id.notNow);
+  //      LottieAnimationView lottieAnimationViewPlace = (LottieAnimationView) dialogd.findViewById(R.id.lottieAnimationViewPlace);
+//        lottieAnimationViewPlace.playAnimation();
+
+
+        palceOrderViaMethod.setText("Do you really want to remove this order ?");
+
+        placeOrderok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialogd.dismiss();
+                finish();
+            }
+        });
+
+        notNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialogd.dismiss();
+
+            }
+        });
+
+        dialogd.show();
+
+
+    }
+
 
     private void placeOrderData() {
 
@@ -864,7 +897,7 @@ public class YourCartActivity extends BaseActivity {
                 } else {
 
                     showToast("add your address");
-                    Intent userLoc = new Intent(YourCartActivity.this, EnterFullAdressActivity.class);
+                    Intent userLoc = new Intent(YourCartActivity.this, UserLocationActivtiy.class);
                     userLoc.putExtra("AddNew", "Yes");
                     startActivityForResult(userLoc, 200);
 
@@ -1011,6 +1044,7 @@ public class YourCartActivity extends BaseActivity {
 
         //Getting content for email
         String email = "ckd.khana@gmail.com";
+        String email1 = "ckd.khana12@gmail.com";
         String subject = "Wake Up New Order Arrived";
         String message = "Order by this user Id - "+order_by+"\n"+"Chef Name - "+chef_name+"\n"+"Order for this chef UserId -"+order_for+"\n"
                 +"Number of plates Ordered - "+ordered_plates+"\n"+"Price for this Order - "+price+"\n"+"Land Mark = "+landmark+"\n"
@@ -1022,11 +1056,18 @@ public class YourCartActivity extends BaseActivity {
         //Executing sendmail to send email
         sm.execute();
 
+        //Creating SendMail object
+        SendMail sm1 = new SendMail(this, email1, subject, message);
+
+        //Executing sendmail to send email
+        sm1.execute();
+
 
     }
 
     private void sendSms(int order_by, String chef_name, int order_for, int ordered_plates, String price, String landmark, String food_detail, int is_dinner, int is_lunch, String payment_status) {
         String phone = "8828376477";
+        String phone1 = "8602639858";
         String message = "Order by this user Id - "+order_by+"\n"+"Chef Name - "+chef_name+"\n"+"Order for this chef UserId -"+order_for+"\n"
                 +"Number of plates Ordered - "+ordered_plates+"\n"+"Price for this Order - "+price+"\n"+"Land Mark = "+landmark+"\n"
                 +"Food Details - "+food_detail+"\n"+"Is Dinner -"+is_dinner+"\n"+"Is Lunch ="+is_lunch+"\n"+"Payment Method -"+payment_status;
@@ -1045,6 +1086,14 @@ public class YourCartActivity extends BaseActivity {
                 PendingIntent sentIntent = PendingIntent.getBroadcast(this, 0, new Intent("SMS_SENT"), 0);
                 PendingIntent deliveredIntent = PendingIntent.getBroadcast(this, 0, new Intent("SMS_DELIVERED"), 0);
                 sms.sendTextMessage(phone, null, msg, sentIntent, deliveredIntent);
+
+            }
+
+            for (String msg : messages) {
+
+                PendingIntent sentIntent = PendingIntent.getBroadcast(this, 0, new Intent("SMS_SENT"), 0);
+                PendingIntent deliveredIntent = PendingIntent.getBroadcast(this, 0, new Intent("SMS_DELIVERED"), 0);
+                sms.sendTextMessage(phone1, null, msg, sentIntent, deliveredIntent);
 
             }
         }
