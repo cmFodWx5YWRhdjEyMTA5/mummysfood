@@ -131,6 +131,7 @@ public class EnterFullAdressActivity extends BaseActivity {
 
         pf.saveStringForKey("CurrentAddress",updatedText);
 
+
         if (OrderDetails != null &&!"".equalsIgnoreCase(OrderDetails)&&OrderDetails.equalsIgnoreCase("OrderDetails"))
         {
 

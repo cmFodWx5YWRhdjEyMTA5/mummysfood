@@ -67,8 +67,6 @@ public class ManagePaymentActivity extends BaseActivity {
             {
                 active_payment_option = 0;
             }
-
-
         }
 
         if (active_payment_option == 0){

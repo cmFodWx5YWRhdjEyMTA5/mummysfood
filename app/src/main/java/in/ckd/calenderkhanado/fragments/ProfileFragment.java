@@ -138,7 +138,7 @@ public class ProfileFragment extends BaseFragment {
         String profile = pfpp.getStringForKey("ImageUrl","");
         String fname = pfpp.getStringForKey("Name","");
 
-        Glide.with(getActivity()).load(profile).diskCacheStrategy(DiskCacheStrategy.SOURCE).placeholder(R.mipmap.default_usr_img).into(profileImage);
+        Glide.with(getActivity()).load(profile).diskCacheStrategy(DiskCacheStrategy.SOURCE).error(R.mipmap.default_usr_img).into(profileImage);
 
         String name = CapsName.CapitalizeFullName(fname);
         profileUsername.setText(name);

@@ -567,7 +567,7 @@ public class YourCartActivity extends BaseActivity {
     }
 
 
-    @OnClick(R.id.payatmOption)
+    @OnClick(R.id.paymentRelative)
     public void payatmOption() {
 
 

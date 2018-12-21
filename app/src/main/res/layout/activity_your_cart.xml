@@ -15,7 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
-            android:visibility="visible"
             android:layout_above="@+id/placeOrderButton">
 
             <LinearLayout
@@ -302,7 +301,7 @@
                             android:layout_marginTop="@dimen/dp4"
                             android:text="@string/change"
                             android:textColor="@color/colorPrimaryDark"
-                            android:textSize="@dimen/sp10" />
+                            android:textSize="@dimen/sp14" />
                     </RelativeLayout>
 
                     <View
@@ -357,7 +356,7 @@
                             android:text="@string/change"
 
                             android:textColor="@color/colorPrimaryDark"
-                            android:textSize="@dimen/sp10" />
+                            android:textSize="@dimen/sp14" />
                     </RelativeLayout>
 
                     <View
@@ -369,6 +368,7 @@
                         android:background="@color/place_autocomplete_separator" />
 
                     <RelativeLayout
+                        android:id="@+id/paymentRelative"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp8"
@@ -411,7 +411,7 @@
                             android:layout_marginTop="@dimen/dp8"
                             android:text="@string/change"
                             android:textColor="@color/colorPrimaryDark"
-                            android:textSize="@dimen/sp10" />
+                            android:textSize="@dimen/sp14" />
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -465,6 +465,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:visibility="gone">
+        <in.ckd.calenderkhanado.widgets.CkdTextview
+            android:layout_width="match_parent"
+             android:background="@color/colorPrimary"
+            android:text="Change payment method"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp16"
+            android:gravity="center"
+            style="@style/textviewbold"
+            android:layout_height="@dimen/dp48" />
 
         <LinearLayout
             android:id="@+id/cod_linear"
@@ -476,7 +485,7 @@
 
             <in.ckd.calenderkhanado.widgets.CkdTextview
                 android:id="@+id/COD"
-                style="@style/textviewregular"
+                style="@style/textviewbold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/dp8"
@@ -496,6 +505,11 @@
                 android:tint="@color/black_effective"
                 android:visibility="gone" />
         </LinearLayout>
+
+        <View
+            android:background="@color/lightprimary"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp0.5"/>
 
         <LinearLayout
             android:id="@+id/paytm_linear"
@@ -536,7 +550,10 @@
                 android:tint="@color/black_effective"
                 android:visibility="gone" />
         </LinearLayout>
-
+        <View
+            android:background="@color/lightprimary"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp0.5"/>
     </LinearLayout>
 
     <LinearLayout

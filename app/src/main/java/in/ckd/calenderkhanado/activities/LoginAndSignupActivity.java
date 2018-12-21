@@ -119,7 +119,7 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
         configureSignIn();
 
         //read mobile contact list
-        readContacts();
+   //     readContacts();
 
 
     }
@@ -449,19 +449,6 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
 
 
 
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        if (requestCode == PERMISSIONS_REQUEST_READ_CONTACTS) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission is granted
-                AsyncTaskRunner runner = new AsyncTaskRunner();
-                runner.execute("import_contact");
-                //Log.e("Permission","Granted");
-            } else {
-                //Log.e("Permission","Deny");
-                syncContact = true;
-            }
-        }
-    }
 
     private class AsyncTaskRunner extends AsyncTask<Object, Object, ArrayList<String>> {
         @Override
