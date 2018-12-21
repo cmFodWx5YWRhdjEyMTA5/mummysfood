@@ -408,7 +408,9 @@ public class ProfileUpdateActivity extends BaseActivity {
 
         String savedLocation = pf.getStringForKey("CurrentAddress", "");
         if (savedLocation != null && savedLocation.equalsIgnoreCase("gotitlocation")) {
-            startActivity(new Intent(ProfileUpdateActivity.this, MainBottomBarActivity.class));
+            Intent intent =   new Intent(ProfileUpdateActivity.this, MainBottomBarActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
             finish();
         } else {
             startActivity(new Intent(ProfileUpdateActivity.this, UserLocationActivtiy.class));

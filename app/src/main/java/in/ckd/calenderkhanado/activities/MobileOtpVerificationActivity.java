@@ -101,6 +101,8 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
     @BindView(R.id.indicator)
     me.relex.circleindicator.CircleIndicator viewPagerIndicator;
 
+    int user_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,6 +123,7 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
 
         ImageSlider(signUpViewpager, viewPagerIndicator);
 
+        user_id = ppref.getIntForKey("user_id",0);
 
         mobile.addTextChangedListener(new TextWatcher() {
             @Override
@@ -355,7 +358,14 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
         request.is_vagitarian = "0";
         request.type = AppConstants.SEEKER;
 
-        Call<ResponseBody> loginRequestCall = AppConstants.restAPI.saveUserInfo(request);
+
+        Call<ResponseBody> loginRequestCall;
+        if (fromOrderPlace != null &&fromOrderPlace.equalsIgnoreCase("PlaceOrder")) {
+            loginRequestCall = AppConstants.restAPI.updateUserInfo(request,user_id);
+        } else {
+
+            loginRequestCall = AppConstants.restAPI.saveUserInfo(request);
+        }
 
         loginRequestCall.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -473,8 +483,10 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
 
         String savedLocation = pf.getStringForKey("CurrentAddress","");
         if (savedLocation != null &&savedLocation.equalsIgnoreCase("gotitlocation")){
-            startActivity(new Intent(MobileOtpVerificationActivity.this,MainBottomBarActivity.class));
-            finish();
+            Intent intent =   new Intent(MobileOtpVerificationActivity.this, MainBottomBarActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();            finish();
         }else{
             startActivity(new Intent(MobileOtpVerificationActivity.this,UserLocationActivtiy.class));
             finish();

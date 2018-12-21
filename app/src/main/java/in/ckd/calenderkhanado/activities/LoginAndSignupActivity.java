@@ -401,7 +401,12 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
             pf.saveStringForKey(PreferenceManager.USER_MOBILE, data.mobile);
         String savedLocation = pf.getStringForKey("CurrentAddress", "");
         if (savedLocation != null && savedLocation.equalsIgnoreCase("gotitlocation")) {
-            startActivity(new Intent(LoginAndSignupActivity.this, MainBottomBarActivity.class));
+
+            Intent mainIntent = new Intent(LoginAndSignupActivity.this, MainBottomBarActivity.class);
+            mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(mainIntent);
+
+
             finish();
         } else {
             startActivity(new Intent(LoginAndSignupActivity.this, UserLocationActivtiy.class));
@@ -441,6 +446,8 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
             runner.execute("import_contact");
         }
     }
+
+
 
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == PERMISSIONS_REQUEST_READ_CONTACTS) {

@@ -64,6 +64,9 @@ public interface RetrofitApiService {
     @POST("user")
     Call<ResponseBody>saveUserInfo(@Body LoginRequest request);
 
+    @PUT("user/{id}")
+    Call<ResponseBody>updateUserInfo(@Body LoginRequest request,@Path("id")int id);
+
 
 
     @PUT("user/{id}")

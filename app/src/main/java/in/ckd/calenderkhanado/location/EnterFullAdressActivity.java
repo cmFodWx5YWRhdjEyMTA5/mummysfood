@@ -264,6 +264,7 @@ public class EnterFullAdressActivity extends BaseActivity {
                                 pf.saveStringForKey("house_no",updatedText);
                                 pf.saveStringForKey("pincode",postalCode);
                                 Intent mainIntent = new Intent(EnterFullAdressActivity.this, MainBottomBarActivity.class);
+                                mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(mainIntent);
                                 finish();
                             }

@@ -57,8 +57,10 @@ public class SpashAcctivity extends BaseActivity
                 String currentAdd = pf.getStringForKey("CurrentAddress","");
 
                 if (currentAdd != null &&!"".equalsIgnoreCase(currentAdd)){
-                    startActivity(new Intent(SpashAcctivity.this,MainBottomBarActivity.class));
-                    finish();
+                    Intent intent =   new Intent(SpashAcctivity.this, MainBottomBarActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                    finish();                    finish();
                 }else{
                     startActivity(new Intent(SpashAcctivity.this,UserLocationActivtiy.class));
                     finish();
