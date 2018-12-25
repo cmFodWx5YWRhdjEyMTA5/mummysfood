@@ -30,6 +30,7 @@ public class LoginRequest {
     public String created_at;
     public String updated_at;
     public String name;
+    public String player_id;
 
   /*  public static class Data {
         public int id;

@@ -178,7 +178,8 @@ public class UpdateuserOrderSubActivity extends BaseActivity
 
 
         OSPermissionSubscriptionState status = OneSignal.getPermissionSubscriptionState();
-        String userId = status.getSubscriptionStatus().getUserId();
+       // String userId = status.getSubscriptionStatus().getUserId();
+        String userId = userData.player_id;
         boolean isSubscribed = status.getSubscriptionStatus().getSubscribed();
 
         if (!isSubscribed)

@@ -41,6 +41,8 @@ import in.ckd.calenderkhanado.widgets.CkdEditText;
 import in.ckd.calenderkhanado.widgets.CkdTextview;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
+import com.onesignal.OSPermissionSubscriptionState;
+import com.onesignal.OneSignal;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -293,7 +295,8 @@ public class ProfileUpdateActivity extends BaseActivity {
         pfd.saveStringForKey("FirstName","Full");
         pfd.saveStringForKey("ImageUrl",imageName);
 
-
+        OSPermissionSubscriptionState status = OneSignal.getPermissionSubscriptionState();
+        String userId = status.getSubscriptionStatus().getUserId();
 
         String device_id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
         String osVersion = android.os.Build.VERSION.RELEASE;
@@ -306,6 +309,7 @@ public class ProfileUpdateActivity extends BaseActivity {
         request.mobile = mobileNumber;
         request.profile_image = imageName;
         request.type = AppConstants.SEEKER;
+        request.player_id = userId;
 
         //saving name into sharedprefrence
 

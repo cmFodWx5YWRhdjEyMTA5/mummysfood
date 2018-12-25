@@ -1,5 +1,6 @@
 package in.ckd.calenderkhanado.fragments;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,11 +25,17 @@ import in.ckd.calenderkhanado.data.pref.PreferenceManager;
 import in.ckd.calenderkhanado.models.HomeFeed;
 import in.ckd.calenderkhanado.widgets.CkdTextview;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -149,7 +157,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
 
     private int numberOfDays;
-    private int isLunch;
+    private int isLunch = 1;
     private int isDinner;
     private String location = "";
     private String foodImage = "";
@@ -619,9 +627,60 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         }
 
 
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat mdformat = new SimpleDateFormat("HH");
+        String strDate =  mdformat.format(calendar.getTime());;
+        int timeVlaue = Integer.parseInt(strDate);
+
+        if (typeOfPackage.equalsIgnoreCase("today"))
+        {
+
+            if (isLunch == 1 && isDinner == 1)
+            {
+                if (timeVlaue <=10)
+                {
+                    setCartForPregress();
+
+                }else
+                {
+                    placeOrderDialog("Both");
+                }
+            }else if (isDinner == 1)
+            {
+             if (timeVlaue  <=18)
+             {
+                 setCartForPregress();
+
+             }else
+             {
+                 placeOrderDialog("Dinner");
+             }
+            } else if (isLunch == 1)
+            {
+                if (timeVlaue <=10)
+                {
+                   setCartForPregress();
+
+                }else
+                {
+                    placeOrderDialog("Lunch");
+                }
+            }
+
+
+        }else
+        {
+            setCartForPregress();
+        }
+
+
+    }
+
+    private void setCartForPregress() {
 
         Intent yourCart = new Intent(this, YourCartActivity.class);
         yourCart.putExtra("data",data);
+
         yourCart.putExtra("typeOfPackage",typeOfPackage);
         yourCart.putExtra("isLunch",isLunch);
         yourCart.putExtra("isDinner",isDinner);
@@ -686,8 +745,8 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
                 numberOfDays = 30;
             }else if (typeOfPackage.equalsIgnoreCase("today"))
             {
-                isDinner = 1;
-                isLunch = 0;
+                isDinner = 0;
+                isLunch = 1;
                 numberOfDays = 1;
             }
 
@@ -716,6 +775,67 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
           return numberOfDays;
     }
+
+    public void placeOrderDialog(String type) {
+
+        final Dialog dialogd = new Dialog(this);
+        dialogd.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogd.setContentView(R.layout.dialog_place_order);
+
+
+        CkdTextview placeOrderok = (CkdTextview) dialogd.findViewById(R.id.placeOrderok);
+        CkdTextview palceOrderViaMethod = (CkdTextview) dialogd.findViewById(R.id.palceOrderViaMethod);
+        CkdTextview notNow = (CkdTextview) dialogd.findViewById(R.id.notNow);
+        LottieAnimationView lottieAnimationViewPlace = (LottieAnimationView) dialogd.findViewById(R.id.lottieAnimationViewPlace);
+
+        lottieAnimationViewPlace.setAnimation("crying.json");
+        lottieAnimationViewPlace.playAnimation();
+
+        placeOrderok.setVisibility(View.GONE);
+
+        String msg = "";
+
+        if (type.equalsIgnoreCase("Dinner"))
+        {
+            msg = "We take dinner request before 6 for one day subscription.\n" +
+                    "You can place lunch request in morning before 10.Thank you for understanding, Always be with us.";
+        }else if (type.equalsIgnoreCase("Lunch"))
+        {            msg = "We take lunch request before 10 for one day subscription.\n" +
+                "You can place dinner request in evening before 6.Thank you for understanding, Always be with us.";
+
+        }else
+        {
+            msg = "We take lunch request before 10 for one day subscription.\n" +
+                    "and dinner request in evening before 6.Thank you for understanding, Always be with us.";
+        }
+
+        palceOrderViaMethod.setText(msg);
+
+        placeOrderok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialogd.dismiss();
+
+            }
+        });
+
+        notNow.setText("Okay");
+
+        notNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialogd.dismiss();
+
+            }
+        });
+
+        dialogd.show();
+
+
+    }
+
 
     private String capitalize(String capString){
         StringBuffer capBuffer = new StringBuffer();
