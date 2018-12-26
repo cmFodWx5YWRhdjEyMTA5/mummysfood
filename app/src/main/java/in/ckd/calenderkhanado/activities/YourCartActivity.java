@@ -1043,7 +1043,7 @@ public class YourCartActivity extends BaseActivity {
 
 
         //Getting content for email
-        String email = "ckd.khana@gmail.com";
+        String email = "ckd.khana24@gmail.com";
         String email1 = "ckd.khana12@gmail.com";
         String subject = "Wake Up New Order Arrived";
         String message = "Order by this user Id - "+order_by+"\n"+"Chef Name - "+chef_name+"\n"+"Order for this chef UserId -"+order_for+"\n"
