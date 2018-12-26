@@ -172,6 +172,7 @@
                         android:layout_below="@+id/user_status"
                         android:layout_marginLeft="@dimen/sp5"
                         android:layout_marginTop="@dimen/dp10"
+                        android:visibility="gone"
                         android:text="@string/female"
                         android:textSize="@dimen/sp16" />
 
@@ -181,6 +182,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@+id/female_txt"
                         android:layout_marginStart="@dimen/dp5"
+                        android:visibility="gone"
                         android:layout_toEndOf="@+id/female_txt"
                         android:src="@mipmap/female_icon"
                         android:tint="@color/colorPrimary" />
@@ -191,6 +193,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/user_status"
                         android:layout_marginTop="@dimen/dp10"
+                        android:visibility="gone"
                         android:layout_toEndOf="@+id/female_icon"
                         android:elevation="0dp"
                         android:padding="@dimen/dp5"
@@ -204,6 +207,7 @@
                         android:layout_alignTop="@+id/female_icon"
                         android:layout_marginEnd="@dimen/dp5"
                         android:layout_toEndOf="@+id/genderSwitch"
+                        android:visibility="gone"
                         android:src="@mipmap/male_icon"
                         android:tint="@color/black" />
 
@@ -213,6 +217,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toEndOf="@+id/male_icon"
                         android:text="@string/male"
+                        android:visibility="gone"
                         style="@style/textviewregular"
                         android:layout_below="@+id/user_status"
                         android:layout_marginTop="@dimen/dp12"
@@ -226,7 +231,7 @@
                         android:layout_alignParentStart="false"
                         android:layout_below="@+id/female_txt"
                         android:layout_marginLeft="@dimen/sp5"
-                        android:layout_marginTop="@dimen/dp16"
+                        android:layout_marginTop="@dimen/dp8"
                         android:text="@string/food_type_txt"
                         android:textSize="@dimen/sp14" />
                     <RadioGroup
@@ -254,10 +259,11 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/choose_food_type_layout"
                         android:layout_marginTop="@dimen/dp16"
-                        android:text="@string/next_txt"
+                        android:text="Submit"
                         android:padding="@dimen/dp4"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/sp16"
+                        android:textAllCaps="true"
                         style="@style/textviewbold"
                         android:layout_centerHorizontal="true"
                         android:background="@drawable/border_primary"

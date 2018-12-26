@@ -244,7 +244,7 @@ public class ProfileUpdateActivity extends BaseActivity {
                         //    Log.e("gcheck", "17");
                         emailIdLayout.setError("Please enter a valid email");
                     } else {
-                        String popUpMsg = "We will send a confirmation email on " + "<b>" + emailId.getText().toString().trim() + "</b> " + " which will be used for all the important communications. Click continue to proceed";
+                    /*    String popUpMsg = "We will send a confirmation email on " + "<b>" + emailId.getText().toString().trim() + "</b> " + " which will be used for all the important communications. Click continue to proceed";
                         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ProfileUpdateActivity.this);
                         alertBuilder.setCancelable(false);
                         alertBuilder.setMessage(Html.fromHtml(popUpMsg));
@@ -262,7 +262,9 @@ public class ProfileUpdateActivity extends BaseActivity {
                         alertBuilder.setCancelable(false);
                         AlertDialog alert = alertBuilder.create();
 
-                        alert.show();
+                        alert.show();*/
+
+                        nexttoupload();
                     }
                 } else if (!emailId.getText().toString().isEmpty() && email_verification == 1) {
                     nexttoupload();
@@ -309,7 +311,7 @@ public class ProfileUpdateActivity extends BaseActivity {
         request.mobile = mobileNumber;
         request.profile_image = imageName;
         request.type = AppConstants.SEEKER;
-        request.player_id = userId;
+    //    request.player_id = userId;
 
         //saving name into sharedprefrence
 

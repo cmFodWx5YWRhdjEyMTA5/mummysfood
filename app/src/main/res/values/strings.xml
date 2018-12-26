@@ -23,7 +23,7 @@
     <string name="terms_services">By Signing Up, I agree to CalendarKhanaDo\'s Terms of Service and Privacy Policy</string>
     <string name="mobile_number_hint">Mobile Number</string>
     <string name="msg_manual_otp">(Enter the OTP above in case we fail\nto detect the SMS automatically)</string>
-    <string name="resend_code">RESEND CODE</string>
+    <string name="resend_code">TRY AGAIN</string>
     <string name="back">BACK</string>
     <string name="log_in">LOG IN</string>
     <string name="app_analytics_long_description">Note that events are batch processed and may take up to 60 minutes to display in the console.</string>
