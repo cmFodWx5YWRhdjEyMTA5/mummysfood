@@ -41,6 +41,8 @@ import in.ckd.calenderkhanado.widgets.CkdEditText;
 import in.ckd.calenderkhanado.widgets.CkdTextview;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
+import com.onesignal.OSPermissionSubscriptionState;
+import com.onesignal.OneSignal;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -242,7 +244,7 @@ public class ProfileUpdateActivity extends BaseActivity {
                         //    Log.e("gcheck", "17");
                         emailIdLayout.setError("Please enter a valid email");
                     } else {
-                        String popUpMsg = "We will send a confirmation email on " + "<b>" + emailId.getText().toString().trim() + "</b> " + " which will be used for all the important communications. Click continue to proceed";
+                    /*    String popUpMsg = "We will send a confirmation email on " + "<b>" + emailId.getText().toString().trim() + "</b> " + " which will be used for all the important communications. Click continue to proceed";
                         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ProfileUpdateActivity.this);
                         alertBuilder.setCancelable(false);
                         alertBuilder.setMessage(Html.fromHtml(popUpMsg));
@@ -260,7 +262,9 @@ public class ProfileUpdateActivity extends BaseActivity {
                         alertBuilder.setCancelable(false);
                         AlertDialog alert = alertBuilder.create();
 
-                        alert.show();
+                        alert.show();*/
+
+                        nexttoupload();
                     }
                 } else if (!emailId.getText().toString().isEmpty() && email_verification == 1) {
                     nexttoupload();
@@ -293,7 +297,8 @@ public class ProfileUpdateActivity extends BaseActivity {
         pfd.saveStringForKey("FirstName","Full");
         pfd.saveStringForKey("ImageUrl",imageName);
 
-
+        OSPermissionSubscriptionState status = OneSignal.getPermissionSubscriptionState();
+        String userId = status.getSubscriptionStatus().getUserId();
 
         String device_id = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
         String osVersion = android.os.Build.VERSION.RELEASE;
@@ -306,6 +311,7 @@ public class ProfileUpdateActivity extends BaseActivity {
         request.mobile = mobileNumber;
         request.profile_image = imageName;
         request.type = AppConstants.SEEKER;
+    //    request.player_id = userId;
 
         //saving name into sharedprefrence
 

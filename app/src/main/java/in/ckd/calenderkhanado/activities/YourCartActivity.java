@@ -226,7 +226,6 @@ public class YourCartActivity extends BaseActivity {
                 order_price_basedQuantity.setVisibility(View.VISIBLE);
             }
 
-
         } else if (typeOfPackage.equalsIgnoreCase("monthly")) {
             add_to_cart_item_layout.setVisibility(View.GONE);
             order_price_basedQuantity.setVisibility(View.GONE);
@@ -995,8 +994,8 @@ public class YourCartActivity extends BaseActivity {
                             startActivity(ActIntent);
                             finish();
 
-                            sendSms(res.order_by,res.chef_name,res.order_for,res.ordered_plates,res.price,res.landmark,res.food_detail,
-                                    res.is_dinner,res.is_lunch,res.payment_status);
+                          /*  sendSms(res.order_by,res.chef_name,res.order_for,res.ordered_plates,res.price,res.landmark,res.food_detail,
+                                    res.is_dinner,res.is_lunch,res.payment_status);*/
                             sendEmail(res.order_by,res.chef_name,res.order_for,res.ordered_plates,res.price,res.landmark,res.food_detail,
                                     res.is_dinner,res.is_lunch,res.payment_status);
 
@@ -1065,7 +1064,7 @@ public class YourCartActivity extends BaseActivity {
 
     }
 
-    private void sendSms(int order_by, String chef_name, int order_for, int ordered_plates, String price, String landmark, String food_detail, int is_dinner, int is_lunch, String payment_status) {
+  /*  private void sendSms(int order_by, String chef_name, int order_for, int ordered_plates, String price, String landmark, String food_detail, int is_dinner, int is_lunch, String payment_status) {
         String phone = "8828376477";
         String phone1 = "8602639858";
         String message = "Order by this user Id - "+order_by+"\n"+"Chef Name - "+chef_name+"\n"+"Order for this chef UserId -"+order_for+"\n"
@@ -1098,7 +1097,7 @@ public class YourCartActivity extends BaseActivity {
             }
         }
     }
-
+*/
     private void requestPermission() {
         ActivityCompat.requestPermissions(this, new String[]{SEND_SMS}, SMS_PERMISSION);
     }

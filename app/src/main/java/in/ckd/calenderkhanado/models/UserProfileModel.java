@@ -82,6 +82,7 @@ public class UserProfileModel implements Serializable{
         public String gender;
         public String login_type;
         public String name;
+        public String player_id;
         public List<Addresses> addresses;
         public String chef_detail;
         public List<Food_detail> food_detail;

@@ -331,14 +331,14 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
             Log.e("Step 9","Signed out");
             if (otp.getText().toString() != null && mobile_verify){
                 if (!otp.getText().toString().isEmpty() && otp.getText().toString().equals(AppConstants.MANUALOTP)){
-                    Toast.makeText(MobileOtpVerificationActivity.this,"Mobile number verified successfully",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MobileOtpVerificationActivity.this,"Number verified",Toast.LENGTH_SHORT).show();
                     verifyMobile();
                 }
             }
 
         } else {
             //    Log.e("Step 10","Signed in"+user.getUid());
-            Toast.makeText(MobileOtpVerificationActivity.this,"Mobile number verified successfully",Toast.LENGTH_SHORT).show();
+            Toast.makeText(MobileOtpVerificationActivity.this,"Number verified",Toast.LENGTH_SHORT).show();
             verifyMobile();
         }
     }
@@ -519,7 +519,7 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
                     inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
                             InputMethodManager.HIDE_NOT_ALWAYS);
                     generateOTP.setVisibility(View.GONE);
-                    msg_manual_otp.setVisibility(View.VISIBLE);
+                    msg_manual_otp.setVisibility(View.GONE);
                     otp.setVisibility(View.VISIBLE);
                     login.setVisibility(View.VISIBLE);
 

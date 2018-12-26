@@ -51,7 +51,7 @@ public class BaseActivity extends AppCompatActivity {
     public ProgressDialog pd;
     public PreferenceManager pf;
     public Toolbar toolbar;
-    private static final Integer[] IMAGES = {R.mipmap.sign_up_bg_01, R.mipmap.sign_up_bg_02,R.mipmap.sign_up_bg_01, R.mipmap.sign_up_bg_02};
+    private static final Integer[] IMAGES = {R.mipmap.image1, R.mipmap.image2,R.mipmap.image3, R.mipmap.image4};
     private ArrayList<Integer> ImagesArray = new ArrayList<Integer>();
     private OnBoardingViewPagerAdapter onBoardingViewPagerAdapter;
     private int currentPage = 0;

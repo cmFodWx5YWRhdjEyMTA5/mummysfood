@@ -40,6 +40,7 @@ import com.google.android.gms.location.LocationSettingsStatusCodes;
 
 import in.ckd.calenderkhanado.R;
 import in.ckd.calenderkhanado.activities.MainBottomBarActivity;
+import in.ckd.calenderkhanado.activities.OutOfRegion;
 import in.ckd.calenderkhanado.base.BaseActivity;
 import in.ckd.calenderkhanado.data.pref.PreferenceManager;
 import in.ckd.calenderkhanado.models.AddressModel;
@@ -244,19 +245,28 @@ public class UserLocationActivtiy extends BaseActivity
                     lognitudeS = longitude;
                     pin_code = postalCode;
 
-                    pf.saveStringForKey("CurrentAddress", address);
-                    pf.saveStringForKey("Address", address);
-                    pf.saveDoubleForKey("latitude", latitude);
-                    pf.saveDoubleForKey("lognitude", longitude);
 
-                    Intent enterOtherAct = new Intent(UserLocationActivtiy.this, EnterFullAdressActivity.class);
-                    enterOtherAct.putExtra("Address", address);
-                    enterOtherAct.putExtra("city", city);
-                    enterOtherAct.putExtra("lat", String.valueOf(latitude));
-                    enterOtherAct.putExtra("long", String.valueOf(longitude));
-                    enterOtherAct.putExtra("pincode", postalCode);
-                    enterOtherAct.putExtra("state", state);
-                    startActivity(enterOtherAct);
+
+                    if (city.equalsIgnoreCase("Indore"))
+                    {
+                        pf.saveStringForKey("CurrentAddress", address);
+                        pf.saveStringForKey("Address", address);
+                        pf.saveDoubleForKey("latitude", latitude);
+                        pf.saveDoubleForKey("lognitude", longitude);
+                        Intent enterOtherAct = new Intent(UserLocationActivtiy.this, EnterFullAdressActivity.class);
+                        enterOtherAct.putExtra("Address", address);
+                        enterOtherAct.putExtra("city", city);
+                        enterOtherAct.putExtra("lat", String.valueOf(latitude));
+                        enterOtherAct.putExtra("long", String.valueOf(longitude));
+                        enterOtherAct.putExtra("pincode", postalCode);
+                        enterOtherAct.putExtra("state", state);
+                        startActivity(enterOtherAct);
+                    }else
+                    {
+                        pf.saveStringForKey("outofregion","Yes");
+                        Intent i = new Intent(this,OutOfRegion.class);
+                        startActivity(i);
+                    }
 
                     finish();
 

@@ -33,6 +33,8 @@ public class MainBottomBarActivity extends BaseActivity implements HomeFragment.
     private int mSelectedItem;
     private static final String SELECTED_ITEM = "selected_item";
 
+    private PreferenceManager pff ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,14 +44,27 @@ public class MainBottomBarActivity extends BaseActivity implements HomeFragment.
         pf = new PreferenceManager(this,PreferenceManager.LOGIN_PREFERENCES_FILE);
         pf.getIntForKey(PreferenceManager.USER_ID,0);
 
-        pf.saveIntForKey(PreferenceManager.USER_ID,1);
-        if (pf.getIntForKey(PreferenceManager.USER_ID,0) != 0){
-            setBottomBar(savedInstanceState);
-        }else {
-            Intent intent = new Intent(MainBottomBarActivity.this, LoginAndSignupActivity.class);
-            startActivity(intent);
+        pff = new PreferenceManager(this);
+
+        String outofregion = pff.getStringForKey("outofregion","");
+
+        if (outofregion.equalsIgnoreCase("Yes"))
+        {
+            Intent i = new Intent(this,OutOfRegion.class);
+            startActivity(i);
             finish();
+        }else
+        {
+            pf.saveIntForKey(PreferenceManager.USER_ID,1);
+            if (pf.getIntForKey(PreferenceManager.USER_ID,0) != 0){
+                setBottomBar(savedInstanceState);
+            }else {
+                Intent intent = new Intent(MainBottomBarActivity.this, LoginAndSignupActivity.class);
+                startActivity(intent);
+                finish();
+            }
         }
+
 
     }
 

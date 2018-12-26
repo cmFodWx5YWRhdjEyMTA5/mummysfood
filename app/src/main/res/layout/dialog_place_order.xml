@@ -21,6 +21,7 @@
             app:lottie_fileName="isometric_gift_box.json"
             app:lottie_loop="true" />
 
+
         <in.ckd.calenderkhanado.widgets.CkdTextview
             android:id="@+id/palceOrderViaMethod"
             android:text=""

@@ -8,9 +8,20 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
-        app:theme="@style/ToolbarColoredBackArrow"/>
+        android:background="@color/white"
+        android:elevation="@dimen/dp2"
+        android:theme="@style/ThemeToolbar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        <in.ckd.calenderkhanado.widgets.CkdTextview
+            android:id="@+id/order_checkout"
+            style="@style/textviewbold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/manage_payment_option"
+            android:textAllCaps="true"
+            android:textColor="@color/black" />
+    </android.support.v7.widget.Toolbar>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
