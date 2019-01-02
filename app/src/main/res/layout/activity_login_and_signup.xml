@@ -98,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/terms_services"
-                android:textColor="@color/black"
+                android:textColor="@color/black_effective"
                 android:gravity="center"
                 style="@style/textviewregular"
                 android:textSize="@dimen/dp12"

@@ -126,6 +126,7 @@
         <activity android:name=".activities.FilterActivtiy" />
         <activity android:name=".activities.SubscriptionUpdate_Activity" />
         <activity android:name=".activities.UpdateuserOrderSubActivity" />
+        <activity android:name=".activities.TermsAndCondition" />
         <activity
             android:name=".activities.OutOfRegion"
             android:label="@string/title_activity_out_of_region"
