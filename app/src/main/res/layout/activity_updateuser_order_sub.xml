@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:layout_margin="@dimen/dp16"
     android:padding="@dimen/dp16"
-    tools:context=".activities.UpdateuserOrderSubActivity">
+    tools:context="com.mf.mumizzfood.com.mf.mumizzfood.activities.UpdateuserOrderSubActivity">
 
 
     <com.mikhaellopez.circularimageview.CircularImageView
@@ -22,7 +22,7 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"/>
 
-    <in.ckd.calenderkhanado.widgets.CkdTextview
+    <com.mf.mumizzfood.widgets.CkdTextview
         android:id="@+id/user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
         android:layout_gravity="center"
         android:textColor="@color/black"
         android:textSize="@dimen/sp14" />
-    <in.ckd.calenderkhanado.widgets.CkdTextview
+    <com.mf.mumizzfood.widgets.CkdTextview
         android:id="@+id/updaetSub"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

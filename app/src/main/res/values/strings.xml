@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Calendar Khana Do</string>
-    <string name="app_full_name">Calendar Khana Do</string>
+    <string name="app_name">MumizzFood</string>
+    <string name="app_full_name">MumizzFood</string>
 
     <string name="app_google_play_store_link">"https://play.google.com/store/apps/details?id="</string>
     <string name="app_market_link">"market://details?id="</string>
@@ -20,7 +20,7 @@
     <string name="guest_login">Continue as Guest</string>
     <string name="explore_eat">Explore &amp; Eat</string>
     <string name="explore_eat_description">You can search verious type of food options provided by house wives near your location</string>
-    <string name="terms_services">By Signing Up, I agree to CalendarKhanaDo\'s Terms of Service and Privacy Policy</string>
+    <string name="terms_services">By Signing Up, I agree to MumizzFood\'s Terms of Service and Privacy Policy</string>
     <string name="mobile_number_hint">Mobile Number</string>
     <string name="msg_manual_otp">(Enter the OTP above in case we fail\nto detect the SMS automatically)</string>
     <string name="resend_code">TRY AGAIN</string>

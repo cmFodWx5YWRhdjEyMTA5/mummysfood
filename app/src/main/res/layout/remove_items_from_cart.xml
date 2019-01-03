@@ -12,7 +12,7 @@
         android:paddingTop="@dimen/dp8"
         android:paddingBottom="20dp">
 
-        <in.ckd.calenderkhanado.widgets.CkdTextview
+        <com.mf.mumizzfood.widgets.CkdTextview
             android:id="@+id/palceOrderViaMethod"
             android:text="Do you want to remove item ?"
             android:textSize="16sp"
@@ -40,7 +40,7 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-                <in.ckd.calenderkhanado.widgets.CkdTextview
+                <com.mf.mumizzfood.widgets.CkdTextview
                     android:id="@+id/placeOrderok"
                     style="@style/textviewregular"
                     android:layout_width="@dimen/dp100"
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="end">
-                <in.ckd.calenderkhanado.widgets.CkdTextview
+                <com.mf.mumizzfood.widgets.CkdTextview
                     android:id="@+id/notNow"
                     android:text="@string/notnow"
                     android:textSize="14sp"

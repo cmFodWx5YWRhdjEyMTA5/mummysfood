@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <in.ckd.calenderkhanado.widgets.CkdTextview
+    <com.mf.mumizzfood.widgets.CkdTextview
         android:id="@+id/quoteTag"
         android:text="I can't sleep good when I know the food is feeling cold in the fridge"
         android:textSize="16sp"

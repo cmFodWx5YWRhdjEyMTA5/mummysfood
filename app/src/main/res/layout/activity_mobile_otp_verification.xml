@@ -5,7 +5,7 @@
     android:id="@+id/mainRelative"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.ckd.calenderkhanado.activities.LoginAndSignupActivity">
+    tools:context="com.mf.mumizzfood.in.mf.mumizzfood.activities.LoginAndSignupActivity">
 
     <include layout="@layout/image_slider_layout"/>
     <include layout="@layout/image_slider_info"/>
@@ -53,7 +53,7 @@
                         android:textSize="@dimen/sp14" />
 
                 </android.support.design.widget.TextInputLayout>
-                <in.ckd.calenderkhanado.widgets.CkdButton
+                <com.mf.mumizzfood.widgets.CkdButton
                     android:id="@+id/signIn_login_button"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp46"
@@ -74,7 +74,7 @@
                 android:orientation="vertical"
                 android:gravity="center">
 
-                <in.ckd.calenderkhanado.widgets.CkdEditText
+                <com.mf.mumizzfood.widgets.CkdEditText
                     android:id="@+id/signIn_editText_otp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
                     android:layout_marginTop="@dimen/dp8"
                     android:visibility="gone"/>
 
-                <in.ckd.calenderkhanado.widgets.CkdTextview
+                <com.mf.mumizzfood.widgets.CkdTextview
                     android:id="@+id/resend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textStyle="bold"
                     android:visibility="gone" />
-                <in.ckd.calenderkhanado.widgets.CkdTextview
+                <com.mf.mumizzfood.widgets.CkdTextview
                     android:id="@+id/msg_manual_otp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -123,7 +123,7 @@
                     android:textSize="@dimen/sp14"
                     android:visibility="gone"/>
 
-                <in.ckd.calenderkhanado.widgets.CkdButton
+                <com.mf.mumizzfood.widgets.CkdButton
                     android:id="@+id/mobile_login_button"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp46"

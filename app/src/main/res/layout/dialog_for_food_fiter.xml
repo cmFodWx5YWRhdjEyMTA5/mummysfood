@@ -14,14 +14,14 @@
             android:layout_width="@dimen/dp20"
             android:layout_height="@dimen/dp20"
             android:src="@mipmap/icon_delete_24" />
-        <in.ckd.calenderkhanado.widgets.CkdTextview
+        <com.mf.mumizzfood.widgets.CkdTextview
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/food_type_txt"
             android:layout_centerHorizontal="true"
             style="@style/textviewregular"
             android:textColor="@color/black"/>
-        <in.ckd.calenderkhanado.widgets.CkdTextview
+        <com.mf.mumizzfood.widgets.CkdTextview
             android:id="@+id/reset_filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
             android:src="@mipmap/food_symbol"
             android:tint="@color/gray"/>
 
-        <in.ckd.calenderkhanado.widgets.CkdTextview
+        <com.mf.mumizzfood.widgets.CkdTextview
             android:id="@+id/veg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
             android:src="@mipmap/food_symbol"
             android:tint="@color/gray"/>
 
-        <in.ckd.calenderkhanado.widgets.CkdTextview
+        <com.mf.mumizzfood.widgets.CkdTextview
             android:id="@+id/non_veg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
         android:layout_marginTop="@dimen/dp24"
         android:layout_marginBottom="@dimen/dp8" />
 
-    <in.ckd.calenderkhanado.widgets.CkdTextview
+    <com.mf.mumizzfood.widgets.CkdTextview
         android:id="@+id/apply_filter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -5,7 +5,7 @@
     android:id="@+id/mainRelative"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.ckd.calenderkhanado.activities.LoginAndSignupActivity">
+    tools:context="com.mf.mumizzfood.activities.LoginAndSignupActivity">
 
     <include layout="@layout/image_slider_layout"/>
     <include layout="@layout/image_slider_info"/>
@@ -24,7 +24,7 @@
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
-            <in.ckd.calenderkhanado.widgets.CkdTextview
+            <com.mf.mumizzfood.widgets.CkdTextview
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/continue_txt"
@@ -42,7 +42,7 @@
                 android:layout_marginEnd="@dimen/dp24"
                 android:layout_marginBottom="@dimen/dp8"
                 android:gravity="center">
-                <in.ckd.calenderkhanado.widgets.CkdTextview
+                <com.mf.mumizzfood.widgets.CkdTextview
                     android:id="@+id/gmail_login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
                 android:layout_marginEnd="@dimen/dp24"
                 android:layout_marginBottom="@dimen/dp8"
                 android:gravity="center">
-                <in.ckd.calenderkhanado.widgets.CkdTextview
+                <com.mf.mumizzfood.widgets.CkdTextview
                     android:id="@+id/mobile_login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -93,7 +93,7 @@
                     android:layout_centerInParent="true"
                     android:elevation="@dimen/dp2"/>
             </RelativeLayout>
-            <in.ckd.calenderkhanado.widgets.CkdTextview
+            <com.mf.mumizzfood.widgets.CkdTextview
                 android:id="@+id/terms_services"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

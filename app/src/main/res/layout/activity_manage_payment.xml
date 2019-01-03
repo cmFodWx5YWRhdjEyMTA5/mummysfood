@@ -12,7 +12,7 @@
         android:elevation="@dimen/dp2"
         android:theme="@style/ThemeToolbar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-        <in.ckd.calenderkhanado.widgets.CkdTextview
+        <com.mf.mumizzfood.widgets.CkdTextview
             android:id="@+id/order_checkout"
             style="@style/textviewbold"
             android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
             android:layout_marginTop="@dimen/dp16"
             android:layout_marginEnd="@dimen/dp16"
             android:layout_height="wrap_content">
-            <in.ckd.calenderkhanado.widgets.CkdTextview
+            <com.mf.mumizzfood.widgets.CkdTextview
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/textviewregular"
@@ -72,7 +72,7 @@
                 android:src="@mipmap/paytm"
                 android:layout_alignParentStart="true"
                 android:paddingEnd="@dimen/dp2"/>
-            <in.ckd.calenderkhanado.widgets.CkdTextview
+            <com.mf.mumizzfood.widgets.CkdTextview
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="(65.66)"

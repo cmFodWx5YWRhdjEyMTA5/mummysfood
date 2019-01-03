@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.OutOfRegion">
+    tools:context="com.mf.mumizzfood.com.mf.mumizzfood.activities.OutOfRegion">
 
     <ImageView
         android:id="@+id/logo"
@@ -14,7 +14,7 @@
         android:layout_centerHorizontal="true"
         android:src="@mipmap/ckd_ic_launcher"/>
 
-   <in.ckd.calenderkhanado.widgets.CkdTextview
+   <com.mf.mumizzfood.widgets.CkdTextview
        android:id="@+id/outofInderText"
        android:layout_width="wrap_content"
        android:layout_height="match_parent"

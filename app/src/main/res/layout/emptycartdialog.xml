@@ -16,7 +16,7 @@
         android:layout_marginLeft="@dimen/dp4"
         android:layout_height="@dimen/dp32"/>
 
-    <in.ckd.calenderkhanado.widgets.CkdTextview
+    <com.mf.mumizzfood.widgets.CkdTextview
         android:id="@+id/permissionDesc"
         android:text="Your Cart is empty please add some food in your cart"
         android:textSize="16sp"
@@ -38,7 +38,7 @@
         android:gravity="end"
         android:layout_height="wrap_content">
 
-        <in.ckd.calenderkhanado.widgets.CkdTextview
+        <com.mf.mumizzfood.widgets.CkdTextview
             android:id="@+id/permissionPos"
             android:text="Okay"
             android:textSize="14sp"

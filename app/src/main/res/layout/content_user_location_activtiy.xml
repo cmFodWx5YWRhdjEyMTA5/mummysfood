@@ -26,7 +26,7 @@
         app:lottie_fileName="location.json"
         app:lottie_loop="true" />
 
-        <in.ckd.calenderkhanado.widgets.CkdTextview
+        <com.mf.mumizzfood.widgets.CkdTextview
             android:id="@+id/gettingLOcationText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
         android:visibility="gone"
         android:layout_height="wrap_content">
 
-        <in.ckd.calenderkhanado.widgets.CkdTextview
+        <com.mf.mumizzfood.widgets.CkdTextview
             android:id="@+id/or"
             android:layout_width="match_parent"
             android:layout_gravity="center"
@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
             android:text="OR"/>
 
-        <in.ckd.calenderkhanado.widgets.CkdTextview
+        <com.mf.mumizzfood.widgets.CkdTextview
             android:id="@+id/detectAutomatically"
             android:layout_width="match_parent"
             android:layout_gravity="center"

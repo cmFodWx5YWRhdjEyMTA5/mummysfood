@@ -1,59 +1,27 @@
 {
   "project_info": {
-    "project_number": "685097313931",
-    "firebase_url": "https://mummysfood-bb7e8.firebaseio.com",
-    "project_id": "mummysfood-bb7e8",
-    "storage_bucket": "mummysfood-bb7e8.appspot.com"
+    "project_number": "892971134225",
+    "firebase_url": "https://mumizzfood.firebaseio.com",
+    "project_id": "mumizzfood",
+    "storage_bucket": "mumizzfood.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:685097313931:android:46f41503aedae77a",
+        "mobilesdk_app_id": "1:892971134225:android:307b1041b221d5de",
         "android_client_info": {
-          "package_name": "in.ckd.calenderkhanado"
+          "package_name": "com.mf.mumizzfood"
         }
       },
       "oauth_client": [
         {
-          "client_id": "685097313931-ibbag30nfrsghc61vqe5rcn94hn3ac08.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "in.ckd.calenderkhanado",
-            "certificate_hash": "dc4c8f65ba0a6c67475140de7294f2c117c45ce4"
-          }
-        },
-        {
-          "client_id": "685097313931-oatq9gilgasl7d21t8ad3adr2n4rt1bn.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "in.ckd.calenderkhanado",
-            "certificate_hash": "c77f29a46e63a59d8dc334eed02365bf67408cee"
-          }
-        },
-        {
-          "client_id": "685097313931-uhmv3e84kgi8p1u39abqiqpevfajtovk.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "in.ckd.calenderkhanado",
-            "certificate_hash": "1c6b8efb2a4e0ccefc4d6b3af36243feae0add7e"
-          }
-        },
-        {
-          "client_id": "685097313931-gd179ue2p13e7l9mjv2hvuel7et4l5ro.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "in.ckd.calenderkhanado",
-            "certificate_hash": "cd8779c1528640b485928df6c44e3a433a408ea1"
-          }
-        },
-        {
-          "client_id": "685097313931-svg2egsd67i3solla0vcddqp2hav20io.apps.googleusercontent.com",
+          "client_id": "892971134225-8cfgshvjljun5er93fdkdsn7ph9qvq2g.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAiLBFmkx2Q0T7JwBUERsv6H8JH03ZGpJc"
+          "current_key": "AIzaSyCKtOqq3cAAgcKxiyF8OBGQJJ4OjD0cnqE"
         }
       ],
       "services": {
@@ -61,13 +29,8 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "685097313931-svg2egsd67i3solla0vcddqp2hav20io.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2
