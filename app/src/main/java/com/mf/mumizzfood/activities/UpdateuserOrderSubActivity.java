@@ -123,7 +123,14 @@ public class UpdateuserOrderSubActivity extends BaseActivity
                  subscribtionModel.ordered_plates = orderPlates ;
              }else
              {
-                 subscribtionModel.ordered_plates = subscribtionModel.ordered_plates+1;
+                 if (subscribtionModel.deliverd_order == 0)
+                 {
+                     subscribtionModel.ordered_plates = 1;
+                 }else
+                 {
+                     subscribtionModel.ordered_plates = subscribtionModel.ordered_plates+1;
+                 }
+
              }
 
             subscribtionModel.deliverd_order = 1;

@@ -138,9 +138,9 @@ public class PastOrderFragment extends BaseFragment   implements OrderStatusAdap
                                         if (subList.number_of_days == 1 &&subList.deliverd_order==1)
                                         {
                                             PastsubscribesList.add(subList);
-                                        }/*else
+                                        }else
                                         {
-                                            if (remmainPlates == 0 && ) {
+                                            if (remmainPlates == 0 &&subList.number_of_days != 1 ) {
                                                 if (subList.orders != null)
                                                 {
                                                     if ( subList.orders.size() != 0)
@@ -149,7 +149,7 @@ public class PastOrderFragment extends BaseFragment   implements OrderStatusAdap
                                                     }
                                                 }
                                             }
-                                        }*/
+                                        }
 
 
                                     }
