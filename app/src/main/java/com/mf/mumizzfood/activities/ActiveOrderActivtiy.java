@@ -103,8 +103,7 @@ public class ActiveOrderActivtiy extends BaseActivity
 
            if (ordersSubs.orders.get(0).is_dinner == 1 && ordersSubs.orders.get(0).is_lunch==1)
                 {
-                    payment_type_value.setText(String.valueOf(ordersSubs.number_of_days * Integer.parseInt(ordersSubs.orders.get(0).price)+
-                            ordersSubs.number_of_days * Integer.parseInt(ordersSubs.orders.get(0).price))+ " Lunch and dinner both for "+String.valueOf(ordersSubs.number_of_days));
+                    payment_type_value.setText(String.valueOf(ordersSubs.number_of_days * Integer.parseInt(ordersSubs.orders.get(0).price))+" Lunch and dinner both for "+String.valueOf(ordersSubs.number_of_days));
                 }else {
 
                 if (ordersSubs.number_of_days == 1)

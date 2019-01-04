@@ -797,8 +797,13 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
 
         String CurrentAddress = pf.getStringForKey("CurrentAddress", "");
 
-        setUpGClient();
-        getMyLocation();
+        try {
+          setUpGClient();
+            getMyLocation();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
         if (mobileNumber != null && !"".equalsIgnoreCase(mobileNumber)) {
             OrderModel.Data orderModel = new OrderModel.Data();
@@ -1390,7 +1395,12 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
 
     }
 
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        googleApiClient.stopAutoManage(this);
+        googleApiClient.disconnect();
+    }
 
 
 }

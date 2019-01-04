@@ -31,6 +31,14 @@
           }
         },
         {
+          "client_id": "892971134225-bs4geemq7asas3k0bj7b3sovucp4gbcc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mf.mumizzfood",
+            "certificate_hash": "c77f29a46e63a59d8dc334eed02365bf67408cee"
+          }
+        },
+        {
           "client_id": "892971134225-8cfgshvjljun5er93fdkdsn7ph9qvq2g.apps.googleusercontent.com",
           "client_type": 3
         }
