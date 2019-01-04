@@ -23,7 +23,7 @@
     <uses-permission android:name="android.hardware.screens.portrait" />
 
     <application
-        android:name="com.mf.mumizzfood.AppController"
+        android:name=".AppController"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ckd_ic_launcher"
@@ -42,7 +42,7 @@
         </provider>
 
         <activity
-            android:name="com.mf.mumizzfood.activities.SpashAcctivity"
+            android:name=".activities.SpashAcctivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
@@ -53,17 +53,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.mf.mumizzfood.activities.LoginAndSignupActivity" />
-        <activity android:name="com.mf.mumizzfood.activities.InterestActivity" />
-        <activity android:name="com.mf.mumizzfood.activities.RateYourselfActivity" />
-        <activity android:name="com.mf.mumizzfood.location.UserLocationActivtiy" />
-        <activity android:name="com.mf.mumizzfood.activities.ChooseFoodTypeActivity" />
-        <activity android:name="com.mf.mumizzfood.activities.MainBottomBarActivity" />
-        <activity android:name="com.mf.mumizzfood.fragments.OrderDetailsActivity" />
-        <activity android:name="com.mf.mumizzfood.activities.ActiveOrderActivtiy" />
-        <activity android:name="com.mf.mumizzfood.fragments.ProfileFragmentChef" />
-        <activity android:name="com.mf.mumizzfood.activities.MobileOtpVerificationActivity" />
-        <activity android:name="com.mf.mumizzfood.location.EnterFullAdressActivity" />
+        <activity android:name=".activities.LoginAndSignupActivity" />
+        <activity android:name=".location.UserLocationActivtiy" />
+        <activity android:name=".activities.MainBottomBarActivity" />
+        <activity android:name=".fragments.OrderDetailsActivity" />
+        <activity android:name=".activities.ActiveOrderActivtiy" />
+        <activity android:name=".fragments.ProfileFragmentChef" />
+        <activity android:name=".activities.MobileOtpVerificationActivity" />
+        <activity android:name=".location.EnterFullAdressActivity" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -82,22 +79,22 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name="com.mf.mumizzfood.activities.ProfileUpdateActivity"
+            android:name=".activities.ProfileUpdateActivity"
             android:theme="@style/AppTheme" />
 
         <!-- start firebase push notification -->
 
-        <service android:name="com.mf.mumizzfood.service.MyFirebaseMessagingService">
+        <service android:name=".service.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name="com.mf.mumizzfood.service.MyFirebaseInstanceIDService">
+        <service android:name=".service.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service android:name="com.mf.mumizzfood.location.GpsTracker" />
+        <service android:name=".location.GpsTracker" />
 
         <!-- Set custom default icon. This is used when no icon is set for incoming notification messages -->
         <meta-data
@@ -112,22 +109,23 @@
             android:resource="@color/colorAccent" />
         <!-- end firebase push notification -->
 
-        <activity android:name="com.mf.mumizzfood.activities.YourCartActivity" />
-        <activity android:name="com.mf.mumizzfood.activities.CongratualtionsActivtiy" />
+        <activity android:name=".activities.YourCartActivity" />
+        <activity android:name=".activities.CongratualtionsActivtiy" />
         <activity
-            android:name="com.mf.mumizzfood.activities.ManageAddressesActivity"
+            android:name=".activities.ManageAddressesActivity"
             android:label="@string/title_activity_manage_addresses"
             android:theme="@style/AppTheme" />
-        <activity android:name="com.mf.mumizzfood.activities.ManagePaymentActivity" />
-        <activity android:name="com.mf.mumizzfood.activities.HelpSupportActivity" />
+        <activity android:name=".activities.ManagePaymentActivity" />
+        <activity android:name=".activities.HelpSupportActivity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar" />
-        <activity android:name="com.mf.mumizzfood.activities.FilterActivtiy" />
-        <activity android:name="com.mf.mumizzfood.activities.SubscriptionUpdate_Activity" />
-        <activity android:name="com.mf.mumizzfood.activities.UpdateuserOrderSubActivity" />
+        <activity android:name=".activities.FilterActivtiy" />
+        <activity android:name=".activities.SubscriptionUpdate_Activity" />
+        <activity android:name=".activities.UpdateuserOrderSubActivity" />
+        <activity android:name=".activities.TermsAndCondition" />
         <activity
-            android:name="com.mf.mumizzfood.activities.OutOfRegion"
+            android:name=".activities.OutOfRegion"
             android:label="@string/title_activity_out_of_region"
             android:theme="@style/AppTheme"></activity>
     </application>

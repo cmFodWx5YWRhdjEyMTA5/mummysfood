@@ -169,6 +169,13 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
         finish();
     }
 
+    @OnClick(R.id.terms_services)
+    public void terms_services()
+    {
+        Intent i = new Intent(LoginAndSignupActivity.this,TermsAndCondition.class);
+        startActivity(i);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
