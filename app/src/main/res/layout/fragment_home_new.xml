@@ -2,7 +2,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="in.ckd.calenderkhanado.fragments.HomeFragment"
+    tools:context="com.mf.mumizzfood.in.mf.mumizzfood.fragments.HomeFragment"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/white">
@@ -24,7 +24,7 @@
                 android:elevation="@dimen/dp2"
                 android:theme="@style/ThemeToolbar"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-                <in.ckd.calenderkhanado.widgets.CkdTextview
+                <com.mf.mumizzfood.widgets.CkdTextview
                     android:id="@+id/order_checkout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                    <com.mf.mumizzfood.widgets.CkdTextview
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/recommended"
@@ -107,7 +107,7 @@
                         android:textSize="@dimen/dp16"
                         android:paddingStart="@dimen/dp8"
                         android:paddingEnd="@dimen/dp8"/>
-                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                    <com.mf.mumizzfood.widgets.CkdTextview
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/see_all"
@@ -133,7 +133,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                    <com.mf.mumizzfood.widgets.CkdTextview
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/food_near_you"
@@ -141,7 +141,7 @@
                         android:layout_marginBottom="@dimen/dp4"
                         android:textColor="@color/black"
                         android:textSize="@dimen/sp16"/>
-                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                    <com.mf.mumizzfood.widgets.CkdTextview
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/see_all"

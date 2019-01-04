@@ -16,7 +16,7 @@
         android:gravity="center"
         android:padding="@dimen/dp24">
 
-        <in.ckd.calenderkhanado.widgets.CkdTextview
+        <com.mf.mumizzfood.widgets.CkdTextview
             android:id="@+id/Thankyou"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
             app:lottie_fileName="done.json"
             app:lottie_loop="true" />
 
-        <in.ckd.calenderkhanado.widgets.CkdTextview
+        <com.mf.mumizzfood.widgets.CkdTextview
             android:id="@+id/orderplacedText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
             android:textSize="@dimen/sp14" />
 
 
-        <in.ckd.calenderkhanado.widgets.CkdTextview
+        <com.mf.mumizzfood.widgets.CkdTextview
             android:id="@+id/gotItAction"
             android:layout_width="@dimen/dp100"
             android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
             android:visibility="gone">
 
 
-            <in.ckd.calenderkhanado.widgets.CkdTextview
+            <com.mf.mumizzfood.widgets.CkdTextview
                 android:id="@+id/visitAction"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp32"
@@ -112,7 +112,7 @@
             android:layout_marginLeft="@dimen/dp16"
             android:layout_marginRight="@dimen/dp16"></android.support.v4.view.ViewPager>
 
-        <in.ckd.calenderkhanado.widgets.CirclePageIndicator
+        <com.mf.mumizzfood.widgets.CirclePageIndicator
             android:id="@+id/circleIndicator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

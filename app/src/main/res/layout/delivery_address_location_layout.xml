@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.3dp"
         android:background="@color/cardview_shadow_start_color"/>
-    <in.ckd.calenderkhanado.widgets.CkdEditText
+    <com.mf.mumizzfood.widgets.CkdEditText
         android:id="@+id/houseNo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.3dp"
         android:background="@color/cardview_shadow_start_color"/>
-    <in.ckd.calenderkhanado.widgets.CkdEditText
+    <com.mf.mumizzfood.widgets.CkdEditText
         android:id="@+id/deliveryAdresstype"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

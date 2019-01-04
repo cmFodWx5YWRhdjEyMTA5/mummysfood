@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.ckd.calenderkhanado.activities.InterestActivity"
+    tools:context="com.mf.mumizzfood.in.mf.mumizzfood.activities.InterestActivity"
     android:background="@color/colorPrimary">
     <ImageView
         android:layout_width="@dimen/dp150"
@@ -21,7 +21,7 @@
         android:layout_alignParentBottom="true"
         android:elevation="@dimen/dp4">
 
-        <in.ckd.calenderkhanado.widgets.CkdTextview
+        <com.mf.mumizzfood.widgets.CkdTextview
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/interest_title"
@@ -32,7 +32,7 @@
             android:layout_marginStart="@dimen/dp24"
             android:layout_marginEnd="@dimen/dp24"/>
 
-        <in.ckd.calenderkhanado.widgets.CkdTextview
+        <com.mf.mumizzfood.widgets.CkdTextview
             android:id="@+id/gmail_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
             android:layout_marginTop="@dimen/dp24"
             android:layout_marginStart="@dimen/dp24"
             android:layout_marginEnd="@dimen/dp24"/>
-        <in.ckd.calenderkhanado.widgets.CkdTextview
+        <com.mf.mumizzfood.widgets.CkdTextview
             android:id="@+id/mobile_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
             android:layout_marginStart="@dimen/dp24"
             android:layout_marginEnd="@dimen/dp24"/>
 
-        <in.ckd.calenderkhanado.widgets.CkdTextview
+        <com.mf.mumizzfood.widgets.CkdTextview
             android:id="@+id/interest_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.HelpSupportActivity"
+    tools:context="com.mf.mumizzfood.com.mf.mumizzfood.activities.HelpSupportActivity"
     android:orientation="vertical"
     android:background="@color/white">
     <android.support.v7.widget.Toolbar
@@ -15,22 +15,16 @@
         android:elevation="@dimen/dp2"
         android:theme="@style/ThemeToolbar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-        <!--<ImageView
-            android:id="@+id/backArrowFinish"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:padding="@dimen/dp4"
-            android:src="@drawable/ic_back_arrow"
-            android:tint="@color/black" />
-        <in.ckd.calenderkhanado.widgets.CkdTextview
+
+        <com.mf.mumizzfood.widgets.CkdTextview
             android:id="@+id/order_checkout"
             style="@style/textviewbold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Contact Us"
+            android:text="@string/help_support"
             android:textAllCaps="true"
-            android:textColor="@color/black" />-->
+            android:textColor="@color/black" />
     </android.support.v7.widget.Toolbar>
     <LinearLayout
         android:id="@+id/call_us_layout"
@@ -54,7 +48,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginStart="@dimen/dp16">
-            <in.ckd.calenderkhanado.widgets.CkdTextview
+            <com.mf.mumizzfood.widgets.CkdTextview
                 style="@style/textviewregular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -62,7 +56,7 @@
                 android:text="Call Us"
                 android:textColor="@color/black"
                 android:gravity="start"/>
-            <in.ckd.calenderkhanado.widgets.CkdTextview
+            <com.mf.mumizzfood.widgets.CkdTextview
                 style="@style/textviewbold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -92,7 +86,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_marginStart="@dimen/dp16">
-            <in.ckd.calenderkhanado.widgets.CkdTextview
+            <com.mf.mumizzfood.widgets.CkdTextview
                 style="@style/textviewregular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -100,7 +94,7 @@
                 android:text="Email Us"
                 android:textColor="@color/black"
                 android:gravity="start"/>
-            <in.ckd.calenderkhanado.widgets.CkdTextview
+            <com.mf.mumizzfood.widgets.CkdTextview
                 style="@style/textviewbold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

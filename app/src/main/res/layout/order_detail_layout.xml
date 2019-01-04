@@ -109,7 +109,7 @@
 
                     </RelativeLayout>
 
-                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                    <com.mf.mumizzfood.widgets.CkdTextview
                         android:id="@+id/order_rating"
                         android:layout_width="@dimen/dp32"
                         android:layout_height="@dimen/dp32"
@@ -139,7 +139,7 @@
                     android:background="@color/white"
                     android:padding="@dimen/dp8">
 
-                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                    <com.mf.mumizzfood.widgets.CkdTextview
                         android:id="@+id/order_titile"
                         style="@style/textviewbold"
                         android:layout_width="wrap_content"
@@ -148,7 +148,7 @@
                         android:textColor="@color/black_effective"
                         android:textSize="@dimen/sp16" />
 
-                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                    <com.mf.mumizzfood.widgets.CkdTextview
                         style="@style/textviewbold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -159,7 +159,7 @@
                         android:textSize="@dimen/sp10"
                         android:visibility="gone" />
 
-                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                    <com.mf.mumizzfood.widgets.CkdTextview
                         android:id="@+id/order_price"
                         style="@style/textviewbold"
                         android:layout_width="wrap_content"
@@ -181,7 +181,7 @@
                             android:layout_height="wrap_content"
                             android:visibility="gone" />
 
-                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                        <com.mf.mumizzfood.widgets.CkdTextview
                             android:id="@+id/add_to_cart"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -204,7 +204,7 @@
                     android:background="@color/white"
                     android:padding="@dimen/dp8">
 
-                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                    <com.mf.mumizzfood.widgets.CkdTextview
                         android:id="@+id/constantDesc"
                         style="@style/textviewbold"
                         android:layout_width="wrap_content"
@@ -213,7 +213,7 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/sp16" />
 
-                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                    <com.mf.mumizzfood.widgets.CkdTextview
                         android:id="@+id/order_detail"
                         style="@style/textviewregular"
                         android:layout_width="wrap_content"
@@ -235,7 +235,7 @@
                     android:orientation="vertical"
                     android:visibility="gone">
 
-                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                    <com.mf.mumizzfood.widgets.CkdTextview
                         android:id="@+id/billingText"
                         style="@style/textviewbold"
                         android:layout_width="match_parent"
@@ -254,7 +254,7 @@
                         android:orientation="horizontal"
                         android:weightSum="10">
 
-                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                        <com.mf.mumizzfood.widgets.CkdTextview
                             android:id="@+id/quantity"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -263,7 +263,7 @@
                             android:text="Quantity"
                             android:textColor="@color/black_effective" />
 
-                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                        <com.mf.mumizzfood.widgets.CkdTextview
                             android:id="@+id/numberOfQuantity"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -283,7 +283,7 @@
                         android:orientation="horizontal"
                         android:weightSum="10">
 
-                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                        <com.mf.mumizzfood.widgets.CkdTextview
                             android:id="@+id/totalGst"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -292,7 +292,7 @@
                             android:text="Gst"
                             android:textColor="@color/black_effective" />
 
-                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                        <com.mf.mumizzfood.widgets.CkdTextview
                             android:id="@+id/priceGst"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -312,7 +312,7 @@
                         android:orientation="horizontal"
                         android:weightSum="10">
 
-                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                        <com.mf.mumizzfood.widgets.CkdTextview
                             android:id="@+id/totalPrice"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -321,7 +321,7 @@
                             android:text="Total"
                             android:textColor="@color/black_effective" />
 
-                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                        <com.mf.mumizzfood.widgets.CkdTextview
                             android:id="@+id/priceValue"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -335,7 +335,7 @@
 
                 </LinearLayout>
 
-                <in.ckd.calenderkhanado.widgets.CkdTextview
+                <com.mf.mumizzfood.widgets.CkdTextview
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
@@ -356,7 +356,7 @@
                     android:visibility="gone"
                     android:weightSum="10">
 
-                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                    <com.mf.mumizzfood.widgets.CkdTextview
                         android:id="@+id/userDelAddress"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -365,7 +365,7 @@
                         android:gravity="center_vertical"
                         android:text="@string/app_name" />
 
-                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                    <com.mf.mumizzfood.widgets.CkdTextview
                         android:id="@+id/addAddress"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/dp32"
@@ -385,7 +385,7 @@
                     android:orientation="horizontal"
                     android:visibility="gone">
 
-                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                    <com.mf.mumizzfood.widgets.CkdTextview
                         android:id="@+id/viewAddedItem"
                         style="@style/textviewregular"
                         android:layout_width="wrap_content"
@@ -402,7 +402,7 @@
                         android:text="Added Items"
                         android:textColor="@color/white" />
 
-                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                    <com.mf.mumizzfood.widgets.CkdTextview
                         android:id="@+id/place_order"
                         style="@style/textviewregular"
                         android:layout_width="wrap_content"
@@ -427,7 +427,7 @@
                     android:background="@color/white"
                     android:padding="@dimen/dp8">
 
-                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                    <com.mf.mumizzfood.widgets.CkdTextview
                         android:id="@+id/constantSub"
                         style="@style/textviewbold"
                         android:layout_width="wrap_content"
@@ -443,7 +443,7 @@
                         android:layout_below="@+id/constantSub"
                         android:orientation="horizontal">
 
-                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                        <com.mf.mumizzfood.widgets.CkdTextview
                             android:id="@+id/onlyForToday"
                             style="@style/textviewregular"
                             android:layout_width="wrap_content"
@@ -458,7 +458,7 @@
                             android:textColor="@color/black"
                             android:textSize="@dimen/sp14" />
 
-                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                        <com.mf.mumizzfood.widgets.CkdTextview
                             android:id="@+id/weekly"
                             style="@style/textviewregular"
                             android:layout_width="wrap_content"
@@ -473,7 +473,7 @@
                             android:textColor="@color/black"
                             android:textSize="@dimen/sp14" />
 
-                        <in.ckd.calenderkhanado.widgets.CkdTextview
+                        <com.mf.mumizzfood.widgets.CkdTextview
                             android:id="@+id/monthly"
                             style="@style/textviewregular"
                             android:layout_width="wrap_content"
@@ -516,7 +516,7 @@
                             android:weightSum="10">
 
 
-                            <in.ckd.calenderkhanado.widgets.CkdTextview
+                            <com.mf.mumizzfood.widgets.CkdTextview
                                 android:id="@+id/lunch"
                                 style="@style/textviewregular"
                                 android:layout_width="0dp"
@@ -526,7 +526,7 @@
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/sp14" />
 
-                            <in.ckd.calenderkhanado.widgets.CkdTextview
+                            <com.mf.mumizzfood.widgets.CkdTextview
                                 android:id="@+id/lunchPrice"
                                 style="@style/textviewregular"
                                 android:layout_width="0dp"
@@ -558,7 +558,7 @@
                             android:padding="@dimen/dp4"
                             android:weightSum="10">
 
-                            <in.ckd.calenderkhanado.widgets.CkdTextview
+                            <com.mf.mumizzfood.widgets.CkdTextview
                                 android:id="@+id/Diner"
                                 style="@style/textviewregular"
                                 android:layout_width="0dp"
@@ -568,7 +568,7 @@
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/sp14" />
 
-                            <in.ckd.calenderkhanado.widgets.CkdTextview
+                            <com.mf.mumizzfood.widgets.CkdTextview
                                 android:id="@+id/dinnerPrice"
                                 style="@style/textviewregular"
                                 android:layout_width="0dp"
@@ -598,7 +598,7 @@
                             android:padding="@dimen/dp4"
                             android:weightSum="10">
 
-                            <in.ckd.calenderkhanado.widgets.CkdTextview
+                            <com.mf.mumizzfood.widgets.CkdTextview
                                 android:id="@+id/both"
                                 style="@style/textviewregular"
                                 android:layout_width="0dp"
@@ -608,7 +608,7 @@
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/sp14" />
 
-                            <in.ckd.calenderkhanado.widgets.CkdTextview
+                            <com.mf.mumizzfood.widgets.CkdTextview
                                 android:id="@+id/bothPrice"
                                 style="@style/textviewregular"
                                 android:layout_width="0dp"
@@ -683,7 +683,7 @@
                         app:civ_border_width="@dimen/dp2"
                         app:civ_shadow="false" />
 
-                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                    <com.mf.mumizzfood.widgets.CkdTextview
                         android:id="@+id/order_chef_name"
                         style="@style/textviewbold"
                         android:layout_width="wrap_content"
@@ -697,7 +697,7 @@
                         android:textColor="@color/colorPrimary" />
                 </RelativeLayout>
 
-                <in.ckd.calenderkhanado.widgets.CkdTextview
+                <com.mf.mumizzfood.widgets.CkdTextview
                     android:id="@+id/chefPosition"
                     style="@style/textviewregular"
                     android:layout_width="wrap_content"
@@ -711,7 +711,7 @@
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
-    <in.ckd.calenderkhanado.widgets.CkdTextview
+    <com.mf.mumizzfood.widgets.CkdTextview
         android:id="@+id/processedButton"
         style="@style/textviewregular"
         android:layout_width="match_parent"

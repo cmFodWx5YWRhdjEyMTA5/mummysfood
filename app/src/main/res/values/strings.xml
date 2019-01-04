@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Calendar Khana Do</string>
-    <string name="app_full_name">Calendar Khana Do</string>
+    <string name="app_name">MumizzFood</string>
+    <string name="app_full_name">MumizzFood</string>
 
     <string name="app_google_play_store_link">"https://play.google.com/store/apps/details?id="</string>
     <string name="app_market_link">"market://details?id="</string>
@@ -20,7 +20,7 @@
     <string name="guest_login">Continue as Guest</string>
     <string name="explore_eat">Explore &amp; Eat</string>
     <string name="explore_eat_description">You can search verious type of food options provided by house wives near your location</string>
-    <string name="terms_services"><u>By Signing Up, I agree to CalendarKhanaDo\'s Terms of Service and Privacy Policy</u></string>
+    <string name="terms_services">By Signing Up, I agree to MumizzFood\'s <b>Terms of Service </b> and <b>Privacy Policy</b></string>
     <string name="mobile_number_hint">Mobile Number</string>
     <string name="msg_manual_otp">(Enter the OTP above in case we fail\nto detect the SMS automatically)</string>
     <string name="resend_code">TRY AGAIN</string>
@@ -63,7 +63,7 @@
     <!--bottom bar acttivity-->
     <string name="title_activity_main_bottom_bar">MainBottomBarActivity</string>
     <string name="title_home">Home</string>
-    <string name="title_order">Order</string>
+    <string name="title_search">Search</string>
     <string name="title_profile">Profile</string>
 
     <!--home page-->
@@ -133,6 +133,7 @@
     <string name="manage_address">Manage Addresses</string>
     <string name="manage_profile">Manage Profile</string>
     <string name="your_order">Your Orders</string>
+    <string name="manage_payment">Manage Payment</string>
     <string name="manage_payment_option">Manage Payment Options</string>
     <string name="notification_setting">Notification Settings</string>
     <string name="help_support">Help &amp; Support</string>

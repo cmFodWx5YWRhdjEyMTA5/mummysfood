@@ -14,7 +14,7 @@
             android:layout_height="2dp"
             android:background="@color/white"
             android:layout_centerVertical="true"/>
-        <in.ckd.calenderkhanado.widgets.CkdTextview
+        <com.mf.mumizzfood.widgets.CkdTextview
             android:id="@+id/explore_eat"
             android:layout_width="202dp"
             android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"/>
     </RelativeLayout>
-    <in.ckd.calenderkhanado.widgets.CkdTextview
+    <com.mf.mumizzfood.widgets.CkdTextview
         android:id="@+id/explore_eat_description"
         android:layout_width="202dp"
         android:layout_height="wrap_content"

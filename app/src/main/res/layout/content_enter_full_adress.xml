@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_centerInParent="true"
         android:layout_height="wrap_content">
-    <in.ckd.calenderkhanado.widgets.CkdTextview
+    <com.mf.mumizzfood.widgets.CkdTextview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Set delivery location"
@@ -35,7 +35,7 @@
         android:layout_marginLeft="@dimen/dp8"/>
 
 
-    <in.ckd.calenderkhanado.widgets.CkdTextview
+    <com.mf.mumizzfood.widgets.CkdTextview
         android:id="@+id/locationCons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
         android:textSize="@dimen/sp14"
         android:layout_marginLeft="@dimen/dp16"/>
 
-    <in.ckd.calenderkhanado.widgets.CkdEditText
+    <com.mf.mumizzfood.widgets.CkdEditText
         android:id="@+id/locationMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
             android:padding="8dp"
             android:layout_height="wrap_content">
 
-            <in.ckd.calenderkhanado.widgets.CkdEditText
+            <com.mf.mumizzfood.widgets.CkdEditText
                 android:id="@+id/flatNo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
             android:padding="8dp"
             android:layout_height="wrap_content">
 
-            <in.ckd.calenderkhanado.widgets.CkdEditText
+            <com.mf.mumizzfood.widgets.CkdEditText
                 android:id="@+id/landmark"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -115,7 +115,7 @@
             android:layout_marginLeft="@dimen/dp16"
             android:layout_marginRight="@dimen/dp16"
             android:layout_height="0.5dp"/>
-    <in.ckd.calenderkhanado.widgets.CkdTextview
+    <com.mf.mumizzfood.widgets.CkdTextview
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Address Type"
@@ -158,7 +158,7 @@
 
     </RadioGroup>
 
-    <in.ckd.calenderkhanado.widgets.CkdButton
+    <com.mf.mumizzfood.widgets.CkdButton
         android:id="@+id/saveUs"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp32"

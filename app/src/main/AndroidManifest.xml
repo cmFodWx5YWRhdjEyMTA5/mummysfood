@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="in.ckd.calenderkhanado"
-    android:versionCode="9"
-    android:versionName="1.8.0">
+    package="com.mf.mumizzfood"
+    android:versionCode="2"
+    android:versionName="1.0.1">
 
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -54,10 +54,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.LoginAndSignupActivity" />
-        <activity android:name=".activities.InterestActivity" />
-        <activity android:name=".activities.RateYourselfActivity" />
         <activity android:name=".location.UserLocationActivtiy" />
-        <activity android:name=".activities.ChooseFoodTypeActivity" />
         <activity android:name=".activities.MainBottomBarActivity" />
         <activity android:name=".fragments.OrderDetailsActivity" />
         <activity android:name=".activities.ActiveOrderActivtiy" />
@@ -76,7 +73,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAiLBFmkx2Q0T7JwBUERsv6H8JH03ZGpJc" />
+            android:value="AIzaSyCKtOqq3cAAgcKxiyF8OBGQJJ4OjD0cnqE" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

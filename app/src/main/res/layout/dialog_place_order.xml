@@ -22,7 +22,7 @@
             app:lottie_loop="true" />
 
 
-        <in.ckd.calenderkhanado.widgets.CkdTextview
+        <com.mf.mumizzfood.widgets.CkdTextview
             android:id="@+id/palceOrderViaMethod"
             android:text=""
             android:textSize="16sp"
@@ -50,7 +50,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5">
-                <in.ckd.calenderkhanado.widgets.CkdTextview
+                <com.mf.mumizzfood.widgets.CkdTextview
                     android:id="@+id/placeOrderok"
                     style="@style/textviewregular"
                     android:layout_width="@dimen/dp100"
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:gravity="end">
-                <in.ckd.calenderkhanado.widgets.CkdTextview
+                <com.mf.mumizzfood.widgets.CkdTextview
                     android:id="@+id/notNow"
                     android:text="@string/notnow"
                     android:textSize="14sp"

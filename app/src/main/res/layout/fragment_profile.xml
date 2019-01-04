@@ -8,7 +8,7 @@
     <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.ckd.calenderkhanado.fragments.OrderDetailsActivity"
+    tools:context="com.mf.mumizzfood.in.mf.mumizzfood.fragments.OrderDetailsActivity"
     android:background="@color/white"
     android:scrollbars="none">
     <LinearLayout
@@ -71,7 +71,7 @@
 
                     </RelativeLayout>
 
-                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                    <com.mf.mumizzfood.widgets.CkdTextview
                         android:id="@+id/user_rating_txt"
                         android:layout_width="@dimen/dp32"
                         android:layout_height="@dimen/dp32"
@@ -92,7 +92,7 @@
                     android:layout_marginLeft="@dimen/dp8"
                     android:gravity="center_horizontal"
                     android:layout_marginTop="@dimen/dp2">
-                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                    <com.mf.mumizzfood.widgets.CkdTextview
                         android:id="@+id/profile_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
                         style="@style/textviewbold"
                         android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/sp16"/>
-                    <in.ckd.calenderkhanado.widgets.CkdTextview
+                    <com.mf.mumizzfood.widgets.CkdTextview
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/user_type"
@@ -135,14 +135,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <in.ckd.calenderkhanado.widgets.CkdTextview
+                <com.mf.mumizzfood.widgets.CkdTextview
                     style="@style/textviewregular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/about"
                     android:textColor="@color/black" />
 
-                <in.ckd.calenderkhanado.widgets.CkdTextview
+                <com.mf.mumizzfood.widgets.CkdTextview
                     android:id="@+id/profile_about"
                     style="@style/textviewregular"
                     android:layout_width="match_parent"
@@ -158,7 +158,7 @@
                 android:layout_marginTop="@dimen/dp8"
                 android:weightSum="1">
 
-                <in.ckd.calenderkhanado.widgets.CkdTextview
+                <com.mf.mumizzfood.widgets.CkdTextview
                     style="@style/textviewregular"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -166,7 +166,7 @@
                     android:text="@string/food_type"
                     android:textColor="@color/black" />
 
-                <in.ckd.calenderkhanado.widgets.CkdTextview
+                <com.mf.mumizzfood.widgets.CkdTextview
                     android:id="@+id/is_vegitarian"
                     style="@style/textviewregular"
                     android:layout_width="0dp"
@@ -185,7 +185,7 @@
                 android:weightSum="1"
                 android:visibility="visible">
 
-                <in.ckd.calenderkhanado.widgets.CkdTextview
+                <com.mf.mumizzfood.widgets.CkdTextview
                     style="@style/textviewregular"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -193,7 +193,7 @@
                     android:text="@string/experties_txt"
                     android:textColor="@color/black" />
 
-                <in.ckd.calenderkhanado.widgets.CkdTextview
+                <com.mf.mumizzfood.widgets.CkdTextview
                     android:id="@+id/user_level"
                     style="@style/textviewregular"
                     android:layout_width="0dp"
@@ -212,7 +212,7 @@
                 android:visibility="visible"
                 android:orientation="vertical">
 
-                <in.ckd.calenderkhanado.widgets.CkdTextview
+                <com.mf.mumizzfood.widgets.CkdTextview
                     style="@style/textviewregular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -229,7 +229,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="visible">
-            <in.ckd.calenderkhanado.widgets.CkdTextview
+            <com.mf.mumizzfood.widgets.CkdTextview
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/kitchen_txt"
@@ -367,7 +367,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="visible">
-            <in.ckd.calenderkhanado.widgets.CkdTextview
+            <com.mf.mumizzfood.widgets.CkdTextview
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/food_txt"
@@ -420,7 +420,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="gone">
-            <in.ckd.calenderkhanado.widgets.CkdTextview
+            <com.mf.mumizzfood.widgets.CkdTextview
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/subscription"
@@ -467,7 +467,7 @@
             android:orientation="vertical"
             android:visibility="gone"
             android:padding="@dimen/dp16">
-            <in.ckd.calenderkhanado.widgets.CkdTextview
+            <com.mf.mumizzfood.widgets.CkdTextview
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/textviewregular"
