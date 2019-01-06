@@ -1398,8 +1398,12 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
     @Override
     public void onPause() {
         super.onPause();
-        googleApiClient.stopAutoManage(this);
-        googleApiClient.disconnect();
+        try {
+            googleApiClient.stopAutoManage(this);
+            googleApiClient.disconnect();
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
 
