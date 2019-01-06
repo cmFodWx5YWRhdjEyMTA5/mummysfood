@@ -325,7 +325,8 @@ public class ProfileUpdateActivity extends BaseActivity {
         }
         request.gender = userGender;
         request.is_vagitarian = String.valueOf(getRadioSelected());
-        request.device_id = device_id;
+       //
+        // request.device_id = device_id;
         request.os = osVersion;
 
         Call<ResponseBody> loginRequestCall = AppConstants.restAPI.updateUserInfo( request,user_id);

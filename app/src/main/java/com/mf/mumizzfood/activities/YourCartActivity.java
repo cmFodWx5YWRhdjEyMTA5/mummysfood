@@ -193,6 +193,9 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
     private double lognitudeS;
     private String pin_code;
     private String AddNew = "";
+    int priceValue;
+    int totalValueRs;
+    int value;
 
     private Location mylocation;
     private GoogleApiClient googleApiClient;
@@ -426,12 +429,12 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
             }
 
 
-            int value = (int) valuep;
+             value = (int) valuep;
 
 
-            int priceValue = value * totalCount;
+            priceValue = value * totalCount;
             order_price_basedQuantity.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(priceValue));
-            int totalValueRs = priceValue;
+             totalValueRs = priceValue;
 
             totalValue.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
 
@@ -463,13 +466,13 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
                 valuep = Float.parseFloat(modelData.price);
             }
 
-            int value = (int) valuep;
+            value = (int) valuep;
 
-            int priceValue = value * totalCount;
+             priceValue = value * totalCount;
 
             order_price_basedQuantity.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(priceValue));
 
-            int totalValueRs = priceValue;
+            totalValueRs = priceValue;
 
             totalValue.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
 
@@ -564,13 +567,13 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
                 pf.saveStringForKey("paymentType", "COD");
 
                 paymentType = pf.getStringForKey("paymentType", "");
-                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
+                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + getResources().getString(R.string.rs_symbol) + totalValueRs);
 
 
             } else {
                 pf.saveStringForKey("paymentType", "COD");
                 paymentType = pf.getStringForKey("paymentType", "");
-                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + modelData.price);
+                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + totalValueRs);
 
             }
 
@@ -592,12 +595,12 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
             if (location.equalsIgnoreCase("RepeatOrder")) {
                 pf.saveStringForKey("paymentType", "Paytm");
                 paymentType = pf.getStringForKey("paymentType", "");
-                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
+                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + totalValueRs);
 
             } else {
                 pf.saveStringForKey("paymentType", "Paytm");
                 paymentType = pf.getStringForKey("paymentType", "");
-                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + modelData.price);
+                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + totalValueRs);
 
             }
 
@@ -614,9 +617,9 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
 
         try {
             if (location.equalsIgnoreCase("RepeatOrder")) {
-                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
+                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + getResources().getString(R.string.rs_symbol) + totalValueRs);
             } else {
-                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + modelData.price);
+                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + totalValueRs);
             }
 
         } catch (Exception e) {
@@ -1398,8 +1401,14 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
     @Override
     public void onPause() {
         super.onPause();
-        googleApiClient.stopAutoManage(this);
-        googleApiClient.disconnect();
+
+        try {
+            googleApiClient.stopAutoManage(this);
+            googleApiClient.disconnect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 

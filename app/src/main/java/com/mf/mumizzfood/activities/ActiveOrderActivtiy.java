@@ -94,7 +94,6 @@ public class ActiveOrderActivtiy extends BaseActivity
 
             remainPlates = getIntent().getIntExtra("remainingPlates",0);
 
-
             try {
                 mobile = getIntent().getIntExtra("mobile",0);
             } catch (Exception e) {
@@ -103,6 +102,7 @@ public class ActiveOrderActivtiy extends BaseActivity
 
            if (ordersSubs.orders.get(0).is_dinner == 1 && ordersSubs.orders.get(0).is_lunch==1)
                 {
+
                     payment_type_value.setText(String.valueOf(ordersSubs.number_of_days * Integer.parseInt(ordersSubs.orders.get(0).price))+" Lunch and dinner both for "+String.valueOf(ordersSubs.number_of_days));
                 }else {
 
@@ -110,7 +110,11 @@ public class ActiveOrderActivtiy extends BaseActivity
                 {
                     payment_type_value.setText(ordersSubs.ordered_plates * Integer.parseInt(ordersSubs.orders.get(0).price)+ " for  "+String.valueOf(ordersSubs.number_of_days)+ " days");
 
-                }
+                }else
+                    {
+                        payment_type_value.setText(String.valueOf(ordersSubs.number_of_days * Integer.parseInt(ordersSubs.orders.get(0).price))+" for "+String.valueOf(ordersSubs.number_of_days));
+
+                    }
                 }
 
 

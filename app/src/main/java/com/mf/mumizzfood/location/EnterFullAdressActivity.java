@@ -228,7 +228,14 @@ public class EnterFullAdressActivity extends BaseActivity {
         }
         data.type = getRadioSelected();
         data.landmark = landMarkText;
-        data.house_no = flatNoText;
+        if (flatNoText == null || "".equalsIgnoreCase(flatNoText))
+        {
+            data.house_no = "Indore";
+        }else
+        {
+            data.house_no = flatNoText;
+        }
+
         data.user_id = user_id;
 
 
