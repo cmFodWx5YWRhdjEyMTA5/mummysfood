@@ -43,7 +43,6 @@
             android:text="Okay"
             android:textSize="14sp"
             android:background="@drawable/border_primary"
-            android:layout_gravity="center"
             android:layout_marginTop="@dimen/dp8"
             android:padding="6dp"
             style="@style/textviewbold"

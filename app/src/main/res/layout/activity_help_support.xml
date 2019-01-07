@@ -56,14 +56,27 @@
                 android:text="Call Us"
                 android:textColor="@color/black"
                 android:gravity="start"/>
-            <com.mf.mumizzfood.widgets.CkdTextview
-                style="@style/textviewbold"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="8602639858"
-                android:textSize="@dimen/sp16"
-                android:textColor="@color/black" />
+                android:orientation="vertical">
+                <com.mf.mumizzfood.widgets.CkdTextview
+                    style="@style/textviewbold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="8602639858"
+                    android:textSize="@dimen/sp16"
+                    android:textColor="@color/black" />
+                <com.mf.mumizzfood.widgets.CkdTextview
+                    style="@style/textviewbold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="8828376477"
+                    android:textSize="@dimen/sp16"
+                    android:textColor="@color/black" />
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
