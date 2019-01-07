@@ -237,7 +237,8 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
                 isDinner = getIntent().getIntExtra("isDinner", 0);
                 isLunch = getIntent().getIntExtra("isLunch", 0);
                 foodImage = ordersSub.orders.get(0).food_image;
-            } else {
+            } else
+                {
                 modelData = (HomeFeed.Data) getIntent().getSerializableExtra("data");
                 typeOfPackage = getIntent().getStringExtra("typeOfPackage");
                 numberOfDays = getIntent().getIntExtra("numberOfDays", 0);
