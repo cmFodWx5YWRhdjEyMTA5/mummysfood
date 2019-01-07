@@ -568,13 +568,13 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
                 pf.saveStringForKey("paymentType", "COD");
 
                 paymentType = pf.getStringForKey("paymentType", "");
-                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + getResources().getString(R.string.rs_symbol) + totalValueRs);
+                payatm.setText(paymentType );
 
 
             } else {
                 pf.saveStringForKey("paymentType", "COD");
                 paymentType = pf.getStringForKey("paymentType", "");
-                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + totalValueRs);
+                payatm.setText(paymentType );
 
             }
 
@@ -585,7 +585,8 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
     }
 
     @OnClick(R.id.paytm_linear)
-    public void setPayatm() {
+    public void setPayatm()
+    {
         paytmChecked.setVisibility(View.VISIBLE);
         changePaymentOption.setVisibility(View.GONE);
         scrollChange.setVisibility(View.VISIBLE);
@@ -596,12 +597,12 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
             if (location.equalsIgnoreCase("RepeatOrder")) {
                 pf.saveStringForKey("paymentType", "Paytm");
                 paymentType = pf.getStringForKey("paymentType", "");
-                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + totalValueRs);
+                payatm.setText(paymentType );
 
             } else {
                 pf.saveStringForKey("paymentType", "Paytm");
                 paymentType = pf.getStringForKey("paymentType", "");
-                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + totalValueRs);
+                payatm.setText(paymentType );
 
             }
 
