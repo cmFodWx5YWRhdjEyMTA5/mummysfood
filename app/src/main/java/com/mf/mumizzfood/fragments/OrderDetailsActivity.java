@@ -357,9 +357,9 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
             monthlyValue = priceOrgValue * 31;
             weeklyValue = priceOrgValue * 7;
 
-            dinnerPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.week_dinner_price));
-            lunchPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.week_lunch_price));
-            bothPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.week_dinner_price+data.week_lunch_price));
+            dinnerPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.weekly_dinner_price));
+            lunchPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.weekly_lunch_price));
+            bothPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.weekly_dinner_price+data.weekly_lunch_price));
 
             if(data.food_media.get(0) != null){
                 try {
@@ -510,9 +510,9 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
 
 
-        dinnerPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.month_dinner_price));
-        lunchPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.month_lunch_price));
-        bothPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.month_dinner_price+data.month_lunch_price));
+        dinnerPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.monthly_dinner_price));
+        lunchPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.monthly_lunch_price));
+        bothPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.monthly_dinner_price+data.monthly_lunch_price));
 
 
     }
@@ -527,9 +527,9 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         weekly.setBackground(getResources().getDrawable(R.drawable.border_primary));
         onlyForToday.setBackground(getResources().getDrawable(R.drawable.border_gray));
 
-        dinnerPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.week_dinner_price));
-        lunchPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.week_lunch_price));
-        bothPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.week_dinner_price+data.week_lunch_price));
+        dinnerPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.weekly_dinner_price));
+        lunchPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.weekly_lunch_price));
+        bothPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.weekly_dinner_price+data.weekly_lunch_price));
 
     }
 
