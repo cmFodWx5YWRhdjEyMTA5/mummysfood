@@ -794,16 +794,16 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
         if (type.equalsIgnoreCase("Dinner"))
         {
-            msg = "We take dinner request before 6 for one day subscription.\n" +
+            msg = "We take dinner request before 6 pm for one day subscription.\n" +
                     "You can place lunch request in morning before 10.Thank you for understanding, Always be with us.";
         }else if (type.equalsIgnoreCase("Lunch"))
-        {            msg = "We take lunch request before 10 for one day subscription.\n" +
+        {            msg = "We take lunch request before 10 am for one day subscription.\n" +
                 "You can place dinner request in evening before 6.Thank you for understanding, Always be with us.";
 
         }else
         {
-            msg = "We take lunch request before 10 for one day subscription.\n" +
-                    "and dinner request in evening before 6.Thank you for understanding, Always be with us.";
+            msg = "We take lunch request before 10 am for one day subscription.\n" +
+                    "and dinner request in evening before 6 pm.Thank you for understanding, Always be with us.";
         }
 
         palceOrderViaMethod.setText(msg);
