@@ -328,9 +328,36 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
                 int orderPriceInt = 0;
                 orderPriceInt = (int) orderPrice;
                 if (typeOfPackage.equalsIgnoreCase("monthly")) {
-                    orderPriceInt = orderPriceInt * numberOfDays;
+                    //orderPriceInt = orderPriceInt * numberOfDays;
+
+                    if (isDinner == 1&& isLunch == 1)
+                    {
+                        orderPriceInt = modelData.monthly_lunch_price+modelData.monthly_dinner_price;
+                    }
+                    else if (isDinner == 1)
+                    {
+                        orderPriceInt = modelData.monthly_dinner_price;
+                    }else  if (isLunch == 1)
+                    {
+                        orderPriceInt = modelData.monthly_lunch_price;
+                    }
+
+
                 } else if (typeOfPackage.equalsIgnoreCase("weekly")) {
-                    orderPriceInt = orderPriceInt * numberOfDays;
+                    //orderPriceInt = orderPriceInt * numberOfDays;
+
+
+                    if (isDinner == 1&& isLunch == 1)
+                    {
+                        orderPriceInt = modelData.weekly_dinner_price+modelData.weekly_lunch_price;
+                    }else if (isDinner == 1)
+                    {
+                        orderPriceInt = modelData.weekly_dinner_price;
+                    }else  if (isLunch == 1)
+                    {
+                        orderPriceInt = modelData.weekly_lunch_price;
+                    }
+
                 } else if (typeOfPackage.equalsIgnoreCase("today")) {
                     if (isDinner == 1 && isLunch == 1) {
                         orderPriceInt = orderPriceInt + orderPriceInt;
@@ -1097,6 +1124,7 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
         //Getting content for email
         String email = "ckd.khana24@gmail.com";
         String email1 = "ckd.khana12@gmail.com";
+        String email2 = "ckd.khana@gmail.com";
         String subject = "Wake Up New Order Arrived";
         String message = "Order by this user Id - "+order_by+"\n"+"Chef Name - "+chef_name+"\n"+"Order for this chef UserId -"+order_for+"\n"
                 +"Number of plates Ordered - "+ordered_plates+"\n"+"Price for this Order - "+price+"\n"+"Land Mark = "+landmark+"\n"
@@ -1113,6 +1141,12 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
 
         //Executing sendmail to send email
         sm1.execute();
+
+        //Creating SendMail object
+        SendMail sm2 = new SendMail(this, email2, subject, message);
+
+        //Executing sendmail to send email
+        sm2.execute();
 
 
     }
