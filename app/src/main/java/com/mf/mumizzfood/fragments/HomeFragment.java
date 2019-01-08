@@ -215,7 +215,23 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
                     getActivity().startActivity(i);
 
-                } else if (position == 1) {
+                }else if (position == 1) {
+                    globalUrl = RetrofitApiService.BASEURL + "trysomethingnew?filter=top" + "&is_vegitarian=" + UserFoodType;
+
+                    Intent i = new Intent(getActivity(), FilterActivtiy.class);
+
+                    i.putExtra("url", globalUrl);
+
+                    getActivity().startActivity(i);
+                } else if (position == 2) {
+                    Intent i = new Intent(getActivity(), FilterActivtiy.class);
+                    globalUrl = RetrofitApiService.BASEURL + "trysomethingnew" + "?is_vegitarian=" + UserFoodType;
+
+                    i.putExtra("url", globalUrl);
+
+                    getActivity().startActivity(i);
+
+                } /*else if (position == 1) {
                     globalUrl = RetrofitApiService.BASEURL + "trysomethingnew?filter=trysomethingnew" + "&is_vegitarian=" + UserFoodType;
 
                     Intent i = new Intent(getActivity(), FilterActivtiy.class);
@@ -256,7 +272,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
                     getActivity().startActivity(i);
 
-                }
+                }*/
 
             }
         }));
@@ -388,11 +404,12 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
         try {
             filterList = new ArrayList<>();
             filterList.add(new FilterModel(0, getString(R.string.option_near_me), false));
-            filterList.add(new FilterModel(1, getString(R.string.explore), false));
-            filterList.add(new FilterModel(2, getString(R.string.top_food_options), false));
-            filterList.add(new FilterModel(3, getString(R.string.zara_hatke), false));
-            filterList.add(new FilterModel(4, getString(R.string.try_something_new), false));
-            filterList.add(new FilterModel(5, getString(R.string.my_favourite), false));
+            /*filterList.add(new FilterModel(1, getString(R.string.try_something_new), false));
+            filterList.add(new FilterModel(2, getString(R.string.my_favourite), false));
+            filterList.add(new FilterModel(3, getString(R.string.zara_hatke), false));*/
+            filterList.add(new FilterModel(4, getString(R.string.top_food_options), false));
+            filterList.add(new FilterModel(5, getString(R.string.explore), false));
+
 
             GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false);
             filter_recyclerview.setHasFixedSize(true);
