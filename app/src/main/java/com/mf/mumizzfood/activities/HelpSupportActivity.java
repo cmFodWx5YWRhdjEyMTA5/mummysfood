@@ -19,7 +19,7 @@ import butterknife.OnClick;
 import com.mf.mumizzfood.R;
 import com.mf.mumizzfood.base.BaseActivity;
 
-import static android.Manifest.permission.SEND_SMS;
+import static android.Manifest.permission.CALL_PHONE;
 
 public class HelpSupportActivity extends BaseActivity {
 
@@ -56,14 +56,14 @@ public class HelpSupportActivity extends BaseActivity {
     @SuppressLint("MissingPermission")
     private void prepareCall() {
         Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:8602639858"));//change the number
+        callIntent.setData(Uri.parse("tel:9981192339"));//change the number
         startActivity(callIntent);
     }
 
     @OnClick(R.id.email_us_layout)
     public void EmailUs() {
         Intent email = new Intent(Intent.ACTION_SEND);
-        email.putExtra(Intent.EXTRA_EMAIL, new String[]{"ckd.khana@gmail.com"});
+        email.putExtra(Intent.EXTRA_EMAIL, new String[]{"mumizzfood@gmail.com"});
         email.putExtra(Intent.EXTRA_SUBJECT, "");
         email.putExtra(Intent.EXTRA_TEXT, "");
 
@@ -82,9 +82,9 @@ public class HelpSupportActivity extends BaseActivity {
                 } else {
                     Toast.makeText(getApplicationContext(), "Permission Denied, You cannot access and sms", Toast.LENGTH_SHORT).show();
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        if (shouldShowRequestPermissionRationale(SEND_SMS)) {
+                        if (shouldShowRequestPermissionRationale(CALL_PHONE)) {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                requestPermissions(new String[]{SEND_SMS},
+                                requestPermissions(new String[]{CALL_PHONE},
                                         REQUEST_PHONE_CALL);
                             }
                             return;

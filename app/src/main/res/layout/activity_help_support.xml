@@ -65,9 +65,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="8602639858"
+                    android:text="99811 92339"
                     android:textSize="@dimen/sp16"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:paddingStart="@dimen/dp1"/>
                 <com.mf.mumizzfood.widgets.CkdTextview
                     style="@style/textviewbold"
                     android:layout_width="match_parent"
@@ -75,7 +76,8 @@
                     android:layout_gravity="center"
                     android:text="8828376477"
                     android:textSize="@dimen/sp16"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:visibility="gone"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -112,7 +114,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="ckd.khana@gmail.com"
+                android:text="mumizzfood@gmail.com"
                 android:textSize="@dimen/sp16"
                 android:textColor="@color/black" />
         </LinearLayout>

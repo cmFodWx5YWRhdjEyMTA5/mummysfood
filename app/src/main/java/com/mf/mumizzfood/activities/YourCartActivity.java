@@ -187,7 +187,6 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
     private String paymentType = "";
     private String mobileNumber = "";
     private DataBaseHelperNew db;
-    final int SMS_PERMISSION = 200;
 
     private double latitudeS;
     private double lognitudeS;
