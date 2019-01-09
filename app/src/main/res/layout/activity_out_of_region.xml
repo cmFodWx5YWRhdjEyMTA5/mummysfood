@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mf.mumizzfood.com.mf.mumizzfood.activities.OutOfRegion">
+    tools:context=".activities.OutOfRegion">
 
     <ImageView
         android:id="@+id/logo"
@@ -27,5 +27,5 @@
 we will be there very Soon.
 
 Team
-Calender Khana Do"/>
+MumizzFood"/>
 </RelativeLayout>
