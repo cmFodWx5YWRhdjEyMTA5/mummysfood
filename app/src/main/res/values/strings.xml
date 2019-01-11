@@ -160,5 +160,6 @@
     <string name="reset">Reset</string>
     <string name="apply">Apply</string>
     <string name="title_activity_out_of_region">OutOfRegion</string>
+    <string name="discount_note">Note : Discount only for new users on weekly or monthly subscription.</string>
 
 </resources>

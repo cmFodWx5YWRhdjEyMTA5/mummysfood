@@ -75,15 +75,15 @@ public class HomeFilterAdapter extends RecyclerView.Adapter<HomeFilterAdapter.Vi
         viewHolder.filterName.setText(model.filter_name);
 
 
-        if (i == 0) {
+        if (data.get(i).filter_position == 0) {
             Glide.with(context).load(R.mipmap.nearme).into(viewHolder.filterImage);
-        } else if (i == 1) {
+        } else if (data.get(i).filter_position == 1) {
             Glide.with(context).load(R.drawable.trynew).into(viewHolder.filterImage);
-        } else if (i == 2) {
+        } else if (data.get(i).filter_position == 2) {
             Glide.with(context).load(R.drawable.myfev).into(viewHolder.filterImage);
-        } else if (i == 3) {
+        } else if (data.get(i).filter_position == 3) {
             Glide.with(context).load(R.drawable.zarahtke).into(viewHolder.filterImage);
-        } else if (i == 4) {
+        } else if (data.get(i).filter_position == 4) {
             Glide.with(context).load(R.drawable.topfood).into(viewHolder.filterImage);
         } else {
             Glide.with(context).load(R.drawable.explore).into(viewHolder.filterImage);

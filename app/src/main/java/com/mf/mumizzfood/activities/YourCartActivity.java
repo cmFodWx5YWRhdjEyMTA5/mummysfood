@@ -1052,7 +1052,7 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
 
     }
 
-    private void newtowrkCallToplaceOrder(OrderModel.Data orderModel, int itemCountText) {
+    private void newtowrkCallToplaceOrder(final OrderModel.Data orderModel, int itemCountText) {
 
 
         Call<OrderModel.Data> loginRequestCall = AppConstants.restAPI.subscribeOrder(orderModel);
@@ -1076,8 +1076,8 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
 
                           /*  sendSms(res.order_by,res.chef_name,res.order_for,res.ordered_plates,res.price,res.landmark,res.food_detail,
                                     res.is_dinner,res.is_lunch,res.payment_status);*/
-                            sendEmail(res.order_by,res.chef_name,res.order_for,res.ordered_plates,res.price,res.landmark,res.food_detail,
-                                    res.is_dinner,res.is_lunch,res.payment_status);
+                            sendEmail(orderModel.order_by,orderModel.chef_name,orderModel.order_for,orderModel.ordered_plates,orderModel.price,orderModel.landmark,orderModel.food_detail,
+                                    orderModel.is_dinner,orderModel.is_lunch,orderModel.payment_status, orderModel.payment_type);
 
                             //sendNotification();
 
@@ -1118,7 +1118,7 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
         });
     }
 
-    private void sendEmail(int order_by, String chef_name, int order_for, int ordered_plates, String price, String landmark, String food_detail, int is_dinner, int is_lunch, String payment_status) {
+    private void sendEmail(int order_by, String chef_name, int order_for, int ordered_plates, String price, String landmark, String food_detail, int is_dinner, int is_lunch, String payment_status, String payment_type) {
 
 
         //Getting content for email
@@ -1128,7 +1128,8 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
         String subject = "Wake Up New Order Arrived";
         String message = "Order by this user Id - "+order_by+"\n"+"Chef Name - "+chef_name+"\n"+"Order for this chef UserId -"+order_for+"\n"
                 +"Number of plates Ordered - "+ordered_plates+"\n"+"Price for this Order - "+price+"\n"+"Land Mark = "+landmark+"\n"
-                +"Food Details - "+food_detail+"\n"+"Is Dinner -"+is_dinner+"\n"+"Is Lunch ="+is_lunch+"\n"+"Payment Method -"+payment_status;
+                +"Food Details - "+food_detail+"\n"+"Is Dinner -"+is_dinner+"\n"+"Is Lunch ="+is_lunch+"\n"+"Payment Method -"+payment_status
+                +"\n"+"Payment Type -"+payment_type;
 
         //Creating SendMail object
         SendMail sm = new SendMail(this, email, subject, message);
@@ -1226,8 +1227,8 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
         try {
             JSONObject notificationContent = new JSONObject("{'contents': {'en': 'Your Order has placed.we will reach soon till then listen some songs'}," +
                     "'include_player_ids': ['" + userId + "'], " +
-                    "'headings': {'en': 'Calender Khana do'}, " +
-                    "'big_picture': 'https://www.shoutlo.com/uploads/articles/header-img-places-to-get-north-indian-food-in-hyderabad.jpg'}");
+                    "'headings': {'en': 'MumizzFood'}, " +
+                    "'big_picture': '"+foodImage+"'}");
             OneSignal.postNotification(notificationContent, null);
         } catch (JSONException e) {
             e.printStackTrace();

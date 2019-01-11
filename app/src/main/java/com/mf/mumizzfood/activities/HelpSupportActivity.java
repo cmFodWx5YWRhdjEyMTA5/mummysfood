@@ -19,7 +19,6 @@ import butterknife.OnClick;
 import com.mf.mumizzfood.R;
 import com.mf.mumizzfood.base.BaseActivity;
 
-import static android.Manifest.permission.CALL_PHONE;
 
 public class HelpSupportActivity extends BaseActivity {
 
@@ -44,22 +43,6 @@ public class HelpSupportActivity extends BaseActivity {
 
     }
 
-    @OnClick(R.id.call_us_layout)
-    public void CallUs() {
-        if (ContextCompat.checkSelfPermission(HelpSupportActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(HelpSupportActivity.this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_PHONE_CALL);
-        } else {
-            prepareCall();
-        }
-    }
-
-    @SuppressLint("MissingPermission")
-    private void prepareCall() {
-        Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:9981192339"));//change the number
-        startActivity(callIntent);
-    }
-
     @OnClick(R.id.email_us_layout)
     public void EmailUs() {
         Intent email = new Intent(Intent.ACTION_SEND);
@@ -71,30 +54,6 @@ public class HelpSupportActivity extends BaseActivity {
         email.setType("message/rfc822");
 
         startActivity(email);
-    }
-
-
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_PHONE_CALL:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    prepareCall();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Permission Denied, You cannot access and sms", Toast.LENGTH_SHORT).show();
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        if (shouldShowRequestPermissionRationale(CALL_PHONE)) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                requestPermissions(new String[]{CALL_PHONE},
-                                        REQUEST_PHONE_CALL);
-                            }
-                            return;
-                        }
-                    }
-                }
-                break;
-            default:
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
     }
 
     @Override
