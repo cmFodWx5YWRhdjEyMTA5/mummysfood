@@ -38,6 +38,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.mf.mumizzfood.models.ProfileModel;
 import com.onesignal.OSPermissionSubscriptionState;
 import com.onesignal.OneSignal;
 import com.paytm.pgsdk.PaytmOrder;
@@ -756,7 +757,8 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
         lottieAnimationViewPlace.playAnimation();
 
 
-        palceOrderViaMethod.setText("Your order will be placing via " + paymentType + " payment method" + '\n' + "Place Order ?");
+        palceOrderViaMethod.setText("Your order will be placing via " + paymentType + " payment method" + '\n' + " It will take 1 hour to " +
+                "deliver because our housewife will take some time for preparation .'\n'Place Order ? ");
 
         placeOrderok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1234,9 +1236,86 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
             e.printStackTrace();
         }
 
+        networkcallForBindu();
+
     }
-    
-    
+
+    private void networkcallForBindu() {
+
+
+        try {
+            Call<ProfileModel> profileData = AppConstants.restAPI.getProfileUserData(35);
+            profileData.enqueue(new Callback<ProfileModel>() {
+                @Override
+                public void onResponse(Call<ProfileModel> call, Response<ProfileModel> response) {
+
+                    if (response != null){
+                        ProfileModel res = response.body();
+                        if (res.status != null) {
+                            if ( res.status.equals(AppConstants.SUCCESS)){
+                                try {
+                                    JSONObject notificationContent = new JSONObject("{'contents': {'en': 'Bindu Wake UP Order arrived check Mail or db'}," +
+                                            "'include_player_ids': ['" + res.data.get(0).player_id + "'], " +
+                                            "'headings': {'en': 'MumizzFood'}, " +
+                                            "'big_picture': '"+foodImage+"'}");
+                                    OneSignal.postNotification(notificationContent, null);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                netWorkCallForSeema();
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ProfileModel> call, Throwable t) {
+                    Log.e("error",""+t);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void netWorkCallForSeema()
+    {
+        try {
+            Call<ProfileModel> profileData = AppConstants.restAPI.getProfileUserData(35);
+            profileData.enqueue(new Callback<ProfileModel>() {
+                @Override
+                public void onResponse(Call<ProfileModel> call, Response<ProfileModel> response) {
+
+                    if (response != null){
+                        ProfileModel res = response.body();
+                        if (res.status != null) {
+                            if ( res.status.equals(AppConstants.SUCCESS)){
+
+                                try {
+                                    JSONObject notificationContent = new JSONObject("{'contents': {'en': 'Seema Wake UP Order arrived check Mail or db'}," +
+                                            "'include_player_ids': ['" + res.data.get(0).player_id + "'], " +
+                                            "'headings': {'en': 'MumizzFood'}, " +
+                                            "'big_picture': '"+foodImage+"'}");
+                                    OneSignal.postNotification(notificationContent, null);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ProfileModel> call, Throwable t) {
+                    Log.e("error",""+t);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     //Get location While order
 
     public void locationBased(Double latitude, Double longitude) {
@@ -1447,6 +1526,4 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
 
 
     }
-
-
 }

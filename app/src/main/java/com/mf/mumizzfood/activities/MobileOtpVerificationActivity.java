@@ -38,6 +38,8 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.onesignal.OSPermissionSubscriptionState;
+import com.onesignal.OneSignal;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -345,6 +347,10 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
 
     private void verifyMobile() {
 
+        OSPermissionSubscriptionState status = OneSignal.getPermissionSubscriptionState();
+        String userId = status.getSubscriptionStatus().getUserId();
+        boolean isSubscribed = status.getSubscriptionStatus().getSubscribed();
+
         pf = new PreferenceManager(this);
 
         pf.saveStringForKey("Mobile",mobile.getText().toString());
@@ -357,6 +363,7 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
         request.is_mobile_verified = "1";
         request.is_vagitarian = "0";
         request.type = AppConstants.SEEKER;
+        request.player_id = userId;
 
 
         Call<ResponseBody> loginRequestCall;

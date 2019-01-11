@@ -40,6 +40,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.onesignal.OSPermissionSubscriptionState;
+import com.onesignal.OneSignal;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -221,13 +223,21 @@ public class LoginAndSignupActivity extends BaseActivity implements GoogleApiCli
 
     private void networkcallForCheckUserInDb(final GoogleSignInAccount user) {
 
+        OSPermissionSubscriptionState status = OneSignal.getPermissionSubscriptionState();
+        String userId = status.getSubscriptionStatus().getUserId();
+        boolean isSubscribed = status.getSubscriptionStatus().getSubscribed();
+
+
         LoginRequest request = new LoginRequest();
+
         request.email = user.getEmail();
         request.f_name = user.getDisplayName();
         request.profile_image = String.valueOf(user.getPhotoUrl());
         request.is_email_verified = "1";
         request.is_mobile_verified = "0";
         request.is_vagitarian = "0";
+        request.player_id = userId;
+
 
         Call<ResponseBody> loginRequestCall = AppConstants.restAPI.saveUserInfo(request);
 

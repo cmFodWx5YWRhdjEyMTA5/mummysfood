@@ -30,6 +30,7 @@ public class ProfileModel implements Serializable {
         public String mobile;
         public String l_name;
         public String f_name;
+        public String player_id;
         public int id;
     }
 

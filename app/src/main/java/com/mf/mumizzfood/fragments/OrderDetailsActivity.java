@@ -632,42 +632,62 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         if (typeOfPackage.equalsIgnoreCase("today"))
         {
 
-            if (isLunch == 1 && isDinner == 1)
+            if (timeVlaue <=7)
             {
-                if (timeVlaue <=10)
+                showToast("You can place order after 7 pm.");
+            }else
+            {
+                if (isLunch == 1 && isDinner == 1)
                 {
-                    setCartForPregress();
+                    if (timeVlaue <=15)
+                    {
+                        setCartForPregress();
 
-                }else
+                    }else
+                    {
+                        placeOrderDialog("Both");
+                    }
+                }else if (isDinner == 1)
                 {
-                    placeOrderDialog("Both");
+                    if (timeVlaue  <=21)
+                    {
+                        setCartForPregress();
+
+                    }else
+                    {
+                        placeOrderDialog("Dinner");
+                    }
+                } else if (isLunch == 1)
+                {
+                    if (timeVlaue>=16)
+                    {
+                        showToast("You can place Dinner Request for today");
+                    }else
+
+                    {
+                        if (timeVlaue <=21)
+                        {
+                            setCartForPregress();
+
+                        }else
+                        {
+                            placeOrderDialog("Lunch");
+                        }
+                    }
+
                 }
-            }else if (isDinner == 1)
-            {
-             if (timeVlaue  <=18)
-             {
-                 setCartForPregress();
 
-             }else
-             {
-                 placeOrderDialog("Dinner");
-             }
-            } else if (isLunch == 1)
-            {
-                if (timeVlaue <=10)
-                {
-                   setCartForPregress();
-
-                }else
-                {
-                    placeOrderDialog("Lunch");
-                }
             }
 
 
         }else
         {
-            setCartForPregress();
+            if (timeVlaue <=7)
+            {
+                showToast("You can place order after 7 pm.");
+            }else {
+                setCartForPregress();
+            }
         }
 
 
@@ -802,8 +822,8 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
         }else
         {
-            msg = "We take lunch request before 10 am for one day subscription.\n" +
-                    "and dinner request in evening before 6 pm.Thank you for understanding, Always be with us.";
+            msg = "Sorry It's too late for both if it's before 4 am you can place dinner request.\n" +
+                    " .Thank you for understanding, Always be with us.";
         }
 
         palceOrderViaMethod.setText(msg);
