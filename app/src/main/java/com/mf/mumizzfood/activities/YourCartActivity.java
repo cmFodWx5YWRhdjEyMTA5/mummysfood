@@ -1228,7 +1228,7 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
             JSONObject notificationContent = new JSONObject("{'contents': {'en': 'Your Order has placed.we will reach soon till then listen some songs'}," +
                     "'include_player_ids': ['" + userId + "'], " +
                     "'headings': {'en': 'MumizzFood'}, " +
-                    "'big_picture': "+foodImage+"}");
+                    "'big_picture': '"+foodImage+"'}");
             OneSignal.postNotification(notificationContent, null);
         } catch (JSONException e) {
             e.printStackTrace();
