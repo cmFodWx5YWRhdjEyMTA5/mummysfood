@@ -15,6 +15,7 @@ import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
+import com.mf.mumizzfood.data.pref.PreferenceManager;
 import com.mf.mumizzfood.fragments.OrderDetailsActivity;
 
 import com.mf.mumizzfood.R;
@@ -22,6 +23,7 @@ import com.mf.mumizzfood.R;
 import com.mf.mumizzfood.models.HomeFeed;
 import com.mf.mumizzfood.utils.CapsName;
 import com.mf.mumizzfood.widgets.CkdTextview;
+import com.mf.mumizzfood.widgets.DistanceCalculator;
 import com.mf.mumizzfood.widgets.ImageLoadProgressBar;
 
 import java.text.DecimalFormat;
@@ -30,6 +32,7 @@ import java.util.List;
 public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCardAdapter.ViewHolder> implements View.OnClickListener {
     Context context;
     List<HomeFeed.Data> dataList;
+    PreferenceManager pf;
 
   /*  public HomeSpecialCardAdapter(Context context, List<DashBoardModel.Data> data) {
         this.context = context;
@@ -39,7 +42,7 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
     public HomeSpecialCardAdapter(Context activity, List<HomeFeed.Data> fetchDataHome) {
         this.context = activity;
         this.dataList = fetchDataHome;
-
+        pf = new PreferenceManager(activity);
     }
 
     @Override
@@ -119,12 +122,18 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
             e.printStackTrace();
         }
 
-        float[] results = new float[1];
-        Location.distanceBetween(12.9732098, 79.1590077, model.addresses.get(0).latitude, model.addresses.get(0).longitude, results);
-        float distance = results[0] / 100000;
-        DecimalFormat value = new DecimalFormat("#.#");
+        double latji = pf.getDoubleForKey("latitude",12.9732098);
+        double longji = pf.getDoubleForKey("lognitude",79.1590077);
 
-        viewHolder.order_distance.setText(value.format(distance) + "km");
+         /*   Location.distanceBetween(latji, longji, data.addresses.get(0).latitude, data.addresses.get(0).longitude,results);
+            float distance = results[0]/100000;
+            DecimalFormat value = new DecimalFormat("#.#");
+*/
+
+        DistanceCalculator distance = new DistanceCalculator();
+
+        double valuep =  distance.greatCircleInKilometers(latji, longji, model.addresses.get(0).latitude, model.addresses.get(0).longitude);
+        viewHolder.order_distance.setText(String.valueOf(new DecimalFormat("##.##").format(valuep))+"km");
 
         if (model.food_type == null || model.food_type.equalsIgnoreCase("0"))
             viewHolder.vegSysmbol.setColorFilter(context.getResources().getColor(R.color.green));

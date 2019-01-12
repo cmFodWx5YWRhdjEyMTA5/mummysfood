@@ -49,6 +49,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -196,6 +197,7 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
     int priceValue;
     int totalValueRs;
     int value;
+    double totalDistance;
 
     private Location mylocation;
     private GoogleApiClient googleApiClient;
@@ -226,6 +228,14 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            try {
+                totalDistance = getIntent().getDoubleExtra("totalDistance",0);
+                showToast(new DecimalFormat("##.##").format(totalDistance));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
 
             if (location == null) {
                 location = "";
@@ -757,8 +767,8 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
         lottieAnimationViewPlace.playAnimation();
 
 
-        palceOrderViaMethod.setText("Your order will be placing via " + paymentType + " payment method" + '\n' + " It will take 1 hour to " +
-                "deliver because our housewife will take some time for preparation .'\n'Place Order ? ");
+        palceOrderViaMethod.setText("Your order will be placing via " + paymentType + " payment method" +'\n'+ " It will take maximum 1 hour to " +
+                "deliver because Our Providers are housewives.\n Place Order ? ");
 
         placeOrderok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1236,7 +1246,7 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
             e.printStackTrace();
         }
 
-        networkcallForBindu();
+     //   networkcallForBindu();
 
     }
 

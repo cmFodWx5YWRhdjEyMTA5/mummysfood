@@ -27,8 +27,10 @@ import com.mf.mumizzfood.widgets.CkdTextview;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
+import com.mf.mumizzfood.widgets.DistanceCalculator;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -149,6 +151,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
     private int item_quantity;
 
     private String typeOfPackage = "";
+    private double totalDistance;
 
     private List<HomeFeed.Data>dModel;
 
@@ -177,6 +180,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         UserCUrrentAdd = userPf.getStringForKey("CurrentAddress", "");
 
 
+
         ButterKnife.bind(this);
 
         if (getIntent() != null) {
@@ -194,6 +198,19 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+
+
+        try {
+            DistanceCalculator distance = new DistanceCalculator();
+
+            double latji = pf.getDoubleForKey("latitude",12.9732098);
+            double longji = pf.getDoubleForKey("lognitude",79.1590077);
+
+          totalDistance  =  distance.greatCircleInKilometers(latji, longji, data.addresses.get(0).latitude, data.addresses.get(0).longitude);
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         radioAction.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -702,6 +719,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         yourCart.putExtra("isLunch",isLunch);
         yourCart.putExtra("isDinner",isDinner);
         yourCart.putExtra("foodImage",foodImage);
+        yourCart.putExtra("totalDistance",totalDistance);
         yourCart.putExtra("numberOfDays",getRadioSelected());
         startActivity(yourCart);
     }
@@ -822,8 +840,8 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
         }else
         {
-            msg = "Sorry It's too late for both if it's before 4 am you can place dinner request.\n" +
-                    " .Thank you for understanding, Always be with us.";
+            msg = "Sorry It's too late for both. Now you can place dinner request only for today." +
+                    "Thank you for understanding, Always be with us.";
         }
 
         palceOrderViaMethod.setText(msg);

@@ -78,6 +78,22 @@
                     android:layout_marginTop="@dimen/dp16"
                     app:queryHint="@string/home_search"/>
             </android.support.v7.widget.Toolbar>
+
+
+            <com.mf.mumizzfood.widgets.CkdTextview
+                android:padding="@dimen/dp2"
+                android:layout_margin="@dimen/dp4"
+                android:textSize="@dimen/sp14"
+                android:background="@color/red"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="After placing any order if you will not get confirmation call within 5 minutes then please Call us on this (9981192339) number Because our housewives might be busy. We have to remind them.
+            "
+
+                android:textColor="@color/white"
+                style="@style/textviewregular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/filter_recyclerview"
                 android:layout_width="match_parent"

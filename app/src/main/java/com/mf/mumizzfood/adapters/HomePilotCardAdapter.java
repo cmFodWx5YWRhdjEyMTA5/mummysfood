@@ -16,6 +16,7 @@ import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
+import com.mf.mumizzfood.data.pref.PreferenceManager;
 import com.mf.mumizzfood.fragments.HomeFragment;
 import com.mf.mumizzfood.fragments.OrderDetailsActivity;
 import com.mf.mumizzfood.fragments.ProfileFragmentChef;
@@ -26,6 +27,7 @@ import com.mf.mumizzfood.models.DashBoardModel;
 import com.mf.mumizzfood.models.HomeFeed;
 import com.mf.mumizzfood.utils.CapsName;
 import com.mf.mumizzfood.widgets.CkdTextview;
+import com.mf.mumizzfood.widgets.DistanceCalculator;
 import com.mf.mumizzfood.widgets.ImageLoadProgressBar;
 
 import java.text.DecimalFormat;
@@ -37,12 +39,14 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
     private List<DashBoardModel.Data> data;
     private List<HomeFeed.Data> dataList;
     private OrderListner listner;
+    private PreferenceManager pf;
 
 
     public HomePilotCardAdapter(Context activity, List<HomeFeed.Data> fetchDataHome, HomeFragment listner) {
         this.context = activity;
         this.dataList = fetchDataHome;
         this.listner = listner;
+        this.pf = new PreferenceManager(activity);
     }
 
 
@@ -102,13 +106,13 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
                 holder.vegSysmbol.setColorFilter(context.getResources().getColor(R.color.red));
             }
 
+
+
             if(data.food_media.get(0) != null){
                 try {
                     String imageUrl = "http://cdn.mummysfood.in/"+data.food_media.get(0).media.name;
                     Log.d("ImageUrl",imageUrl);
                   //  Glide.with(context).load(imageUrl).into(holder.food_image);
-
-
                     try {
 
                         ImageRequest request = ImageRequestBuilder
@@ -149,12 +153,20 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
                 holder.food_title.setText(data.name);
             }
 
+
             float[] results = new float[1];
-            Location.distanceBetween(12.9732098, 79.1590077, 22.7602485, 75.8880693,results);
+            double latji = pf.getDoubleForKey("latitude",12.9732098);
+            double longji = pf.getDoubleForKey("lognitude",79.1590077);
+
+         /*   Location.distanceBetween(latji, longji, data.addresses.get(0).latitude, data.addresses.get(0).longitude,results);
             float distance = results[0]/100000;
             DecimalFormat value = new DecimalFormat("#.#");
+*/
 
-            holder.order_distance.setText(value.format(distance)+"km");
+            DistanceCalculator distance = new DistanceCalculator();
+
+            double valuep =  distance.greatCircleInKilometers(latji, longji, data.addresses.get(0).latitude, data.addresses.get(0).longitude);
+            holder.order_distance.setText(String.valueOf(new DecimalFormat("##.##").format(valuep))+"km");
             holder.myImageView.setTag(i);
             holder.myImageView.setOnClickListener(this);
             holder.chef_name.setTag(i);
