@@ -1,6 +1,7 @@
 package com.mf.mumizzfood.activities;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationMenuView;
@@ -20,6 +21,9 @@ import com.mf.mumizzfood.fragments.ProfileFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.mf.mumizzfood.fragments.SearchFragment;
+import com.mf.mumizzfood.widgets.UtilLocation;
+
+import java.text.DateFormat;
 
 public class MainBottomBarActivity extends BaseActivity implements HomeFragment.orderActionListner {
 
@@ -44,6 +48,17 @@ public class MainBottomBarActivity extends BaseActivity implements HomeFragment.
 
         String outofregion = pff.getStringForKey("outofregion","");
 
+
+        try {
+            Location loc = UtilLocation.getLastKnownLoaction(true,this);
+
+            pff.saveDoubleForKey("latitude", loc.getLatitude());
+            pff.saveDoubleForKey("lognitude", loc.getLongitude());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         if (outofregion.equalsIgnoreCase("Yes"))
         {
             Intent i = new Intent(this,OutOfRegion.class);
@@ -60,7 +75,6 @@ public class MainBottomBarActivity extends BaseActivity implements HomeFragment.
                 finish();
             }
         }
-
 
     }
 
@@ -224,4 +238,6 @@ public class MainBottomBarActivity extends BaseActivity implements HomeFragment.
     {
          mBottomNav.setSelectedItemId(R.id.navigation_order);
     }
+
+
 }

@@ -877,12 +877,13 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
 
         String CurrentAddress = pf.getStringForKey("CurrentAddress", "");
 
-        try {
+       /* try {
           setUpGClient();
             getMyLocation();
         } catch (Exception e) {
             e.printStackTrace();
         }
+*/
 
 
         if (mobileNumber != null && !"".equalsIgnoreCase(mobileNumber)) {
