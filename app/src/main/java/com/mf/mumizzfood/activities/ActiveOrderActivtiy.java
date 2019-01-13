@@ -194,7 +194,7 @@ public class ActiveOrderActivtiy extends BaseActivity
     public void OnHelp()
     {
 
-        showToast("Send as email at supportmummysfood@gmail.com");
+        showToast("Send as email at mumizzfood@gmail.com");
     }
 
 

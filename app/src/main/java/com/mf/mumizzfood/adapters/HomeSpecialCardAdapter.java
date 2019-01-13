@@ -122,8 +122,8 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
             e.printStackTrace();
         }
 
-        double latji = pf.getDoubleForKey("latitude",12.9732098);
-        double longji = pf.getDoubleForKey("lognitude",79.1590077);
+        double latji = pf.getDoubleForKey("latitude",22.7149);
+        double longji = pf.getDoubleForKey("lognitude",75.8899);
 
          /*   Location.distanceBetween(latji, longji, data.addresses.get(0).latitude, data.addresses.get(0).longitude,results);
             float distance = results[0]/100000;

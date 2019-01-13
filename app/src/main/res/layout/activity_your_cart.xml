@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical"
-    tools:context="com.mf.mumizzfood.in.mf.mumizzfood.activities.YourCartActivity">
+    android:orientation="vertical">
     <RelativeLayout
         android:id="@+id/scrollchange"
         android:layout_width="match_parent"
@@ -442,6 +441,21 @@
                     android:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp14" />
+
+                <com.mf.mumizzfood.widgets.CkdTextview
+                    android:id="@+id/deliveryChargeApplicable"
+                    style="@style/textviewregular"
+                    android:layout_marginTop="@dimen/dp8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp24"
+                    android:gravity="start"
+                    android:layout_below="@+id/placeOrderButtonCheckout"
+                    android:text="Delivery charge applicable above 3 km"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp12" />
+
+
 
                 <com.mf.mumizzfood.widgets.CkdTextview
                     android:id="@+id/placeOrderprice"

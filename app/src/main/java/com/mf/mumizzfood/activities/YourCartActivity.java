@@ -151,6 +151,9 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
     @BindView(R.id.add_item)
     CkdTextview add_item;
 
+    @BindView(R.id.deliveryChargeApplicable)
+    CkdTextview deliveryChargeApplicable;
+
     @BindView(R.id.item_count)
     CkdTextview item_count;
 
@@ -174,6 +177,7 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
     PreferenceManager pfUMobile;
   //  PreferenceManager pfUAddress;
     PreferenceManager loginPref;
+    int deliveryCharges = 0;
 
     private int radioValue;
     private int numberOfDays, isLunch, isDinner;
@@ -231,7 +235,40 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
 
             try {
                 totalDistance = getIntent().getDoubleExtra("totalDistance",0);
-                showToast(new DecimalFormat("##.##").format(totalDistance));
+
+                int totaldistance = (int) totalDistance;
+                if (totaldistance >3)
+                {
+                    deliveryChargeApplicable.setVisibility(View.VISIBLE);
+                    if (totaldistance<=5)
+                    {
+                        deliveryChargeApplicable.setText(" Rs. 10 Delivery charge applicable after 3km");
+                        deliveryCharges = 10;
+                    }else if (totaldistance<=7)
+                    {
+                        deliveryChargeApplicable.setText(" Rs. 15 Delivery charge applicable after 5km");
+                        deliveryCharges = 15;
+                    }else if (totaldistance<=10)
+                    {
+                        deliveryChargeApplicable.setText("Rs. 20 Delivery charge applicable after 7km");
+                        deliveryCharges = 20;
+                    }else if (totaldistance>10)
+                    {
+                        deliveryChargeApplicable.setText("we are in starting phase so can't cover all the areas right now,Let's us know how can we help you.");
+                        placeOrderButtonCheckout.setEnabled(false);
+                        placeOrderButton.setEnabled(false);
+                        placeOrderButton.setBackgroundResource(R.color.white_smoke);
+                        placeOrderButtonCheckout.setVisibility(View.GONE);
+                        placeOrderprice.setVisibility(View.GONE);
+                        placeOrderButtonCheckout.setTextColor(getResources().getColor(R.color.black_effective));
+                    }
+
+
+                }else
+                {
+                    deliveryChargeApplicable.setVisibility(View.GONE);
+                }
+          //      showToast(String.valueOf(new DecimalFormat("##.##").format(totalDistance)));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -325,9 +362,9 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
                 order_price_basedQuantity.setText(getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
                 totalValue.setText(getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
                 order_taxes.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(50));
-                placeOrderprice.setText(getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
-                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
-                placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
+                placeOrderprice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(Integer.parseInt(ordersSub.orders.get(0).price)+deliveryCharges));
+                payatm.setText(paymentType);
+                placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(Integer.parseInt(ordersSub.orders.get(0).price)+deliveryCharges));
                 payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) + ordersSub.orders.get(0).price);
                 order_taxes.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(0));
 
@@ -384,9 +421,9 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
                 order_price_finalTotal.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + 0));
                 totalValue.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + 0));
 
-                placeOrderprice.setText(String.valueOf(orderPriceInt + 0));
-                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + 0));
-                placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + 0));
+                placeOrderprice.setText(String.valueOf(orderPriceInt + deliveryCharges));
+                payatm.setText(paymentType);
+                placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + deliveryCharges));
                 payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(orderPriceInt + 0));
                 order_taxes.setText(getResources().getString(R.string.rs_symbol) + 0);
 
@@ -476,10 +513,10 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
 
             totalValue.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
 
-            placeOrderprice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
+            placeOrderprice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs+deliveryCharges));
             order_price_finalTotal.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + 0));
-            payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + 0));
-            placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + 0));
+            payatm.setText(paymentType);
+            placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + 0+deliveryCharges));
             payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs + 0));
 
         }else if (itemCountText == 1)
@@ -514,9 +551,9 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
 
             totalValue.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
 
-            placeOrderprice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
-            payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
-            placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
+            placeOrderprice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs+deliveryCharges));
+            payatm.setText(paymentType);
+            placeOrderprice.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs+deliveryCharges));
             payatmOption.setText("Pay " + getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
             order_price_finalTotal.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(totalValueRs));
 
@@ -656,9 +693,9 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
 
         try {
             if (location.equalsIgnoreCase("RepeatOrder")) {
-                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + getResources().getString(R.string.rs_symbol) + totalValueRs);
+                payatm.setText(paymentType);
             } else {
-                payatm.setText(paymentType + " " + getResources().getString(R.string.rs_symbol) + totalValueRs);
+                payatm.setText(paymentType );
             }
 
         } catch (Exception e) {
@@ -943,8 +980,7 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
                 orderModel.street = CurrentAddress;
                 orderModel.city = "indore";
                 orderModel.state = "MP";
-
-                orderModel.price = modelData.price;
+                orderModel.price = String.valueOf(((int)Float.parseFloat(modelData.price))+deliveryCharges);
                 orderModel.quantity = itemCountText;
                 orderModel.payment_status = "confirm";
                 orderModel.is_order_confirmed = 1;

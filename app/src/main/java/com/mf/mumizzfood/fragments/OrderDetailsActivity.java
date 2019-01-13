@@ -202,14 +202,15 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
 
         try {
+
+            double latji = mainpf.getDoubleForKey("latitude",22.7149);
+            double longji = mainpf.getDoubleForKey("lognitude",75.8899);
+
             DistanceCalculator distance = new DistanceCalculator();
 
-            double latji = pf.getDoubleForKey("latitude",12.9732098);
-            double longji = pf.getDoubleForKey("lognitude",79.1590077);
+            totalDistance =  distance.greatCircleInKilometers( data.addresses.get(0).latitude, data.addresses.get(0).longitude,latji, longji);
 
-          totalDistance  =  distance.greatCircleInKilometers(latji, longji, data.addresses.get(0).latitude, data.addresses.get(0).longitude);
-
-        } catch (Exception e) {
+            } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -651,7 +652,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
             if (timeVlaue <=7)
             {
-                showToast("You can place order after 7 pm.");
+                showToast("You can place order after 8 pm.");
             }else
             {
                 if (isLunch == 1 && isDinner == 1)
@@ -699,9 +700,9 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
         }else
         {
-            if (timeVlaue <=7)
+            if (timeVlaue <=7|| timeVlaue>=21)
             {
-                showToast("You can place order after 7 pm.");
+                showToast("You can place order after 8 pm.");
             }else {
                 setCartForPregress();
             }
@@ -720,6 +721,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         yourCart.putExtra("isDinner",isDinner);
         yourCart.putExtra("foodImage",foodImage);
         yourCart.putExtra("totalDistance",totalDistance);
+
         yourCart.putExtra("numberOfDays",getRadioSelected());
         startActivity(yourCart);
     }
@@ -832,11 +834,11 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
         if (type.equalsIgnoreCase("Dinner"))
         {
-            msg = "We take dinner request before 6 pm for one day subscription.\n" +
-                    "You can place lunch request in morning before 10.Thank you for understanding, Always be with us.";
+            msg = "We take dinner request before 9 for one day subscription.\n" +
+                    "You can place lunch request in morning after 8.Thank you for understanding, Always be with us.";
         }else if (type.equalsIgnoreCase("Lunch"))
-        {            msg = "We take lunch request before 10 am for one day subscription.\n" +
-                "You can place dinner request in evening before 6.Thank you for understanding, Always be with us.";
+        {            msg = "We take lunch request after 8 for one day subscription.\n" +
+                "You can place dinner request in evening before 9.Thank you for understanding, Always be with us.";
 
         }else
         {
