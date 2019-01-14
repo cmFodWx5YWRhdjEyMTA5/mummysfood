@@ -42,7 +42,11 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
     public HomeSpecialCardAdapter(Context activity, List<HomeFeed.Data> fetchDataHome) {
         this.context = activity;
         this.dataList = fetchDataHome;
-        pf = new PreferenceManager(activity);
+        try {
+            pf = new PreferenceManager(activity);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

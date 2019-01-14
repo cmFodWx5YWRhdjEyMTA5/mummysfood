@@ -84,13 +84,13 @@
                 android:padding="@dimen/dp2"
                 android:layout_margin="@dimen/dp4"
                 android:textSize="@dimen/sp14"
-                android:background="@color/red"
+                android:background="@color/white_smoke"
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:text="After placing any order if you will not get confirmation call within 5 minutes then please Call us on this (9981192339) number Because our housewives might be busy. We have to remind them.
             "
 
-                android:textColor="@color/white"
+                android:textColor="@color/black_effective"
                 style="@style/textviewregular"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
