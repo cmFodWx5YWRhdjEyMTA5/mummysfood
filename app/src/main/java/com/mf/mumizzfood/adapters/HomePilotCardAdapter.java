@@ -46,7 +46,12 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
         this.context = activity;
         this.dataList = fetchDataHome;
         this.listner = listner;
-        this.pf = new PreferenceManager(activity);
+
+        try {
+            this.pf = new PreferenceManager(activity);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
