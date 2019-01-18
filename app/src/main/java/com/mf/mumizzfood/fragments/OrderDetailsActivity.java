@@ -652,12 +652,12 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
             if (timeVlaue <=7)
             {
-                showToast("You can place order after 8 pm.");
+                showToast("You can place request after 10 pm.");
             }else
             {
                 if (isLunch == 1 && isDinner == 1)
                 {
-                    if (timeVlaue <=15)
+                    if (timeVlaue <=13)
                     {
                         setCartForPregress();
 
@@ -667,7 +667,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
                     }
                 }else if (isDinner == 1)
                 {
-                    if (timeVlaue  <=21)
+                    if (timeVlaue  <=20)
                     {
                         setCartForPregress();
 
@@ -677,13 +677,13 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
                     }
                 } else if (isLunch == 1)
                 {
-                    if (timeVlaue>=16)
+                    if (timeVlaue>=14)
                     {
                         showToast("You can place Dinner Request for today");
                     }else
 
                     {
-                        if (timeVlaue <=21)
+                        if (timeVlaue <=20)
                         {
                             setCartForPregress();
 
@@ -700,9 +700,9 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
         }else
         {
-            if (timeVlaue <=7|| timeVlaue>=21)
+            if (timeVlaue <=7|| timeVlaue>=20)
             {
-                showToast("You can place order after 8 pm.");
+                showToast("You can place order after 10 pm.");
             }else {
                 setCartForPregress();
             }
