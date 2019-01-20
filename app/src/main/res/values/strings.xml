@@ -19,7 +19,7 @@
     <string name="mobile_login">Phone</string>
     <string name="guest_login">Continue as Guest</string>
     <string name="explore_eat">Explore &amp; Eat</string>
-    <string name="explore_eat_description">You can search verious type of food options provided by house wives near your location</string>
+    <string name="explore_eat_description">You can search Various type of food options provided by house wives near your location</string>
     <string name="terms_services">By Signing Up, I agree to MumizzFood\'s <b>Terms of Service </b> and <b>Privacy Policy</b></string>
     <string name="mobile_number_hint">Mobile Number</string>
     <string name="msg_manual_otp">(Enter the OTP above in case we fail\nto detect the SMS automatically)</string>
