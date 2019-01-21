@@ -869,8 +869,6 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         });
 
         dialogd.show();
-
-
     }
 
 
