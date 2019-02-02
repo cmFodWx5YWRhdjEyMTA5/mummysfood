@@ -81,6 +81,7 @@
 
 
             <com.mf.mumizzfood.widgets.CkdTextview
+                android:id="@+id/headerText"
                 android:padding="@dimen/dp2"
                 android:layout_margin="@dimen/dp4"
                 android:textSize="@dimen/sp14"

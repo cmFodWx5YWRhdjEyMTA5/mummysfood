@@ -73,6 +73,9 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     @BindView(R.id.home_add_to_cart_icon)
     ImageView home_add_to_cart_icon;
 
+    @BindView(R.id.headerText)
+    CkdTextview headerText;
+
     /*@BindView(R.id.filterFood)
     ImageView filterFood;*/
 
@@ -299,6 +302,15 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
             }
         });
 */
+
+
+        String outofregion = pf.getStringForKey("outofregion","");
+        if (outofregion.equalsIgnoreCase("Yes"))
+        {
+
+            headerText.setText("Thank you for coming on our platform, We really appreciate it but we are not available in your area Right now.");
+        }
+
         return rootView;
     }
 
@@ -395,6 +407,8 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
                 dismissProgress();
             }
         });*/
+
+
 
 
     }

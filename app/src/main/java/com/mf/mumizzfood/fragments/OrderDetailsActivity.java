@@ -643,9 +643,16 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
 
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat mdformat = new SimpleDateFormat("HH");
+        SimpleDateFormat mdformat = new SimpleDateFormat("hh");
         String strDate =  mdformat.format(calendar.getTime());;
+
+        SimpleDateFormat minuteFormat = new SimpleDateFormat("mm");
+        String minuteFormatString =  mdformat.format(calendar.getTime());;
+
+
         int timeVlaue = Integer.parseInt(strDate);
+        int minute = Integer.parseInt(minuteFormatString);
+
 
         if (typeOfPackage.equalsIgnoreCase("today"))
         {
@@ -657,7 +664,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
             {
                 if (isLunch == 1 && isDinner == 1)
                 {
-                    if (timeVlaue <=13)
+                    if (timeVlaue <=12)
                     {
                         setCartForPregress();
 
@@ -667,9 +674,16 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
                     }
                 }else if (isDinner == 1)
                 {
-                    if (timeVlaue  <=20)
+                    if (timeVlaue  <=19)
                     {
-                        setCartForPregress();
+                        if (minute >30)
+                        {
+                            showToast("You can place dinner request before 7:30 pm.");
+                        }else
+                        {
+                            setCartForPregress();
+                        }
+
 
                     }else
                     {
@@ -677,20 +691,27 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
                     }
                 } else if (isLunch == 1)
                 {
-                    if (timeVlaue>=14)
+                    if (timeVlaue>=12)
                     {
-                        showToast("You can place Dinner Request for today");
+                        if (minute >30)
+                        {
+                            showToast("You can place lunch Request before 12:30 am");
+                        }else
+                        {
+                            setCartForPregress();
+                        }
+
                     }else
 
                     {
-                        if (timeVlaue <=20)
+                       /* if (timeVlaue <=20)
                         {
                             setCartForPregress();
 
                         }else
-                        {
+                        {*/
                             placeOrderDialog("Lunch");
-                        }
+                      //  }
                     }
 
                 }
@@ -700,7 +721,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
         }else
         {
-            if (timeVlaue <=7|| timeVlaue>=20)
+            if (timeVlaue <=9|| timeVlaue>=20)
             {
                 showToast("You can place order after 10 pm.");
             }else {
@@ -713,17 +734,27 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
     private void setCartForPregress() {
 
-        Intent yourCart = new Intent(this, YourCartActivity.class);
-        yourCart.putExtra("data",data);
+        String outofregion = pf.getStringForKey("outofregion","");
 
-        yourCart.putExtra("typeOfPackage",typeOfPackage);
-        yourCart.putExtra("isLunch",isLunch);
-        yourCart.putExtra("isDinner",isDinner);
-        yourCart.putExtra("foodImage",foodImage);
-        yourCart.putExtra("totalDistance",totalDistance);
+        if (outofregion.equalsIgnoreCase("Yes"))
+        {
 
-        yourCart.putExtra("numberOfDays",getRadioSelected());
-        startActivity(yourCart);
+            showToast("We are not available in your Area right now");
+        }else
+        {
+            Intent yourCart = new Intent(this, YourCartActivity.class);
+            yourCart.putExtra("data",data);
+
+            yourCart.putExtra("typeOfPackage",typeOfPackage);
+            yourCart.putExtra("isLunch",isLunch);
+            yourCart.putExtra("isDinner",isDinner);
+            yourCart.putExtra("foodImage",foodImage);
+            yourCart.putExtra("totalDistance",totalDistance);
+
+            yourCart.putExtra("numberOfDays",getRadioSelected());
+            startActivity(yourCart);
+        }
+
     }
 
     @Override
@@ -834,11 +865,11 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
         if (type.equalsIgnoreCase("Dinner"))
         {
-            msg = "We take dinner request before 9 for one day subscription.\n" +
-                    "You can place lunch request in morning after 8.Thank you for understanding, Always be with us.";
+            msg = "We take dinner request before 7:30 for one day subscription.\n" +
+                    "You can place lunch request in morning after 10pm.Thank you for understanding, Always be with us.";
         }else if (type.equalsIgnoreCase("Lunch"))
-        {            msg = "We take lunch request after 8 for one day subscription.\n" +
-                "You can place dinner request in evening before 9.Thank you for understanding, Always be with us.";
+        {            msg = "We take lunch request after 10 for one day subscription.\n" +
+                "You can place dinner request in evening before 7:30.Thank you for understanding, Always be with us.";
 
         }else
         {

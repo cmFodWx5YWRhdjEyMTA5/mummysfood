@@ -118,6 +118,11 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
         if (getIntent() != null)
         {
             fromOrderPlace = getIntent().getStringExtra("PlaceOrder");
+
+            if (fromOrderPlace.equalsIgnoreCase("PlaceOrder"))
+            {
+                login.setText("Verify");
+            }
         }
 
         mAuth = FirebaseAuth.getInstance();

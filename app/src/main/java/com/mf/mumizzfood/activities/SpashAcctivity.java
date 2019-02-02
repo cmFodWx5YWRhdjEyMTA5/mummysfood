@@ -60,7 +60,7 @@ public class SpashAcctivity extends BaseActivity
                     Intent intent =   new Intent(SpashAcctivity.this, MainBottomBarActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
-                    finish();                    finish();
+                    finish();
                 }else{
                     startActivity(new Intent(SpashAcctivity.this,UserLocationActivtiy.class));
                     finish();
