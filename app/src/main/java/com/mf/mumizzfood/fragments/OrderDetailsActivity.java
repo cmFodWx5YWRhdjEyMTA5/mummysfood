@@ -153,7 +153,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
     private String typeOfPackage = "";
     private double totalDistance;
 
-    private List<HomeFeed.Data>dModel;
+    private List<HomeFeed.Data> dModel;
 
 
     private int numberOfDays;
@@ -163,8 +163,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
     private String foodImage = "";
 
 
-    public OrderDetailsActivity()
-    {
+    public OrderDetailsActivity() {
         // Required empty public constructor
     }
 
@@ -178,7 +177,6 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         mainpf = new PreferenceManager(this);
 
         UserCUrrentAdd = userPf.getStringForKey("CurrentAddress", "");
-
 
 
         ButterKnife.bind(this);
@@ -203,55 +201,47 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
         try {
 
-            double latji = mainpf.getDoubleForKey("latitude",22.7149);
-            double longji = mainpf.getDoubleForKey("lognitude",75.8899);
+            double latji = mainpf.getDoubleForKey("latitude", 22.7149);
+            double longji = mainpf.getDoubleForKey("lognitude", 75.8899);
 
             DistanceCalculator distance = new DistanceCalculator();
 
-            totalDistance =  distance.greatCircleInKilometers( data.addresses.get(0).latitude, data.addresses.get(0).longitude,latji, longji);
+            totalDistance = distance.greatCircleInKilometers(data.addresses.get(0).latitude, data.addresses.get(0).longitude, latji, longji);
 
-            } catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         radioAction.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int selectedId) {
-                if (selectedId== R.id.radioDinner)
-                {
-                    if (typeOfPackage.equalsIgnoreCase("weekly"))
-                    {
+                if (selectedId == R.id.radioDinner) {
+                    if (typeOfPackage.equalsIgnoreCase("weekly")) {
                         isDinner = 1;
-                        isLunch =0;
+                        isLunch = 0;
                         numberOfDays = 6;
-                    }else if (typeOfPackage.equalsIgnoreCase("monthly"))
-                    {
+                    } else if (typeOfPackage.equalsIgnoreCase("monthly")) {
                         isDinner = 1;
                         isLunch = 0;
                         numberOfDays = 30;
-                    }else if (typeOfPackage.equalsIgnoreCase("today"))
-                    {
+                    } else if (typeOfPackage.equalsIgnoreCase("today")) {
                         isDinner = 1;
                         isLunch = 0;
                         numberOfDays = 1;
                     }
 
                 }
-                if (selectedId == R.id.radioLunch)
-                {
+                if (selectedId == R.id.radioLunch) {
 
-                    if (typeOfPackage.equalsIgnoreCase("weekly"))
-                    {
+                    if (typeOfPackage.equalsIgnoreCase("weekly")) {
                         isLunch = 1;
-                        isDinner =0;
+                        isDinner = 0;
                         numberOfDays = 6;
-                    }else if (typeOfPackage.equalsIgnoreCase("monthly"))
-                    {
+                    } else if (typeOfPackage.equalsIgnoreCase("monthly")) {
                         isLunch = 1;
-                        isDinner =0;
+                        isDinner = 0;
                         numberOfDays = 30;
-                    }else if (typeOfPackage.equalsIgnoreCase("today"))
-                    {
+                    } else if (typeOfPackage.equalsIgnoreCase("today")) {
                         isDinner = 1;
                         isLunch = 0;
                         numberOfDays = 1;
@@ -259,20 +249,16 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
                 }
 
-                if (selectedId == R.id.radioBoth)
-                {
-                    if (typeOfPackage.equalsIgnoreCase("weekly"))
-                    {
+                if (selectedId == R.id.radioBoth) {
+                    if (typeOfPackage.equalsIgnoreCase("weekly")) {
                         isDinner = 1;
                         isLunch = 1;
                         numberOfDays = 12;
-                    }else if (typeOfPackage.equalsIgnoreCase("monthly"))
-                    {
+                    } else if (typeOfPackage.equalsIgnoreCase("monthly")) {
                         isDinner = 1;
                         isLunch = 1;
                         numberOfDays = 60;
-                    }else if (typeOfPackage.equalsIgnoreCase("today"))
-                    {
+                    } else if (typeOfPackage.equalsIgnoreCase("today")) {
                         isDinner = 1;
                         isLunch = 1;
                         numberOfDays = 2;
@@ -330,18 +316,17 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         monthly.setBackground(getResources().getDrawable(R.drawable.border_gray));
 
 
-        dinnerPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.price));
-        lunchPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.price));
-
+        dinnerPrice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(data.price));
+        lunchPrice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(data.price));
 
 
         float valuep = Float.parseFloat(data.price);
 
-        int value  = (int) valuep;
+        int value = (int) valuep;
 
-        value = value +value;
+        value = value + value;
 
-        bothPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(value));
+        bothPrice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(value));
 
     }
 
@@ -350,7 +335,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
 
         try {
-           //  Glide.with(this).load(data.profile_image).into(order_chef_profile_img);
+            //  Glide.with(this).load(data.profile_image).into(order_chef_profile_img);
 
 
             try {
@@ -363,33 +348,33 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
             order_titile.setText(data.name);
             order_detail.setText(data.details);
-            order_price.setText(getResources().getString(R.string.rs_symbol)+ data.price);
+            order_price.setText(getResources().getString(R.string.rs_symbol) + data.price);
             userDelAddress.setText(UserCUrrentAdd);
 
 
             double price = Double.parseDouble(data.price);
 
-            priceOrgValue= (int) price;
+            priceOrgValue = (int) price;
 
 
             monthlyValue = priceOrgValue * 31;
             weeklyValue = priceOrgValue * 7;
 
-            dinnerPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.weekly_dinner_price));
-            lunchPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.weekly_lunch_price));
-            bothPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.weekly_dinner_price+data.weekly_lunch_price));
+            dinnerPrice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(data.weekly_dinner_price));
+            lunchPrice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(data.weekly_lunch_price));
+            bothPrice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(data.weekly_dinner_price + data.weekly_lunch_price));
 
-            if(data.food_media.get(0) != null){
+            if (data.food_media.size() != 0) {
                 try {
-                    String imageUrl = "http://cdn.mummysfood.in/"+data.food_media.get(0).media.name;
-                    Log.d("ImageUrl",imageUrl);
+                    String imageUrl = "http://cdn.mummysfood.in/" + data.food_media.get(data.food_media.size()-1).media.name;
+                    Log.d("ImageUrl", imageUrl);
                     Glide.with(this).load(imageUrl).into(order_image);
 
-                    foodImage= imageUrl;
-                }catch (IllegalArgumentException e){
+                    foodImage = imageUrl;
+                } catch (IllegalArgumentException e) {
                     e.printStackTrace();
                 }
-            }else{
+            } else {
                 order_image.setImageResource(R.mipmap.foodimage);
             }
 
@@ -420,7 +405,6 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
             numberOfQuantity.setText("" + pf.getIntForKey(PreferenceManager.ORDER_quantity, 1));
 
             int totalQuantity = Integer.parseInt(item_count.getText().toString());
-
 
 
             int totalPrice = (priceOrgValue * totalQuantity) + gst;
@@ -491,8 +475,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
 
     @OnClick(R.id.onlyForToday)
-    public void onlyForToday()
-    {
+    public void onlyForToday() {
 
         typeOfPackage = "today";
 
@@ -501,24 +484,22 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         monthly.setBackground(getResources().getDrawable(R.drawable.border_gray));
 
 
-        dinnerPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.price));
-        lunchPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.price));
-
+        dinnerPrice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(data.price));
+        lunchPrice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(data.price));
 
 
         float valuep = Float.parseFloat(data.price);
 
-        int value  = (int) valuep;
+        int value = (int) valuep;
 
-        value = value +value;
+        value = value + value;
 
-        bothPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(value));
+        bothPrice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(value));
 
     }
 
     @OnClick(R.id.monthly)
-    public void mothyClicked()
-    {
+    public void mothyClicked() {
 
         typeOfPackage = "monthly";
 
@@ -527,27 +508,25 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         onlyForToday.setBackground(getResources().getDrawable(R.drawable.border_gray));
 
 
-
-        dinnerPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.monthly_dinner_price));
-        lunchPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.monthly_lunch_price));
-        bothPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.monthly_dinner_price+data.monthly_lunch_price));
+        dinnerPrice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(data.monthly_dinner_price));
+        lunchPrice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(data.monthly_lunch_price));
+        bothPrice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(data.monthly_dinner_price + data.monthly_lunch_price));
 
 
     }
 
 
     @OnClick(R.id.weekly)
-    public void weeklyCliked()
-    {
+    public void weeklyCliked() {
         typeOfPackage = "weekly";
 
         monthly.setBackground(getResources().getDrawable(R.drawable.border_gray));
         weekly.setBackground(getResources().getDrawable(R.drawable.border_primary));
         onlyForToday.setBackground(getResources().getDrawable(R.drawable.border_gray));
 
-        dinnerPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.weekly_dinner_price));
-        lunchPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.weekly_lunch_price));
-        bothPrice.setText(getResources().getString(R.string.rs_symbol)+String.valueOf(data.weekly_dinner_price+data.weekly_lunch_price));
+        dinnerPrice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(data.weekly_dinner_price));
+        lunchPrice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(data.weekly_lunch_price));
+        bothPrice.setText(getResources().getString(R.string.rs_symbol) + String.valueOf(data.weekly_dinner_price + data.weekly_lunch_price));
 
     }
 
@@ -582,32 +561,27 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
     }*/
 
 
-
     @OnClick(R.id.addAddress)
-    public void AddAddressValue()
-    {
+    public void AddAddressValue() {
 
-        Intent enterOtherAct = new Intent(this,EnterFullAdressActivity.class);
-        enterOtherAct.putExtra("Address",UserCUrrentAdd);
-        enterOtherAct.putExtra("From","OrderDetails");
+        Intent enterOtherAct = new Intent(this, EnterFullAdressActivity.class);
+        enterOtherAct.putExtra("Address", UserCUrrentAdd);
+        enterOtherAct.putExtra("From", "OrderDetails");
         startActivity(enterOtherAct);
 
     }
 
     @OnClick(R.id.backArrow)
-    public void backArrow()
-    {
+    public void backArrow() {
         finish();
     }
 
     @OnClick(R.id.processedButton)
-    public  void processedButton()
-    {
+    public void processedButton() {
         DataBaseHelperNew db = new DataBaseHelperNew(this);
 
-        if (location == null ||"".equalsIgnoreCase(location))
-        {
-            List<HomeFeed.Data>modelData  = new ArrayList<>();
+        if (location == null || "".equalsIgnoreCase(location)) {
+            List<HomeFeed.Data> modelData = new ArrayList<>();
 
             modelData.add(data);
 
@@ -615,11 +589,9 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
                 db = new DataBaseHelperNew(this);
                 dModel = db.getAddToCartItem();
 
-                if (dModel != null)
-                {
-                    if (dModel.size() != 0)
-                    {
-                       db.deleteTable(TABLE_ADD_TO_CART);
+                if (dModel != null) {
+                    if (dModel.size() != 0) {
+                        db.deleteTable(TABLE_ADD_TO_CART);
                     }
                 }
             } catch (Exception e) {
@@ -633,9 +605,8 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         String paymentType = null;
         try {
             paymentType = mainpf.getStringForKey("paymentType", "");
-            if ("".equalsIgnoreCase(paymentType))
-            {
-                mainpf.saveStringForKey("paymentType","Paytm");
+            if ("".equalsIgnoreCase(paymentType)) {
+                mainpf.saveStringForKey("paymentType", "Paytm");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -643,94 +614,106 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
 
 
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat mdformat = new SimpleDateFormat("hh");
-        String strDate =  mdformat.format(calendar.getTime());;
+        SimpleDateFormat mdformat = new SimpleDateFormat("HH");
+        String strDate = mdformat.format(calendar.getTime());
+        ;
 
         SimpleDateFormat minuteFormat = new SimpleDateFormat("mm");
-        String minuteFormatString =  mdformat.format(calendar.getTime());;
+        String minuteFormatString = mdformat.format(calendar.getTime());
+        ;
 
 
         int timeVlaue = Integer.parseInt(strDate);
         int minute = Integer.parseInt(minuteFormatString);
 
 
-        if (typeOfPackage.equalsIgnoreCase("today"))
-        {
+        if (typeOfPackage.equalsIgnoreCase("today")) {
 
-            if (timeVlaue <=7)
+         /*   if (timeVlaue <=20)
             {
-                showToast("You can place request after 10 pm.");
+                placeOrderDialog("Both");
             }else
-            {
-                if (isLunch == 1 && isDinner == 1)
-                {
-                    if (timeVlaue <=12)
-                    {
-                        setCartForPregress();
+            {*/
+         if (timeVlaue>9)
+         {
+             if (isLunch == 1 && isDinner == 1) {
+                 if (timeVlaue <= 12) {
+                     setCartForPregress();
 
-                    }else
-                    {
-                        placeOrderDialog("Both");
-                    }
-                }else if (isDinner == 1)
-                {
-                    if (timeVlaue  <=19)
-                    {
-                        if (minute >30)
-                        {
-                            showToast("You can place dinner request before 7:30 pm.");
-                        }else
-                        {
-                            setCartForPregress();
-                        }
+                 } else {
+                     placeOrderDialog("Both");
+                 }
+             } else if (isDinner == 1) {
+                 if (timeVlaue <= 19) {
+                     if (timeVlaue == 19) {
+                         if (minute > 30) {
+                             showToast("You can place dinner request before 7:30 in Evening.");
+                         } else {
+                             setCartForPregress();
+                         }
+                     } else {
+                         setCartForPregress();
+                     }
 
 
-                    }else
-                    {
-                        placeOrderDialog("Dinner");
-                    }
-                } else if (isLunch == 1)
-                {
-                    if (timeVlaue>=12)
-                    {
-                        if (minute >30)
-                        {
-                            showToast("You can place lunch Request before 12:30 am");
-                        }else
-                        {
-                            setCartForPregress();
-                        }
+                 } else {
+                     placeOrderDialog("Dinner");
+                 }
+             } else if (isLunch == 1) {
+                 if (timeVlaue <= 12) {
+                     if (timeVlaue == 12) {
+                         if (minute > 30) {
+                             showToast("You can place lunch Request before 12:30 in Afternoon");
+                         } else {
+                             setCartForPregress();
+                         }
 
-                    }else
+                     } else {
+                         setCartForPregress();
+                     }
 
-                    {
+                 } else
+
+                 {
                        /* if (timeVlaue <=20)
                         {
                             setCartForPregress();
 
                         }else
                         {*/
-                            placeOrderDialog("Lunch");
-                      //  }
-                    }
+                     placeOrderDialog("Lunch");
+                     //  }
+                 }
 
-                }
-
-            }
-
+             }
+         }else
+         {
+             showToast("You can place order after 10 in Morning");
+         }
 
         }else
         {
             if (timeVlaue <=9|| timeVlaue>=20)
             {
-                showToast("You can place order after 10 pm.");
+                showToast("You can place order after 10 in Morning");
             }else {
                 setCartForPregress();
             }
         }
 
 
-    }
+    }/*else
+        {
+            if (timeVlaue <=9|| timeVlaue>=20)
+            {
+                showToast("You can place order after 10 pm in morning");
+            }else {
+                setCartForPregress();
+            }
+        }*/
+
+
+
 
     private void setCartForPregress() {
 
@@ -866,7 +849,7 @@ public class OrderDetailsActivity extends BaseActivity implements EnterFullAdres
         if (type.equalsIgnoreCase("Dinner"))
         {
             msg = "We take dinner request before 7:30 for one day subscription.\n" +
-                    "You can place lunch request in morning after 10pm.Thank you for understanding, Always be with us.";
+                    "You can place lunch request in morning after 10.Thank you for understanding, Always be with us.";
         }else if (type.equalsIgnoreCase("Lunch"))
         {            msg = "We take lunch request after 10 for one day subscription.\n" +
                 "You can place dinner request in evening before 7:30.Thank you for understanding, Always be with us.";

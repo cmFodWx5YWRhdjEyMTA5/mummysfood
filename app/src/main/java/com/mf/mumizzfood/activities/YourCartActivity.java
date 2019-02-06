@@ -1178,7 +1178,7 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
         String message = "Order by this user Id - "+order_by+"\n"+"Chef Name - "+chef_name+"\n"+"Order for this chef UserId -"+order_for+"\n"
                 +"Number of plates Ordered - "+ordered_plates+"\n"+"Price for this Order - "+price+"\n"+"Land Mark = "+landmark+"\n"
                 +"Food Details - "+food_detail+"\n"+"Is Dinner -"+is_dinner+"\n"+"Is Lunch ="+is_lunch+"\n"+"Payment Method -"+payment_status
-                +"\n"+"Payment Type -"+payment_type;
+                +"\n"+"Payment Type -"+payment_type+"\n"+"URL-----"+"mummysfood.in/user/"+order_by;
 
         //Creating SendMail object
         SendMail sm = new SendMail(this, email, subject, message);

@@ -165,7 +165,8 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
         //   lottieAnimationViewLoading.playAnimation();
 
-        globalUrl = RetrofitApiService.BASEURL + "geoUser?lat=" + String.valueOf(lat) + "&lng=" + String.valueOf(longArea) + "&is_vegitarian=" + UserFoodType;
+      globalUrl = RetrofitApiService.BASEURL + "geoUser?lat=" + String.valueOf(lat) + "&lng=" + String.valueOf(longArea) + "&is_vegitarian=" + UserFoodType;
+      //  globalUrl = RetrofitApiService.BASEURL + "geoUser?lat=" + "22.7244" + "&lng=" + "75.8839" + "&is_vegitarian=" + UserFoodType;
 
         networkCallForData(globalUrl);
 
@@ -173,9 +174,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
         showProgress("Loading...");
 
-
         setHasOptionsMenu(true);
-
 
         near_you_recyclerview.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

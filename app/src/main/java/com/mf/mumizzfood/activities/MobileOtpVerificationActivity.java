@@ -119,9 +119,14 @@ public class MobileOtpVerificationActivity extends BaseActivity implements View.
         {
             fromOrderPlace = getIntent().getStringExtra("PlaceOrder");
 
-            if (fromOrderPlace.equalsIgnoreCase("PlaceOrder"))
-            {
-                login.setText("Verify");
+
+            try {
+                if (fromOrderPlace.equalsIgnoreCase("PlaceOrder"))
+                {
+                    login.setText("Verify");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 

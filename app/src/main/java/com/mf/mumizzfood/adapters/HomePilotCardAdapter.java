@@ -115,7 +115,7 @@ public class HomePilotCardAdapter extends RecyclerView.Adapter<RecyclerView.View
 
             if(data.food_media.get(0) != null){
                 try {
-                    String imageUrl = "http://cdn.mummysfood.in/"+data.food_media.get(0).media.name;
+                    String imageUrl = "http://cdn.mummysfood.in/"+data.food_media.get(data.food_media.size()-1).media.name;
                     Log.d("ImageUrl",imageUrl);
                   //  Glide.with(context).load(imageUrl).into(holder.food_image);
                     try {

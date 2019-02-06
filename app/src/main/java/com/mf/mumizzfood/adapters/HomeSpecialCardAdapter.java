@@ -152,7 +152,7 @@ public class HomeSpecialCardAdapter extends RecyclerView.Adapter<HomeSpecialCard
                 if (model.food_media != null) {
 
                     if (model.food_media.size() != 0) {
-                        String imageUrl = "http://cdn.mummysfood.in/" + model.food_media.get(0).media.name;
+                        String imageUrl = "http://cdn.mummysfood.in/" + model.food_media.get(model.food_media.size()-1).media.name;
 
                        // Glide.with(context).load(imageUrl).placeholder(R.mipmap.foodimage).into(viewHolder.foodImage);
 
