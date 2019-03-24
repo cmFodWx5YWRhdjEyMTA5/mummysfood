@@ -804,8 +804,13 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
         lottieAnimationViewPlace.playAnimation();
 
 
-        palceOrderViaMethod.setText("Your order will be placing via " + paymentType + " payment method" +'\n'+ " It will take maximum 1 hour to " +
+        palceOrderViaMethod.setText(" It will take maximum 45 minutes to " +
                 "deliver because Our Providers are housewives.\n Place Order ? ");
+
+
+      /*  palceOrderViaMethod.setText("Your order will be placing via " + paymentType + " payment method" +'\n'+ " It will take maximum 1 hour to " +
+                "deliver because Our Providers are housewives.\n Place Order ? ");
+*/
 
         placeOrderok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1009,8 +1014,9 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
 
                     if (paymentType != null && !"".equalsIgnoreCase(paymentType)) {
                         if (paymentType.equalsIgnoreCase("Paytm")) {
-                            showToast("Paytm Integration is in process you can place order using COD");
+                        //    showToast("Paytm Integration is in process you can place order using COD");
                             //paytmPlaceOrder();
+                            orderViaCodMethod();
                         } else {
                             //paytmPlaceOrder();
 
@@ -1570,6 +1576,50 @@ public class YourCartActivity extends BaseActivity implements GoogleApiClient.Co
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+    }
+
+
+    public void orderViaCodMethod() {
+
+        final Dialog dialogd = new Dialog(this);
+        dialogd.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogd.setContentView(R.layout.remove_items_from_cart);
+
+
+        CkdTextview placeOrderok = (CkdTextview) dialogd.findViewById(R.id.placeOrderok);
+        CkdTextview palceOrderViaMethod = (CkdTextview) dialogd.findViewById(R.id.palceOrderViaMethod);
+        CkdTextview notNow = (CkdTextview) dialogd.findViewById(R.id.notNow);
+        //      LottieAnimationView lottieAnimationViewPlace = (LottieAnimationView) dialogd.findViewById(R.id.lottieAnimationViewPlace);
+//        lottieAnimationViewPlace.playAnimation();
+
+        notNow.setVisibility(View.GONE);
+
+        placeOrderok.setText("Okay");
+
+
+        palceOrderViaMethod.setText("Paytm integration is in process please select COD payment type for now.");
+
+        placeOrderok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialogd.dismiss();
+             //   finish();
+            }
+        });
+
+        notNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialogd.dismiss();
+
+            }
+        });
+
+        dialogd.show();
 
 
     }
