@@ -5,6 +5,7 @@
     android:versionCode="11"
     android:versionName="1.0.11">
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -25,7 +26,7 @@
         android:largeHeap="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".PartCorporateActivity"></activity>
+        <activity android:name=".activities.PartyCorporateActivity"></activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

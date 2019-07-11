@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.PartyCorporateActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/infoLayout"
+        android:src="@drawable/party_order"
+        android:scaleType="centerCrop"/>
+
+<RelativeLayout
+    android:id="@+id/infoLayout"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp200"
+    android:layout_alignParentBottom="true"
+    android:background="@color/white"
+    android:padding="@dimen/dp24">
+    <com.mf.mumizzfood.widgets.CkdTextview
+        android:id="@+id/txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contact Us Now!"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/sp18"
+        style="@style/textviewbold"
+        android:textColor="@color/black"/>
+    <com.mf.mumizzfood.widgets.CkdTextview
+        android:id="@+id/mobile_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mobile_no"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/sp18"
+        style="@style/textviewbold"
+        android:textColor="@color/black"
+        android:layout_below="@+id/txt"/>
+    <LinearLayout
+        android:layout_below="@+id/mobile_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+        <ImageView
+            android:id="@+id/calling"
+            android:layout_width="@dimen/dp48"
+            android:layout_height="@dimen/dp48"
+            android:src="@mipmap/caling_icon"
+
+            android:layout_margin="@dimen/dp16"/>
+        <ImageView
+            android:id="@+id/whats_app"
+            android:layout_width="@dimen/dp56"
+            android:layout_height="@dimen/dp56"
+            android:src="@mipmap/whatsapp_icon"
+            android:layout_margin="@dimen/dp16"/>
+    </LinearLayout>
+
+</RelativeLayout>
+</RelativeLayout>

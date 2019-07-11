@@ -27,6 +27,7 @@ import com.mf.mumizzfood.activities.FilterActivtiy;
 
 import com.mf.mumizzfood.R;
 
+import com.mf.mumizzfood.activities.PartyCorporateActivity;
 import com.mf.mumizzfood.adapters.HomeFilterAdapter;
 import com.mf.mumizzfood.adapters.HomePilotCardAdapter;
 import com.mf.mumizzfood.adapters.HomeSpecialCardAdapter;
@@ -111,6 +112,7 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
     private List<HomeFeed.Data> dModel;
     private List<FilterModel> filterList;
     private String globalUrl = "";
+
     private int UserFoodType;
     private PreferenceManager pref;
     private static final Integer[] IMAGES = {R.drawable.banner1, R.drawable.rate_us,R.mipmap.image3};
@@ -245,12 +247,8 @@ public class HomeFragment extends BaseFragment implements HomePilotCardAdapter.O
 
                     getActivity().startActivity(i);
                 } else if (position == 2) {
-//                    Intent i = new Intent(getActivity(), FilterActivtiy.class);
-//                    globalUrl = RetrofitApiService.BASEURL + "trysomethingnew" + "?is_vegitarian=" + UserFoodType;
-//
-//                    i.putExtra("url", globalUrl);
-//
-//                    getActivity().startActivity(i);
+                    Intent intent = new Intent(context, PartyCorporateActivity.class);
+                    context.startActivity(intent);
 
                 } /*else if (position == 1) {
                     globalUrl = RetrofitApiService.BASEURL + "trysomethingnew?filter=trysomethingnew" + "&is_vegitarian=" + UserFoodType;
