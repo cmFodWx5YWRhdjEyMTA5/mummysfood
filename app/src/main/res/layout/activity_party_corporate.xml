@@ -38,7 +38,8 @@
         android:textSize="@dimen/sp18"
         style="@style/textviewbold"
         android:textColor="@color/black"
-        android:layout_below="@+id/txt"/>
+        android:layout_below="@+id/txt"
+        android:layout_marginTop="@dimen/dp8"/>
     <LinearLayout
         android:layout_below="@+id/mobile_no"
         android:layout_width="wrap_content"
@@ -50,13 +51,15 @@
             android:layout_height="@dimen/dp48"
             android:src="@mipmap/caling_icon"
 
-            android:layout_margin="@dimen/dp16"/>
+            android:layout_margin="@dimen/dp16"
+            android:layout_gravity="center"/>
         <ImageView
             android:id="@+id/whats_app"
             android:layout_width="@dimen/dp56"
             android:layout_height="@dimen/dp56"
             android:src="@mipmap/whatsapp_icon"
-            android:layout_margin="@dimen/dp16"/>
+            android:layout_margin="@dimen/dp16"
+            android:layout_gravity="center"/>
     </LinearLayout>
 
 </RelativeLayout>

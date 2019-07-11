@@ -74,9 +74,15 @@ public class HomeWhatsNewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
                     }
 
-                }else if (position == 1){
+                }else if (position == 2){
 
-
+                    final String appPackageName = context.getPackageName();
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT,
+                            "https://play.google.com/store/apps/details?id=" + appPackageName);
+                    sendIntent.setType("text/plain");
+                    context.startActivity(sendIntent);
                 }
             }
         });
