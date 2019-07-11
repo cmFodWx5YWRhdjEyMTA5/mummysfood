@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/dp16"
+    android:padding="@dimen/dp16"
+    tools:context="com.mf.mumizzfood.com.mf.mumizzfood.activities.UpdateuserOrderSubActivity">
+
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/profile_image"
+        android:layout_width="@dimen/dp120"
+        android:layout_height="@dimen/dp120"
+        android:src="@mipmap/default_usr_img"
+        app:civ_border_color="@color/colorPrimary"
+        app:civ_border_width="@dimen/dp2"
+        app:civ_shadow="false"
+        android:layout_marginTop="@dimen/dp16"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"/>
+
+    <com.mf.mumizzfood.widgets.CkdTextview
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp16"
+        android:layout_gravity="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp14" />
+    <com.mf.mumizzfood.widgets.CkdTextview
+        android:id="@+id/updaetSub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp32"
+        android:layout_gravity="center"
+        style="@style/textviewregular"
+        android:text="Update Order"
+        android:padding="@dimen/dp16"
+        android:background="@drawable/fill_rounded_primary_color"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp14" />
+
+</LinearLayout>

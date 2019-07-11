@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_margin="@dimen/dp8"
+    android:padding="@dimen/dp8"
+    android:id="@+id/lineaarBg"
+    android:elevation="@dimen/dp8"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp4"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/food_imagehere"
+            android:paddingLeft="@dimen/dp4"
+            android:layout_width="@dimen/dp64"
+            android:src="@mipmap/foodimage"
+            android:layout_height="@dimen/dp64" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/dp8"
+            android:layout_height="wrap_content">
+            <com.mf.mumizzfood.widgets.CkdTextview
+                android:id="@+id/chefName_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp16"
+                style="@style/textviewbold"
+                android:textColor="@color/black_effective"
+                android:text="SouthIndian"
+                />
+            <com.mf.mumizzfood.widgets.CkdTextview
+                android:id="@+id/foodLocation_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp14"
+                style="@style/textviewregular"
+                android:textColor="@color/black_effective"
+                android:text="SouthIndian"
+                />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:padding="@dimen/dp8"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.mf.mumizzfood.widgets.CkdTextview
+                android:id="@+id/foodNameEntry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp12"
+                android:singleLine="true"
+                android:ellipsize="end"
+                style="@style/textviewbold"
+                android:paddingLeft="@dimen/dp4"
+                android:textColor="@color/black_effective"
+                android:text="Sounth"
+                />
+    <com.mf.mumizzfood.widgets.CkdTextview
+        android:id="@+id/foodDetails"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/dp4"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp14"
+        style="@style/textviewregular"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:paddingLeft="@dimen/dp4"
+        android:textColor="@color/black_light"
+        android:text="it's delicious,it's deliciousit's deliciousit's deliciousit's delicious"
+        />
+        </LinearLayout>
+    <com.mf.mumizzfood.widgets.CkdTextview
+        android:id="@+id/remaningThali"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp14"
+        style="@style/textviewregular"
+        android:paddingLeft="@dimen/dp4"
+        android:textColor="@color/black_effective"
+        android:text="Remaning Thali : 4"
+        />
+        <View
+            android:background="@color/seprator"
+            android:layout_marginTop="@dimen/dp4"
+            android:layout_marginBottom="@dimen/dp4"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp0.5"/>
+    <com.mf.mumizzfood.widgets.CkdTextview
+        android:id="@+id/CancelOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp14"
+        android:gravity="start"
+        android:paddingLeft="@dimen/dp4"
+        android:layout_gravity="center"
+        style="@style/textviewbold"
+        android:textColor="@color/colorPrimary"
+        android:text="Cancel Order"
+        />
+
+    </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

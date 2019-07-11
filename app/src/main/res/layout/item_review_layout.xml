@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/dp8"
+    android:layout_marginBottom="@dimen/dp8">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/review_user_image"
+        android:layout_width="@dimen/dp50"
+        android:layout_height="@dimen/dp50"
+        android:src="@mipmap/default_usr_img"
+        app:civ_border_color="@color/white"
+        app:civ_border_width="@dimen/dp2"
+        app:civ_shadow="false"
+        android:layout_centerVertical="true"/>
+    <com.mf.mumizzfood.widgets.CkdTextview
+        android:id="@+id/review_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pilot_name"
+        style="@style/textviewregular"
+        android:textColor="@color/black"
+        android:layout_toEndOf="@+id/review_user_image"
+        android:layout_marginStart="@dimen/dp8"
+        android:layout_centerVertical="true"/>
+    <com.mf.mumizzfood.widgets.CkdTextview
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@mipmap/star_filled"
+        android:text="4.5"
+        android:drawablePadding="@dimen/dp2"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"/>
+</RelativeLayout>
+    <com.mf.mumizzfood.widgets.CkdTextview
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/kitchen_description"
+        android:layout_marginTop="@dimen/dp8"/>
+</LinearLayout>

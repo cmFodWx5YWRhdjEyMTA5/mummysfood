@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainRelative"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mf.mumizzfood.in.mf.mumizzfood.activities.LoginAndSignupActivity">
+
+    <include layout="@layout/image_slider_layout"/>
+    <include layout="@layout/image_slider_info"/>
+
+    <LinearLayout
+        android:id="@+id/sign_up_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp24"
+        android:orientation="vertical"
+        android:background="@drawable/white_bg"
+        android:layout_alignParentBottom="true"
+        android:elevation="@dimen/dp4">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp24"
+            android:layout_marginEnd="@dimen/dp24"
+            android:layout_gravity="center">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp16"
+                android:orientation="vertical"
+                android:layout_marginStart="@dimen/dp24"
+                android:layout_marginEnd="@dimen/dp24">
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/signIn_inputlayout_mobile">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/signIn_editText_mobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/gray"
+                        android:hint="@string/mobile_number_hint"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
+                        android:maxLength="10"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray"
+                        android:textSize="@dimen/sp14" />
+
+                </android.support.design.widget.TextInputLayout>
+                <com.mf.mumizzfood.widgets.CkdButton
+                    android:id="@+id/signIn_login_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp46"
+                    android:layout_below="@id/signIn_inputlayout_mobile"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dp8"
+                    android:background="@drawable/orange_bg"
+                    android:gravity="center"
+                    android:text="GET OTP"
+                    android:textColor="@color/redColorPrimary"
+                    android:textSize="@dimen/sp16"
+                    android:visibility="visible"
+                    android:layout_marginBottom="@dimen/dp16"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <com.mf.mumizzfood.widgets.CkdEditText
+                    android:id="@+id/signIn_editText_otp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/gray"
+                    android:gravity="left"
+                    android:hint="OTP"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLength="6"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray"
+                    android:textSize="@dimen/sp14"
+                    android:layout_marginStart="@dimen/dp24"
+                    android:layout_marginEnd="@dimen/dp24"
+                    android:visibility="gone"/>
+                <com.eralp.circleprogressview.CircleProgressView
+                    android:id="@+id/circle_progress_view"
+                    android:layout_width="@dimen/dp28"
+                    android:layout_height="@dimen/dp28"
+                    app:cpv_circle_color="@color/colorPrimary"
+                    app:cpv_circle_width="3dp"
+                    app:cpv_background_circle_width="3dp"
+                    app:cpv_background_circle_color="@color/gray"
+                    android:layout_marginTop="@dimen/dp8"
+                    android:visibility="gone"/>
+
+                <com.mf.mumizzfood.widgets.CkdTextview
+                    android:id="@+id/resend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp8"
+                    android:padding="@dimen/dp5"
+                    android:text="@string/resend_code"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+                <com.mf.mumizzfood.widgets.CkdTextview
+                    android:id="@+id/msg_manual_otp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp8"
+                    android:text="@string/msg_manual_otp"
+                    android:textAppearance="?android:textAppearanceMedium"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp14"
+                    android:visibility="gone"/>
+
+                <com.mf.mumizzfood.widgets.CkdButton
+                    android:id="@+id/mobile_login_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp46"
+                    android:layout_marginTop="@dimen/dp16"
+                    android:background="@drawable/orange_bg"
+                    android:gravity="center"
+                    android:text="@string/log_in"
+                    android:textColor="@color/redColorPrimary"
+                    android:textSize="@dimen/sp16"
+                    android:visibility="gone"
+                    android:layout_marginStart="@dimen/dp24"
+                    android:layout_marginEnd="@dimen/dp24"
+                    android:layout_marginBottom="@dimen/dp16" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

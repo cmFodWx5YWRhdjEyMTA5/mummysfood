@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <android.support.v7.widget.SearchView
+        android:id="@+id/searchText"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="@dimen/dp150"
+        android:layout_centerInParent="true"
+         android:orientation="vertical"
+        android:layout_height="wrap_content">
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationgetLoc"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        android:visibility="visible"
+        app:lottie_fileName="location.json"
+        app:lottie_loop="true" />
+
+        <com.mf.mumizzfood.widgets.CkdTextview
+            android:id="@+id/gettingLOcationText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Finding location"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:visibility="visible"/>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/mainSep"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0.5"
+        android:visibility="gone"
+        android:layout_below="@+id/searchText"
+        android:background="@color/gray"/>
+
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_toStartOf="@+id/gettingLOcationText"
+        android:layout_centerInParent="true"/>
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerviewSearch"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_below="@+id/searchText"
+        android:layout_margin="@dimen/dp8"
+        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+
+
+    <TextView
+        android:id="@+id/noDataFound"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Address not found"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:gravity="center"
+        />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/automaticLocation"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/mainSep"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp48"
+        android:visibility="gone"
+        android:layout_height="wrap_content">
+
+        <com.mf.mumizzfood.widgets.CkdTextview
+            android:id="@+id/or"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            style="@style/textviewbold"
+            android:layout_height="wrap_content"
+            android:text="OR"/>
+
+        <com.mf.mumizzfood.widgets.CkdTextview
+            android:id="@+id/detectAutomatically"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp24"
+            android:gravity="center"
+            android:textSize="@dimen/sp18"
+            android:padding="@dimen/dp8"
+            style="@style/textviewregular"
+            android:layout_height="wrap_content"
+            android:text="Detect automatic location"/>
+    </LinearLayout>
+
+</RelativeLayout>

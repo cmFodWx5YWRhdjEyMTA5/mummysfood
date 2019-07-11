@@ -1,0 +1,209 @@
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".fragments.HomeFragment"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/white">
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scrollNes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="none">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white"
+                android:elevation="@dimen/dp2"
+                android:theme="@style/ThemeToolbar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+                <com.mf.mumizzfood.widgets.CkdTextview
+                    android:id="@+id/order_checkout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    style="@style/textviewbold"
+                    android:text="@string/app_full_name"
+                    android:textAllCaps="true"
+                    android:layout_gravity="center"/>
+                <ImageView
+                    android:id="@+id/activeOrder"
+                    android:layout_width="@dimen/dp24"
+                    android:layout_height="@dimen/dp24"
+                    android:visibility="gone"
+                    android:layout_alignParentStart="true"
+                    android:tint="@color/black"
+                    android:src="@mipmap/activeorder"/>
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:id="@+id/filterFood"
+                    android:layout_toStartOf="@+id/home_add_to_cart_icon"
+                    android:src="@drawable/filter"
+                    android:tint="@color/black"
+                    android:layout_marginStart="@dimen/dp16"
+                    android:visibility="gone"/>
+
+                <View
+                    android:id="@+id/filterFoodApplied"
+                    android:layout_width="@dimen/dp6"
+                    android:layout_height="@dimen/dp6"
+                    android:background="@drawable/full_circle"
+                    android:layout_toStartOf="@+id/home_add_to_cart_icon"
+                    android:layout_marginBottom="@dimen/dp16"
+                    android:paddingBottom="@dimen/dp20"
+                    android:visibility="gone"/>
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:id="@+id/home_add_to_cart_icon"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_icon_shopping_cart"
+                    android:tint="@color/black"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/dp16"/>
+                <android.support.v7.widget.SearchView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:background="@drawable/fill_rounded_full_primary"
+                    android:layout_marginTop="@dimen/dp16"
+                    app:queryHint="@string/home_search"/>
+            </android.support.v7.widget.Toolbar>
+
+
+            <com.mf.mumizzfood.widgets.CkdTextview
+                android:id="@+id/headerText"
+                android:padding="@dimen/dp2"
+                android:layout_margin="@dimen/dp4"
+                android:textSize="@dimen/sp14"
+                android:background="@color/white_smoke"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="After placing any order if you will not get confirmation call within 5 minutes then please Call us on this (9981192339) number Because our housewives might be busy. We have to remind them."
+                android:textColor="@color/black_effective"
+                style="@style/textviewregular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/whats_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/dp6"
+                android:paddingEnd="@dimen/dp8"
+                android:layout_marginTop="@dimen/dp16"
+                android:layout_marginBottom="@dimen/dp8"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/filter_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="@dimen/dp6"
+                android:paddingEnd="@dimen/dp8"
+                android:layout_marginTop="@dimen/dp8"
+                android:layout_marginBottom="@dimen/dp16"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/dp8"
+                android:layout_marginBottom="@dimen/dp8"
+                android:paddingStart="@dimen/dp8"
+                android:paddingEnd="@dimen/dp8">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.mf.mumizzfood.widgets.CkdTextview
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/recommended"
+                        style="@style/textviewbold"
+                        android:layout_marginBottom="@dimen/dp4"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/dp16"
+                        android:paddingStart="@dimen/dp8"
+                        android:paddingEnd="@dimen/dp8"/>
+                    <com.mf.mumizzfood.widgets.CkdTextview
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/see_all"
+                        android:visibility="gone"
+                        style="@style/textviewregular"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_alignParentEnd="true"
+                        android:paddingEnd="@dimen/dp16"/>
+                </RelativeLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recommended_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/explore_food"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/dp8"
+                android:layout_marginBottom="@dimen/dp8"
+                android:paddingStart="@dimen/dp16"
+                android:paddingEnd="@dimen/dp16">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.mf.mumizzfood.widgets.CkdTextview
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/food_near_you"
+                        style="@style/textviewbold"
+                        android:layout_marginBottom="@dimen/dp4"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp16"/>
+                    <com.mf.mumizzfood.widgets.CkdTextview
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/see_all"
+                        android:visibility="gone"
+                        style="@style/textviewregular"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_alignParentEnd="true"/>
+                </RelativeLayout>
+
+
+               <!-- <android.support.v4.widget.SwipeRefreshLayout
+                    android:id="@+id/swiperefresh"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">-->
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/near_you_recyclerview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+<!--
+                </android.support.v4.widget.SwipeRefreshLayout>
+-->
+
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationViewLoading"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginEnd="16dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:lottie_loop="true"
+        app:lottie_fileName="cooking.json"/>
+</LinearLayout>

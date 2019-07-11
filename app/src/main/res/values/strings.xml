@@ -1,0 +1,168 @@
+<resources>
+    <string name="app_name">MumizzFood</string>
+    <string name="app_full_name">MumizzFood</string>
+
+    <string name="app_google_play_store_link">"https://play.google.com/store/apps/details?id="</string>
+    <string name="app_market_link">"market://details?id="</string>
+    <string name="app_crashlytics_id">"id1212421nasf"</string>
+
+    <string name="api_retry_error">Please retry!</string>
+    <string name="api_default_error">Something wrong happened!</string>
+    <string name="some_error">Some Error Occurred!</string>
+    <string name="connection_error">Internet connection lost!</string>
+    <string name="Rs">\u20B9</string>
+
+    <!--login screen-->
+    <string name="title_activity_login_and_signup">LoginAndSignupActivity</string>
+    <string name="continue_txt">Continue Using</string>
+    <string name="gmail_login">Google</string>
+    <string name="mobile_login">Phone</string>
+    <string name="guest_login">Continue as Guest</string>
+    <string name="explore_eat">Explore &amp; Eat</string>
+    <string name="explore_eat_description">You can search Various type of food options provided by house wives near your location</string>
+    <string name="terms_services">By Signing Up, I agree to MumizzFood\'s <b>Terms of Service </b> and <b>Privacy Policy</b></string>
+    <string name="mobile_number_hint">Mobile Number</string>
+    <string name="msg_manual_otp">(Enter the OTP above in case we fail\nto detect the SMS automatically)</string>
+    <string name="resend_code">TRY AGAIN</string>
+    <string name="back">BACK</string>
+    <string name="log_in">LOG IN</string>
+    <string name="app_analytics_long_description">Note that events are batch processed and may take up to 60 minutes to display in the console.</string>
+    <string name="content_dialog_ok">OK</string>
+    <string name="sms">SMS</string>
+    <string name="sms_des">SMS Read permission is needed to Read OTP SMS from your phone, would you like to reconsider?</string>
+
+    <!--choose role-->
+    <string name="interest_title">YOU ARE INTERESTED TO</string>
+    <string name="cook">COOK</string>
+    <string name="eat">EAT</string>
+    <string name="next">NEXT</string>
+
+    <!--food type-->
+    <string name="food_type_title">YOU WOULD LIKE TO COOK</string>
+    <string name="veg">Vegetarian</string>
+    <string name="capsoffveg">Veg</string>
+    <string name="veg_nonveg">Non-Vegetarian</string>
+    <string name="capsoffveg_nonveg">Veg+Nonveg</string>
+
+    <!--rate yourself-->
+    <string name="submit_txt">SUBMIT</string>
+    <string name="rate_yourself_title">HELP US TO KNOW YOU BETTER</string>
+    <string name="question_txt">RATE YOUR COOKING</string>
+
+    <!--update profile-->
+    <string name="hint_fullname">Full Name</string>
+    <string name="hint_email">Email ID</string>
+    <string name="hint_status">Tell us something about you</string>
+    <string name="help_txt">Help us to know you better</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="next_txt">NEXT</string>
+    <string name="food_type_txt">Choose food type</string>
+    <string name="rupee_txt">Rs.</string>
+
+    <!--bottom bar acttivity-->
+    <string name="title_activity_main_bottom_bar">MainBottomBarActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_search">Search</string>
+    <string name="title_profile">Profile</string>
+
+    <!--home page-->
+    <string name="home_search">Search</string>
+    <string name="title_notification">Notification</string>
+    <string name="food_pilots">YOUR FOOD PILOTS</string>
+    <string name="special_txt">TODAY\'S SPECIAL</string>
+    <string name="you_can_try">YOU CAN TRY</string>
+    <string name="pilot_name">Anshita Gandhi</string>
+    <string name="distance">Distance</string>
+    <string name="by">By</string>
+    <string name="add_cart">ADD</string>
+    <string name="added_cart">ADDED</string>
+    <string name="checkout">View Cart</string>
+    <string name="add_more">Add More</string>
+    <string name="no_txt">No</string>
+    <string name="yes_txt">Yes</string>
+    <string name="near_me">OPTIONS NEAR ME</string>
+    <string name="popular">POPULAR</string>
+    <string name="recommended">Recommended for you</string>
+    <string name="see_all">See all</string>
+    <string name="food_near_you">Explore Food</string>
+    <string name="user_type">Food Captain</string>
+
+    <!--order details page-->
+    <string name="jain_thali">Jain Thali</string>
+    <string name="price">50/-</string>
+    <string name="discription_txt">Description</string>
+    <string name="subscription_txt">Subscription</string>
+    <string name="kitchen_description">Jain vegetarian diet is practiced by the followers of Jain culture and philosophy. ... The strictest forms of Jain diet is practiced by the ascetics; in addition to potatoes it may exclude other root vegetables.</string>
+    <string name="kitchen_txt">KITCHEN</string>
+    <string name="last_update">Last Update-</string>
+    <string name="date">22-05-2018</string>
+    <string name="place_order">Place Order</string>
+
+    <!--profile page-->
+    <string name="profile">Profile</string>
+    <string name="about">About</string>
+    <string name="food_type">Food Type</string>
+    <string name="experties_txt">Experties</string>
+    <string name="experties_level">Expert</string>
+    <string name="active_hours_txt">Active Hours</string>
+    <string name="active_time">Sunday</string>
+    <string name="see_more_txt">See More</string>
+    <string name="food_service">FOOD SHE OFFER</string>
+    <string name="jain_mini_thali">Jain Mini Thali</string>
+    <string name="title_activity_user_location">UserLocationActivity</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="photo_txt">Photo</string>
+    <string name="food_txt">FOOD</string>
+    <string name="subscription">Subscription</string>
+    <string name="monthly_txt">Monthly</string>
+    <string name="weekly_txt">Weekly</string>
+    <string name="change">Change</string>
+    <string name="vegetarian">Vegetarian</string>
+    <string name="non_vegetarian">Non-Vegetarian</string>
+    <string name="reviews">Reviews</string>
+    <string name="loading">Loading..</string>
+
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="manage_address">Manage Addresses</string>
+    <string name="manage_profile">Manage Profile</string>
+    <string name="your_order">Your Orders</string>
+    <string name="manage_payment">Manage Payment</string>
+    <string name="manage_payment_option">Manage Payment Options</string>
+    <string name="notification_setting">Notification Settings</string>
+    <string name="help_support">Help &amp; Support</string>
+    <string name="logout">LogOut</string>
+    <string name="toast_logout">Logout Successful</string>
+    <string name="payment_method">Select Default Payment Method</string>
+    <string name="paytm">PayTm</string>
+    <string name="cash">COD (Cash on delivery) </string>
+    <string name="saved_address">Saved Address</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="add_new_address">Add New Address</string>
+    <string name="title_activity_manage_addresses">ManageAddressesActivity</string>
+
+    <string name="option_near_me">Option Near Me</string>
+    <string name="explore">Explore</string>
+    <string name="top_food_options">Top Food Options</string>
+    <string name="zara_hatke">Zara Hatke</string>
+    <string name="try_something_new">Try Something New</string>
+    <string name="my_favourite">My Favourite</string>
+    <string name="rs_symbol">Rs.\u0020</string>
+    <string name="notnow">Not Now</string>
+
+    <string name="reset">Reset</string>
+    <string name="apply">Apply</string>
+    <string name="title_activity_out_of_region">OutOfRegion</string>
+    <string name="discount_note">Note : Discount only for new users on weekly or monthly subscription.</string>
+    <string name="daily_meal">Daily Meals</string>
+    <string name="snacks">Snacks</string>
+    <string name="corporates_party">Corporate &amp; Party</string>
+
+</resources>

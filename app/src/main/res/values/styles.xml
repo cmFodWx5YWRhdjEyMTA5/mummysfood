@@ -1,0 +1,98 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+
+    </style>
+
+    <style name="textviewregular" parent="@android:style/Widget.TextView">
+        <item name="typeface">notosans-regular.ttf</item>
+    </style>
+
+    <style name="textviewbold">
+        <item name="typeface">notosans-bold.ttf</item>
+    </style>
+
+    <style name="textviewitalic">
+        <item name="typeface">notosans-italic.ttf</item>
+    </style>
+
+    <!--Toolbar Icon color change-->
+    <style name="ThemeToolbar">
+        <!-- navigation icon color -->
+        <item name="colorControlNormal">@color/black</item>
+    </style>
+
+    <style name="RatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingbar</item>
+        <item name="android:minHeight">23dip</item>
+        <item name="android:maxHeight">25dip</item>
+    </style>
+
+    <!--theme for switch button -->
+    <style name="MySwitch" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <!-- inactive thumb color -->
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <!-- inactive track color (30% transparency) -->
+        <item name="android:colorForeground">@color/colorPrimary</item>
+        <item name="colorSwitchThumbNormal">@color/colorPrimary</item>
+    </style>
+
+    <style name="ThemeOverlay.AppCompat.navTheme">
+
+        <!-- Color of text and icon when SELECTED -->
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorControlNormal">@color/black</item> <!-- for check state -->
+        <item name="android:background">@color/white</item>
+
+    </style>
+
+    <style name="navTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorControlActivated">@color/black</item>
+
+        <!--<item name="android:actionMenuTextAppearance">@style/NavigationStyle</item>-->
+
+    </style>
+
+    <style name="CollapsedAppBar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="ExpandedAppBar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">0sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/black_effective</item>
+        <item name="tabIndicatorHeight">2dp</item>
+        <item name="tabPaddingStart">6dp</item>
+        <item name="tabPaddingEnd">6dp</item>
+        <item name="tabTextAppearance">@style/AppTabTextAppearance</item>
+        <item name="tabSelectedTextColor">@color/colorPrimary</item>
+    </style>
+
+    <!-- for text -->
+    <style name="AppTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="ToolbarColoredBackArrow" parent="AppTheme">
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
+
+</resources>

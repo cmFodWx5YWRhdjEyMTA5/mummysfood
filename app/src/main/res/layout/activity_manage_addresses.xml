@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+    <com.mf.mumizzfood.widgets.CkdTextview
+        android:id="@+id/addCons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/textviewbold"
+        android:textAllCaps="true"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+
+        android:textSize="@dimen/sp18"
+        android:text="@string/saved_address"
+        android:layout_marginTop="@dimen/dp8"/>
+ <!--   <include
+        layout="@layout/saved_address_item"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp1"
+        android:background="@color/gray"/>
+    <include
+        layout="@layout/saved_address_item"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp1"
+        android:background="@color/gray"/>-->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/addressRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+
+    <com.mf.mumizzfood.widgets.CkdTextview
+        android:id="@+id/addNewAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/textviewbold"
+        android:textAllCaps="true"
+        android:text="@string/add_new_address"
+        android:layout_marginStart="@dimen/dp24"
+        android:layout_marginEnd="@dimen/dp24"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/dp24"
+        android:gravity="center"
+        android:background="@drawable/border_primary"
+        android:padding="@dimen/dp8"
+        android:textColor="@color/colorPrimary"/>
+</LinearLayout>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:bottom="-400dp"
+        android:left="0dp"
+        android:right="-10dp"
+        android:top="230dp">
+        <rotate
+            android:layout_height="wrap_content"
+            android:fromDegrees="-110">
+            <shape android:shape="rectangle">
+                <padding android:top="35dp" />
+                <solid android:color="@color/white" />
+            </shape>
+        </rotate>
+    </item>
+</layer-list>

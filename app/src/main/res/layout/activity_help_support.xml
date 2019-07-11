@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.HelpSupportActivity"
+    android:orientation="vertical"
+    android:background="@color/white">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        android:elevation="@dimen/dp2"
+        android:theme="@style/ThemeToolbar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <com.mf.mumizzfood.widgets.CkdTextview
+            android:id="@+id/order_checkout"
+            style="@style/textviewbold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/help_support"
+            android:textAllCaps="true"
+            android:textColor="@color/black" />
+    </android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:id="@+id/call_us_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/dp4"
+        android:orientation="horizontal"
+        android:layout_margin="@dimen/dp8"
+        android:padding="@dimen/dp8">
+
+        <ImageView
+            android:layout_width="@dimen/dp48"
+            android:layout_height="@dimen/dp48"
+            android:src="@mipmap/phone_icon"
+            android:padding="@dimen/dp8"
+            android:layout_alignLeft="@id/mobile_login"
+            android:layout_centerInParent="true"
+            android:elevation="@dimen/dp2"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/dp16">
+            <com.mf.mumizzfood.widgets.CkdTextview
+                style="@style/textviewbold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Call Us"
+                android:textColor="@color/black"
+                android:gravity="start"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <com.mf.mumizzfood.widgets.CkdTextview
+                    style="@style/textviewbold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="99811 92339"
+                    android:textSize="@dimen/sp16"
+                    android:textColor="@color/black"
+                    android:paddingStart="@dimen/dp1"/>
+                <com.mf.mumizzfood.widgets.CkdTextview
+                    style="@style/textviewbold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="8828376477"
+                    android:textSize="@dimen/sp16"
+                    android:textColor="@color/black"
+                    android:visibility="gone"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/email_us_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/dp4"
+        android:orientation="horizontal"
+        android:layout_margin="@dimen/dp8"
+        android:padding="@dimen/dp8">
+
+        <ImageView
+            android:layout_width="@dimen/dp48"
+            android:layout_height="@dimen/dp48"
+            android:src="@mipmap/google_icon"
+            android:padding="@dimen/dp8"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="@dimen/dp16">
+            <com.mf.mumizzfood.widgets.CkdTextview
+                style="@style/textviewbold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Email Us"
+                android:textColor="@color/black"
+                android:gravity="start"/>
+            <com.mf.mumizzfood.widgets.CkdTextview
+                style="@style/textviewbold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="mumizzfood@gmail.com"
+                android:textSize="@dimen/sp16"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

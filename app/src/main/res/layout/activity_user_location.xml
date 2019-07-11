@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:id="@+id/mainRelativeLocationHolder"
+    android:layout_height="match_parent">
+    <com.mf.mumizzfood.widgets.CkdTextview
+        android:id="@+id/nearbyplace"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/fill_rounded_primary_color"
+        android:padding="@dimen/dp8"
+        android:text="Choose near by location"
+        android:gravity="center"
+        android:textSize="@dimen/sp16"
+        style="@style/textviewregular"
+        android:layout_margin="@dimen/dp8"
+        android:textColor="@color/black_effective"
+        android:visibility="visible"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/places_lst"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/nearbyplace"
+        />
+    <FrameLayout
+        android:id="@+id/map_frame"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:visibility="gone"/>
+</RelativeLayout>

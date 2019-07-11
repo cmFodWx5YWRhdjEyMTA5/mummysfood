@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/layerimgae">
+
+
+    <RelativeLayout
+        android:id="@+id/dialogThankyou"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        android:layout_margin="32dp"
+        android:background="@drawable/fill_rounded_white_color"
+        android:gravity="center"
+        android:padding="@dimen/dp24">
+
+        <com.mf.mumizzfood.widgets.CkdTextview
+            android:id="@+id/Thankyou"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/dp8"
+            android:layout_marginTop="@dimen/dp8"
+            android:gravity="center"
+            android:text="Thank You"
+            android:textColor="@color/black_effective"
+            android:textSize="@dimen/sp14"
+            android:visibility="gone" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottieAnimationViewDone"
+            android:layout_width="@dimen/dp56"
+            android:layout_height="@dimen/dp56"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="16dp"
+            android:visibility="gone"
+            app:lottie_fileName="done.json"
+            app:lottie_loop="true" />
+
+        <com.mf.mumizzfood.widgets.CkdTextview
+            android:id="@+id/orderplacedText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lottieAnimationViewDone"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/dp8"
+            android:layout_marginTop="@dimen/dp8"
+            android:gravity="center"
+            android:text="Your order has placed.your meal will be deliverd on time "
+            android:textColor="@color/black_effective"
+            android:textSize="@dimen/sp14" />
+
+
+        <com.mf.mumizzfood.widgets.CkdTextview
+            android:id="@+id/gotItAction"
+            android:layout_width="@dimen/dp100"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/orderplacedText"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp16"
+            android:background="@drawable/fill_rounded_full_primary"
+            android:gravity="center"
+           android:padding="@dimen/dp6"
+            android:text="Got it"
+            android:textColor="@color/black_effective"
+            android:textSize="@dimen/sp14" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/orderplacedText"
+            android:layout_marginBottom="@dimen/dp8"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+
+            <com.mf.mumizzfood.widgets.CkdTextview
+                android:id="@+id/visitAction"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp32"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/dp8"
+                android:background="@drawable/fill_rounded_full_primary"
+                android:gravity="center"
+                android:padding="@dimen/dp8"
+                android:text="Visit Order"
+                android:textColor="@color/black_effective"
+                android:textSize="12sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dialogThankyou"
+        android:layout_marginLeft="@dimen/dp8"
+        android:layout_marginRight="@dimen/dp8"
+        android:orientation="vertical">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/FullScreenViewPgaer"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginLeft="@dimen/dp16"
+            android:layout_marginRight="@dimen/dp16"></android.support.v4.view.ViewPager>
+
+        <com.mf.mumizzfood.widgets.CirclePageIndicator
+            android:id="@+id/circleIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/FullScreenViewPgaer"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp16"
+            android:visibility="visible" />
+    </LinearLayout>
+</RelativeLayout>

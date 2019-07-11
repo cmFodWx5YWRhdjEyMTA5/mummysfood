@@ -1,0 +1,482 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.mf.mumizzfood.in.mf.mumizzfood.fragments.OrderDetailsActivity"
+    android:background="@color/white"
+    android:scrollbars="none">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+
+            <RelativeLayout
+                android:id="@+id/timeline_layout"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                >
+
+                <ImageView
+                    android:id="@+id/foodImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/foodimage"/>
+            </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/user_info_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/timeline_layout"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/dp16"
+                android:paddingEnd="@dimen/dp16">
+
+                <RelativeLayout
+                    android:id="@+id/user_rating_layout"
+                    android:layout_width="@dimen/dp64"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="@dimen/dp8"
+                    android:gravity="center">
+
+                    <RelativeLayout
+                        android:id="@+id/order_star"
+                        android:layout_width="@dimen/dp56"
+                        android:layout_height="@dimen/dp32"
+                        android:layout_alignParentEnd="true"
+                        android:background="@drawable/white_vector">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp32"
+                            android:layout_height="@dimen/dp32"
+                            android:layout_alignParentEnd="true"
+                            android:padding="@dimen/dp4"
+                            android:paddingEnd="@dimen/dp8"
+                            android:src="@mipmap/star_filled" />
+
+                    </RelativeLayout>
+
+                    <com.mf.mumizzfood.widgets.CkdTextview
+                        android:id="@+id/user_rating_txt"
+                        android:layout_width="@dimen/dp32"
+                        android:layout_height="@dimen/dp32"
+                        android:layout_alignEnd="@+id/order_star"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginBottom="@dimen/dp2"
+                        android:background="@drawable/balloon_bg_down"
+                        android:gravity="center"
+                        android:text="4.5"
+                        android:textColor="@color/white" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="@dimen/dp8"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp2">
+                    <com.mf.mumizzfood.widgets.CkdTextview
+                        android:id="@+id/profile_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/pilot_name"
+                        style="@style/textviewbold"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/sp16"/>
+                    <com.mf.mumizzfood.widgets.CkdTextview
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_type"
+                        style="@style/textviewregular"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="@dimen/dp5"/>
+                </LinearLayout>
+            </LinearLayout>
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/profile_image"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:src="@mipmap/default_usr_img"
+                app:civ_border_color="@color/colorPrimary"
+                app:civ_border_width="@dimen/dp2"
+                app:civ_shadow="false"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp64"
+                />
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/dp16"
+            android:paddingEnd="@dimen/dp16"
+            android:paddingBottom="@dimen/dp16">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.mf.mumizzfood.widgets.CkdTextview
+                    style="@style/textviewregular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/about"
+                    android:textColor="@color/black" />
+
+                <com.mf.mumizzfood.widgets.CkdTextview
+                    android:id="@+id/profile_about"
+                    style="@style/textviewregular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/kitchen_description"
+                    android:textColor="@color/gray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp8"
+                android:layout_marginTop="@dimen/dp8"
+                android:weightSum="1">
+
+                <com.mf.mumizzfood.widgets.CkdTextview
+                    style="@style/textviewregular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="@string/food_type"
+                    android:textColor="@color/black" />
+
+                <com.mf.mumizzfood.widgets.CkdTextview
+                    android:id="@+id/is_vegitarian"
+                    style="@style/textviewregular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:text="@string/vegetarian"
+                    android:textColor="@color/green" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/expert_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp8"
+                android:layout_marginTop="@dimen/dp8"
+                android:weightSum="1"
+                android:visibility="visible">
+
+                <com.mf.mumizzfood.widgets.CkdTextview
+                    style="@style/textviewregular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="@string/experties_txt"
+                    android:textColor="@color/black" />
+
+                <com.mf.mumizzfood.widgets.CkdTextview
+                    android:id="@+id/user_level"
+                    style="@style/textviewregular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:text="@string/experties_level"
+                    android:textColor="@color/red" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/active_time_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp8"
+                android:layout_marginTop="@dimen/dp8"
+                android:visibility="visible"
+                android:orientation="vertical">
+
+                <com.mf.mumizzfood.widgets.CkdTextview
+                    style="@style/textviewregular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/active_hours_txt"
+                    android:textColor="@color/black" />
+
+                <include
+                    layout="@layout/chef_active_layout"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/kitchen_media_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+            <com.mf.mumizzfood.widgets.CkdTextview
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/kitchen_txt"
+                android:textColor="@color/black"
+                style="@style/textviewregular"
+                android:layout_marginStart="@dimen/dp8"
+                android:layout_marginBottom="@dimen/dp8"
+                android:layout_marginEnd="@dimen/dp16"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/kitchen_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+
+            <!--     <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:padding="@dimen/dp16"
+                     android:background="@color/white"
+                     android:orientation="vertical">
+                     <RelativeLayout
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content">
+                         <LinearLayout
+                             android:layout_width="wrap_content"
+                             android:layout_height="wrap_content"
+                             android:orientation="horizontal">
+                             <ImageView
+                                 android:layout_width="@dimen/dp100"
+                                 android:layout_height="@dimen/dp100"
+                                 android:src="@mipmap/pilot2"
+                                 android:layout_marginEnd="@dimen/dp2"/>
+                             <ImageView
+                                 android:layout_width="@dimen/dp100"
+                                 android:layout_height="@dimen/dp100"
+                                 android:src="@mipmap/pilot2"
+                                 android:layout_marginEnd="@dimen/dp2"/>
+                             <RelativeLayout
+                                 android:layout_width="@dimen/dp100"
+                                 android:layout_height="@dimen/dp100">
+                                 <ImageView
+                                     android:layout_width="match_parent"
+                                     android:layout_height="match_parent"
+                                     android:src="@mipmap/pilot2"/>
+                                 <LinearLayout
+                                     android:layout_width="match_parent"
+                                     android:layout_height="match_parent"
+                                     android:background="@color/black"
+                                     android:alpha="0.6"/>
+                                 <in.mummysfood.widgets.CkdTextview
+                                     android:layout_width="wrap_content"
+                                     android:layout_height="wrap_content"
+                                     android:text="4+"
+                                     android:textSize="@dimen/sp24"
+                                     android:textColor="@color/white"
+                                     style="@style/textviewbold"
+                                     android:layout_centerInParent="true"/>
+                             </RelativeLayout>
+
+                         </LinearLayout>
+
+                     </RelativeLayout>
+
+                 </LinearLayout>-->
+        </LinearLayout>
+       <!-- <LinearLayout
+            android:id="@+id/photo_media_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+            <in.mummysfood.widgets.CkdTextview
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/photo_txt"
+                android:textColor="@color/black"
+                style="@style/textviewregular"
+                android:layout_marginStart="@dimen/dp16"
+                android:layout_marginTop="@dimen/dp8"
+                android:layout_marginBottom="@dimen/dp8"
+                android:layout_marginEnd="@dimen/dp16"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp16"
+                android:background="@color/white"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="@dimen/dp100"
+                            android:layout_height="@dimen/dp100"
+                            android:src="@mipmap/pilot2"
+                            android:layout_marginEnd="@dimen/dp2"/>
+                        <ImageView
+                            android:layout_width="@dimen/dp100"
+                            android:layout_height="@dimen/dp100"
+                            android:src="@mipmap/pilot2"
+                            android:layout_marginEnd="@dimen/dp2"/>
+                        <RelativeLayout
+                            android:layout_width="@dimen/dp100"
+                            android:layout_height="@dimen/dp100">
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@mipmap/pilot2"/>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/black"
+                                android:alpha="0.6"/>
+                            <in.mummysfood.widgets.CkdTextview
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="4+"
+                                android:textSize="@dimen/sp24"
+                                android:textColor="@color/white"
+                                style="@style/textviewbold"
+                                android:layout_centerInParent="true"/>
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>-->
+        <LinearLayout
+            android:id="@+id/chef_food_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+            <com.mf.mumizzfood.widgets.CkdTextview
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/food_txt"
+                android:textColor="@color/black"
+                style="@style/textviewregular"
+                android:layout_marginStart="@dimen/dp8"
+                android:layout_marginTop="@dimen/dp8"
+                android:layout_marginBottom="@dimen/dp8"
+                android:layout_marginEnd="@dimen/dp16"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp8"
+                android:background="@color/white"
+                android:orientation="vertical">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/food_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <!--<RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="@dimen/dp100"
+                            android:layout_height="@dimen/dp100"
+                            android:background="@drawable/fill_rounded_white_smoke"
+                            android:text="Mini Thali"
+                            android:gravity="center"/>
+                        <TextView
+                            android:layout_width="@dimen/dp100"
+                            android:layout_height="@dimen/dp100"
+                            android:background="@drawable/fill_rounded_white_smoke"
+                            android:text="Panjabi Thali"
+                            android:gravity="center"/>
+
+                    </LinearLayout>
+
+                </RelativeLayout>-->
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/subscription_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <com.mf.mumizzfood.widgets.CkdTextview
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/subscription"
+                android:textColor="@color/black"
+                style="@style/textviewregular"
+                android:layout_marginStart="@dimen/dp16"
+                android:layout_marginTop="@dimen/dp8"
+                android:layout_marginBottom="@dimen/dp8"
+                android:layout_marginEnd="@dimen/dp16"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp16"
+                android:background="@color/white"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="@dimen/dp100"
+                            android:layout_height="@dimen/dp100"
+                            android:background="@drawable/fill_rounded_white_smoke"
+                            android:text="@string/monthly_txt"
+                            android:gravity="center"/>
+                        <TextView
+                            android:layout_width="@dimen/dp100"
+                            android:layout_height="@dimen/dp100"
+                            android:layout_marginStart="@dimen/dp6"
+                            android:background="@drawable/fill_rounded_white_smoke"
+                            android:text="@string/weekly_txt"
+                            android:gravity="center"/>
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:padding="@dimen/dp16">
+            <com.mf.mumizzfood.widgets.CkdTextview
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/textviewregular"
+                android:text="@string/reviews"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/review_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
+</RelativeLayout>

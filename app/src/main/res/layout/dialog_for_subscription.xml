@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/dp8"
+        android:padding="@dimen/dp8"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:layout_height="wrap_content">
+
+
+        <com.mf.mumizzfood.widgets.CkdTextview
+            android:id="@+id/titleForSub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select your Plan"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:textColor="@color/black_effective"
+            android:layout_marginTop="@dimen/dp8"
+            android:textSize="@dimen/sp18"
+            style="@style/textviewbold"/>
+
+        <RadioGroup
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:id="@+id/radioGroup"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/radioButton1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Looking for monthly package"
+                android:layout_marginBottom="@dimen/dp8"
+                android:textSize="14sp"/>
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Looking for weekly package"
+                android:layout_marginBottom="@dimen/dp8"
+                android:textSize="14sp"/>
+
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Only for one"
+                android:textSize="14sp"/>
+
+            <RadioButton
+                android:id="@+id/radioButton4"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Other"
+                android:textSize="14sp"/>
+        </RadioGroup>
+        <com.mf.mumizzfood.widgets.CkdEditText
+            android:layout_width="wrap_content"
+            android:layout_gravity="start"
+            android:padding="@dimen/dp8"
+            android:layout_marginLeft="24dp"
+            android:textSize="14sp"
+            android:inputType="number"
+            android:visibility="gone"
+            android:hint="insert number of thali"
+            android:background="@drawable/gray_border_no_bg"
+            android:layout_marginBottom="@dimen/dp16"
+            android:layout_height="match_parent" />
+
+        <com.mf.mumizzfood.widgets.CkdButton
+            android:id="@+id/submitThali"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp32"
+            android:layout_gravity="center"
+            android:background="@drawable/fill_rounded_full_primary"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp14"
+            android:text="Submit"
+            />
+    </LinearLayout>
+</android.support.v7.widget.CardView>

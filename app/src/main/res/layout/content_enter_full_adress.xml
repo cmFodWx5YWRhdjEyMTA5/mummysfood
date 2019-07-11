@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/backImages"
+        android:src="@drawable/ic_back_arrow"
+        android:layout_width="wrap_content"
+        android:tint="@color/black_effective"
+        android:layout_marginTop="@dimen/dp8"
+        android:layout_marginRight="@dimen/dp8"
+        android:layout_marginLeft="@dimen/dp8"
+        android:layout_height="@dimen/dp32" />
+    <LinearLayout
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/dp16"
+        android:layout_width="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content">
+    <com.mf.mumizzfood.widgets.CkdTextview
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Set delivery location"
+        android:layout_marginTop="@dimen/sp16"
+        android:textColor="@color/black_effective"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="@dimen/sp18"
+        style="@style/textviewbold"
+        android:layout_marginLeft="@dimen/dp8"/>
+
+
+    <com.mf.mumizzfood.widgets.CkdTextview
+        android:id="@+id/locationCons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Location"
+        android:layout_marginTop="@dimen/dp16"
+        style="@style/textviewregular"
+        android:textColor="@color/black_effective"
+        android:textSize="@dimen/sp14"
+        android:layout_marginLeft="@dimen/dp16"/>
+
+    <com.mf.mumizzfood.widgets.CkdEditText
+        android:id="@+id/locationMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Address"
+        android:layout_marginTop="@dimen/dp8"
+        style="@style/textviewregular"
+        android:textSize="@dimen/sp14"
+        android:padding="@dimen/dp8"
+        android:background="#00000000"
+        android:layout_marginRight="@dimen/sp16"
+        android:layout_marginLeft="@dimen/dp16"/>
+    <View
+        android:background="@color/gray"
+        android:layout_marginTop="@dimen/dp4"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/dp16"
+        android:layout_marginRight="@dimen/dp16"
+        android:layout_height="0.5dp"/>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/dp16"
+            android:layout_marginTop="@dimen/dp8"
+            android:padding="8dp"
+            android:layout_height="wrap_content">
+
+            <com.mf.mumizzfood.widgets.CkdEditText
+                android:id="@+id/flatNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp14"
+                style="@style/textviewregular"
+                android:background="#00000000"
+                android:hint="House /Flat No"
+                />
+
+        </android.support.design.widget.TextInputLayout>
+    <View
+        android:background="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="@dimen/dp16"
+        android:layout_marginRight="@dimen/dp16"
+        android:layout_height="0.5dp"/>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/dp16"
+            android:layout_marginTop="@dimen/dp8"
+            android:padding="8dp"
+            android:layout_height="wrap_content">
+
+            <com.mf.mumizzfood.widgets.CkdEditText
+                android:id="@+id/landmark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp14"
+                style="@style/textviewregular"
+                android:background="#00000000"
+                android:hint="Landmark"
+                />
+
+        </android.support.design.widget.TextInputLayout>
+        <View
+            android:background="@color/gray"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/dp8"
+            android:layout_marginLeft="@dimen/dp16"
+            android:layout_marginRight="@dimen/dp16"
+            android:layout_height="0.5dp"/>
+    <com.mf.mumizzfood.widgets.CkdTextview
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Address Type"
+        android:layout_marginTop="@dimen/dp4"
+        android:textColor="@color/black_effective"
+        android:gravity="start"
+        android:textSize="@dimen/sp14"
+        style="@style/textviewregular"
+        android:layout_marginBottom="@dimen/dp16"
+        android:layout_marginLeft="@dimen/dp16"/>
+
+
+    <RadioGroup
+        android:id="@+id/radioTypeAction"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp16"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Home"
+            android:checked="true" />
+
+        <RadioButton
+            android:id="@+id/radioOffice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Office" />
+
+
+        <RadioButton
+            android:id="@+id/radioOther"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Other" />
+
+    </RadioGroup>
+
+    <com.mf.mumizzfood.widgets.CkdButton
+        android:id="@+id/saveUs"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp32"
+        android:layout_marginTop="@dimen/dp16"
+        android:gravity="center"
+        android:text="Save"
+        style="@style/textviewbold"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:background="@drawable/fill_rounded_primary_color"
+        android:layout_gravity="center"
+        />
+    </LinearLayout>
+</RelativeLayout>

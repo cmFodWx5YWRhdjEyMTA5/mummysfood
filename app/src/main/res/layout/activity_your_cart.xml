@@ -1,0 +1,658 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/scrollchange"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:layout_above="@+id/placeOrderButton">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/white"
+                    android:elevation="@dimen/dp2"
+                    android:theme="@style/ThemeToolbar"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+                    <ImageView
+                        android:id="@+id/backArrowFinish"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:padding="@dimen/dp4"
+                        android:src="@drawable/ic_back_arrow"
+                        android:tint="@color/black" />
+
+                    <com.mf.mumizzfood.widgets.CkdTextview
+                        android:id="@+id/order_checkout"
+                        style="@style/textviewbold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Your Cart"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black" />
+                </android.support.v7.widget.Toolbar>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/dp8">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp8"
+                        android:layout_marginRight="@dimen/dp8"
+                        android:background="@color/white"
+                        android:padding="@dimen/dp12">
+
+                        <ImageView
+                            android:id="@+id/vegSysmbol"
+                            android:layout_width="@dimen/dp24"
+                            android:layout_height="@dimen/dp24"
+                            android:src="@mipmap/food_symbol"
+                            android:tint="@color/green" />
+
+                        <com.mf.mumizzfood.widgets.CkdTextview
+                            android:id="@+id/order_titile"
+                            style="@style/textviewbold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:layout_toEndOf="@+id/vegSysmbol"
+                            android:text="@string/jain_thali"
+                            android:textColor="@color/black" />
+
+                        <com.mf.mumizzfood.widgets.CkdTextview
+                            style="@style/textviewbold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignTop="@+id/order_titile"
+                            android:layout_toEndOf="@+id/order_titile"
+                            android:text="(Today's Special)"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/sp10"
+                            android:visibility="gone" />
+
+                        <com.mf.mumizzfood.widgets.CkdTextview
+                            android:id="@+id/order_price"
+                            style="@style/textviewbold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/order_titile"
+                            android:visibility="gone"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:layout_marginTop="@dimen/dp16"
+                            android:layout_toEndOf="@+id/vegSysmbol"
+                            android:text="@string/price"
+                            android:textColor="@color/colorPrimary" />
+
+
+                        <com.mf.mumizzfood.widgets.CkdTextview
+                            android:id="@+id/order_price_basedQuantity"
+                            style="@style/textviewbold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/order_titile"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:layout_marginTop="@dimen/dp16"
+                            android:layout_marginRight="@dimen/dp8"
+                            android:text="@string/price"
+                            android:textColor="@color/colorPrimary" />
+
+                        <include
+                            layout="@layout/add_item"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:id="@+id/firstSep"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp0.5"
+                        android:layout_below="@+id/add_item"
+                        android:layout_marginLeft="@dimen/dp24"
+                        android:layout_marginRight="@dimen/dp24"
+                        android:background="@color/place_autocomplete_separator" />
+
+                    <com.mf.mumizzfood.widgets.CkdTextview
+                        android:id="@+id/promoCode"
+                        style="@style/textviewregular"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp8"
+                        android:paddingTop="@dimen/dp8"
+                        android:text="Promo Code"
+                        android:textColor="@color/black_effective"
+                        android:textSize="@dimen/sp16"
+                        android:visibility="gone" />
+
+                    <com.mf.mumizzfood.widgets.CkdEditText
+                        android:id="@+id/enterPromocode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp4"
+                        android:visibility="gone" />
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp8"
+                        android:layout_marginTop="@dimen/dp4"
+                        android:layout_marginEnd="@dimen/dp8"
+                        android:background="@color/white"
+                        android:padding="@dimen/dp12">
+
+                        <com.mf.mumizzfood.widgets.CkdTextview
+                            android:id="@+id/order_subtotal"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:text="Subtotal"
+                            android:textColor="@color/black" />
+
+
+                        <com.mf.mumizzfood.widgets.CkdTextview
+                            android:id="@+id/order_price_taxes"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/order_subtotal"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:layout_marginTop="@dimen/dp8"
+                            android:text="Taxes and charges"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/sp10" />
+
+                        <com.mf.mumizzfood.widgets.CkdTextview
+                            android:id="@+id/totalValue"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:text="Rs.130/-"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/sp14" />
+
+                        <com.mf.mumizzfood.widgets.CkdTextview
+                            android:id="@+id/order_taxes"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/order_subtotal"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:layout_marginTop="@dimen/dp8"
+                            android:textColor="@color/gray" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:id="@+id/secSep"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp0.5"
+                        android:layout_below="@+id/add_item"
+                        android:layout_marginLeft="@dimen/dp24"
+                        android:layout_marginRight="@dimen/dp24"
+                        android:background="@color/place_autocomplete_separator" />
+
+
+                    <RelativeLayout
+                        android:id="@+id/grandTotalvalue"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp8"
+                        android:layout_marginTop="@dimen/dp4"
+                        android:layout_marginEnd="@dimen/dp8"
+                        android:background="@color/white"
+                        android:padding="@dimen/dp12">
+
+                        <com.mf.mumizzfood.widgets.CkdTextview
+                            android:id="@+id/order_grandtotal"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:text="GrandTotal"
+                            android:textColor="@color/black" />
+
+
+                        <com.mf.mumizzfood.widgets.CkdTextview
+                            android:id="@+id/order_price_finalTotal"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:text="Rs.150/-"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/sp14" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:id="@+id/thirdSep"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp0.5"
+                        android:layout_marginLeft="@dimen/dp24"
+                        android:layout_marginRight="@dimen/dp24"
+                        android:background="@color/place_autocomplete_separator" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp8"
+                        android:layout_marginTop="@dimen/dp4"
+                        android:layout_marginEnd="@dimen/dp8"
+                        android:background="@color/white"
+                        android:padding="@dimen/dp12">
+
+                        <com.mf.mumizzfood.widgets.CkdTextview
+                            android:id="@+id/deliverToAddress"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:text="Address"
+                            android:textColor="@color/black" />
+
+
+                        <com.mf.mumizzfood.widgets.CkdTextview
+                            android:id="@+id/addressMain"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/deliverToAddress"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:layout_marginTop="@dimen/dp8"
+                            android:text="Taxes and charges"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/sp10" />
+
+                        <com.mf.mumizzfood.widgets.CkdTextview
+                            android:id="@+id/addressChange"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/addressMain"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:layout_marginTop="@dimen/dp4"
+                            android:text="@string/change"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/sp14" />
+                    </RelativeLayout>
+
+                    <View
+                        android:id="@+id/fourSep"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp0.5"
+                        android:layout_marginLeft="@dimen/dp24"
+                        android:layout_marginRight="@dimen/dp24"
+                        android:background="@color/place_autocomplete_separator" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp8"
+                        android:layout_marginTop="@dimen/dp4"
+                        android:layout_marginEnd="@dimen/dp8"
+                        android:background="@color/white"
+                        android:padding="@dimen/dp12">
+
+                        <com.mf.mumizzfood.widgets.CkdTextview
+                            android:id="@+id/deliverTo"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:text="Deliver To"
+                            android:textColor="@color/black" />
+
+
+                        <com.mf.mumizzfood.widgets.CkdTextview
+                            android:id="@+id/personInfo"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/deliverTo"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:layout_marginTop="@dimen/dp8"
+
+                            android:text=""
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/sp10" />
+
+                        <com.mf.mumizzfood.widgets.CkdTextview
+                            android:id="@+id/infoChange"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/deliverTo"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:layout_marginTop="@dimen/dp8"
+                            android:text="@string/change"
+
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/sp14" />
+                    </RelativeLayout>
+
+                    <View
+                        android:id="@+id/fifthSep"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp0.5"
+                        android:layout_marginLeft="@dimen/dp24"
+                        android:layout_marginRight="@dimen/dp24"
+                        android:background="@color/place_autocomplete_separator" />
+
+                    <RelativeLayout
+                        android:id="@+id/paymentRelative"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp8"
+                        android:layout_marginTop="@dimen/dp4"
+                        android:layout_marginEnd="@dimen/dp8"
+                        android:background="@color/white"
+                        android:padding="@dimen/dp12">
+
+                        <com.mf.mumizzfood.widgets.CkdTextview
+                            android:id="@+id/paymentOption"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:text="Payment Options"
+                            android:textColor="@color/black" />
+
+
+                        <com.mf.mumizzfood.widgets.CkdTextview
+                            android:id="@+id/payatm"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/paymentOption"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:layout_marginTop="@dimen/dp8"
+
+                            android:text="payatm(Rs. 130/-)"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/sp10" />
+
+                        <com.mf.mumizzfood.widgets.CkdTextview
+                            android:id="@+id/patmentChange"
+                            style="@style/textviewregular"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/paymentOption"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginLeft="@dimen/dp8"
+                            android:layout_marginTop="@dimen/dp8"
+                            android:text="@string/change"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/sp14" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+        <RelativeLayout
+            android:id="@+id/placeOrderButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/fill_rounded_sqare_primarycolor"
+                android:gravity="center_vertical"
+                android:padding="@dimen/dp12"
+                android:layout_marginTop="@dimen/dp8">
+
+                <com.mf.mumizzfood.widgets.CkdTextview
+                    android:id="@+id/placeOrderButtonCheckout"
+                    style="@style/textviewregular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp24"
+                    android:gravity="start"
+                    android:text="Check Out"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp14" />
+
+                <com.mf.mumizzfood.widgets.CkdTextview
+                    android:id="@+id/deliveryChargeApplicable"
+                    style="@style/textviewregular"
+                    android:layout_marginTop="@dimen/dp8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp24"
+                    android:gravity="start"
+                    android:layout_below="@+id/placeOrderButtonCheckout"
+                    android:text="Delivery charge applicable above 3 km"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp12" />
+
+
+
+                <com.mf.mumizzfood.widgets.CkdTextview
+                    android:id="@+id/placeOrderprice"
+                    style="@style/textviewregular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="@dimen/dp24"
+                    android:layout_marginRight="@dimen/dp24"
+                    android:gravity="start"
+                    android:text="pay Rs. 130/-"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp14" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/changePaymentOption"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <com.mf.mumizzfood.widgets.CkdTextview
+            android:layout_width="match_parent"
+             android:background="@color/colorPrimary"
+            android:text="Change payment method"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp16"
+            android:gravity="center"
+            style="@style/textviewbold"
+            android:layout_height="@dimen/dp48" />
+
+        <LinearLayout
+            android:id="@+id/cod_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/dp8"
+            android:weightSum="10">
+
+            <com.mf.mumizzfood.widgets.CkdTextview
+                android:id="@+id/COD"
+                style="@style/textviewbold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp8"
+                android:layout_weight="7"
+                android:paddingTop="@dimen/dp8"
+                android:paddingRight="@dimen/dp8"
+                android:text="COD (Cash on delivery)"
+                android:textColor="@color/black_effective" />
+
+            <ImageView
+                android:id="@+id/checkedCod"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:src="@drawable/ic_check"
+                android:tint="@color/black_effective"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <View
+            android:background="@color/lightprimary"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp0.5"/>
+
+        <LinearLayout
+            android:id="@+id/paytm_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/dp8"
+            android:weightSum="10">
+
+            <ImageView
+                android:id="@+id/logoPyatm"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp32"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/dp8"
+                android:layout_weight="3"
+                android:src="@drawable/paytm" />
+
+            <com.mf.mumizzfood.widgets.CkdTextview
+                android:id="@+id/payatmOption"
+                style="@style/textviewregular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp8"
+                android:layout_weight="5"
+                android:paddingLeft="@dimen/dp8"
+                android:paddingRight="@dimen/dp8"
+                android:text=""
+                android:textColor="@color/black_effective" />
+
+            <ImageView
+                android:id="@+id/paytmChecked"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="2"
+                android:src="@drawable/ic_check"
+                android:tint="@color/black_effective"
+                android:visibility="gone" />
+        </LinearLayout>
+        <View
+            android:background="@color/lightprimary"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp0.5"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/changePersonInfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/dp12"
+        android:orientation="vertical"
+        android:padding="@dimen/dp12"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/fill_rounded_white_smoke_radius"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:weightSum="10">
+
+            <ImageView
+                android:id="@+id/userImage"
+                android:layout_width="@dimen/dp24"
+                android:layout_height="@dimen/dp24"
+                android:layout_gravity="center"
+                android:padding="@dimen/dp2"
+                android:src="@mipmap/profile_icon"
+                android:tint="@color/gray"
+                android:visibility="visible" />
+
+            <com.mf.mumizzfood.widgets.CkdEditText
+                android:id="@+id/userNameUpdated"
+                style="@style/textviewregular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp4"
+                android:background="@drawable/fill_rounded_white_color"
+                android:hint="Enter name"
+                android:padding="@dimen/dp8" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp16"
+            android:background="@drawable/fill_rounded_white_smoke_radius"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <ImageView
+                android:id="@+id/mobileIcon"
+                android:layout_width="@dimen/dp24"
+                android:layout_height="@dimen/dp24"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/dp8"
+                android:src="@drawable/mobileicon"
+                android:tint="@color/black_effective" />
+
+            <com.mf.mumizzfood.widgets.CkdEditText
+                android:id="@+id/mobileNumberUpdation"
+                style="@style/textviewregular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp4"
+                android:background="@drawable/fill_rounded_white_color"
+                android:hint="mobile number"
+                android:inputType="phone"
+                android:padding="@dimen/dp8"
+                android:text=""
+                android:textColor="@color/black_effective" />
+
+        </LinearLayout>
+
+        <com.mf.mumizzfood.widgets.CkdButton
+            android:id="@+id/nameSave"
+            style="@style/textviewbold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp24"
+            android:background="@drawable/fill_rounded_primary_color"
+            android:text="Save"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+</LinearLayout>

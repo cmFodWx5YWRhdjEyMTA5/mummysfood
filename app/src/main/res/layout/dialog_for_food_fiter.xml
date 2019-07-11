@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dp16"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/cross_popup"
+            android:layout_width="@dimen/dp20"
+            android:layout_height="@dimen/dp20"
+            android:src="@mipmap/icon_delete_24" />
+        <com.mf.mumizzfood.widgets.CkdTextview
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/food_type_txt"
+            android:layout_centerHorizontal="true"
+            style="@style/textviewregular"
+            android:textColor="@color/black"/>
+        <com.mf.mumizzfood.widgets.CkdTextview
+            android:id="@+id/reset_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reset"
+            android:layout_alignParentEnd="true"
+            style="@style/textviewregular"
+            android:textColor="@color/black"/>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/filter_veg_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/dp16"
+        android:paddingBottom="@dimen/dp16"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/vegSysmbol"
+            android:layout_width="@dimen/dp20"
+            android:layout_height="@dimen/dp20"
+            android:src="@mipmap/food_symbol"
+            android:tint="@color/gray"/>
+
+        <com.mf.mumizzfood.widgets.CkdTextview
+            android:id="@+id/veg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/veg"
+            android:layout_marginStart="@dimen/dp8"
+            style="@style/textviewregular"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/filter_non_veg_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/dp16"
+        android:paddingBottom="@dimen/dp16"
+        android:gravity="center_vertical">
+        <ImageView
+            android:id="@+id/non_VegSysmbol"
+            android:layout_width="@dimen/dp20"
+            android:layout_height="@dimen/dp20"
+            android:src="@mipmap/food_symbol"
+            android:tint="@color/gray"/>
+
+        <com.mf.mumizzfood.widgets.CkdTextview
+            android:id="@+id/non_veg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/non_vegetarian"
+            android:layout_marginStart="@dimen/dp8"
+            style="@style/textviewregular"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp2"
+        android:background="@color/white_smoke"
+        android:layout_marginTop="@dimen/dp24"
+        android:layout_marginBottom="@dimen/dp8" />
+
+    <com.mf.mumizzfood.widgets.CkdTextview
+        android:id="@+id/apply_filter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/apply"
+        android:gravity="center"
+        android:padding="@dimen/dp8"
+        style="@style/textviewregular"
+        android:textColor="@color/black"/>
+
+</LinearLayout>
