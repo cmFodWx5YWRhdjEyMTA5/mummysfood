@@ -88,7 +88,7 @@ public class HomeFilterAdapter extends RecyclerView.Adapter<HomeFilterAdapter.Vi
 //            Glide.with(context).load(R.drawable.topfood).into(viewHolder.filterImage);
 //        }
         else {
-            Glide.with(context).load(R.drawable.party_orders).into(viewHolder.filterImage);
+            Glide.with(context).load(R.drawable.party).into(viewHolder.filterImage);
         }
 
         viewHolder.filterLayout.setTag(i);

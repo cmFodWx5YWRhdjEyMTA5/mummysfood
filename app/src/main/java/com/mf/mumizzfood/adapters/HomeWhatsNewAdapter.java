@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.mf.mumizzfood.R;
+import com.mf.mumizzfood.activities.PartyCorporateActivity;
 import com.mf.mumizzfood.utils.AppConstants;
 
 import java.util.ArrayList;
@@ -74,6 +75,7 @@ public class HomeWhatsNewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     }
 
                 }else if (position == 1){
+
 
                 }
             }
